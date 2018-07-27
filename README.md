@@ -119,4 +119,15 @@ Type in `pip --version` or `pip3 --version` you should get
 pip 18.0 from /home/vagrant/.local/lib/python3.7/site-packages/pip (python 3.7)
 ```
 
+#### Extra preparation
+
+Type in `cd ~` and then
+
+```
+git clone https://github.com/django/django.git
+```
+
+We would use it later during our lectures.
+
+
 *If any test above cannot pass on your machine, contact Haoran Yu (俞昊然) on IM or though Email yuhaoran@jisuanke.com as soon as possible.*

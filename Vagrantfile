@@ -15,10 +15,10 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
+
     type -fp python3.7 &>/dev/null || (
       dnf install -y python37
       python3.7 -mensurepip
-
     )
 
     type -fp mysql &>/dev/null || (
@@ -35,10 +35,17 @@ EOF
 
   SHELL
 
-  config.vm.provision :shell, inline: <<-SCRIPT
+  config.vm.provision "shell", inline: <<-SCRIPT
+    sudo sed -i '1a #!/usr/bin/python3.6' /usr/bin/dnf
+    sudo sed -i '1d' /usr/bin/dnf
     sudo rm /usr/bin/python3
     sudo ln -s /usr/bin/python3.7 /usr/bin/python3
+    sudo rm /usr/bin/python
     sudo ln -s /usr/bin/python3.7 /usr/bin/python
+  SCRIPT
+
+  config.vm.provision "shell", inline: <<-SCRIPT
+    sudo dnf install -y git
   SCRIPT
 
   config.vm.provision "shell", privileged: false, inline: <<-SCRIPT
