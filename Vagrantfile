@@ -2,9 +2,9 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "fedora/28-cloud-base"
-  config.vm.box_url = "https://mirrors.tuna.tsinghua.edu.cn/fedora/releases/28/Cloud/x86_64/images/Fedora-Cloud-Base-Vagrant-28-1.1.x86_64.vagrant-virtualbox.box"
-  config.vm.box_download_checksum = "81b970a4852edee2d532a1ddbab0a8c6c912e2636423193196f1586e0b30949b"
+  config.vm.box = "fedora/27-cloud-base"
+  config.vm.box_url = "https://mirrors.tuna.tsinghua.edu.cn/fedora/releases/27/CloudImages/x86_64/images/Fedora-Cloud-Base-Vagrant-27-1.6.x86_64.vagrant-virtualbox.box"
+  config.vm.box_download_checksum = "7a37a20f87900c7a9360969658c58e5a3edcac2f5120897ce783cf21b2debbf9"
   config.vm.box_download_checksum_type = :sha256
 
   config.vm.network "private_network", ip: "192.168.55.33"
@@ -15,11 +15,10 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
-    dnf install -y git redhat-rpm-config
-
     type -fp python3.7 &>/dev/null || (
       dnf install -y python37
       python3.7 -mensurepip
+
     )
 
     type -fp mysql &>/dev/null || (
@@ -34,6 +33,17 @@ Vagrant.configure(2) do |config|
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 EOF
 
-    pip3.7 install ipython bpython
   SHELL
+
+  config.vm.provision :shell, inline: <<-SCRIPT
+    sudo rm /usr/bin/python3
+    sudo ln -s /usr/bin/python3.7 /usr/bin/python3
+    sudo ln -s /usr/bin/python3.7 /usr/bin/python
+  SCRIPT
+
+  config.vm.provision "shell", privileged: false, inline: <<-SCRIPT
+    pip3 install ipython bpython --user
+    pip3 install --upgrade pip --user
+  SCRIPT
+
 end
