@@ -28,6 +28,12 @@ Vagrant.configure(2) do |config|
       mysqladmin -u root password vagrant
     )
 
+    type -fp nginx &>/dev/null || (
+      dnf -y install nginx
+      systemctl enable nginx
+      systemctl start nginx
+    )
+
     [[ -f /etc/pip.conf ]] || cat > /etc/pip.conf <<'EOF'
 [global]
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple
@@ -52,6 +58,31 @@ EOF
   config.vm.provision "shell", privileged: false, inline: <<-SCRIPT
     pip3 install ipython bpython --user
     pip3 install --upgrade pip --user
+    pip3 install virtualenv --user
   SCRIPT
 
+  config.vm.provision "shell", privileged: false, inline: <<-SCRIPT
+    type -fp node &>/dev/null || (
+      curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+      source /home/vagrant/.bashrc
+      nvm install v10.6.0
+      npm config set registry https://registry.npm.taobao.org
+    )
+    type -fp vue &>/dev/null || (
+      source /home/vagrant/.bashrc
+      npm install -g @vue/cli @vue/cli-init 
+    )
+  SCRIPT
+
+  config.vm.provision "shell", privileged: false, inline: <<-SCRIPT
+    type -fp /home/vagrant/virtualenv &>/dev/null || (
+	VIRTUALENV_PATH=/home/vagrant/virtualenv
+	mkdir -p $VIRTUALENV_PATH 
+	virtualenv $VIRTUALENV_PATH
+	source $VIRTUALENV_PATH/bin/activate
+	pip install Django
+	echo "source $VIRTUALENV_PATH/bin/activate" >> /home/vagrant/.bashrc
+    )
+  SCRIPT
 end
+
