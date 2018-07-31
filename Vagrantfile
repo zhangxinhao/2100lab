@@ -26,6 +26,7 @@ Vagrant.configure(2) do |config|
       systemctl enable mariadb
       systemctl start mariadb
       mysqladmin -u root password vagrant
+      mysql -uroot -pvagrant -e "CREATE DATABASE test_database CHARACTER SET utf8;"
     )
 
     type -fp nginx &>/dev/null || (
@@ -56,9 +57,11 @@ EOF
   SCRIPT
 
   config.vm.provision "shell", privileged: false, inline: <<-SCRIPT
-    pip3 install ipython bpython --user
-    pip3 install --upgrade pip --user
-    pip3 install virtualenv --user
+    if [ ! $VIRTUAL_ENV ]; then
+      pip3 install ipython bpython --user
+      pip3 install --upgrade pip --user
+      pip3 install virtualenv --user
+    fi
   SCRIPT
 
   config.vm.provision "shell", privileged: false, inline: <<-SCRIPT
@@ -70,19 +73,19 @@ EOF
     )
     type -fp vue &>/dev/null || (
       source /home/vagrant/.bashrc
-      npm install -g @vue/cli @vue/cli-init 
+      npm install -g @vue/cli @vue/cli-init
     )
   SCRIPT
 
   config.vm.provision "shell", privileged: false, inline: <<-SCRIPT
     type -fp /home/vagrant/virtualenv &>/dev/null || (
-	VIRTUALENV_PATH=/home/vagrant/virtualenv
-	mkdir -p $VIRTUALENV_PATH 
-	virtualenv $VIRTUALENV_PATH
-	source $VIRTUALENV_PATH/bin/activate
-	pip install Django
-	echo "source $VIRTUALENV_PATH/bin/activate" >> /home/vagrant/.bashrc
+      VIRTUALENV_PATH=/home/vagrant/virtualenv
+      mkdir -p $VIRTUALENV_PATH
+      virtualenv $VIRTUALENV_PATH
+      source $VIRTUALENV_PATH/bin/activate
+      pip3 install Django
+      pip3 install mysqlclient
+      echo ". $VIRTUALENV_PATH/bin/activate" >> /home/vagrant/.bashrc
     )
   SCRIPT
 end
-
