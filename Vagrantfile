@@ -46,6 +46,7 @@ EOF
 
   config.vm.provision "shell", inline: <<-SCRIPT
     sudo dnf install -y git
+    sudo dnf install -y gcc
   SCRIPT
 
   config.vm.provision "shell", privileged: false, inline: <<-SCRIPT
