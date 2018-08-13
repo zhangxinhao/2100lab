@@ -80,7 +80,20 @@
 export default {
   data() {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
-
+    var validateloPhone = (rule, value, callback) => {
+      console.log(this.loform.phonenumber)
+      if (!this.loform.phonenumber) {
+        return callback(new Error('号码不能为空'))
+      }
+      setTimeout(() => {
+        if (!phoneReg.test(this.loform.phonenumber)) {
+          console.log('geshi')
+          callback(new Error('格式有误'))
+        } else {
+          callback()
+        }
+      }, 100)
+    }
     var validaterePhone = (rule, value, callback) => {
       if (!this.reform.phonenumber) {
         return callback(new Error('号码不能为空'))
@@ -122,6 +135,7 @@ export default {
         desc: ''
       },
       rules: {
+        lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }],
         rephone: [{ required: true, validator: validaterePhone, trigger: 'blur' }]
       }
     }
