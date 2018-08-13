@@ -6,12 +6,13 @@
       <table align="right">
         <tr>
           <td>
+            <el-button class="user-ope" type="text" v-if="login" @click="loginFormVisible = true" style="color:#085078;font-size:18px">登录&nbsp;&nbsp;&nbsp;</el-button>
           </td>
           <td>
-
+            <el-button class="user-ope" type="text" v-if="login" @click="registerFormVisible = true" style="color:#085078;font-size:18px">注册</el-button>
           </td>
           <td>
-
+            <el-button class="user-ope" type="text" v-if="not_login" @click="logout" style="color:white">登出</el-button>
           </td>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
         </tr>
@@ -39,7 +40,9 @@ export default {
         {id: 0, idView: require('../assets/images/banner1.jpg')},
         {id: 1, idView: require('../assets/images/banner1.jpg')},
         {id: 2, idView: require('../assets/images/banner1.jpg')}
-      ]
+      ],
+      login: true,
+      not_login: false
     }
   },
   methods: {
@@ -57,6 +60,10 @@ export default {
     margin: 0;
     padding: 0;
   }
+
+  #user-ope {
+    margin-right: 100px;
+   }
 
   .index {
     margin: 0;
