@@ -79,6 +79,20 @@
 <script>
 export default {
   data() {
+    var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
+
+    var validaterePhone = (rule, value, callback) => {
+      if (!this.reform.phonenumber) {
+        return callback(new Error('号码不能为空'))
+      }
+      setTimeout(() => {
+        if (!phoneReg.test(this.reform.phonenumber)) {
+          callback(new Error('格式有误'))
+        } else {
+          callback()
+        }
+      }, 100)
+    }
     return {
       imgList: [
         {id: 0, idView: require('../assets/images/banner1.jpg')},
@@ -106,6 +120,9 @@ export default {
         type: [],
         resource: '',
         desc: ''
+      },
+      rules: {
+        rephone: [{ required: true, validator: validaterePhone, trigger: 'blur' }]
       }
     }
   },
