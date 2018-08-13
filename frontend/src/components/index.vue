@@ -50,6 +50,27 @@
       </el-dialog>
     </div>
 
+    <div class="registerdialog">
+      <el-dialog title="注册" :visible.sync="registerFormVisible" width="400px" height="700px">
+        <el-form :model="reform" :rules="rules">
+          <el-form-item label="手机号" :label-width="registerLabelWidth" prop="rephone">
+            <el-col :span="18">
+              <el-input v-model="reform.phonenumber" auto-complete="off" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="验证码" :label-width="registerLabelWidth">
+            <el-col :span="18">
+              <el-input v-model="reform.password" auto-complete="off" clearable></el-input>
+            </el-col>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="register-footer">
+          <el-button @click="registerFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="registerFormVisible = false">确 定</el-button>
+        </div>
+      </el-dialog>
+    </div>
+
   </div>
 </template>
 
@@ -67,6 +88,16 @@ export default {
       loginFormVisible: false,
       loginLabelWidth: '100px',
       loform: {
+        phonenumber: '',
+        password: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
+      },
+      registerFormVisible: false,
+      registerLabelWidth: '100px',
+      reform: {
         phonenumber: '',
         password: '',
         delivery: false,
