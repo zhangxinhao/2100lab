@@ -2,6 +2,21 @@
 <template>
 
   <div class="index">
+    <div class="toolbar">
+      <table align="right">
+        <tr>
+          <td>
+          </td>
+          <td>
+
+          </td>
+          <td>
+
+          </td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+      </table>
+    </div>
 
     <div class="carousel">
       <el-carousel :interval="4000" type="card" height="500px">
@@ -46,6 +61,19 @@ export default {
   .index {
     margin: 0;
     padding: 0;
+  }
+
+  .toolbar {
+    width: 100%;
+    height: 55px;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    background-color:lightskyblue;
+    background: linear-gradient(lightskyblue, white);
+    opacity: 0.7;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
 
   .carousel {
