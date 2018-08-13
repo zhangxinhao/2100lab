@@ -44,6 +44,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="login-footer">
+          <el-button type="primary" @click="loginFormVisible = false">获取验证码</el-button>
           <el-button @click="loginFormVisible = false">取 消</el-button>
           <el-button type="primary" @click="loginFormVisible = false">确 定</el-button>
         </div>
@@ -65,6 +66,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="register-footer">
+          <el-button type="primary" @click="loginFormVisible = false">获取验证码</el-button>
           <el-button @click="registerFormVisible = false">取 消</el-button>
           <el-button type="primary" @click="registerFormVisible = false">确 定</el-button>
         </div>
