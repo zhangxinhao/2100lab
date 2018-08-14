@@ -179,14 +179,16 @@ export default {
   }
   #class {
     font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
-    font-size: 25px;
-    padding-bottom: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    padding-bottom: 30px;
   }
   #money {
     color: red ;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
     letter-spacing: 0;
+    padding-bottom: 20px;
   }
   #page {
     width: 600px;
