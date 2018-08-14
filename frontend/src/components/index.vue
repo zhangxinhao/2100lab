@@ -127,9 +127,9 @@
           </el-col>
       </el-row>
     </div>
-    <div>&nbsp;</div>
-    <div>&nbsp;</div>
-    <div>&nbsp;</div>
+    <br />
+    <br />
+    <br />
     <el-footer height="50px">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
 
   </div>
@@ -140,13 +140,11 @@ export default {
   data() {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
     var validateloPhone = (rule, value, callback) => {
-      console.log(this.loform.phonenumber)
       if (!this.loform.phonenumber) {
         return callback(new Error('号码不能为空'))
       }
       setTimeout(() => {
         if (!phoneReg.test(this.loform.phonenumber)) {
-          console.log('geshi')
           callback(new Error('格式有误'))
         } else {
           callback()
