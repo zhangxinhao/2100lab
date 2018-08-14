@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       coursepicture1: require('../assets/images/course1.jpg'),
-      courseaudio1: require('../assets/audios/audio1.mp3'),
+      courseaudio1: require('../assets/audios/audio1.mp3')
     }
   }
 }

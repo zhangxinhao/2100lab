@@ -61,16 +61,19 @@
       </el-dialog>
     </div>
 
-
     <div style="text-align: center; margin:0px; ">
       <img alt="" :src="picture" width="700" height="400"/>
     </div>
     <div id="page">
       <div id="class">课程 {{ title }}</div>
-      <div id= "money"><span id="symbol">￥</span>{{ money }}</div>
+      <div id= "money" v-if = "moneyFlag">￥{{ money }}</div>
+      <div id= "money" v-else>免费课程</div>
       <p class="classContent">{{ classIntro }}</p>
       <div class="operate">
-          <el-button type="success">{{ buttonShow }}</el-button>
+          <el-button type="danger" plain v-if = "burnedFlag">已焚毁</el-button>
+          <el-button type="success" v-else-if = "moneyFlag==0">立即观看</el-button>
+          <el-button type="success" v-else-if = "paidFlag">立即观看</el-button>
+          <el-button type="primary" v-else-if = "paidFlag==0">去支付</el-button>
           <i class="el-icon-share"></i>
       </div>
     </div>
@@ -116,10 +119,17 @@ export default {
     return {
       buttonShow: '观看',
       title: '我们爱科学',
+      // burnedFlag表示当前是否焚毁（true为已焚毁）
+      burnedFlag: false,
+      // money表示当前课程的价钱，moneyFlag表示该课是否免费（true为付费 false为免费）
+      moneyFlag: true,
       money: '25',
+      // paidFlag表示当前用户是否已支付该课程(true 表示已支付)
+      paidFlag: false,
+
       classIntro: '在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。',
       picture: require('../assets/class2.jpg'),
-       login: true,
+      login: true,
       not_login: false,
       loginFormVisible: false,
       loginLabelWidth: '100px',
