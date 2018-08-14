@@ -6,25 +6,33 @@
                     <table align="right">
                         <tr>
                         <td>
-                            <el-button class="user-ope" type="text" v-if="login" @click="loginFormVisible = true" style="color:#085078;font-size:18px">登录&nbsp;&nbsp;&nbsp;</el-button>
-                        </td>
-                        <td>
-                            <el-button class="user-ope" type="text" v-if="login" @click="registerFormVisible = true" style="color:#085078;font-size:18px">注册</el-button>
-                        </td>
-                        <td>
-                            <el-button class="user-ope" type="text" v-if="not_login" @click="logout" style="color:white">登出</el-button>
+                            <el-button class="user-ope" type="text" style="color:blue;">个人中心</el-button>
                         </td>
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                         </tr>
                     </table>
                 </div>
             </el-header>
+            <el-main style="text-align: center;">
+                <div>
+                    <div>
+                        <img :src="coursepicture1" alt=""
+                        style="width: 25%; height: 25%; object-fit: contain;">
+                    </div>
+                </div>
+            </el-main>
         </el-container>
     </div>
 </template>
 
 <script>
-export default {}
+export default {
+        data() {
+            return {
+                coursepicture1: require('../assets/images/course1.jpg'),
+            }
+    }
+}
 </script>
 
 <style>
