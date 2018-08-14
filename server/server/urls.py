@@ -18,6 +18,7 @@ from . import views
 
 urlpatterns = [
   path('', views.index),
+  path('api/',include('backend.urls')),
   path('api/', include([
     path('random/', views.random)
   ])),
