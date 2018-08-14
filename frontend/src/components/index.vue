@@ -91,13 +91,16 @@
         <el-col v-for="item in freeList_1" :key="item.id" :span="8">
           <img :src="item.idView" width="350px" height="250px" >
           <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
-          </el-col>
+        </el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col v-for="item in freeList_2" :key="item.id" :span="8">
           <img :src="item.idView" width="350px" height="250px">
           <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
-          </el-col>
+        </el-col>
+        <el-col :span="8">
+          <el-button class="more">更多</el-button>
+        </el-col>
       </el-row>
     </div>
 
@@ -118,13 +121,16 @@
         <el-col v-for="item in costList_1" :key="item.id" :span="8">
           <img :src="item.idView" width="350px" height="250px" >
           <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
-          </el-col>
+        </el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col v-for="item in costList_2" :key="item.id" :span="8">
           <img :src="item.idView" width="350px" height="250px">
           <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
-          </el-col>
+        </el-col>
+        <el-col :span="8">
+          <el-button class="more">更多</el-button>
+        </el-col>
       </el-row>
     </div>
     <div>&nbsp;</div>
@@ -178,7 +184,6 @@ export default {
       ],
       freeList_2: [
         {idView: require('../assets/images/free.jpg'), idDescribe: '呜呜呜呜呜呜呜呜'},
-        {idView: require('../assets/images/free.jpg'), idDescribe: '呜呜呜呜呜呜呜呜'},
         {idView: require('../assets/images/free.jpg'), idDescribe: '呜呜呜呜呜呜呜呜'}
       ],
       costList_1: [
@@ -187,7 +192,6 @@ export default {
         {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'}
       ],
       costList_2: [
-        {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'},
         {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'},
         {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'}
       ],
@@ -285,5 +289,20 @@ export default {
     /* height:550px; */
     margin:20px auto 20px auto;
     /* background-color: black; */
+  }
+  .more {
+    width: 350px;
+    height: 250px;
+    /* background:rgb(149, 202, 255); */
+    border: 2px, solid, black;
+    border-radius: 5px;
+    font-size: 30px;
+    /* opacity: 0.7; */
+    color: grey;
+  }
+  .more:hover {
+    background-color:rgb(240, 240, 240);
+    opacity: 0.7;
+    color:black;
   }
 </style>
