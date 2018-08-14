@@ -9,6 +9,7 @@
       <p class="classContent">{{ classIntro }}</p>
       <div class="operate">
           <el-button type="success">{{ buttonShow }}</el-button>
+          <i class="el-icon-share"></i>
       </div>
     </div>
     <div>
