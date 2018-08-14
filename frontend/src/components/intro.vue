@@ -5,6 +5,7 @@
     </div>
     <div id="page">
       <div id="class">课程 {{ title }}</div>
+      <div id= "money">{{ money }}</div>
       <p class="classContent">{{ classIntro }}</p>
       <div class="operate">
           <el-button type="success">{{ buttonShow }}</el-button>
@@ -22,9 +23,10 @@
 export default {
   data() {
     return {
-      buttonShow:"观看",
+      buttonShow: '观看',
       title: '我们爱科学',
-      classIntro:'科学是人类的好朋友',
+      money: '25',
+      classIntro: '科学是人类的好朋友',
       picture: require('../assets/class2.jpg')
     }
   },
