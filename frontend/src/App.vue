@@ -1,12 +1,23 @@
 <template>
   <div id="app">
+    {{msg}}
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return {
+      msg: 'xinaho'
+    }
+  },
+  mounted() {
+    axios
+      .get('/api')
+      .then(response => (this.msg = response.data))
+  }
 }
 </script>
 

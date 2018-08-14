@@ -1,7 +1,7 @@
 <template>
   <div id="body">
     <div style="text-align: center; margin:0px; ">
-      <img alt="" :src="picture" width="700" height="300"/>
+      <img alt="" :src="picture" width="700" height="400"/>
     </div>
     <div id="page">
       <div id="class">课程 {{ title }}</div>
