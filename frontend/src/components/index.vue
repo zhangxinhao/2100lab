@@ -23,7 +23,9 @@
       <el-carousel :interval="4000" type="card" height="500px">
         <el-carousel-item v-for="item in imgList" :key="item.id">
           <el-row>
-            <el-col :span="24"><img ref="500px" :src="item.idView" class="banner_img"/></el-col>
+            <router-link id="logo" to="/intro">
+              <el-col :span="24"><img ref="500px" :src="item.idView" class="banner_img"/></el-col>
+            </router-link>
           </el-row>
         </el-carousel-item>
       </el-carousel>
@@ -72,7 +74,6 @@
         </div>
       </el-dialog>
     </div>
-
   </div>
 </template>
 
