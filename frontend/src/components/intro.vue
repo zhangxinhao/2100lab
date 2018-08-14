@@ -66,17 +66,28 @@
     </div>
     <div id="page">
       <div id="class">课程 {{ title }}</div>
-      <div id= "money" v-if = "moneyFlag">￥{{ money }}</div>
-      <div id= "money" v-else>免费课程</div>
+      <div class= "money" v-if = "moneyFlag">￥{{ money }}</div>
+      <div class= "money" v-else>免费课程</div>
       <p class="classContent">{{ classIntro }}</p>
       <div class="operate">
           <el-button type="danger" plain v-if = "burnedFlag">已焚毁</el-button>
           <el-button type="success" v-else-if = "moneyFlag==0">立即观看</el-button>
           <el-button type="success" v-else-if = "paidFlag">立即观看</el-button>
-          <el-button type="primary" v-else-if = "paidFlag==0">去支付</el-button>
+          <el-button type="primary" v-else-if = "paidFlag==0" @click="payDialogVisible = true">去支付</el-button>
           <i class="el-icon-share"></i>
       </div>
     </div>
+
+    <div class = "payDialog">
+      <el-dialog title="支付" :visible.sync="payDialogVisible">
+        <div id="paymoney">课程金额：￥{{ money }}</div>
+        <el-button  class="pay" type="primary" round>支付宝支付</el-button><br />
+        <el-button  class="pay" type="primary" round v-if ="bountyFlag">赏金支付</el-button>
+        <el-button  class="pay" type="primary" round v-else disabled>赏金不足</el-button>
+        <span id="account">当前赏金： {{ bounty }}</span>
+      </el-dialog>
+    </div>
+
     <div>
       <router-link to="/coursepage">
         <button>进入课程</button>
@@ -129,6 +140,14 @@ export default {
 
       classIntro: '在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。',
       picture: require('../assets/class2.jpg'),
+
+      //支付框是否显示
+      payDialogVisible: false,
+      //当前用户赏金
+      bounty:15,
+      //当前赏金是否可以购买课程（true为可购买）
+      bountyFlag:false,
+
       login: true,
       not_login: false,
       loginFormVisible: false,
@@ -165,7 +184,7 @@ export default {
 }
 </script>
 <style>
-    .toolbar {
+  .toolbar {
     width: 100%;
     height: 55px;
     margin: 0;
@@ -179,14 +198,16 @@ export default {
   }
   #class {
     font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
-    font-size: 25px;
-    padding-bottom: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    padding-bottom: 30px;
   }
-  #money {
+  .money {
     color: red ;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
     letter-spacing: 0;
+    padding-bottom: 20px;
   }
   #page {
     width: 600px;
@@ -212,7 +233,7 @@ export default {
     width: 20px;
     height:30px;
   }
-   .el-footer {
+  .el-footer {
     background-color: #B3C0D1;
     color: #333;
     text-align: center;
@@ -221,4 +242,25 @@ export default {
     background: linear-gradient(white, lightskyblue);
     opacity: 0.7;
   }
+  .pay {
+    margin:20px;
+    margin-left: 40px;
+    width:150px;
+    height: 45px;
+  }
+  .el-dialog__body {
+    padding-top: 20px;
+  }
+  #paymoney {
+    font-size: 24px;
+    margin-bottom: 40px;
+    margin-left: 50px;
+    margin-top: 0px;
+    font-weight: bold;
+  }
+  #account {
+    margin-left: 15px;
+    font-size: 15px;
+  }
+
 </style>
