@@ -6,6 +6,11 @@
     <div id="page">
       <div id="class">课程 {{ title }}</div>
     </div>
+    <div>
+      <router-link to="/coursepage">
+        <button>进入课程</button>
+      </router-link>
+    </div>
   </div>
 </template>
 
