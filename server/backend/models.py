@@ -68,3 +68,8 @@ class Attitude(models.Model):
 
 class Black_list(models.Model):
   user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+
+class Verification_cache(models.Model):
+  order_id = models.PositiveIntegerField(primary_key=True)
+  code = models.PositiveSmallIntegerField(max_length=6)
+  create_time = models.DateTimeField(default=timezone.now)
