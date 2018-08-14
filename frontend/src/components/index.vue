@@ -74,6 +74,23 @@
         </div>
       </el-dialog>
     </div>
+
+    <h3>&nbsp;&nbsp;&nbsp;免费区</h3>
+    <div class="free-list">
+      <el-row gutter="20">
+        <el-col v-for="item in freeList_1" :key="item.id" :span="8">
+          <img :src="item.idView" width="350px" height="250px" >
+          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
+          </el-col>
+      </el-row>
+      <el-row gutter="20">
+        <el-col v-for="item in freeList_2" :key="item.id" :span="8">
+          <img :src="item.idView" width="350px" height="250px">
+          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
+          </el-col>
+      </el-row>
+    </div>
+
   </div>
 </template>
 
@@ -112,6 +129,16 @@ export default {
         {id: 0, idView: require('../assets/images/banner1.jpg')},
         {id: 1, idView: require('../assets/images/banner1.jpg')},
         {id: 2, idView: require('../assets/images/banner1.jpg')}
+      ],
+      freeList_1: [
+        {idView: require('../assets/images/free.jpg'), idDescribe: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
+        {idView: require('../assets/images/free.jpg'), idDescribe: '啊啊啊啊啊'},
+        {idView: require('../assets/images/free.jpg'), idDescribe: '啊啊啊啊啊'}
+      ],
+      freeList_2: [
+        {idView: require('../assets/images/free.jpg'), idDescribe: '呜呜呜呜呜呜呜呜'},
+        {idView: require('../assets/images/free.jpg'), idDescribe: '呜呜呜呜呜呜呜呜'},
+        {idView: require('../assets/images/free.jpg'), idDescribe: '呜呜呜呜呜呜呜呜'}
       ],
       login: true,
       not_login: false,
@@ -187,5 +214,16 @@ export default {
   .banner_img {
     height: 100%;
   }
-
+  .el-header, .el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 40px;
+  }
+  .free-list {
+    width:1800px;
+    height:550px;
+    margin:10px auto 10px auto;
+    /* background-color: black; */
+  }
 </style>
