@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import index from '@/components/index'
 import intro from '@/components/intro'
 import coursepage from '@/components/coursepage'
+import freelistpage from '@/components/freelistpage'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/coursepage',
       name: 'coursepage',
       component: coursepage
+    },
+    {
+      path: '/freelistpage',
+      name: 'freelistpage',
+      component: freelistpage
     }
   ]
 })
