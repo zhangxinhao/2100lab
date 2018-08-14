@@ -180,7 +180,7 @@ export default {
   }
 
   .carousel {
-    width: 1500px;
+    width: 100%;
     text-align: center;
     margin: 20px auto;
   }

@@ -9,6 +9,7 @@ Vue.config.productionTip = false
 
 Vue.use(ElementUI)
 // Vue.use(Element, { size: 'small', zIndex: 3000 })
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

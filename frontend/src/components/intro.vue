@@ -7,6 +7,11 @@
       <div id="class">课程 {{ title }}</div>
       <p class="classContent">{{ classIntro }}</p>
     </div>
+    <div>
+      <router-link to="/coursepage">
+        <button>进入课程</button>
+      </router-link>
+    </div>
   </div>
 </template>
 
