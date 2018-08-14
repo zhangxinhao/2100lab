@@ -21,7 +21,7 @@
           </div>
           <div>
             <audio autoplay="autoplay" controls="controls" preload="auto" :src="courseaudio1"></audio>
-            <el-button><i class="el-icon-share"></i></el-button>
+            <el-button style="width: 50px; height: 40px;"><i class="el-icon-share" style="vertical-align:100%;"></i></el-button>
           </div>
         </div>
       </el-main>
