@@ -75,21 +75,62 @@
       </el-dialog>
     </div>
 
-    <h3>&nbsp;&nbsp;&nbsp;免费区</h3>
+    <div>&nbsp;</div>
+    <hr />
+    <div>&nbsp;</div>
     <div class="free-list">
-      <el-row gutter="20">
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <h1 style="text-align:left;">免费区</h1>
+        </el-col>
+      </el-row>
+      <el-row>
+        <div>&nbsp;</div>
+      </el-row>
+      <el-row :gutter="20">
         <el-col v-for="item in freeList_1" :key="item.id" :span="8">
           <img :src="item.idView" width="350px" height="250px" >
           <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
           </el-col>
       </el-row>
-      <el-row gutter="20">
+      <el-row :gutter="20">
         <el-col v-for="item in freeList_2" :key="item.id" :span="8">
           <img :src="item.idView" width="350px" height="250px">
           <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
           </el-col>
       </el-row>
     </div>
+
+    <div>&nbsp;</div>
+    <hr />
+    <div>&nbsp;</div>
+
+    <div class="cost-list">
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <h1 style="text-align:left;">付费区</h1>
+        </el-col>
+      </el-row>
+      <el-row>
+        <div>&nbsp;</div>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col v-for="item in costList_1" :key="item.id" :span="8">
+          <img :src="item.idView" width="350px" height="250px" >
+          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
+          </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col v-for="item in costList_2" :key="item.id" :span="8">
+          <img :src="item.idView" width="350px" height="250px">
+          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
+          </el-col>
+      </el-row>
+    </div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <el-footer height="50px">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
 
   </div>
 </template>
@@ -139,6 +180,16 @@ export default {
         {idView: require('../assets/images/free.jpg'), idDescribe: '呜呜呜呜呜呜呜呜'},
         {idView: require('../assets/images/free.jpg'), idDescribe: '呜呜呜呜呜呜呜呜'},
         {idView: require('../assets/images/free.jpg'), idDescribe: '呜呜呜呜呜呜呜呜'}
+      ],
+      costList_1: [
+        {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'},
+        {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'},
+        {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'}
+      ],
+      costList_2: [
+        {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'},
+        {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'},
+        {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'}
       ],
       login: true,
       not_login: false,
@@ -214,16 +265,25 @@ export default {
   .banner_img {
     height: 100%;
   }
-  .el-header, .el-footer {
+  .el-footer {
     background-color: #B3C0D1;
     color: #333;
     text-align: center;
-    line-height: 40px;
+    line-height: 55px;
+    background-color:lightskyblue;
+    background: linear-gradient(white, lightskyblue);
+    opacity: 0.7;
   }
   .free-list {
-    width:1800px;
-    height:550px;
-    margin:10px auto 10px auto;
+    width:1500px;
+    /* height:550px; */
+    margin:20px auto 20px auto;
+    /* background-color: black; */
+  }
+  .cost-list {
+    width:1500px;
+    /* height:550px; */
+    margin:20px auto 20px auto;
     /* background-color: black; */
   }
 </style>
