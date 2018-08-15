@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'backend',
-    'lab',
 ]
 
 MIDDLEWARE = [
@@ -106,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'lab.Client'
+AUTH_USER_MODEL = 'backend.User'
 
 
 # Internationalization

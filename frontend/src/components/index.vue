@@ -100,7 +100,7 @@
         </el-col>
         <el-col :span="8">
           <router-link to="/freelistpage">
-            <el-button class="more">更多</el-button>
+            <el-button icon="el-icon-more" class="more">更多</el-button>
           </router-link>
         </el-col>
       </el-row>
@@ -132,7 +132,7 @@
         </el-col>
         <el-col :span="8">
           <router-link to="/freelistpage">
-            <el-button class="more">更多</el-button>
+            <el-button icon="el-icon-more" class="more">更多</el-button>
           </router-link>
         </el-col>
       </el-row>
