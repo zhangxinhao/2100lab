@@ -3,16 +3,16 @@
     <el-container>
       <el-aside>
         <el-menu default-active="1" class="el-menu-vertical-demo" @select="handleSelect">
-          <el-submenu index="1">
             <template class="head" slot="title"><i class="el-icon-message"></i>个人中心</template>
             <el-menu-item class="col" index="1">浏览历史</el-menu-item>
             <el-menu-item class="col" index="2">订单列表</el-menu-item>
             <el-menu-item class="col" index="3">已购课程</el-menu-item>
             <el-menu-item class="col" index="4">个人信息</el-menu-item>
-          </el-submenu>
         </el-menu>
       </el-aside>
-      <el-main>Main</el-main>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </div>
 </template>
@@ -25,6 +25,13 @@ export default {
   methods: {
     handleChange(value) {
       console.log(value)
+    },
+    handleSelect(key,keyPath) {
+      switch(key) {
+        case '1':
+          this.$router.push('/brows');
+          break;
+      }
     }
   }
 }

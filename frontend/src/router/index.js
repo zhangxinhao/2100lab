@@ -6,6 +6,7 @@ import coursepage from '@/components/coursepage'
 import freelistpage from '@/components/freelistpage'
 import personal from '@/components/personal'
 import costlistpage from '@/components/costlistpage'
+import brows from '@/components/brows'
 
 Vue.use(Router)
 
@@ -35,7 +36,14 @@ export default new Router({
     {
       path: '/personal',
       name: 'personal',
-      component: personal
+      component: personal,
+      children: [
+        {
+          path: '/brows',
+          component: brows,
+          name: brows
+        }
+      ]
     },
     {
       path: '/costlistpage',
