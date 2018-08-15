@@ -103,6 +103,11 @@
         <button>进入课程</button>
       </router-link>
     </div>
+    <div>
+      <router-link to="/personal">
+        <button>个人中心</button>
+      </router-link>
+    </div>
     <br />
     <el-footer height="50px">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
 
