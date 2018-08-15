@@ -20,28 +20,29 @@ class User(AbstractUser):
 
 class Course(models.Model):
   course_id = models.PositiveIntegerField(primary_key=True)
-  profile = models.CharField(max_length=200)
+  description = models.CharField(max_length=200)
   content = models.TextField()
   price = models.PositiveIntegerField(default=0)
   burnt_time = models.PositiveIntegerField(default=0)
   message_on = models.BooleanField(default=True)
   audio_url = models.CharField(max_length=150)
+  profile_url = models.CharField(max_length=150)
 
 class Picture(models.Model):
-  course_id = models.ForeignKey('Course', on_delete=models.CASCADE)
+  course = models.ForeignKey('Course', on_delete=models.CASCADE)
   postion = models.CharField(max_length=150)
 
 class Visit_record(models.Model):
-  course_id = models.ForeignKey('Course', on_delete=models.CASCADE)
-  user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+  course = models.ForeignKey('Course', on_delete=models.CASCADE)
+  user = models.ForeignKey('User', on_delete=models.CASCADE)
   first_visit = models.PositiveIntegerField()
   last_visit = models.PositiveIntegerField(default=first_visit)
   last_time = models.PositiveIntegerField(default=0)
 
 class Order(models.Model):
   order_id = models.PositiveIntegerField(primary_key=True)
-  course_id = models.ForeignKey('Course', on_delete=models.CASCADE)
-  user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+  course = models.ForeignKey('Course', on_delete=models.CASCADE)
+  user = models.ForeignKey('User', on_delete=models.CASCADE)
   status = models.PositiveIntegerField(default=0)
   time = models.PositiveIntegerField()
 
@@ -64,14 +65,14 @@ class Message(models.Model):
   dislikes = models.PositiveIntegerField(default=0)
 
 class Comment(models.Model):
-  message_id = models.ForeignKey('Message', on_delete=models.CASCADE)
-  user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+  message = models.ForeignKey('Message', on_delete=models.CASCADE)
+  user = models.ForeignKey('User', on_delete=models.CASCADE)
   content = models.CharField(max_length=140)
 
 class Attitude(models.Model):
-  message_id = models.ForeignKey('Message',on_delete=models.CASCADE)
-  user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+  message = models.ForeignKey('Message',on_delete=models.CASCADE)
+  user = models.ForeignKey('User', on_delete=models.CASCADE)
   like = models.BooleanField(default=True)
 
 class Black_list(models.Model):
-  user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+  user = models.ForeignKey('User', on_delete=models.CASCADE)
