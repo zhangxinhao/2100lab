@@ -20,6 +20,7 @@ class User(AbstractUser):
 
 class Course(models.Model):
   course_id = models.PositiveIntegerField(primary_key=True)
+  course_name = models.CharField(max_length=50)
   description = models.CharField(max_length=200)
   content = models.TextField()
   price = models.PositiveIntegerField(default=0)
