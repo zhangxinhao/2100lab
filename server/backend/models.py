@@ -10,7 +10,10 @@ class User(AbstractUser):
   icon = models.CharField(max_length=150)
   is_V = models.BooleanField(default=False)
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-
+  course_right = models.BooleanField(default=False)
+  user_right = models.BooleanField(default=False)
+  super_right = models.BooleanField(default=False)
+  admin_right = models.BooleanField(default=False)
 
   # alive = models.BooleanField(default=True)
 
