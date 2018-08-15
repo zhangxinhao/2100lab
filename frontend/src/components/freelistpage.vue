@@ -137,7 +137,7 @@ export default {
     margin: 0, auto;
     padding: 8px 0 0;
     margin-top: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     z-index: 99;
     border-bottom: 1px, solid, black;
   }
