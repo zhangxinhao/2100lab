@@ -28,3 +28,6 @@ def login(request):
 def logout(request):
   auth.logout(request)
   return HttpResponse(json.dumps({"status": False}))
+
+def delete(request):
+  request.user.setActive(False)
