@@ -70,11 +70,11 @@
       <div class= "money" v-else>免费课程</div>
       <p class="classContent">{{ classIntro }}</p>
       <div class="operate">
-          <el-button type="danger" plain v-if = "burnedFlag">已焚毁</el-button>
-          <el-button type="success" v-else-if = "moneyFlag==0">立即观看</el-button>
-          <el-button type="success" v-else-if = "paidFlag">立即观看</el-button>
-          <el-button type="primary" v-else-if = "paidFlag==0" @click="payDialogVisible = true">去支付</el-button>
-          <el-button type="primary" icon="el-icon-share" @click.native="shareDialogVisible = true"></el-button>
+          <el-button class="judgeButton" type="danger" plain v-if = "burnedFlag">已焚毁</el-button>
+          <el-button class="judgeButton" type="success" v-else-if = "moneyFlag==0">立即观看</el-button>
+          <el-button class="judgeButton" type="success" v-else-if = "paidFlag">立即观看</el-button>
+          <el-button class="judgeButton" type="primary" v-else-if = "paidFlag==0" @click="payDialogVisible = true">去支付</el-button>
+          <el-button class="judgeButton" type="primary" icon="el-icon-share" @click.native="shareDialogVisible = true"></el-button>
       </div>
     </div>
 
@@ -148,8 +148,8 @@ export default {
       }, 100)
     }
     return {
-      buttonShow: '观看',
       title: '我们爱科学',
+      buttonShow: '观看',
       // burnedFlag表示当前是否焚毁（true为已焚毁）
       burnedFlag: false,
       // money表示当前课程的价钱，moneyFlag表示该课是否免费（true为付费 false为免费）
@@ -219,12 +219,14 @@ export default {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
+  
   #class {
     font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
     font-size: 30px;
     font-weight: bold;
     padding-bottom: 30px;
   }
+
   .money {
     color: red ;
     font-size: 25px;
@@ -232,6 +234,7 @@ export default {
     letter-spacing: 0;
     padding-bottom: 20px;
   }
+
   #page {
     width: 600px;
     margin:0px auto 0px auto;
@@ -243,21 +246,25 @@ export default {
     border-bottom-style: solid;
     border-bottom-width: 1px;
   }
+
   .classContent {
     text-indent: 2em;
     margin-bottom: 40px;
     letter-spacing: 0.2em;
     font-size: 16px;
   }
-  .el-button {
+
+  .judgeButton {
     margin-right: 40px;
     width: 100px;
     height:  40px;
   }
+
   .el-icon-share {
     width: 20px;
     height:30px;
   }
+
   .el-footer {
     background-color: #B3C0D1;
     color: #333;
@@ -267,15 +274,18 @@ export default {
     background: linear-gradient(white, lightskyblue);
     opacity: 0.7;
   }
+
   .pay {
     margin:20px;
     margin-left: 40px;
     width:150px;
     height: 45px;
   }
+
   .el-dialog__body {
     padding-top: 20px;
   }
+
   #paymoney {
     font-size: 24px;
     margin-bottom: 40px;
@@ -283,15 +293,18 @@ export default {
     margin-top: 0px;
     font-weight: bold;
   }
+
   #account {
     margin-left: 15px;
     font-size: 15px;
   }
+
   #shareText {
     font-size: 24px;
     font-weight: bold;
     margin: 20px;
   }
+
   .share {
     margin:20px;
     width:150px;
