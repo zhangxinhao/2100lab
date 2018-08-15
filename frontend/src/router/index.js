@@ -6,6 +6,7 @@ import coursepage from '@/components/coursepage'
 import freelistpage from '@/components/freelistpage'
 import personal from '@/components/personal'
 import costlistpage from '@/components/costlistpage'
+import adminlogin from '@/components/adminlogin'
 import brows from '@/components/brows'
 
 Vue.use(Router)
@@ -49,6 +50,11 @@ export default new Router({
       path: '/costlistpage',
       name: 'costlistpage',
       component: costlistpage
+    },
+    {
+      path: '/adminlogin',
+      name: 'adminlogin',
+      component: adminlogin
     }
   ]
 })
