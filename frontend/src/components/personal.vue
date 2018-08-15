@@ -32,6 +32,7 @@ export default {
 <style>
   .el-aside {
     width: 300px !important;
+    margin-left: 40px;
   }
   .col {
     height: 100px !important;
@@ -45,5 +46,6 @@ export default {
     background-color: #E4E7ED;
     font-size: 20px;
     vertical-align:middle;
+    font-weight: bold;
   }
 </style>
