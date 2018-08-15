@@ -53,8 +53,8 @@ export default {
       courseaudio1: require('../assets/audios/audio1.mp3'),
       course_description: '该课程还没有添加描述哦！',
       posts: [
-        {header: require('../assets/images/header2.jpg')},
-      ],
+        {header: require('../assets/images/header2.jpg')}
+      ]
     }
   }
 }
@@ -85,13 +85,13 @@ export default {
   }
 
   .description {
-    width:40%; 
+    width:40%;
     height: 40%;
     position: relative; left: 30%;
-    overflow: hidden; 
+    overflow: hidden;
     word-break: break-all; word-wrap: break-word;
-    border: 3px solid blue; 
-    border-radius: 4px; 
+    border: 3px solid blue;
+    border-radius: 4px;
     margin-top: 20px;
   }
 
@@ -105,7 +105,7 @@ export default {
     width: 50px;
     height: 50px;
     border-radius: 300px;
-    overflow: hidden; 
+    overflow: hidden;
     float: left;
     border: 3px solid skyblue;
   }

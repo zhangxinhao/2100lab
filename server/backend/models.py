@@ -1,5 +1,8 @@
 from django.db import models
+<<<<<<< HEAD
+=======
 from django.contrib.auth import get_user_model
+>>>>>>> 7e0b91aa2b376e9bd39d49d4afad3eeedf10a9a5
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
@@ -10,6 +13,9 @@ class User(AbstractUser):
   icon = models.CharField(max_length=150)
   is_V = models.BooleanField(default=False)
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+<<<<<<< HEAD
+  alive = models.BooleanField(default=True)
+=======
   # alive = models.BooleanField(default=True)
 
   # def authenticate(self, request, id=None, verification=None **kwargs):
@@ -26,6 +32,7 @@ class User(AbstractUser):
   # def check_verificatoin(self, verification):
 
 
+>>>>>>> 7e0b91aa2b376e9bd39d49d4afad3eeedf10a9a5
 
 class Course(models.Model):
   course_id = models.PositiveIntegerField(primary_key=True)
@@ -84,3 +91,11 @@ class Attitude(models.Model):
 
 class Black_list(models.Model):
   user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+<<<<<<< HEAD
+
+class Verification_cache(models.Model):
+  order_id = models.PositiveIntegerField(primary_key=True)
+  code = models.PositiveSmallIntegerField(max_length=6)
+  create_time = models.DateTimeField(default=timezone.now)
+=======
+>>>>>>> 7e0b91aa2b376e9bd39d49d4afad3eeedf10a9a5
