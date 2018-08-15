@@ -28,10 +28,13 @@ export default {
     handleChange(value) {
       console.log(value)
     },
-    handleSelect(key,keyPath) {
-      switch(key) {
+    handleSelect(key, keyPath) {
+      switch (key) {
         case '1':
           this.$router.push('/brows');
+          break;
+        case '3':
+          this.$router.push('/payeds');
           break;
       }
     }
