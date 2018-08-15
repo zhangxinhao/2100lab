@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
@@ -9,7 +10,22 @@ class User(AbstractUser):
   icon = models.CharField(max_length=150)
   is_V = models.BooleanField(default=False)
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-  alive = models.BooleanField(default=True)
+  # alive = models.BooleanField(default=True)
+
+  # def authenticate(self, request, id=None, verification=None **kwargs):
+  #   UserModel = get_user_model()
+  #   if id is None:
+  #     id = kwargs.get(UserModel.USERNAME_FIELD)
+  #   try:
+  #     user = UserModel._default_manager.get_by_natural_key(id)
+  #   except UserModel.DoesNotExist:
+  #   else:
+  #     if self.check_verificatoin(verification) and self.user_can_authenticate(user):
+  #       return user
+
+  # def check_verificatoin(self, verification):
+
+
 
 class Course(models.Model):
   course_id = models.PositiveIntegerField(primary_key=True)
@@ -68,8 +84,3 @@ class Attitude(models.Model):
 
 class Black_list(models.Model):
   user_id = models.ForeignKey('User', on_delete=models.CASCADE)
-
-class Verification_cache(models.Model):
-  order_id = models.PositiveIntegerField(primary_key=True)
-  code = models.PositiveSmallIntegerField(max_length=6)
-  create_time = models.DateTimeField(default=timezone.now)
