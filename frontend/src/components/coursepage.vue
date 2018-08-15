@@ -6,7 +6,9 @@
           <table align="right">
             <tr>
               <td>
-                <el-button class="user-ope" type="text" style="color:blue;">个人中心</el-button>
+                <router-link to="/personal">
+                  <el-button class="user-ope" type="text" style="color:blue;">个人中心</el-button>
+                </router-link>
               </td>
               <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
             </tr>
@@ -64,15 +66,28 @@ export default {
       courseaudio1: require('../assets/audios/audio1.mp3'),
       course_description: '该课程还没有添加描述哦！',
       posts: [
-        {header: require('../assets/images/header2.jpg'), created_at: '2018-8-14', author: 'UJoe', content: 'just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.', 
-            reply: [
-              {author:'Leeroy',content: 'Long time no see'},
-              {author:'Zombi',content: 'Long ...brain'}
-            ], like: '5', dislike: '0'},
-        {header: require('../assets/images/header1.jpg'), created_at: '2018-8-15', author: 'Zombi', 
-          content: 'I just want your brain.', like: '1', dislike: '4'},
-        {header: require('../assets/images/header3.jpg'), created_at: '2018-8-15', author: 'Leeroy', 
-          content: 'I like this audio~', like: '12', dislike: '0'}
+        {header: require('../assets/images/header2.jpg'),
+          created_at: '2018-8-14',
+          author: 'UJoe',
+          content: 'just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.',
+          reply: [
+            {author: 'Leeroy', content: 'Long time no see'},
+            {author: 'Zombi', content: 'Long ...brain'}
+          ],
+          like: '5',
+          dislike: '0'},
+        {header: require('../assets/images/header1.jpg'),
+          created_at: '2018-8-15',
+          author: 'Zombi',
+          content: 'I just want your brain.',
+          like: '1',
+          dislike: '4'},
+        {header: require('../assets/images/header3.jpg'),
+          created_at: '2018-8-15',
+          author: 'Leeroy',
+          content: 'I like this audio~',
+          like: '12',
+          dislike: '0'}
       ]
     }
   }
