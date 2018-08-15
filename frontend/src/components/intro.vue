@@ -74,17 +74,27 @@
           <el-button type="success" v-else-if = "moneyFlag==0">立即观看</el-button>
           <el-button type="success" v-else-if = "paidFlag">立即观看</el-button>
           <el-button type="primary" v-else-if = "paidFlag==0" @click="payDialogVisible = true">去支付</el-button>
-          <i class="el-icon-share"></i>
+          <el-button type="primary" icon="el-icon-share" @click.native="shareDialogVisible = true"></el-button>
       </div>
     </div>
 
     <div class = "payDialog">
-      <el-dialog title="支付" :visible.sync="payDialogVisible">
+      <el-dialog title="支付" :visible.sync="payDialogVisible" width="500px" height="400px">
         <div id="paymoney">课程金额：￥{{ money }}</div>
         <el-button  class="pay" type="primary" round>支付宝支付</el-button><br />
         <el-button  class="pay" type="primary" round v-if ="bountyFlag">赏金支付</el-button>
         <el-button  class="pay" type="primary" round v-else disabled>赏金不足</el-button>
         <span id="account">当前赏金： {{ bounty }}</span>
+      </el-dialog>
+    </div>
+
+     <div class = "shareDialog">
+      <el-dialog title="分享" :visible.sync="shareDialogVisible" width="400px" height="400px">
+        <div style="text-align: center;">
+          <div id="shareText">分享途径</div>
+          <el-button class="share" type="primary" round>微信分享</el-button><br />
+          <el-button class="share" type="primary" round>QQ分享</el-button><br />
+        </div>
       </el-dialog>
     </div>
 
@@ -147,6 +157,9 @@ export default {
       bounty: 15,
       // 当前赏金是否可以购买课程（true为可购买）
       bountyFlag: false,
+
+      // 分享框是否显示
+      shareDialogVisible: false,
 
       login: true,
       not_login: false,
@@ -228,6 +241,8 @@ export default {
   }
   .el-button {
     margin-right: 40px;
+    width: 100px;
+    height:  40px;
   }
   .el-icon-share {
     width: 20px;
@@ -261,6 +276,16 @@ export default {
   #account {
     margin-left: 15px;
     font-size: 15px;
+  }
+  #shareText {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px;
+  }
+  .share {
+    margin:20px;
+    width:150px;
+    height: 45px;
   }
 
 </style>
