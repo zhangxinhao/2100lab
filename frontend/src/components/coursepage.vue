@@ -25,6 +25,7 @@
           </div>
         </div>
       </el-main>
+      <el-footer height="50px">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
     </el-container>
   </div>
 </template>
@@ -52,5 +53,15 @@ export default {
     opacity: 0.7;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+  }
+
+    .el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 55px;
+    background-color:lightskyblue;
+    background: linear-gradient(white, lightskyblue);
+    opacity: 0.7;
   }
   </style>
