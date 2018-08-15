@@ -40,3 +40,19 @@ def listRecentVisit(request):
     course = Course.objects.get(pk=record.course_id)
     courses.append(course)
   return HttpResponse(json.dumps({"courses": courses}))
+
+def getVisitHistory(request):
+  user = request.user
+  record = Visit_record.objects.filter(user=user).order_by("-last_visit")
+  history = []
+  for r in record:
+    course = r.course
+    infor = {}
+    infor["course_id"] = course.course_id
+    infor["course_name"] = course.course_name
+    infor["audio_url"] = course.audio_url
+    infor["profile_url"] = course.profile_url
+    infor["last_visit"] = r.last_visit
+    history.append(infor)
+  return HttpResponse(json.dumps({"history": history}))
+
