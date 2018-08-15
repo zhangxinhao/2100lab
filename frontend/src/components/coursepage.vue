@@ -34,6 +34,8 @@
                 <div class="header">
                     <img :src="post.header" style="width: 100%; height: 100%;object-fit: fill;">
                 </div>
+                <h3 style="margin-left:8%;">{{ post.author }}</h3>
+                <h4>发表于 {{ post.created_at }}</h4>
                 <hr>
               </el-col>
             </div>
@@ -53,8 +55,8 @@ export default {
       courseaudio1: require('../assets/audios/audio1.mp3'),
       course_description: '该课程还没有添加描述哦！',
       posts: [
-        {header: require('../assets/images/header2.jpg')}
-      ]
+        {header: require('../assets/images/header2.jpg'), created_at: '2018-8-15 11:00', author: 'UJoe'},
+      ],
     }
   }
 }
@@ -85,7 +87,7 @@ export default {
   }
 
   .description {
-    width:40%;
+    width:40%; 
     height: 40%;
     position: relative; left: 30%;
     overflow: hidden;
@@ -105,7 +107,7 @@ export default {
     width: 50px;
     height: 50px;
     border-radius: 300px;
-    overflow: hidden;
+    overflow: hidden; 
     float: left;
     border: 3px solid skyblue;
   }
