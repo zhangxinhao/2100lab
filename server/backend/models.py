@@ -15,21 +15,8 @@ class User(AbstractUser):
   super_right = models.BooleanField(default=False)
   admin_right = models.BooleanField(default=False)
 
-  # alive = models.BooleanField(default=True)
-
-  # def authenticate(self, request, id=None, verification=None **kwargs):
-  #   UserModel = get_user_model()
-  #   if id is None:
-  #     id = kwargs.get(UserModel.USERNAME_FIELD)
-  #   try:
-  #     user = UserModel._default_manager.get_by_natural_key(id)
-  #   except UserModel.DoesNotExist:
-  #   else:
-  #     if self.check_verificatoin(verification) and self.user_can_authenticate(user):
-  #       return user
-
-  # def check_verificatoin(self, verification):
-
+  def setActive(self, active):
+    self.is_active = active
 
 class Course(models.Model):
   course_id = models.PositiveIntegerField(primary_key=True)
