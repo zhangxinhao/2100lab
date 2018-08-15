@@ -48,7 +48,7 @@
         <div slot="footer" class="login-footer">
           <el-button type="primary" @click="loginFormVisible = false">获取验证码</el-button>
           <el-button @click="loginFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="loginFormVisible = false">确 定</el-button>
+          <el-button type="primary" @click="loginfunction">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -146,6 +146,8 @@
 </template>
 
 <script>
+import qs from 'qs'
+import axios from 'axios'
 export default {
   data() {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
@@ -226,7 +228,15 @@ export default {
     }
   },
   methods: {
-
+    loginfunction: function() {
+      this.loginFormVisible = false
+      axios.post('http://192.168.55.33:8000/api/authenticate/', qs.stringify({
+        phone_number: this.loform.phonenumber,
+        verification_code: 0
+      })).then(
+        response => (alert(response.data.result))
+      )
+    }
   }
 }
 </script>
