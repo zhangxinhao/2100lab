@@ -37,7 +37,15 @@
                 <h3 style="margin-left:8%;">{{ post.author }}</h3>
                 <h4>发表于 {{ post.created_at }}</h4>
                 <div style="margin-left: 40px;">{{ post.content }} </div>
+                <el-button id="dislike" icon="el-icon-arrow-down">({{ post.dislike }})</el-button>
                 <el-button id="like" icon="el-icon-arrow-up">({{ post.like }})</el-button>
+                <el-button id="reply_author">回复</el-button>
+                <div >
+                  <el-col class="reply" v-for="reply in post.reply" :key="reply.id">
+                    <h5>{{ reply.author }}：</h5>
+                    <div style="margin-left: 40px;margin-bottom: 3%;">{{ reply.content }} </div>
+                  </el-col>
+                </div>
               </el-col>
             </div>
           </div>
@@ -56,8 +64,16 @@ export default {
       courseaudio1: require('../assets/audios/audio1.mp3'),
       course_description: '该课程还没有添加描述哦！',
       posts: [
-        {header: require('../assets/images/header2.jpg'), created_at: '2018-8-15 11:00', author: 'UJoe', content: 'just a test.', like: '5'},
-      ],
+        {header: require('../assets/images/header2.jpg'), created_at: '2018-8-14', author: 'UJoe', content: 'just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.', 
+            reply: [
+              {author:'Leeroy',content: 'Long time no see'},
+              {author:'Zombi',content: 'Long ...brain'}
+            ], like: '5', dislike: '0'},
+        {header: require('../assets/images/header1.jpg'), created_at: '2018-8-15', author: 'Zombi', 
+          content: 'I just want your brain.', like: '1', dislike: '4'},
+        {header: require('../assets/images/header3.jpg'), created_at: '2018-8-15', author: 'Leeroy', 
+          content: 'I like this audio~', like: '12', dislike: '0'}
+      ]
     }
   }
 }
@@ -108,6 +124,15 @@ export default {
     padding-bottom: 2%;
   }
 
+  .reply {
+    text-align: left;
+    margin-left: 5%;
+    width: 90%;
+    border: 1px solid moccasin;
+    border-radius: 4px;
+    margin-top: 3%;
+  }
+
   .header {
     width: 50px;
     height: 50px;
@@ -117,7 +142,23 @@ export default {
     border: 3px solid skyblue;
   }
 
+  #reply_author {
+    width: 10%;
+    height: 7%;
+    font-size: 5%;
+    float: right;
+    margin-right: 1%;
+  }
+
   #like {
+    width: 10%;
+    height: 7%;
+    font-size: 5%;
+    float: right;
+    margin-right: 2%;
+  }
+
+  #dislike {
     width: 10%;
     height: 7%;
     font-size: 5%;
