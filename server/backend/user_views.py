@@ -56,3 +56,11 @@ def getVisitHistory(request):
     history.append(infor)
   return HttpResponse(json.dumps({"history": history}))
 
+def getUserInfor(request):
+  user = request.user
+  phone_number = user.id
+  alias = user.alias
+  icon = user.icon
+  is_V = user.is_V
+  balance = user.balance
+  return HttpResponse(json.dumps({"phone_number": phone_number, "alias": alias, "icone": icon, "is_v": is_V, "balance": balance}))

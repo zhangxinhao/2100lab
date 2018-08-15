@@ -9,6 +9,7 @@ class User(AbstractUser):
   id = models.CharField(max_length=11, primary_key=True)
   icon = models.CharField(max_length=150)
   is_V = models.BooleanField(default=False)
+  alias = models.CharField(max_length=15)
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
   course_right = models.BooleanField(default=False)
   user_right = models.BooleanField(default=False)
