@@ -19,9 +19,12 @@ def authenticate(request):
   else:
     return HttpResponse(json.dumps({"result": "verified wrong"}))
 
-
 def login(request):
   if request.user.is_authenticated:
     return HttpResponse(json.dumps({"status": True,"user": request.user}))
   else:
     return HttpResponse(json.dumps({"status": False}))
+
+def logout(request):
+  auth.logout(request)
+  return HttpResponse(json.dumps({"status": False}))
