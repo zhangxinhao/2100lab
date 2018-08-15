@@ -37,6 +37,7 @@
                 <h3 style="margin-left:8%;">{{ post.author }}</h3>
                 <h4>发表于 {{ post.created_at }}</h4>
                 <div style="margin-left: 40px;">{{ post.content }} </div>
+                <el-button id="dislike" icon="el-icon-arrow-down">({{ post.dislike }})</el-button>
                 <el-button id="like" icon="el-icon-arrow-up">({{ post.like }})</el-button>
               </el-col>
             </div>
@@ -56,8 +57,8 @@ export default {
       courseaudio1: require('../assets/audios/audio1.mp3'),
       course_description: '该课程还没有添加描述哦！',
       posts: [
-        {header: require('../assets/images/header2.jpg'), created_at: '2018-8-15 11:00', author: 'UJoe', content: 'just a test.', like: '5'},
-      ],
+        {header: require('../assets/images/header2.jpg'), created_at: '2018-8-15 11:00', author: 'UJoe', content: 'just a test.', like: '5', dislike: '0'}
+      ]
     }
   }
 }
@@ -118,6 +119,14 @@ export default {
   }
 
   #like {
+    width: 10%;
+    height: 7%;
+    font-size: 5%;
+    float: right;
+    margin-right: 2%;
+  }
+
+  #dislike {
     width: 10%;
     height: 7%;
     font-size: 5%;
