@@ -27,6 +27,7 @@ class Course(models.Model):
   message_on = models.BooleanField(default=True)
   audio_url = models.CharField(max_length=150)
   profile_url = models.CharField(max_length=150)
+  create_time = models.DateTimeField(default=timezone.now)
 
 class Picture(models.Model):
   course = models.ForeignKey('Course', on_delete=models.CASCADE)
