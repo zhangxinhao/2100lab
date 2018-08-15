@@ -131,7 +131,7 @@
           <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
         </el-col>
         <el-col :span="8">
-          <router-link to="/freelistpage">
+          <router-link to="/costlistpage">
             <el-button icon="el-icon-more" class="more">更多</el-button>
           </router-link>
         </el-col>

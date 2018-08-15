@@ -30,7 +30,9 @@
         <el-button type="primary" disabled>免费区</el-button>
       </li>
       <li style="display:inline">
-        <el-button>付费区</el-button>
+        <router-link to="/costlistpage">
+         <el-button>付费区</el-button>
+        </router-link>
       </li>
     </ul>
   </div>
