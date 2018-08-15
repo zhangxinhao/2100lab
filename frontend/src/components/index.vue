@@ -312,7 +312,7 @@ export default {
     /* opacity: 0.7; */
     color: grey;
   }
-  .more:hover {
+  .morelist:hover {
     background-color:rgb(240, 240, 240);
     opacity: 0.7;
     color:black;

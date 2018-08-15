@@ -8,6 +8,7 @@ import personal from '@/components/personal'
 import costlistpage from '@/components/costlistpage'
 import adminlogin from '@/components/adminlogin'
 import brows from '@/components/brows'
+import destroied from '@/components/destroied'
 
 Vue.use(Router)
 
@@ -55,6 +56,11 @@ export default new Router({
       path: '/adminlogin',
       name: 'adminlogin',
       component: adminlogin
+    },
+    {
+      path: '/destroied',
+      name: 'destroied',
+      component: destroied
     }
   ]
 })
