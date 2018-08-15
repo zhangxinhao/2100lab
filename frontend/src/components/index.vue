@@ -100,7 +100,7 @@
         </el-col>
         <el-col :span="8">
           <router-link to="/freelistpage">
-            <el-button icon="el-icon-more" class="more">更多</el-button>
+            <el-button icon="el-icon-more" class="morelist">更多</el-button>
           </router-link>
         </el-col>
       </el-row>
@@ -132,7 +132,7 @@
         </el-col>
         <el-col :span="8">
           <router-link to="/costlistpage">
-            <el-button icon="el-icon-more" class="more">更多</el-button>
+            <el-button icon="el-icon-more" class="morelist">更多</el-button>
           </router-link>
         </el-col>
       </el-row>
@@ -292,7 +292,7 @@ export default {
     margin:20px auto 20px auto;
     /* background-color: black; */
   }
-  .more {
+  .morelist {
     width: 350px;
     height: 250px;
     /* background:rgb(149, 202, 255); */
