@@ -23,6 +23,21 @@
             <audio autoplay="autoplay" controls="controls" preload="auto" :src="courseaudio1"></audio>
             <el-button style="width: 50px; height: 40px;"><i class="el-icon-share" style="vertical-align:100%;"></i></el-button>
           </div>
+          <div class="description">
+            <h1 id="course_description" :course_description="course_description"
+            style="color: skyblue;">{{ course_description }}</h1>
+          </div>
+          <div>
+            <h2 style="color: blue;">留言区</h2>
+            <div>
+              <el-col class="msgboard" v-for="post in posts" :key="post.id">
+                <div class="header">
+                    <img :src="post.header" style="width: 100%; height: 100%;object-fit: fill;">
+                </div>
+                <hr>
+              </el-col>
+            </div>
+          </div>
         </div>
       </el-main>
       <el-footer height="50px">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
@@ -35,7 +50,11 @@ export default {
   data() {
     return {
       coursepicture1: require('../assets/images/course1.jpg'),
-      courseaudio1: require('../assets/audios/audio1.mp3')
+      courseaudio1: require('../assets/audios/audio1.mp3'),
+      course_description: '该课程还没有添加描述哦！',
+      posts: [
+        {header: require('../assets/images/header2.jpg')}
+      ]
     }
   }
 }
@@ -55,7 +74,7 @@ export default {
     border-bottom-right-radius: 10px;
   }
 
-    .el-footer {
+  .el-footer {
     background-color: #B3C0D1;
     color: #333;
     text-align: center;
@@ -63,5 +82,31 @@ export default {
     background-color:lightskyblue;
     background: linear-gradient(white, lightskyblue);
     opacity: 0.7;
+  }
+
+  .description {
+    width:40%;
+    height: 40%;
+    position: relative; left: 30%;
+    overflow: hidden;
+    word-break: break-all; word-wrap: break-word;
+    border: 3px solid blue;
+    border-radius: 4px;
+    margin-top: 20px;
+  }
+
+  .msgboard {
+    text-align: left;
+    margin-left: 20%;
+    width: 60%;
+  }
+
+  .header {
+    width: 50px;
+    height: 50px;
+    border-radius: 300px;
+    overflow: hidden;
+    float: left;
+    border: 3px solid skyblue;
   }
   </style>
