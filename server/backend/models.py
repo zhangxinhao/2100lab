@@ -59,7 +59,7 @@ class Admin_operation_record(models.Model):
 
 class Message(models.Model):
   course = models.ForeignKey('Course', on_delete=models.CASCADE)
-  user_id = models.CharField(max_length=11)
+  author = models.ForeignKey('User', on_delete=models.CASCADE)
   content = models.CharField(max_length=140)
   time = models.DateTimeField(timezone.now)
   likes = models.PositiveIntegerField(default=0)
@@ -67,7 +67,7 @@ class Message(models.Model):
 
 class Comment(models.Model):
   message = models.ForeignKey('Message', on_delete=models.CASCADE)
-  user = models.ForeignKey('User', on_delete=models.CASCADE)
+  author = models.ForeignKey('User', on_delete=models.CASCADE)
   content = models.CharField(max_length=140)
 
 class Attitude(models.Model):
