@@ -9,6 +9,7 @@ import costlistpage from '@/components/costlistpage'
 import adminlogin from '@/components/adminlogin'
 import brows from '@/components/brows'
 import destroied from '@/components/destroied'
+import payeds from '@/components/payeds'
 
 Vue.use(Router)
 
@@ -44,6 +45,11 @@ export default new Router({
           path: '/brows',
           component: brows,
           name: brows
+        },
+        {
+          path: '/payeds',
+          component: payeds,
+          name: payeds
         }
       ]
     },
