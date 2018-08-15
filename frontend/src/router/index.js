@@ -4,6 +4,7 @@ import index from '@/components/index'
 import intro from '@/components/intro'
 import coursepage from '@/components/coursepage'
 import freelistpage from '@/components/freelistpage'
+import personal from '@/components/personal'
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ export default new Router({
       path: '/freelistpage',
       name: 'freelistpage',
       component: freelistpage
+    },
+    {
+      path: '/personal',
+      name: 'personal',
+      component:personal
     }
   ]
 })
