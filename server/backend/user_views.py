@@ -12,7 +12,7 @@ def authenticate(request):
     if user:
       user = auth.authenticate(request, username=phone_number)
     else:
-      user = User.objects.create_user(username=phone_number, email=None, password=None, id=phone_number)
+      user = User.objects.create_user(username=phone_number, email=None, password=None, id=phone_number， alias="科学小队长")
       user.save()
     auth.login(request, user)
     return HttpResponse(json.dumps({"result": "success", "user": user}))
@@ -30,7 +30,10 @@ def logout(request):
   return HttpResponse(json.dumps({"status": False}))
 
 def delete(request):
-  request.user.setActive(False)
+  user = request.user
+  user.setActive(False)
+  user.save()
+  return HttpResponse(json.dumps({"result": 0}))
 
 def listRecentVisit(request):
   user = request.user
@@ -64,3 +67,17 @@ def getUserInfor(request):
   is_V = user.is_V
   balance = user.balance
   return HttpResponse(json.dumps({"phone_number": phone_number, "alias": alias, "icone": icon, "is_v": is_V, "balance": balance}))
+
+def setAlias(request):
+  newAlias = request.POST.get("newAlias")
+  user = request.user
+  user.setAlias(newAlias)
+  user.save()
+  return HttpResponse(json.dumps({"result": 0}))
+
+def setIcon(request):
+  newIcon = request.POST.get("newIcon")
+  user = request.user
+  user.setIcon(newIcon)
+  user.save()
+  return HttpResponse(json.dumps({"result": 0}))
