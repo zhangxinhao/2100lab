@@ -1,16 +1,19 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from .models import User, Course, Message, Comment, Attitude
 from django.contrib import auth
 import datetime
 import json
 
-def messageBoard(request):
+def messageBoardDic(request):
   course = Course.objects.get(request.POST.get("course_id"))
   message = Message.objects.filter(course).order_by("-time")
   comment = []
   for msg in message:
     comment.extend(Comment.objects.filter(message=msg))
-  return HttpResponse(json.dumps({"message": message, "comment": comment}))
+  return {"message": message, "comment": comment}
+
+def messageBoard(request):
+  return HttpResponse(json.dumps(messageBoardDic(request)))
 
 def leaveMessage(request):
   time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')

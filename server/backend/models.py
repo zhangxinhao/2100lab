@@ -32,6 +32,7 @@ class Course(models.Model):
 class Picture(models.Model):
   course = models.ForeignKey('Course', on_delete=models.CASCADE)
   postion = models.CharField(max_length=150)
+  start = PositiveIntegerField(default=0)
 
 class Visit_record(models.Model):
   course = models.ForeignKey('Course', on_delete=models.CASCADE)
