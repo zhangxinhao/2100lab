@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from .models import User
+from .models import User, Visit_record, Picture, Course
 from django.contrib import auth
 import json
 
@@ -31,3 +31,12 @@ def logout(request):
 
 def delete(request):
   request.user.setActive(False)
+
+def listRecentVisit(request):
+  user = request.user
+  record_list = Visit_record.objects.filter(user=user).order_by('-last_visit')
+  courses = []
+  for record in record_list:
+    course = Course.objects.get(pk=record.course_id)
+    courses.append(course)
+  return HttpResponse(json.dumps({"courses": courses}))
