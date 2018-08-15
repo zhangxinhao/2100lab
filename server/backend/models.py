@@ -10,6 +10,8 @@ class User(AbstractUser):
   icon = models.CharField(max_length=150)
   is_V = models.BooleanField(default=False)
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+
   # alive = models.BooleanField(default=True)
 
   # def authenticate(self, request, id=None, verification=None **kwargs):
@@ -24,7 +26,6 @@ class User(AbstractUser):
   #       return user
 
   # def check_verificatoin(self, verification):
-
 
 
 class Course(models.Model):
