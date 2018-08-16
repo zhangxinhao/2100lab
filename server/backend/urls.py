@@ -4,5 +4,6 @@ from django.urls import path
 
 urlpatterns = [
   path('', views.index),
-  path('authenticate/', user_views.authenticate)
+  path('authenticate/', user_views.authenticate),
+  path('logout/', user_views.logout)
 ]
