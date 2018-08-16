@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    {{msg}}
     <router-view/>
   </div>
 </template>
@@ -12,11 +11,6 @@ export default {
     return {
       msg: 'xinaho'
     }
-  },
-  mounted() {
-    axios
-      .get('/api')
-      .then(response => (this.msg = response.data))
   }
 }
 </script>

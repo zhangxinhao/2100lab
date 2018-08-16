@@ -46,9 +46,9 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="login-footer">
-          <el-button type="primary" @click="loginFormVisible = false">获取验证码</el-button>
+          <el-button type="primary" @click="getVerification">获取验证码</el-button>
           <el-button @click="loginFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="loginfunction">确 定</el-button>
+          <el-button type="primary" @click="loginFunction">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -228,13 +228,24 @@ export default {
     }
   },
   methods: {
-    loginfunction: function() {
+    loginFunction: function() {
       this.loginFormVisible = false
       axios.post('http://192.168.55.33:8000/api/authenticate/', qs.stringify({
         phone_number: this.loform.phonenumber,
         verification_code: 0
       })).then(
-        response => (alert(response.data.result))
+        response => (aconsole.log(response.data.result))
+      )
+    },
+    getVerification: function() {
+      this.loginFormVisible = false
+      axios.post('https://api.nexmo.com/verify/json', qs.stringify({
+        api_key: '7048d3cf',
+        api_secret: 'gs7ihF0gSuwotAgw',
+        number: '86' + this.loform.phonenumber,
+        brand: 'NexmoVerifyTest'
+      })).then(
+        response => (console.log(response.data))
       )
     }
   }

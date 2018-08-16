@@ -12,7 +12,7 @@ def authenticate(request):
     if user:
       user = auth.authenticate(request, username=phone_number)
     else:
-      user = User.objects.create_user(username=phone_number, email=None, password=None, id=phone_number， alias="科学小队长")
+      user = User.objects.create_user(username=phone_number, email=None, password=None, id=phone_number, alias="科学小队长")
       user.save()
     auth.login(request, user)
     return HttpResponse(json.dumps({"result": "success", "user": user}))
