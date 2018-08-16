@@ -26,6 +26,7 @@
   </el-form>
 </template>
 <script>
+import qs from 'qs'
 import axios from 'axios'
 export default {
   data() {
@@ -42,6 +43,13 @@ export default {
   },
   methods: {
     onSubmitConfirm() {
+      axios.post('http://192.168.55.33:8000/api/setalias/',qs.stringify({
+        newAlias: this.userMsg.name
+      })).then(
+      response => {
+        console.log(response.data.result)
+      }
+    )
     },
     onSubmitQuit() {
     }

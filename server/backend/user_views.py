@@ -74,10 +74,10 @@ def getUserInfor(request):
 
 def setAlias(request):
   newAlias = request.POST.get("newAlias")
-  user = request.user
-  user.setAlias(newAlias)
-  user.save()
-  return HttpResponse(json.dumps({"result": 0}))
+  # user = request.user
+  # user.setAlias(newAlias)
+  # user.save()
+  return HttpResponse(json.dumps({"result": newAlias}))
 
 def setIcon(request):
   newIcon = request.POST.get("newIcon")
