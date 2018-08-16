@@ -52,6 +52,9 @@ export default {
     },
     handleSelect(key, keyPath) {
       switch (key) {
+        case '4-1':
+          this.$router.push('/orderAdmin')
+          break
         case '6-1':
           this.$router.push('/addAdmin')
           break

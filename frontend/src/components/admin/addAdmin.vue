@@ -50,7 +50,7 @@ export default {
         userManege: false,
         historyManage: false,
         orderManege: false,
-        adminManage: false,
+        adminManage: false
       }
     }
   },
@@ -59,12 +59,12 @@ export default {
     },
     // 当开关触发后对应绑定的value会变化（分别为true和false）
     // @change 为开关改变状态触发的参数，返回值是当前绑定的value
-    newv: function(callback){
+    newv: function(callback) {
     }
   }
 }
 </script>
-<style>
+<style scoped>
   .addAdmin {
     width:400px;
   }

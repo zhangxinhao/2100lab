@@ -14,6 +14,7 @@ import userorder from '@/components/userorder'
 import personalinfor from '@/components/personalinfor'
 import baseadmin from '@/components/admin/baseadmin'
 import addAdmin from '@/components/admin/addAdmin'
+import orderAdmin from '@/components/admin/orderAdmin'
 import uploadCourse from '@/components/uploadCourse'
 import coursemanage from '@/components/coursemanage'
 
@@ -98,6 +99,11 @@ export default new Router({
           path: '/addAdmin',
           component: addAdmin,
           name: addAdmin
+        },
+        {
+          path: '/orderAdmin',
+          component: orderAdmin,
+          name: orderAdmin
         }
       ]
     },
