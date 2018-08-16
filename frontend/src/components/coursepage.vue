@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-header>
-        <div class="toolbar">
+        <div class="course_toolbar">
           <table align="right">
             <tr>
               <td>
@@ -25,25 +25,25 @@
             <audio autoplay="autoplay" controls="controls" preload="auto" :src="courseaudio1"></audio>
             <el-button style="width: 50px; height: 40px;"><i class="el-icon-share" style="vertical-align:100%;"></i></el-button>
           </div>
-          <div class="description">
+          <div class="course_description">
             <h1 id="course_description" :course_description="course_description"
             style="color: skyblue;">{{ course_description }}</h1>
           </div>
           <div>
             <h2 style="color: blue;">留言区</h2>
             <div>
-              <el-col class="msgboard" v-for="post in posts" :key="post.id">
-                <div class="header">
+              <el-col class="course_msgboard" v-for="post in posts" :key="post.id">
+                <div class="course_header">
                     <img :src="post.header" style="width: 100%; height: 100%;object-fit: fill;">
                 </div>
                 <h3 style="margin-left:8%;">{{ post.author }}</h3>
                 <h4>发表于 {{ post.created_at }}</h4>
                 <div style="margin-left: 40px;">{{ post.content }} </div>
-                <el-button id="dislike" icon="el-icon-arrow-down">({{ post.dislike }})</el-button>
-                <el-button id="like" icon="el-icon-arrow-up">({{ post.like }})</el-button>
-                <el-button id="reply_author">回复</el-button>
+                <el-button id="course_dislike" icon="el-icon-arrow-down">({{ post.like }})</el-button>
+                <el-button id="course_like" icon="el-icon-arrow-up">({{ post.like }})</el-button>
+                <el-button id="course_reply_author">回复</el-button>
                 <div >
-                  <el-col class="reply" v-for="reply in post.reply" :key="reply.id">
+                  <el-col class="course_reply" v-for="reply in post.reply" :key="reply.id">
                     <h5>{{ reply.author }}：</h5>
                     <div style="margin-left: 40px;margin-bottom: 3%;">{{ reply.content }} </div>
                   </el-col>
@@ -95,7 +95,7 @@ export default {
 </script>
 
 <style>
-  .toolbar {
+  .course_toolbar {
     width: 100%;
     height: 55px;
     margin: 0;
@@ -118,7 +118,7 @@ export default {
     opacity: 0.7;
   }
 
-  .description {
+  .course_description {
     width:40%;
     height: 40%;
     position: relative; left: 30%;
@@ -129,7 +129,7 @@ export default {
     margin-top: 20px;
   }
 
-  .msgboard {
+  .course_msgboard {
     text-align: left;
     margin-left: 20%;
     width: 60%;
@@ -139,7 +139,7 @@ export default {
     padding-bottom: 2%;
   }
 
-  .reply {
+  .course_reply {
     text-align: left;
     margin-left: 5%;
     width: 90%;
@@ -148,7 +148,7 @@ export default {
     margin-top: 3%;
   }
 
-  .header {
+  .course_header {
     width: 50px;
     height: 50px;
     border-radius: 300px;
@@ -157,7 +157,7 @@ export default {
     border: 3px solid skyblue;
   }
 
-  #reply_author {
+  #course_reply_author {
     width: 10%;
     height: 7%;
     font-size: 5%;
@@ -165,7 +165,7 @@ export default {
     margin-right: 1%;
   }
 
-  #like {
+  #course_like {
     width: 10%;
     height: 7%;
     font-size: 5%;
@@ -173,7 +173,7 @@ export default {
     margin-right: 2%;
   }
 
-  #dislike {
+  #course_dislike {
     width: 10%;
     height: 7%;
     font-size: 5%;

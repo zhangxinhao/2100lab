@@ -39,6 +39,9 @@ export default {
         case '3':
           this.$router.push('/payeds')
           break
+        case '4':
+          this.$router.push('/personalinfor')
+          break
       }
     }
   }
