@@ -19,6 +19,12 @@ class User(AbstractUser):
   def setActive(self, active):
     self.is_active = active
 
+  def setAlias(self, newalias):
+    self.alias = newalias
+
+  def setIcon(self, newIcon):
+    self.icon = newIcon
+
 class Course(models.Model):
   course_id = models.PositiveIntegerField(primary_key=True)
   course_name = models.CharField(max_length=50)
