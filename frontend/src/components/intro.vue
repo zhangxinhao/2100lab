@@ -114,8 +114,13 @@
       </router-link>
     </div>
     <div>
-      <router-link to="/upload_course">
+      <router-link to="/uploadCourse">
         <button>上传课程</button>
+      </router-link>
+    </div>
+    <div>
+      <router-link to="/coursemanage">
+        <button>课程管理</button>
       </router-link>
     </div>
     <br />
