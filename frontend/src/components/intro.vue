@@ -219,7 +219,7 @@ export default {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
-  
+
   #class {
     font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
     font-size: 30px;

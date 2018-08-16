@@ -31,15 +31,19 @@ export default {
     handleSelect(key, keyPath) {
       switch (key) {
         case '1':
-          this.$router.push('/brows');
+          this.$router.push('/brows')
           break;
+        case '2':
+          this.$router.push('/userorder')
+          break
         case '3':
-          this.$router.push('/payeds');
+          this.$router.push('/payeds')
           break;
       }
     }
   }
 }
+
 </script>
 <style>
   .el-aside {

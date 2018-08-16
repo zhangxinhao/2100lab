@@ -10,6 +10,7 @@ import adminlogin from '@/components/adminlogin'
 import brows from '@/components/brows'
 import destroied from '@/components/destroied'
 import payeds from '@/components/payeds'
+import userorder from '@/components/userorder'
 
 Vue.use(Router)
 
@@ -50,6 +51,11 @@ export default new Router({
           path: '/payeds',
           component: payeds,
           name: payeds
+        },
+        {
+          path: '/userorder',
+          component: userorder,
+          name: userorder
         }
       ]
     },
