@@ -9,4 +9,5 @@ urlpatterns = [
   path('listrecentvisit/', user_views.listRecentVisit),
   path('getuserinfo/', user_views.getUserInfor),
   path('setalias/', user_views.setAlias),
+  path('seticon/', user_views.setIcon),
 ]

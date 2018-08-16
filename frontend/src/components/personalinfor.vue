@@ -52,6 +52,13 @@ export default {
     )
     },
     onSubmitQuit() {
+    },
+    clickToChangeIcon() {
+      axios.post('http://192.168.55.33:8000/api/seticon/').then(
+      response => {
+        console.log(response.data.result)
+      }
+    )
     }
   },
   mounted: function() {
