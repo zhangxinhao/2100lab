@@ -80,8 +80,8 @@ def setAlias(request):
   return HttpResponse(json.dumps({"result": newAlias}))
 
 def setIcon(request):
-  newIcon = request.POST.get("newIcon")
-  user = request.user
-  user.setIcon(newIcon)
-  user.save()
+  # newIcon = request.POST.get("newIcon")
+  # user = request.user
+  # user.setIcon(newIcon)
+  # user.save()
   return HttpResponse(json.dumps({"result": 0}))
