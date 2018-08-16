@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="browsTitle">
-      <div class="browsHead">浏览历史</div>
+      <div class="browsHead">订单列表</div>
       <hr />
       <div>
       <el-table
@@ -26,21 +26,19 @@
           label="时间">
         </el-table-column>
       </el-table>
-    </div>
+      </div>
     </div>
 
     <div style="text-align: center">
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :total="userOrderList.length"
-          page-size="5"
-          :current-page.sync="nowPage"
-          :pager-count="5"
-          >
-        </el-pagination>
-      </div>
-
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="userOrderList.length"
+        page-size="5"
+        :current-page.sync="nowPage"
+        :pager-count="5">
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
