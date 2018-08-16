@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div clsss="outdiv">
     <el-container class="adminFirst">
       <el-header class="adminHeader">Header</el-header>
       <el-container class="adminSecond">
         <el-aside class="adminAside">
-          <el-menu @select="handleSelect" :default-openeds="['1', '6']">
+          <el-menu @select="handleSelect" unique-opened:false >
             <el-submenu index="1">
               <template class="firsebar" slot="title"><i class="el-icon-edit"></i>课程管理</template>
               <el-menu-item class="col" index="1-1">课程上传</el-menu-item>
@@ -25,7 +25,7 @@
               <el-menu-item class="col" index="4-1">用户订单</el-menu-item>
             </el-submenu>
              <el-submenu index="5">
-              <template class="secondbar" slot="title"><i class="el-icon-view"></i>统计</template>
+              <template class="secondbar" slot="title"><i class="el-icon-view"></i>数据统计</template>
               <el-menu-item class="col" index="5-1">数据分析</el-menu-item>
             </el-submenu>
              <el-submenu index="6">
@@ -49,10 +49,25 @@ export default {
   },
   methods: {
     handleChange(value) {
-      console.log(value)
     }
   }
 }
 </script>
-<style>
+<style scoped>
+  .adminFirst {
+    text-align: center;
+    margin: auto 100px;
+    color:#d2dce6;
+  }
+  .el-submenu__title {
+    height: 60px !important;
+    line-height:60px !important;
+    background-color: rgb(238, 243, 247);
+    font-size: 18px;
+    vertical-align:middle;
+    font-weight: bold;
+  }
+  .col {
+    height: 60px;
+  }
 </style>
