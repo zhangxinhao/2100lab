@@ -11,6 +11,7 @@ import brows from '@/components/brows'
 import destroied from '@/components/destroied'
 import payeds from '@/components/payeds'
 import userorder from '@/components/userorder'
+import baseadmin from '@/components/admin/baseadmin'
 
 Vue.use(Router)
 
@@ -73,6 +74,16 @@ export default new Router({
       path: '/destroied',
       name: 'destroied',
       component: destroied
+    },
+    {
+      path: '/adminlogin',
+      name: 'adminlogin',
+      component: adminlogin
+    },
+    {
+      path: '/baseadmin',
+      name: 'baseadmin',
+      component: baseadmin
     }
   ]
 })

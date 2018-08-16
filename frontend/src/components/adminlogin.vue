@@ -14,8 +14,9 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="login-footer">
-      <el-button @click="loginFormVisible = false">取 消</el-button>
-      <el-button type="primary" @click="loginFormVisible = false">确 定</el-button>
+      <router-link to="/baseadmin">
+        <el-button type="primary" @click="loginFormVisible = false">登录</el-button>
+      </router-link>
     </div>
   </el-dialog>
 </div>
