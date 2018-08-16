@@ -36,13 +36,15 @@ def delete(request):
   return HttpResponse(json.dumps({"result": 0}))
 
 def listRecentVisit(request):
-  user = request.user
-  record_list = Visit_record.objects.filter(user=user).order_by('-last_visit')
-  courses = []
-  for record in record_list:
-    course = Course.objects.get(pk=record.course_id)
-    courses.append(course)
-  return HttpResponse(json.dumps({"courses": courses}))
+  # user = request.user
+  # record_list = Visit_record.objects.filter(user=user).order_by('-last_visit')
+  # courses = []
+  # for record in record_list:
+  #   course = Course.objects.get(pk=record.course_id)
+  #   courses.append(course)
+  # return HttpResponse(json.dumps({"courses": courses}))
+  response = HttpResponse("xinhao")
+  return response
 
 def getVisitHistory(request):
   user = request.user

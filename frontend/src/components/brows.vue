@@ -24,9 +24,9 @@
           background
           layout="prev, pager, next"
           :total="browpages"
-          page-size="6"
+          page-size=6
           :current-page.sync="nowPage"
-          :pager-count="6"
+          :pager-count=6
           >
         </el-pagination>
       </div>
@@ -34,6 +34,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -55,6 +56,13 @@ export default {
     handleChange(value) {
       console.log(value)
     }
+  },
+  mounted: function() {
+    axios.post('http://192.168.55.33:8000/api/listrecentvisit/').then(
+        response => {
+          console.log(response)
+        }
+      )
   }
 }
 </script>
