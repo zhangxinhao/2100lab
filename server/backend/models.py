@@ -11,7 +11,6 @@ class User(AbstractUser):
   is_V = models.BooleanField(default=False)
   nickname = models.CharField(max_length=15)
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-
   course_manage = models.BooleanField(default=False)
   user_manage = models.BooleanField(default=False)
   operation_history = models.BooleanField(default=False)
@@ -21,8 +20,8 @@ class User(AbstractUser):
   def setActive(self, active):
     self.is_active = active
 
-  def setAlias(self, newalias):
-    self.nickname = newalias
+  def setNickname(self, newNickname):
+    self.nickname = newNickname
 
   def setIcon(self, newIcon):
     self.icon = newIcon

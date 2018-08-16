@@ -1,4 +1,6 @@
+from django.core import serializers
 from django.http import HttpResponse
+from django.forms.models import model_to_dict
 from .models import User, Visit_record, Picture, Course
 from django.contrib import auth
 import json
@@ -12,16 +14,21 @@ def authenticate(request):
     if user:
       user = auth.authenticate(request, username=phone_number)
     else:
-      user = User.objects.create_user(username=phone_number, email=None, password=None, id=phone_number, alias="科学小队长")
+      user = User.objects.create_user(username=phone_number, email=None, password=None, id=phone_number, nickname="科学小队长")
       user.save()
     auth.login(request, user)
-    return HttpResponse(json.dumps({"result": "success", "user": user}))
+    user = model_to_dict(user)
+    return HttpResponse(json.dumps({"result": 0, "user": user}))
   else:
-    return HttpResponse(json.dumps({"result": "verified wrong"}))
+    return HttpResponse(json.dumps({"result": 1}))
+    #verified wrong
 
 def login(request):
-  if request.user.is_authenticated:
-    return HttpResponse(json.dumps({"status": True,"user": request.user}))
+  id = request.POST.get("id")
+  user = User.objects.get(pk=id)
+  if user.is_authenticated:
+    user = model_to_dict(user)
+    return HttpResponse(json.dumps({"status": True,"user": user}))
   else:
     return HttpResponse(json.dumps({"status": False}))
 
@@ -30,24 +37,28 @@ def logout(request):
   return HttpResponse(json.dumps({"status": False}))
 
 def delete(request):
-  user = request.user
+  id = request.POST.get("id")
+  user = User.objects.get(pk=id)
   user.setActive(False)
   user.save()
   return HttpResponse(json.dumps({"result": 0}))
 
 def listRecentVisit(request):
-  # user = request.user
+  # id = request.POST.get("id")
+  # user = User.objects.get(pk=id)
   # record_list = Visit_record.objects.filter(user=user).order_by('-last_visit')
   # courses = []
   # for record in record_list:
   #   course = Course.objects.get(pk=record.course_id)
+  #   course = model_to_dict(course)
   #   courses.append(course)
   # return HttpResponse(json.dumps({"courses": courses}))
   response = HttpResponse("xinhao")
   return response
 
 def getVisitHistory(request):
-  user = request.user
+  id = request.POST.get("id")
+  user = User.objects.get(pk=id)
   record = Visit_record.objects.filter(user=user).order_by("-last_visit")
   history = []
   for r in record:
@@ -62,26 +73,29 @@ def getVisitHistory(request):
   return HttpResponse(json.dumps({"history": history}))
 
 def getUserInfor(request):
-  # user = request.user
+  # id = request.POST.get("id")
+  # user = User.objects.get(pk=id)
   # phone_number = user.id
-  # alias = user.alias
+  # nickname = user.nickname
   # icon = user.icon
   # is_V = user.is_V
   # balance = user.balance
-  # return HttpResponse(json.dumps({"phone_number": phone_number, "alias": alias, "icone": icon, "is_v": is_V, "balance": balance}))
+  # return HttpResponse(json.dumps({"phone_number": phone_number, "nickname": nickname, "icone": icon, "is_v": is_V, "balance": balance}))
   response = HttpResponse("xinhao")
   return response
 
-def setAlias(request):
-  newAlias = request.POST.get("newAlias")
-  # user = request.user
-  # user.setAlias(newAlias)
+def setNickname(request):
+  newNickname = request.POST.get("newNickname")
+  # id = request.POST.get("id")
+  # user = User.objects.get(pk=id)
+  # user.setNickname(newNickname)
   # user.save()
-  return HttpResponse(json.dumps({"result": newAlias}))
+  return HttpResponse(json.dumps({"result": 0}))
 
 def setIcon(request):
-  # newIcon = request.POST.get("newIcon")
-  # user = request.user
-  # user.setIcon(newIcon)
-  # user.save()
+  newIcon = request.POST.get("newIcon")
+  id = request.POST.get("id")
+  user = User.objects.get(pk=id)
+  user.setIcon(newIcon)
+  user.save()
   return HttpResponse(json.dumps({"result": 0}))

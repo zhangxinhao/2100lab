@@ -9,7 +9,8 @@ def index(request):
   return response
 
 def recommendCourse(request):
-  list = Course.objects.filter().order_by('-create_time')
+  list = Course.objects.filter().order_by('-create_time').values()
+  list = list(list)
   courses = []
   for i in range(5):
     courses.append(list[i])
@@ -30,11 +31,12 @@ def briefPricedCourses(request):
 def listCourses(request, free=None, number=None):
   list = []
   if free is None:
-    list = Course.objects.filter().order_by("-create_time")
+    list = Course.objects.filter().order_by("-create_time").values()
   elif free is True:
-    list = Course.objects.filter(price=0).order_by("-create_time")
+    list = Course.objects.filter(price=0).order_by("-create_time").values()
   else:
-    Course.objects.filter(price_gt=0).order_by("-create_time")
+    list = Course.objects.filter(price_gt=0).order_by("-create_time").values()
+  list = list(list)
   courses = []
   if number is not None:
     for i in range(number):
