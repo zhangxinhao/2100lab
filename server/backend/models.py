@@ -9,7 +9,7 @@ class User(AbstractUser):
   id = models.CharField(max_length=11, primary_key=True)
   icon = models.CharField(max_length=150)
   is_V = models.BooleanField(default=False)
-  alias = models.CharField(max_length=15)
+  nickname = models.CharField(max_length=15)
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
   course_manage = models.BooleanField(default=False)
@@ -22,7 +22,7 @@ class User(AbstractUser):
     self.is_active = active
 
   def setAlias(self, newalias):
-    self.alias = newalias
+    self.nickname = newalias
 
   def setIcon(self, newIcon):
     self.icon = newIcon
