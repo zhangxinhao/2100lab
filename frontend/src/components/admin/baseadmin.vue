@@ -49,6 +49,13 @@ export default {
   },
   methods: {
     handleChange(value) {
+    },
+    handleSelect(key, keyPath) {
+      switch (key) {
+        case '6-1':
+          this.$router.push('/addAdmin')
+          break
+      }
     }
   }
 }

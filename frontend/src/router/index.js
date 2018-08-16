@@ -14,6 +14,7 @@ import userorder from '@/components/userorder'
 import personalinfor from '@/components/personalinfor'
 import baseadmin from '@/components/admin/baseadmin'
 import upload_course from '@/components/upload_course'
+import addAdmin from '@/components/admin/addAdmin'
 
 Vue.use(Router)
 
@@ -88,14 +89,21 @@ export default new Router({
       component: adminlogin
     },
     {
-      path: '/baseadmin',
-      name: 'baseadmin',
-      component: baseadmin
-    },
-    {
       path: '/upload_course',
       name: 'upload_course',
       component: upload_course
+    },
+    {
+      path: '/baseadmin',
+      name: 'baseadmin',
+      component: baseadmin,
+      children: [
+        {
+          path: '/addAdmin',
+          component: addAdmin,
+          name: addAdmin
+        }
+      ]
     }
   ]
 })
