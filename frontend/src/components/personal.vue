@@ -1,9 +1,9 @@
 <template>
   <div id="person">
-    <el-container>
+    <el-container class="firstcontainer">
       <el-aside>
-        <el-menu default-active="1" class="el-menu-vertical-demo" @select="handleSelect">
-          <el-submenu >
+        <el-menu :default-openeds="['5']" default-active="1" class="el-menu-vertical-demo" @select="handleSelect">
+          <el-submenu index="5">
             <template class="head" slot="title"><i class="el-icon-message"></i>个人中心</template>
             <el-menu-item class="col" index="1">浏览历史</el-menu-item>
             <el-menu-item class="col" index="2">订单列表</el-menu-item>
@@ -26,7 +26,6 @@ export default {
   },
   methods: {
     handleChange(value) {
-      console.log(value)
     },
     handleSelect(key, keyPath) {
       switch (key) {
@@ -48,23 +47,27 @@ export default {
 }
 
 </script>
-<style>
+<style scoped>
   .el-aside {
     width: 300px !important;
     margin-left: 40px;
   }
   .col {
-    height: 100px !important;
-    line-height:100px !important;
-    font-size: 20px;
-    background-color:#EBEEF5;
+    height: 60px !important;
+    line-height:60px !important;
+    font-size: 18px;
+    background-color:white;
   }
   .el-submenu__title {
-    height: 100px !important;
-    line-height:100px !important;
-    background-color: #E4E7ED;
-    font-size: 20px;
+    height: 60px !important;
+    line-height:60px !important;
+    background-color: rgb(238, 243, 247);
+    font-size: 16px;
     vertical-align:middle;
     font-weight: bold;
+  }
+  .firstcontainer {
+    text-align: center;
+    margin: auto 100px;
   }
 </style>
