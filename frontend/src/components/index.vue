@@ -230,11 +230,13 @@ export default {
   methods: {
     loginFunction: function() {
       this.loginFormVisible = false
+      this.login = false
+      this.not_login = true
       axios.post('http://192.168.55.33:8000/api/authenticate/', qs.stringify({
         phone_number: this.loform.phonenumber,
         verification_code: 0
       })).then(
-        response => (aconsole.log(response.data.result))
+        response => (console.log(response.data.result))
       )
     },
     getVerification: function() {
@@ -246,6 +248,15 @@ export default {
         brand: 'NexmoVerifyTest'
       })).then(
         response => (console.log(response.data))
+      )
+    },
+    logout: function() {
+      this.login = true
+      this.not_login = false
+      axios.post('http://192.168.55.33:8000/api/logout/').then(
+        response => {
+          console.log(response.data.status)
+        }
       )
     }
   }
