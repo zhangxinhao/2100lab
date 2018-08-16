@@ -26,6 +26,7 @@
   </el-form>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -44,6 +45,13 @@ export default {
     },
     onSubmitQuit() {
     }
+  },
+  mounted: function() {
+    axios.post('http://192.168.55.33:8000/api/getuserinfo/').then(
+      response => {
+        this.userMsg.name = response.data
+      }
+    )
   }
 }
 </script>
