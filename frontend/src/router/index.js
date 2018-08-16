@@ -11,7 +11,7 @@ import brows from '@/components/brows'
 import destroied from '@/components/destroied'
 import payeds from '@/components/payeds'
 import userorder from '@/components/userorder'
-
+import personalinfor from '@/components/personalinfor'
 import baseadmin from '@/components/admin/baseadmin'
 
 Vue.use(Router)
@@ -58,6 +58,11 @@ export default new Router({
           path: '/userorder',
           component: userorder,
           name: userorder
+        },
+        {
+          path: '/personalinfor',
+          component: personalinfor,
+          name: personalinfor
         }
       ]
     },
