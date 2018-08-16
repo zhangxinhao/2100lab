@@ -1,22 +1,25 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import index from '@/components/index'
 import intro from '@/components/intro'
 import coursepage from '@/components/coursepage'
 import freelistpage from '@/components/freelistpage'
 import personal from '@/components/personal'
 import costlistpage from '@/components/costlistpage'
-import adminlogin from '@/components/adminlogin'
 import brows from '@/components/brows'
 import destroied from '@/components/destroied'
 import payeds from '@/components/payeds'
 import userorder from '@/components/userorder'
 import personalinfor from '@/components/personalinfor'
+
+import adminlogin from '@/components/admin/adminlogin'
 import baseadmin from '@/components/admin/baseadmin'
 import addAdmin from '@/components/admin/addAdmin'
 import orderAdmin from '@/components/admin/orderAdmin'
-import uploadCourse from '@/components/uploadCourse'
-import coursemanage from '@/components/coursemanage'
+import uploadCourse from '@/components/admin/uploadCourse'
+import courseManage from '@/components/admin/courseManage'
+import commentadmin from '@/components/admin/commentadmin'
 
 Vue.use(Router)
 
@@ -76,11 +79,6 @@ export default new Router({
       component: costlistpage
     },
     {
-      path: '/adminlogin',
-      name: 'adminlogin',
-      component: adminlogin
-    },
-    {
       path: '/destroied',
       name: 'destroied',
       component: destroied
@@ -104,18 +102,23 @@ export default new Router({
           path: '/orderAdmin',
           component: orderAdmin,
           name: orderAdmin
+        },
+        {
+          path: '/uploadCourse',
+          name: 'uploadCourse',
+          component: uploadCourse
+        },
+        {
+          path: '/courseManage',
+          name: 'courseManage',
+          component: courseManage
+        },
+        {
+          path: '/commentadmin',
+          name: 'commentadmin',
+          component: commentadmin
         }
       ]
-    },
-    {
-      path: '/uploadCourse',
-      name: 'uploadCourse',
-      component: uploadCourse
-    },
-    {
-      path: '/coursemanage',
-      name: 'coursemanage',
-      component: coursemanage
     }
   ]
 })
