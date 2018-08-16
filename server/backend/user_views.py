@@ -9,16 +9,27 @@ def authenticate(request):
   phone_number = request.POST.get('phone_number')
   verification_code = request.POST.get('verification_code')
   #This code is 0 means verification pass
-  if not verification_code :
+  if verification_code is '0':
     user = User.objects.filter(id=phone_number)
     if user:
-      user = auth.authenticate(request, username=phone_number)
+      user = auth.authenticate(request, username=phone_number, password="Captain Science")
     else:
-      user = User.objects.create_user(username=phone_number, email=None, password=None, id=phone_number, nickname="科学小队长")
+      user = User.objects.create_user(
+        username=phone_number,
+        email=None,
+        password="Captain Science",
+        id=phone_number,
+        nickname="Captain Science",
+        icon="captain/science")
       user.save()
     auth.login(request, user)
-    user = model_to_dict(user)
-    return HttpResponse(json.dumps({"result": 0, "user": user}))
+    usr = {}
+    usr['id'] = user.pk
+    usr['nickname'] = user.nickname
+    usr['icon'] = user.icon
+    print(user.nickname)
+    print("-----------")
+    return HttpResponse(json.dumps({"result": 0, "user": usr}))
   else:
     return HttpResponse(json.dumps({"result": 1}))
     #verified wrong
