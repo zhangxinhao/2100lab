@@ -13,6 +13,7 @@ import payeds from '@/components/payeds'
 import userorder from '@/components/userorder'
 import personalinfor from '@/components/personalinfor'
 import baseadmin from '@/components/admin/baseadmin'
+import upload_course from '@/components/upload_course'
 
 Vue.use(Router)
 
@@ -90,6 +91,11 @@ export default new Router({
       path: '/baseadmin',
       name: 'baseadmin',
       component: baseadmin
+    },
+    {
+      path: '/upload_course',
+      name: 'upload_course',
+      component: upload_course
     }
   ]
 })
