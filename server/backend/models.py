@@ -11,10 +11,12 @@ class User(AbstractUser):
   is_V = models.BooleanField(default=False)
   alias = models.CharField(max_length=15)
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-  course_right = models.BooleanField(default=False)
-  user_right = models.BooleanField(default=False)
-  super_right = models.BooleanField(default=False)
-  admin_right = models.BooleanField(default=False)
+
+  course_manage = models.BooleanField(default=False)
+  user_manage = models.BooleanField(default=False)
+  operation_history = models.BooleanField(default=False)
+  order_manage = models.BooleanField(default=False)
+  admin_manage = models.BooleanField(default=False)
 
   def setActive(self, active):
     self.is_active = active
