@@ -102,7 +102,7 @@ export default {
   },
   methods: {
     beforeUpload(file) {
-      if (['audio/mp3', 'audio/wav'].indexOf(file.type) == -1) {
+      if (['audio/mp3', 'audio/wav'].indexOf(file.type) === -1) {
         this.$message.error('请上传正确的音频格式')
         return false
       }
