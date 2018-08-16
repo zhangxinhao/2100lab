@@ -5,7 +5,8 @@ import json
 import time
 
 def getOrders(request):
-  user = request.user
+  id = request.POST.get("id")
+  user = User.objects.get(pk=id)
   list = Order.objects.filter(user_id=user.id).order_by("-time")
   orders = []
   for item in list:
@@ -15,13 +16,12 @@ def getOrders(request):
     course_name = course.course_name
     price = course.price
     status = item.status
-    time_local = time.localtime(item.time)
-    dt = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
+    time = item.time
     order["order_id"] = order_id
     order["course_name"] = course_name
     order["price"] = price
     order["status"] = status
-    order["time"] = dt
+    order["time"] = time
     orders.append(order)
   return HttpResponse(json.dumps({"orders": orders}))
 

@@ -59,10 +59,10 @@ export default {
   },
   mounted: function() {
     axios.post('http://192.168.55.33:8000/api/listrecentvisit/').then(
-        response => {
-          console.log(response)
-        }
-      )
+      response => {
+        console.log(response)
+      }
+    )
   }
 }
 </script>

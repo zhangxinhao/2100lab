@@ -26,6 +26,8 @@
   </el-form>
 </template>
 <script>
+import qs from 'qs'
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -41,9 +43,30 @@ export default {
   },
   methods: {
     onSubmitConfirm() {
+      axios.post('http://192.168.55.33:8000/api/setalias/',qs.stringify({
+        newAlias: this.userMsg.name
+      })).then(
+      response => {
+        console.log(response.data.result)
+      }
+    )
     },
     onSubmitQuit() {
+    },
+    clickToChangeIcon() {
+      axios.post('http://192.168.55.33:8000/api/seticon/').then(
+      response => {
+        console.log(response.data.result)
+      }
+    )
     }
+  },
+  mounted: function() {
+    axios.post('http://192.168.55.33:8000/api/getuserinfo/').then(
+      response => {
+        this.userMsg.name = response.data
+      }
+    )
   }
 }
 </script>

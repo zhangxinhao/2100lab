@@ -6,10 +6,11 @@ import json
 
 def messageBoardDic(request):
   course = Course.objects.get(request.POST.get("course_id"))
-  message = Message.objects.filter(course).order_by("-time")
+  message = Message.objects.filter(course).order_by("-time").values()
+  message = list(message)
   comment = []
   for msg in message:
-    comment.extend(Comment.objects.filter(message=msg))
+    comment.extend(list(Comment.objects.filter(message=msg).values()))
   return {"message": message, "comment": comment}
 
 def messageBoard(request):
@@ -17,7 +18,8 @@ def messageBoard(request):
 
 def leaveMessage(request):
   time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-  user = request.user
+  id = request.POST.get("id")
+  user = User.objects.get(pk=id)
   course_id = request.POST.get("course_id")
   content = request.POST.get("content")
   course = Course.objects.get(pk=course_id)
@@ -25,7 +27,8 @@ def leaveMessage(request):
   return messageBoard(request)
 
 def comment(request):
-  user = request.user
+  id = request.POST.get("id")
+  user = User.objects.get(pk=id)
   message_id = request.POST.get("message_id")
   content = request.POST.get("content")
   message = Message.objects.get(pk=message_id)
@@ -37,7 +40,7 @@ def express(request):
   if request.POST.get("attittude") == "like":
     choice = True
   message_id = request.POST.get('message_id')
-  user = request.user
+  id = request.POST.get("id")   user = User.objects.get(pk=id)
   delta = 0
   message = Message.objects.get(pk=message_id)
   done = Attitude.objects.filter(user=user, message=message, like=choice)
