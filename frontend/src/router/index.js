@@ -11,6 +11,7 @@ import brows from '@/components/brows'
 import destroied from '@/components/destroied'
 import payeds from '@/components/payeds'
 import userorder from '@/components/userorder'
+
 import baseadmin from '@/components/admin/baseadmin'
 
 Vue.use(Router)
