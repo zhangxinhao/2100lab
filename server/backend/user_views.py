@@ -1,3 +1,4 @@
+#user_views.py
 from django.core import serializers
 from django.http import HttpResponse
 from django.forms.models import model_to_dict
@@ -70,15 +71,15 @@ def delete(request):
   return HttpResponse(json.dumps({"result": 0}))
 
 def listRecentVisit(request):
-  # id = request.POST.get("id")
-  # user = User.objects.get(pk=id)
-  # record_list = Visit_record.objects.filter(user=user).order_by('-last_visit')
-  # courses = []
-  # for record in record_list:
-  #   course = Course.objects.get(pk=record.course_id)
-  #   course = model_to_dict(course)
-  #   courses.append(course)
-  # return HttpResponse(json.dumps({"courses": courses}))
+  id = request.POST.get("id")
+  user = User.objects.get(pk=id)
+  record_list = Visit_record.objects.filter(user=user).order_by('-last_visit')
+  courses = []
+  for record in record_list:
+    course = Course.objects.get(pk=record.course_id)
+    course = model_to_dict(course)
+    courses.append(course)
+  return HttpResponse(json.dumps({"courses": courses}))
   response = HttpResponse("xinhao")
   return response
 
@@ -99,23 +100,23 @@ def getVisitHistory(request):
   return HttpResponse(json.dumps({"history": history}))
 
 def getUserInfor(request):
-  # id = request.POST.get("id")
-  # user = User.objects.get(pk=id)
-  # phone_number = user.id
-  # alias = user.alias
-  # icon = user.icon
-  # is_V = user.is_V
-  # balance = user.balance
-  # return HttpResponse(json.dumps({"phone_number": phone_number, "alias": alias, "icone": icon, "is_v": is_V, "balance": balance}))
+  id = request.POST.get("id")
+  user = User.objects.get(pk=id)
+  phone_number = user.id
+  alias = user.alias
+  icon = user.icon
+  is_V = user.is_V
+  balance = user.balance
+  return HttpResponse(json.dumps({"phone_number": phone_number, "alias": alias, "icone": icon, "is_v": is_V, "balance": balance}))
   response = HttpResponse("xinhao")
   return response
 
 def setAlias(request):
   newAlias = request.POST.get("newAlias")
-  # id = request.POST.get("id")
-  # user = User.objects.get(pk=id)
-  # user.setAlias(newAlias)
-  # user.save()
+  id = request.POST.get("id")
+  user = User.objects.get(pk=id)
+  user.setAlias(newAlias)
+  user.save()
   return HttpResponse(json.dumps({"result": 0}))
 
 def setIcon(request):

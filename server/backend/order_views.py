@@ -5,6 +5,11 @@ import json
 import time
 
 def getOrders(request):
+  """
+
+  Output an iterable set, composed of dict. The keys' name of dict are: order_id, course_name, price, status and time.
+
+  """
   id = request.POST.get("id")
   user = User.objects.get(pk=id)
   list = Order.objects.filter(user_id=user.id).order_by("-time")
