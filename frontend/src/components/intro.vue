@@ -61,10 +61,10 @@
       </el-dialog>
     </div>
 
-    <div style="text-align: center; margin:0px; ">
-      <img alt="" :src="picture" width="700" height="400"/>
-    </div>
     <div id="page">
+      <div>
+        <img alt="" :src="picture" width="600" height="400"/>
+      </div>
       <div id="class">课程 {{ title }}</div>
       <div class= "money" v-if = "moneyFlag">￥{{ money }}</div>
       <div class= "money" v-else>免费课程</div>
@@ -111,16 +111,6 @@
     <div>
       <router-link to="/destroied">
         <button>焚毁界面</button>
-      </router-link>
-    </div>
-    <div>
-      <router-link to="/uploadCourse">
-        <button>上传课程</button>
-      </router-link>
-    </div>
-    <div>
-      <router-link to="/coursemanage">
-        <button>课程管理</button>
       </router-link>
     </div>
     <br />
@@ -216,7 +206,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scopde>
   .toolbar {
     width: 100%;
     height: 55px;
@@ -255,6 +245,8 @@ export default {
     border-right-width: 1px;
     border-bottom-style: solid;
     border-bottom-width: 1px;
+    border-top-style: solid;
+    border-top-width: 1px;
   }
 
   .classContent {

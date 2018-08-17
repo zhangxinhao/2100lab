@@ -10,13 +10,13 @@
 
   <div id="course-list">
     <el-table :data="courseData" border style="width: 100%">
-      <el-table-column type="index" :index="indexMethod"></el-table-column>
-      <el-table-column prop="courseId" label="课程编号" width="180"></el-table-column>
-      <el-table-column prop="courseTitle" label="课程标题" width="220"></el-table-column>
-      <el-table-column prop="destroyTime" label="焚毁时间" width="130"></el-table-column>
-      <el-table-column prop="messageRight" label="留言区是否开放" width="130"  :formatter="messageRightCal" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="coursePrice" label="课程价格" width="130"></el-table-column>
-      <el-table-column label="操作">
+      <el-table-column type="index" :index="indexMethod" header-align=center></el-table-column>
+      <el-table-column prop="courseId" label="课程编号" width="180" header-align=center></el-table-column>
+      <el-table-column prop="courseTitle" label="课程标题" width="220" header-align=center></el-table-column>
+      <el-table-column prop="destroyTime" label="焚毁时间" width="130" header-align=center></el-table-column>
+      <el-table-column header-align=center prop="messageRight" label="留言区是否开放" width="130"  :formatter="messageRightCal" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="coursePrice" label="课程价格" width="130" header-align=center></el-table-column>
+      <el-table-column label="操作" header-align=center>
         <template slot-scope="scope">
           <el-button type="text" size="small">查看</el-button>
           <el-button type="text" size="small" @click="editFunction(scope.$index)">编辑</el-button>

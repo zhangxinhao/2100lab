@@ -66,6 +66,7 @@ export default {
 </script>
 <style scoped>
   .addAdmin {
-    width:400px;
+    width: 400px;
+    margin-left: 100px;
   }
 </style>

@@ -5,23 +5,28 @@
       <hr />
       <div>
       <el-table
+        border
         :data="userOrderList"
         style="width: 100%">
         <el-table-column
+          header-align=center
           prop="userOrderId"
           label="订单编号"
           width="180">
         </el-table-column>
         <el-table-column
+          header-align=center
           prop="courseId"
           label="课程编号"
           width="180">
         </el-table-column>
         <el-table-column
+          header-align=center
           prop="orderStatus"
           label="是否支付">
         </el-table-column>
         <el-table-column
+          header-align=center
           prop="orderTime"
           label="时间">
         </el-table-column>

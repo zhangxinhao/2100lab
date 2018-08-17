@@ -74,8 +74,9 @@ export default {
 </script>
 <style scoped>
   .adminFirst {
+    width: 1600px;
+    margin: 0px auto 0px auto;
     text-align: center;
-    margin: auto 100px;
     color:#d2dce6;
   }
   .el-submenu__title {
@@ -83,7 +84,7 @@ export default {
     line-height:60px !important;
     background-color: rgb(238, 243, 247);
     font-size: 18px;
-    vertical-align:middle;
+    vertical-align: middle;
     font-weight: bold;
   }
   .col {
