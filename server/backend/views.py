@@ -9,11 +9,19 @@ def index(request):
   return response
 
 def recommendCourse(request):
+  print("in")
   list = Course.objects.filter().order_by('-create_time').values()
-  list = list(list)
+  print(len(list))
   courses = []
-  for i in range(5):
-    courses.append(list[i])
+  size = 5 if len(list) > 5 else len(list)
+  print(size)
+  for i in range(size):
+    c = list[i]
+    print(c)
+    course = {}
+    course['id'] = c["course_id"]
+    course['profile_url'] = "/static/img" + c["profile_url"]
+    courses.append(course)
   return HttpResponse(json.dumps({"courses": courses}))
 
 def freeCourses(request):
