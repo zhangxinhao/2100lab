@@ -78,7 +78,7 @@ export default {
     },
     editFunction(editIndex) {
       this.editVisible = true
-      console.log(editIndex)
+      alert(editIndex)
       this.editIndex = editIndex
     },
     edit() {

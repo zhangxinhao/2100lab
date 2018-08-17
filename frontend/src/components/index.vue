@@ -279,11 +279,11 @@ export default {
     }
   },
   created() {
-    console.log('---------------------------')
+    alert('---------------------------')
     axios.post('http://192.168.55.33:8000/api/listrecommend/').then(response => {
       alert(response.data.courses['profile_url'])
       this.imgList = response.data.courses
-      console.log(this.imgList[0].profile_url)
+      alert(this.imgList[0].profile_url)
     })
   }
 }

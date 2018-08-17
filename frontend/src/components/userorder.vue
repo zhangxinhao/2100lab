@@ -6,8 +6,7 @@
       <el-table
         border
         class="ordertable"
-        :data="userOrderList"
-        style="width: 100%">
+        :data="userOrderList">
         <el-table-column
           header-align=center
           prop="userOrderId"
@@ -62,9 +61,6 @@ export default {
     }
   },
   methods: {
-    handleChange(value) {
-      console.log(value)
-    }
   }
 }
 </script>
