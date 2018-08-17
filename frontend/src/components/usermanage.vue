@@ -11,7 +11,7 @@
   </div>
 
   <div id="user-list">
-    <el-table :data="userData" border style="width: 100%">
+    <el-table :data="userData" border width=100%>
       <el-table-column type="index" :index="indexMethod" header-align=center></el-table-column>
       <el-table-column prop="userId" label="用户ID" width="180" header-align=center></el-table-column>
       <el-table-column prop="userName" label="用户昵称" width="180" header-align=center></el-table-column>
@@ -24,7 +24,7 @@
     </el-table>
   </div>
 
-  <div class="editDialog">
+  <div class="editdialog">
     <el-dialog title="删除用户" :visible.sync="editVisible" width="400px" height="700px">
       <div>确认要删除ID为：{{userData[editIndex].userId}} 的用户？</div>
       <div slot="footer" class="edit-footer">

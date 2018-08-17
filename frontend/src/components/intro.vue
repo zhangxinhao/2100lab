@@ -206,7 +206,7 @@ export default {
   }
 }
 </script>
-<style scopde>
+<style scoped>
   .toolbar {
     width: 100%;
     height: 55px;

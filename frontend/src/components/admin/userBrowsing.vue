@@ -1,15 +1,15 @@
 <template>
-  <div class="firstDiv">
-    <div class="searchOrder">
+  <div class="firstdiv">
+    <div class="searchorder">
       <el-input class="searchbox" v-model="input" placeholder="请输入查询课程编号"></el-input><el-button class="btn" type="primary" icon="el-icon-search">搜索</el-button>
     </div>
-    <div class="orderTable">
-      <div class="orderHead">用户浏览</div>
-      <div class="reallyTable">
+    <div class="ordertable">
+      <div class="orderhead">用户浏览</div>
+      <div class="reallytable">
       <el-table
-        border="true"
-        :data="userBrowsList"
-        style="width: 100%">
+        border
+        class="mytable"
+        :data="userBrowsList">
         <el-table-column
           header-align=center
           prop="courseId"
@@ -29,7 +29,7 @@
         </el-table-column>
       </el-table>
       </div>
-      <div style="text-align: center">
+      <div>
         <el-pagination
           background
           layout="prev, pager, next"
@@ -59,9 +59,9 @@ export default {
   }
 }
 </script>
-<style>
-  .searchOrder {
-    width:300px;
+<style scoped>
+  .searchorder {
+    width: 300px;
     margin-left: 50px;
     margin-bottom: 60px;
   }
@@ -71,21 +71,24 @@ export default {
   .btn {
     width: 30%;
   }
-  .orderHead {
+  .orderhead {
     font-size: 20px;
-    color:black;
+    color: black;
     font-weight: bold;
     margin-bottom: 30px;
   }
-  .orderTable {
+  .ordertable {
     margin-left: 50px;
     width: 700px;
     margin-bottom: 50px;
   }
-  .reallyTable {
+  .reallytable {
     margin-bottom: 50px;
   }
-  .firstDiv {
+  .firstdiv {
     width: 1200px;
+  }
+  .mytable {
+    width: 100%
   }
 </style>

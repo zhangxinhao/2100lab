@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="browsTitle">
-      <div class="browsHead">订单列表</div>
-      <hr />
-      <div>
+    <div class="browstitle">
+      <div class="browshead">订单列表</div>
+      <div id="usertable">
       <el-table
         border
+        class="ordertable"
         :data="userOrderList"
         style="width: 100%">
         <el-table-column
@@ -32,17 +32,17 @@
         </el-table-column>
       </el-table>
       </div>
-    </div>
 
-    <div style="text-align: center">
-      <el-pagination
-        background
-        layout="prev, pager, next"
-        :total="userOrderList.length"
-        page-size="5"
-        :current-page.sync="nowPage"
-        :pager-count="5">
-      </el-pagination>
+      <div>
+        <el-pagination
+          background
+          layout="prev, pager, next"
+          :total="userOrderList.length"
+          page-size="5"
+          :current-page.sync="nowPage"
+          :pager-count="5">
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -69,4 +69,16 @@ export default {
 }
 </script>
 <style>
+  .browstitle {
+    width: 900px;
+  }
+  #usertable {
+    margin-bottom: 50px;
+  }
+  .browshead {
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
 </style>
