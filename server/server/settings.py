@@ -86,6 +86,13 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'vagrant',
         'NAME': '2100Lab',
+        # 'CHARSET': 'utf8',
+        # 'COLLATION': 'utf8_general_ci',
+        # 'TEST': {
+        #   'NAME': 'test',
+        #   'CHARSET': 'utf8',
+        #   'COLLATION': 'utf8_general_ci',
+        # }
     }
 }
 
@@ -114,7 +121,7 @@ AUTH_USER_MODEL = 'backend.User'
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'zh-hans'
+LANGUAGE_CODE = 'zh-Hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 

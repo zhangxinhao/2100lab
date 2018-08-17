@@ -8,6 +8,6 @@ urlpatterns = [
   path('logout/', user_views.logout),
   path('listrecentvisit/', user_views.listRecentVisit),
   path('getuserinfo/', user_views.getUserInfor),
-  path('setalias/', user_views.setAlias),
+  path('setNickname/', user_views.setNickname),
   path('seticon/', user_views.setIcon),
 ]
