@@ -1,33 +1,32 @@
 <template>
   <div>
-    <div class="browsTitle">
-      <div class="browsHead">浏览历史</div>
+    <div class="title">
+      <div class="browshead">浏览历史</div>
       <hr />
       <div v-for="brow in browList" :key="brow.courseTitle">
-        <el-container>
-          <el-aside>
-            <div class="browPicture">
+        <el-container class="contain">
+          <el-aside class="myside">
+            <div>
               <img :alt="brow.courseTitle" :src="brow.pictureSrc" width="300" height="200"/>
             </div>
           </el-aside>
-          <el-main>
-            <div class="browTitle">课程：{{ brow.courseTitle }}</div>
-            <div class="browLastTime">上次浏览时间：{{ brow.lastBrowTime }}</div>
+          <el-main class="mymain">
+            <div class="browtitle">课程：{{ brow.courseTitle }}</div>
+            <div class="browlasttime">上次浏览时间：{{ brow.lastBrowTime }}</div>
           </el-main>
         </el-container>
       </div>
 
         <!-- 每页显示六条记录 page-size -->
         <!-- 最多显示八个页面按钮 page-count -->
-      <div style="text-align:right">
+      <div>
         <el-pagination
           background
           layout="prev, pager, next"
           :total="browpages"
           page-size=6
           :current-page.sync="nowPage"
-          :pager-count=6
-          >
+          :pager-count=6>
         </el-pagination>
       </div>
     </div>
@@ -54,17 +53,28 @@ export default {
   },
   methods: {
     handleChange(value) {
-      console.log(value)
     }
   },
   mounted: function() {
     axios.post('http://192.168.55.33:8000/api/listrecentvisit/').then(
       response => {
-        console.log(response)
       }
     )
   }
 }
 </script>
-<style>
+<style scoped>
+  .title {
+    width: 800px;
+  }
+  .contain {
+    margin-bottom: 50px;
+  }
+  .browtitle {
+    margin-top: 30px;
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 50px;
+  }
 </style>

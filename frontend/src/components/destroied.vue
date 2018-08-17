@@ -28,7 +28,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   #des-outline {
     background-color: lightgray;
     width: 500px;

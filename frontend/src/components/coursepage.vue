@@ -94,7 +94,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .course_toolbar {
     width: 100%;
     height: 55px;
