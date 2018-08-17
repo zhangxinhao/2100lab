@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="firstDiv">
     <div class="searchOrder">
       <el-input class="searchbox" v-model="input" placeholder="请输入查询订单号"></el-input><el-button class="btn" type="primary" icon="el-icon-search">搜索</el-button>
     </div>
@@ -7,7 +7,7 @@
       <div class="orderHead">订单列表</div>
       <div class="reallyTable">
       <el-table
-        border
+        border="true"
         :data="userOrderList"
         style="width: 100%">
         <el-table-column
@@ -60,7 +60,6 @@
         </el-pagination>
       </div>
     </div>
-
   </div>
 </template>
 <script>
@@ -100,10 +99,13 @@ export default {
   }
   .orderTable {
     margin-left: 50px;
-    width: 1000px;
+    width: 950px;
     margin-bottom: 50px;
   }
   .reallyTable {
     margin-bottom: 50px;
+  }
+  .firstDiv {
+    width: 1200px;
   }
 </style>
