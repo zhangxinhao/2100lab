@@ -1,5 +1,5 @@
 <template>
-<div class="background" style="">
+<div class="background">
   <div class="loginform">
     <el-form :model="loform" :rules="rules" style="margin-top: 12%;">
       <h1>欢迎你，科学队长管理者</h1>
@@ -16,7 +16,7 @@
     </el-form>
     <div slot="footer" class="login-footer">
       <router-link to="/baseadmin">
-        <el-button type="primary" @click="loginFormVisible = false">登录</el-button>
+        <el-button type="primary">登录</el-button>
       </router-link>
     </div>
   </div>
@@ -36,7 +36,6 @@ export default {
       }
     }
     return {
-      loginFormVisible: true,
       loginLabelWidth: '100px',
       loform: {
         adminId: '',
