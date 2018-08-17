@@ -7,7 +7,7 @@
             <tr>
               <td>
                 <router-link to="/personal">
-                  <el-button class="user-ope" type="text" style="color:blue;">个人中心</el-button>
+                  <el-button class="user_ope" type="text">个人中心</el-button>
                 </router-link>
               </td>
               <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -15,37 +15,36 @@
           </table>
         </div>
       </el-header>
-      <el-main style="text-align: center;">
+      <el-main align="center">
         <div>
           <div>
-            <img :src="coursepicture1" alt=""
-            style="width: 25%; height: 25%; object-fit: contain;">
+            <img :src="coursepicture1" class="coursepicture">
           </div>
           <div>
             <audio autoplay="autoplay" controls="controls" preload="auto" :src="courseaudio1"></audio>
-            <el-button style="width: 50px; height: 40px;"><i class="el-icon-share" style="vertical-align:100%;"></i></el-button>
+            <el-button class="share_button" icon="el-icon-share"></el-button>
           </div>
           <div class="course_description">
-            <h1 id="course_description" :course_description="course_description"
-            style="color: skyblue;">{{ course_description }}</h1>
+            <h1 id="course_description" :course_description="course_description">{{ course_description }}</h1>
           </div>
           <div>
-            <h2 style="color: blue;">留言区</h2>
+            <el-button class="leave_msg">写留言</el-button>
+            <h2>留言区</h2>
             <div>
               <el-col class="course_msgboard" v-for="post in posts" :key="post.id">
                 <div class="course_header">
-                    <img :src="post.header" style="width: 100%; height: 100%;object-fit: fill;">
+                    <img :src="post.header" class="header_img">
                 </div>
-                <h3 style="margin-left:8%;">{{ post.author }}</h3>
+                <h3>{{ post.author }}</h3>
                 <h4>发表于 {{ post.created_at }}</h4>
-                <div style="margin-left: 40px;">{{ post.content }} </div>
+                <div class="msg_content">{{ post.content }} </div>
                 <el-button id="course_dislike" icon="el-icon-arrow-down">({{ post.like }})</el-button>
                 <el-button id="course_like" icon="el-icon-arrow-up">({{ post.like }})</el-button>
                 <el-button id="course_reply_author">回复</el-button>
                 <div >
                   <el-col class="course_reply" v-for="reply in post.reply" :key="reply.id">
                     <h5>{{ reply.author }}：</h5>
-                    <div style="margin-left: 40px;margin-bottom: 3%;">{{ reply.content }} </div>
+                    <div class="reply_content">{{ reply.content }} </div>
                   </el-col>
                 </div>
               </el-col>
@@ -118,6 +117,16 @@ export default {
     opacity: 0.7;
   }
 
+  .user_ope {
+    color: blue;
+  }
+
+  .coursepicture {
+    width: 25%;
+    height: 25%;
+    object-fit: contain;
+  }
+
   .course_description {
     width:40%;
     height: 40%;
@@ -127,6 +136,20 @@ export default {
     border: 3px solid blue;
     border-radius: 4px;
     margin-top: 20px;
+    color: skyblue;
+  }
+
+  .share_button {
+    width: 50px;
+    height: 40px;
+    vertical-align: 100%;
+  }
+
+  .leave_msg {
+    float: right;
+    margin-right: 20%;
+    background-color: skyblue;
+    color: blue;
   }
 
   .course_msgboard {
@@ -157,6 +180,21 @@ export default {
     border: 3px solid skyblue;
   }
 
+  .header_img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+
+  .msg_content {
+    margin-left: 40px;
+  }
+
+  .reply_content {
+    margin-left: 40px;
+    margin-bottom: 3%;
+  }
+
   #course_reply_author {
     width: 10%;
     height: 7%;
@@ -179,5 +217,14 @@ export default {
     font-size: 5%;
     float: right;
     margin-right: 2%;
+  }
+
+  h2 {
+    color: blue;
+    margin-left: 25%;
+  }
+
+  h3 {
+    margin-left: 8%;
   }
   </style>
