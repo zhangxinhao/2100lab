@@ -54,9 +54,6 @@ export default {
     }
   },
   methods: {
-    handleChange(value) {
-      console.log(value)
-    }
   }
 }
 </script>
