@@ -20,7 +20,7 @@ def recommendCourse(request):
     print(c)
     course = {}
     course['id'] = c["course_id"]
-    course['profile_url'] = "/static/img" + c["profile_url"]
+    course['idView'] = "/static/img" + c["profile_url"]
     courses.append(course)
   return HttpResponse(json.dumps({"courses": courses}))
 
