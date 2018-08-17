@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     onSubmitConfirm() {
-      axios.post('http://192.168.55.33:8000/api/setNickname/', qs.stringify({
+      axios.post('http://192.168.55.33:8000/api/setalias/', qs.stringify({
         newAlias: this.userMsg.name
       })).then(
         response => {
