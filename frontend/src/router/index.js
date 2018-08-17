@@ -20,6 +20,7 @@ import uploadCourse from '@/components/admin/uploadCourse'
 import courseManage from '@/components/admin/courseManage'
 import commentadmin from '@/components/admin/commentadmin'
 import usermanage from '@/components/usermanage'
+import userBrowsing from '@/components/admin/userBrowsing'
 
 Vue.use(Router)
 
@@ -117,6 +118,11 @@ export default new Router({
           path: '/commentadmin',
           name: 'commentadmin',
           component: commentadmin
+        },
+        {
+          path: '/userBrowsing',
+          name: 'userBrowsing',
+          component: userBrowsing
         }
       ]
     },
