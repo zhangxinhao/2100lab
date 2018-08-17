@@ -130,7 +130,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .upload-page {
     text-align: center;
     position: absolute;

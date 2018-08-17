@@ -45,7 +45,6 @@ export default {
     }
   }
 }
-
 </script>
 <style scoped>
   .el-aside {
@@ -68,6 +67,7 @@ export default {
   }
   .firstcontainer {
     text-align: center;
-    margin: auto 100px;
+    margin: 0px auto;
+    width: 1600px;
   }
 </style>

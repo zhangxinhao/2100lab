@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div class="billsTitle">
-      <div class="billsHead">已购课程</div>
+    <div>
+      <div>已购课程</div>
       <hr />
       <div v-for="bill in billList" :key="bill.courseTitle">
         <el-container class="text">
           <el-aside>
-            <div class="billPicture">
+            <div class="billpicture">
               <img :alt="bill.courseTitle" :src="bill.pictureSrc" style="width: 100%; height: 100%; object-fit: contain;"/>
             </div>
           </el-aside>
           <el-main>
-            <div class="billTitle">课程：{{ bill.courseTitle }}</div>
-            <div class="billLastTime">上次浏览时间：{{ bill.lastBillTime }}</div>
+            <div>课程：{{ bill.courseTitle }}</div>
+            <div>上次浏览时间：{{ bill.lastBillTime }}</div>
           </el-main>
         </el-container>
       </div>
@@ -60,14 +60,14 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
   .text {
     background-color: darkgray;
     border: 1px solid black;
     margin-bottom: 1%;
   }
 
-  .billPicture {
+  .billpicture {
     width: 94%;
     height: 200px;
     margin: 3%;

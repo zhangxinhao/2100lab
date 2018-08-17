@@ -1,9 +1,9 @@
 <template>
   <div clsss="outdiv">
-    <el-container class="adminFirst">
-      <el-header class="adminHeader">Header</el-header>
-      <el-container class="adminSecond">
-        <el-aside class="adminAside">
+    <el-container class="adminfirst">
+      <el-header class="adminheader">Header</el-header>
+      <el-container class="adminsecond">
+        <el-aside class="adminaside">
           <el-menu @select="handleSelect" unique-opened:false >
             <el-submenu index="1">
               <template class="firsebar" slot="title"><i class="el-icon-edit"></i>课程管理</template>
@@ -76,7 +76,7 @@ export default {
 }
 </script>
 <style scoped>
-  .adminFirst {
+  .adminfirst {
     width: 1600px;
     margin: 0px auto 0px auto;
     text-align: center;
