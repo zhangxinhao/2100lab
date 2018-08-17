@@ -58,6 +58,9 @@ export default {
         case '1-2':
           this.$router.push('/courseManage')
           break
+        case '2-2':
+          this.$router.push('/userBrowsing')
+          break
         case '2-3':
           this.$router.push('/commentadmin')
           break

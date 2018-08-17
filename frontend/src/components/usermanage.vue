@@ -63,7 +63,7 @@ export default {
     },
     edit() {
       this.editVisible = false
-    },
+    }
   }
 }
 </script>
