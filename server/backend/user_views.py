@@ -4,6 +4,21 @@ from django.forms.models import model_to_dict
 from .models import User, Visit_record, Picture, Course
 from django.contrib import auth
 import json
+import requests
+
+def getCode(request):
+  password = request.POST.get("password")
+  phone_number = request.POST.get('phone_number')
+  api_key = "264fb31e3ba88e5c55572dd977b2f372"
+  single_send_url = "https://sms.yunpian.com/v2/sms/single_send.json"
+  parmas = {
+    "apikey": api_key,
+    "mobile": phone_number,
+    "text": "【王康王康】您的验证码是{code}。如非本人操作，请忽略本短信".format(code=password),
+  }
+  response = requests.post(single_send_url, data=parmas)
+  re_dict = json.loads(response.text)
+  return HttpResponse(json.dumps({"result": re_dict}))
 
 def authenticate(request):
   phone_number = request.POST.get('phone_number')
