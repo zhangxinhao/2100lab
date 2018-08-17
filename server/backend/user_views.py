@@ -34,15 +34,15 @@ def authenticate(request):
         email=None,
         password="Captain Science",
         id=phone_number,
-        nickname="Captain Science",
+        alias="Captain Science",
         icon="captain/science")
       user.save()
     auth.login(request, user)
     usr = {}
     usr['id'] = user.pk
-    usr['nickname'] = user.nickname
+    usr['alias'] = user.alias
     usr['icon'] = user.icon
-    print(user.nickname)
+    print(user.alias)
     print("-----------")
     return HttpResponse(json.dumps({"result": 0, "user": usr}))
   else:
@@ -102,19 +102,19 @@ def getUserInfor(request):
   # id = request.POST.get("id")
   # user = User.objects.get(pk=id)
   # phone_number = user.id
-  # nickname = user.nickname
+  # alias = user.alias
   # icon = user.icon
   # is_V = user.is_V
   # balance = user.balance
-  # return HttpResponse(json.dumps({"phone_number": phone_number, "nickname": nickname, "icone": icon, "is_v": is_V, "balance": balance}))
+  # return HttpResponse(json.dumps({"phone_number": phone_number, "alias": alias, "icone": icon, "is_v": is_V, "balance": balance}))
   response = HttpResponse("xinhao")
   return response
 
-def setNickname(request):
-  newNickname = request.POST.get("newNickname")
+def setAlias(request):
+  newAlias = request.POST.get("newAlias")
   # id = request.POST.get("id")
   # user = User.objects.get(pk=id)
-  # user.setNickname(newNickname)
+  # user.setAlias(newAlias)
   # user.save()
   return HttpResponse(json.dumps({"result": 0}))
 

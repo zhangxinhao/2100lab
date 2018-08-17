@@ -9,22 +9,22 @@ class User(AbstractUser):
   id = models.CharField(max_length=11, primary_key=True)
   icon = models.CharField(max_length=150)
   is_V = models.BooleanField(default=False)
-  nickname = models.CharField(max_length=15)
+  alias = models.CharField(max_length=15)
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-  course_manage = models.BooleanField(default=False)
-  user_manage = models.BooleanField(default=False)
-  operation_history = models.BooleanField(default=False)
-  order_manage = models.BooleanField(default=False)
-  admin_manage = models.BooleanField(default=False)
+  manage_right = models.PositiveIntegerField(default=0)
 
   def setActive(self, active):
     self.is_active = active
 
-  def setNickname(self, newNickname):
-    self.nickname = newNickname
+  def setAlias(self, newAlias):
+    self.alias = newAlias
 
   def setIcon(self, newIcon):
     self.icon = newIcon
+
+class rights_list(models.Model):
+  id = models.PositiveIntegerField(primary_key=True)
+  right = models.CharField(max_length=20)
 
 class Course(models.Model):
   course_id = models.PositiveIntegerField(primary_key=True)
@@ -54,11 +54,12 @@ class Order(models.Model):
   order_id = models.PositiveIntegerField(primary_key=True)
   course = models.ForeignKey('Course', on_delete=models.CASCADE)
   user = models.ForeignKey('User', on_delete=models.CASCADE)
+  price = models.PositiveIntegerField()
   status = models.PositiveIntegerField(default=0)
   time = models.PositiveIntegerField()
 
 class Operation(models.Model):
-  code = models.PositiveIntegerField(primary_key=True)
+  operation_code = models.PositiveIntegerField(primary_key=True)
   operation = models.CharField(max_length=50)
 
 class Admin_operation_record(models.Model):

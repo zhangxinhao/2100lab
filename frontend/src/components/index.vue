@@ -249,6 +249,8 @@ export default {
         response => {
           this.login = true
           this.login = false
+          //  = response.data.user.alias
+          //  = response.data.user.icon
         }
       )
     },
