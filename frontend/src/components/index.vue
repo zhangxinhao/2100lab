@@ -20,11 +20,11 @@
     </div>
 
     <div class="carousel">
-      <el-carousel :interval="4000" type="card" height="500px">
+      <el-carousel :interval="4000" type="card" height="500px" width="800px">
         <el-carousel-item v-for="item in imgList" :key="item.id">
           <el-row>
             <router-link id="logo" to="/intro">
-              <el-col :span="24"><img ref="500px" :src="item.idView" class="banner_img"/></el-col>
+              <el-col :span="24"><img ref="500px" height="500px" width="800px" :src="item.profile_url" class="banner_img"/></el-col>
             </router-link>
           </el-row>
         </el-carousel-item>
@@ -265,6 +265,14 @@ export default {
         }
       )
     }
+  },
+  created() {
+    console.log('---------------------------')
+    axios.post('http://192.168.55.33:8000/api/listrecommend/').then(response => {
+      alert(response.data.courses['profile_url'])
+      this.imgList = response.data.courses
+      console.log(this.imgList[0].profile_url)
+    })
   }
 }
 </script>
