@@ -69,7 +69,7 @@ export default {
       ],
       editVisible: false,
       index: 0,
-      editIndex: 0,
+      editIndex: 0
     }
   },
   methods: {
@@ -87,7 +87,7 @@ export default {
     messageRightCal(data) {
       return data.messageRight ? '开放' : '关闭'
     }
-  },
+  }
 }
 </script>
 

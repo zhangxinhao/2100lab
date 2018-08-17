@@ -52,6 +52,15 @@ export default {
     },
     handleSelect(key, keyPath) {
       switch (key) {
+        case '1-1':
+          this.$router.push('/uploadCourse')
+          break
+        case '1-2':
+          this.$router.push('/courseManage')
+          break
+        case '2-3':
+          this.$router.push('/commentadmin')
+          break
         case '4-1':
           this.$router.push('/orderAdmin')
           break
