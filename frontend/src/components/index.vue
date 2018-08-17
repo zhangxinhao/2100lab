@@ -236,7 +236,13 @@ export default {
         phone_number: this.loform.phonenumber,
         verification_code: 0
       })).then(
-        response => (console.log(response.data.result))
+        response => {
+          this.login = true
+          this.login = false
+          //  = response.data.user.nickname
+          //  = response.data.user.icon
+        }
+
       )
     },
     getVerification: function() {
