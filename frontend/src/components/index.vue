@@ -41,7 +41,7 @@
           </el-form-item>
           <el-form-item label="验证码" :label-width="loginLabelWidth">
             <el-col :span="18">
-              <el-input v-model="loform.password" auto-complete="off" clearable></el-input>
+              <el-input v-model="loform.usercode" auto-complete="off" clearable></el-input>
             </el-col>
           </el-form-item>
         </el-form>
@@ -207,9 +207,7 @@ export default {
         phonenumber: '',
         password: '',
         delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        usercode: ''
       },
       registerFormVisible: false,
       registerLabelWidth: '100px',
@@ -228,7 +226,19 @@ export default {
     }
   },
   methods: {
+    createRandom: function() {
+      var code = Math.floor(Math.random() * (99999 - 0) + 100000)
+      this.loform.password = code.toString()
+    },
     loginFunction: function() {
+      if (this.loform.delivery === false) {
+        alert('请输入正确的手机号和对应的验证码！')
+        return
+      }
+      if (this.loform.usercode !== this.loform.password) {
+        alert('请输入正确的验证码！')
+        return
+      }
       this.loginFormVisible = false
       this.login = false
       this.not_login = true
@@ -239,21 +249,22 @@ export default {
         response => {
           this.login = true
           this.login = false
-          //  = response.data.user.nickname
-          //  = response.data.user.icon
         }
-
       )
     },
     getVerification: function() {
-      this.loginFormVisible = false
-      axios.post('https://api.nexmo.com/verify/json', qs.stringify({
-        api_key: '7048d3cf',
-        api_secret: 'gs7ihF0gSuwotAgw',
-        number: '86' + this.loform.phonenumber,
-        brand: 'NexmoVerifyTest'
+      if (this.loform.phonenumber === '') {
+        alert('请输入正确的手机号！')
+        return
+      }
+      this.createRandom()
+      axios.post('http://192.168.55.33:8000/api/getcode/', qs.stringify({
+        phone_number: this.loform.phonenumber,
+        password: this.loform.password
       })).then(
-        response => (console.log(response.data))
+        response => {
+          this.loform.delivery = true
+        }
       )
     },
     logout: function() {
@@ -261,7 +272,6 @@ export default {
       this.not_login = false
       axios.post('http://192.168.55.33:8000/api/logout/').then(
         response => {
-          console.log(response.data.status)
         }
       )
     }
