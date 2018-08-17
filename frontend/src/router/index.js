@@ -12,7 +12,6 @@ import destroied from '@/components/destroied'
 import payeds from '@/components/payeds'
 import userorder from '@/components/userorder'
 import personalinfor from '@/components/personalinfor'
-
 import adminlogin from '@/components/admin/adminlogin'
 import baseadmin from '@/components/admin/baseadmin'
 import addAdmin from '@/components/admin/addAdmin'
@@ -20,6 +19,7 @@ import orderAdmin from '@/components/admin/orderAdmin'
 import uploadCourse from '@/components/admin/uploadCourse'
 import courseManage from '@/components/admin/courseManage'
 import commentadmin from '@/components/admin/commentadmin'
+import usermanage from '@/components/usermanage'
 
 Vue.use(Router)
 
@@ -119,6 +119,11 @@ export default new Router({
           component: commentadmin
         }
       ]
+    },
+    {
+      path: '/usermanage',
+      name: 'usermanage',
+      component: usermanage
     }
   ]
 })
