@@ -1,7 +1,8 @@
 <template>
-<div class="logindialog">
-  <el-dialog title="管理员登录" :visible.sync="loginFormVisible" width="400px" height="700px">
-    <el-form :model="loform" :rules="rules">
+<div class="background">
+  <div class="loginform">
+    <el-form :model="loform" :rules="rules" style="margin-top: 12%;">
+      <h1>欢迎你，科学队长管理者</h1>
       <el-form-item label="用户名" :label-width="loginLabelWidth" prop="adminId">
         <el-col :span="18">
           <el-input v-model="loform.adminId" auto-complete="true" clearable required="required" oninvalid="this.setCustomValidity('warning')"></el-input>
@@ -15,12 +16,11 @@
     </el-form>
     <div slot="footer" class="login-footer">
       <router-link to="/baseadmin">
-        <el-button type="primary" @click="loginFormVisible = false">登录</el-button>
+        <el-button type="primary">登录</el-button>
       </router-link>
     </div>
-  </el-dialog>
+  </div>
 </div>
-
 </template>
 <script>
 export default {
@@ -36,15 +36,10 @@ export default {
       }
     }
     return {
-      loginFormVisible: true,
       loginLabelWidth: '100px',
       loform: {
         adminId: '',
-        password: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        password: ''
       },
       rules: {
         adminId: [{ required: true, validator: validateAdminId, trigger: 'blur' }],
@@ -56,5 +51,27 @@ export default {
   }
 }
 </script>
-<style>
+
+<style scoped>
+  .loginform {
+    width: 400px;
+    height: 300px;
+    border: 2px solid skyblue;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: 33%;
+    background-color: rgb(236, 242, 243);
+  }
+
+  h1 {
+    font-size: 100%;
+    margin-bottom: 8%;
+  }
+
+  .background {
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(lightskyblue, white);
+    padding-top: 120px;
+  }
 </style>
