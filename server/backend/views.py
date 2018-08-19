@@ -11,16 +11,13 @@ def index(request):
 def recommendCourse(request):
   print("in")
   list = Course.objects.filter().order_by('-create_time').values()
-  print(len(list))
   courses = []
   size = 5 if len(list) > 5 else len(list)
-  print(size)
   for i in range(size):
     c = list[i]
-    print(c)
     course = {}
     course['id'] = c["course_id"]
-    course['idView'] = "/static/img" + c["profile_url"]
+    course['profile_url'] = "/static/img" + c["profile_url"]
     courses.append(course)
   return HttpResponse(json.dumps({"courses": courses}))
 
@@ -43,11 +40,16 @@ def listCourses(request, free=None, number=None):
   elif free is True:
     list = Course.objects.filter(price=0).order_by("-create_time").values()
   else:
-    list = Course.objects.filter(price_gt=0).order_by("-create_time").values()
-  list = list(list)
+    list = Course.objects.filter(price__gt=0).order_by("-create_time").values()
   courses = []
   if number is not None:
     for i in range(number):
+      course = {}
+      c = list[i]
+      course['id'] = c.course_id
+      course['name'] = c.course_name
+      course['profile_url'] = c.profile_url
+      course['price'] = c.price
       courses.append(list[i])
   else:
     courses = list
