@@ -190,7 +190,7 @@ export default {
         {profile_url: require('../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
         {profile_url: require('../assets/images/paid.jpg'), name: '啊啊啊啊啊'}
       ],
-      pageSize: 2,
+      pageSize: 12,
       totalnumber: 90,
       pageNo: 1
     }

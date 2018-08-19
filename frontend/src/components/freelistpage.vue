@@ -88,10 +88,10 @@
           <li v-for="item in freeList" :key="item.id" class="listone">
             <el-container class="listone-outer">
               <el-aside width="200px">
-                <img :src="item.idView" :alt="item.idTitle" width="200px" height="150px">
+                <img :src="item.profile_url" :alt="item.name" width="200px" height="150px">
               </el-aside>
               <el-container class="listone-inner">
-                <el-header style="width:320px;height:90px"><div>{{item.idTitle}}</div></el-header>
+                <el-header style="width:320px;height:90px"><div>{{item.name}}</div></el-header>
                 <el-main style="width:320px;height:50px;padding:10px;text-align:right"><el-button icon="el-icon-caret-right" type="primary">点击阅读</el-button></el-main>
               </el-container>
             </el-container>
@@ -104,10 +104,12 @@
     <div style="text-align:right">
       <el-pagination
         background
-        layout="prev, pager, next"
-        :total="totalnumber"
-        :current-page.sync="pageNo"
-        :pager-count="7"
+          layout="prev, pager, next"
+          :page-size="pageSize"
+          :total="totalnumber"
+          :current-page.sync="pageNo"
+          :pager-count="7"
+          @current-change="flipeOver"
         >
       </el-pagination>
     </div>
@@ -117,6 +119,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data() {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
@@ -171,26 +175,52 @@ export default {
         lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }],
         rephone: [{ required: true, validator: validaterePhone, trigger: 'blur' }]
       },
+      courses: [],
       freeList: [
-        {idView: require('../assets/images/free.jpg'), idTitle: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
-        {idView: require('../assets/images/free.jpg'), idTitle: '啊啊啊啊啊'},
-        {idView: require('../assets/images/free.jpg'), idTitle: '啊啊啊啊啊'},
-        {idView: require('../assets/images/free.jpg'), idTitle: '啊啊啊啊啊'},
-        {idView: require('../assets/images/free.jpg'), idTitle: '啊啊啊啊啊'},
-        {idView: require('../assets/images/free.jpg'), idTitle: '啊啊啊啊啊'},
-        {idView: require('../assets/images/free.jpg'), idTitle: '啊啊啊啊啊'},
-        {idView: require('../assets/images/free.jpg'), idTitle: '啊啊啊啊啊'},
-        {idView: require('../assets/images/free.jpg'), idTitle: '啊啊啊啊啊'},
-        {idView: require('../assets/images/free.jpg'), idTitle: '啊啊啊啊啊'},
-        {idView: require('../assets/images/free.jpg'), idTitle: '啊啊啊啊啊'},
-        {idView: require('../assets/images/free.jpg'), idTitle: '啊啊啊啊啊'}
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'}
       ],
+      pageSize: 12,
       totalnumber: 100,
       pageNo: 1
     }
   },
   methods: {
-
+    flipeOver: function (page) {
+      let _end = this.pageSize * page
+      let end = this.totalnumber < (_end) ? this.totalnumber : _end
+      this.freeList = []
+      let start = this.pageSize * (page - 1)
+      for (let i = start; i < end; i++) {
+        this.freeList.push(this.courses[i])
+      }
+    }
+  },
+  created: function () {
+    axios.post('http://192.168.55.33:8000/api/listfreecourses/').then(response => {
+      this.courses = response.data.courses
+      this.totalnumber = this.courses.length
+      let totalnumber = this.totalnumber
+      this.freeList = []
+      let size = this.pageSize
+      if (totalnumber < size) {
+        this.freeList = this.courses
+      } else {
+        for (let i = 0; i < size; i++) {
+          this.freeList.push(this.courses[i])
+        }
+      }
+    })
   }
 }
 </script>
