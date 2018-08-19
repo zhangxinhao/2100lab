@@ -148,6 +148,7 @@
 <script>
 import axios from 'axios'
 import qs from 'qs'
+
 export default {
   data: function () {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/

@@ -17,7 +17,7 @@ def recommendCourse(request):
     c = list[i]
     course = {}
     course['id'] = c["course_id"]
-    course['profile_url'] = "/static/img" + c["profile_url"]
+    course['profile_url'] = c["profile_url"]
     courses.append(course)
   return HttpResponse(json.dumps({"courses": courses}))
 
@@ -49,6 +49,7 @@ def listCourses(request, free=None, number=None):
       course['id'] = c.course_id
       course['name'] = c.course_name
       course['profile_url'] = c.profile_url
+      course['description'] = c.description
       course['price'] = c.price
       courses.append(list[i])
   else:
