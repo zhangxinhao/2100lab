@@ -67,7 +67,7 @@
       <li style="display:inline; width: 120px; height:20px;float:left"></li>
       <li style="display:inline">
         <router-link to="/">
-          <el-button icon="el-icon-back">首页</el-button>
+          <el-button icon="el-icon-back" class="backtoindex">首页</el-button>
         </router-link>
       </li>
       <li style="display:inline">
