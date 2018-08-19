@@ -21,6 +21,7 @@ import courseManage from '@/components/admin/courseManage'
 import commentadmin from '@/components/admin/commentadmin'
 import usermanage from '@/components/usermanage'
 import userBrowsing from '@/components/admin/userBrowsing'
+import List from '@/components/List'
 
 Vue.use(Router)
 
@@ -130,6 +131,11 @@ export default new Router({
       path: '/usermanage',
       name: 'usermanage',
       component: usermanage
+    },
+    {
+      path: '/to-do',
+      name: 'ToDo',
+      component: List
     }
   ]
 })
