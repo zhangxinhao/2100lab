@@ -11,5 +11,7 @@ urlpatterns = [
   path('setalias/', user_views.setAlias),
   path('seticon/', user_views.setIcon),
   path('listrecommend/', views.recommendCourse),
+  path('listfreeindex/', views.briefFreeCourses),
+  path('listpricedindex/', views.briefPricedCourses),
   path('getcode/',user_views.getCode),
 ]

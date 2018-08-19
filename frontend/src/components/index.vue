@@ -24,7 +24,7 @@
         <el-carousel-item v-for="item in imgList" :key="item.id">
           <el-row>
             <router-link id="logo" to="/intro">
-              <el-col :span="24"><img ref="500px" height="500px" width="800px" :src="item.idView" class="banner_img"/></el-col>
+              <el-col :span="24"><img ref="500px" height="500px" width="800px" :src="item.profile_url" class="banner_img"/></el-col>
             </router-link>
           </el-row>
         </el-carousel-item>
@@ -89,14 +89,14 @@
       </el-row>
       <el-row :gutter="20">
         <el-col v-for="item in freeList_1" :key="item.id" :span="8">
-          <img :src="item.idView" width="350px" height="250px" >
-          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
+          <img :src="item.profile_url" width="350px" height="250px" >
+          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
         </el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col v-for="item in freeList_2" :key="item.id" :span="8">
-          <img :src="item.idView" width="350px" height="250px">
-          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
+          <img :src="item.profile_url" width="350px" height="250px">
+          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
         </el-col>
         <el-col :span="8">
           <router-link to="/freelistpage">
@@ -121,14 +121,14 @@
       </el-row>
       <el-row :gutter="20">
         <el-col v-for="item in costList_1" :key="item.id" :span="8">
-          <img :src="item.idView" width="350px" height="250px" >
-          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
+          <img :src="item.profile_url" width="350px" height="250px" >
+          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
         </el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col v-for="item in costList_2" :key="item.id" :span="8">
-          <img :src="item.idView" width="350px" height="250px">
-          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.idDescribe}}</div>
+          <img :src="item.profile_url" width="350px" height="250px">
+          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
         </el-col>
         <el-col :span="8">
           <router-link to="/costlistpage">
@@ -146,10 +146,10 @@
 </template>
 
 <script>
-import qs from 'qs'
 import axios from 'axios'
+import qs from 'qs'
 export default {
-  data() {
+  data: function () {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
     var validateloPhone = (rule, value, callback) => {
       if (!this.loform.phonenumber) {
@@ -177,27 +177,27 @@ export default {
     }
     return {
       imgList: [
-        {id: 0, idView: require('../assets/images/banner1.jpg')},
-        {id: 1, idView: require('../assets/images/banner1.jpg')},
-        {id: 2, idView: require('../assets/images/banner1.jpg')}
+        {id: 0, profile_url: require('../assets/images/banner1.jpg')},
+        {id: 1, profile_url: require('../assets/images/banner1.jpg')},
+        {id: 2, profile_url: require('../assets/images/banner1.jpg')}
       ],
       freeList_1: [
-        {idView: require('../assets/images/free.jpg'), idDescribe: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
-        {idView: require('../assets/images/free.jpg'), idDescribe: '啊啊啊啊啊'},
-        {idView: require('../assets/images/free.jpg'), idDescribe: '啊啊啊啊啊'}
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'}
       ],
       freeList_2: [
-        {idView: require('../assets/images/free.jpg'), idDescribe: '呜呜呜呜呜呜呜呜'},
-        {idView: require('../assets/images/free.jpg'), idDescribe: '呜呜呜呜呜呜呜呜'}
+        {profile_url: require('../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'},
+        {profile_url: require('../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'}
       ],
       costList_1: [
-        {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'},
-        {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'},
-        {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'}
+        {profile_url: require('../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
+        {profile_url: require('../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
+        {profile_url: require('../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
       ],
       costList_2: [
-        {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'},
-        {idView: require('../assets/images/paid.jpg'), idDescribe: '喵喵喵喵喵'}
+        {profile_url: require('../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
+        {profile_url: require('../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
       ],
       login: true,
       not_login: false,
@@ -278,12 +278,31 @@ export default {
       )
     }
   },
-  created() {
-    alert('---------------------------')
+  created: function () {
     axios.post('http://192.168.55.33:8000/api/listrecommend/').then(response => {
-      alert(response.data.courses['profile_url'])
       this.imgList = response.data.courses
-      alert(this.imgList[0].profile_url)
+    })
+    axios.post('http://192.168.55.33:8000/api/listfreeindex/').then(response => {
+      this.freeList_1 = []
+      this.freeList_2 = []
+      let freelist = response.data.courses
+      for (let i = 0; i < 3; i++) {
+        this.freeList_1.push(freelist[i])
+      }
+      for (let i = 3; i < 5; i++) {
+        this.freeList_2.push(freelist[i])
+      }
+    })
+    axios.post('http://192.168.55.33:8000/api/listpricedindex/').then(response => {
+      this.costList_1 = []
+      this.costList_2 = []
+      let costList = response.data.courses
+      for (let i = 0; i < 3; i++) {
+        this.costList_1.push(costList[i])
+      }
+      for (let i = 3; i < 5; i++) {
+        this.costList_2.push(costList[i])
+      }
     })
   }
 }
