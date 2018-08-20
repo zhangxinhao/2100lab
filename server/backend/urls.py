@@ -1,6 +1,6 @@
 from .manager import client
 from django.conf.urls import url, include
-from . import views, user_views, order_views, course_views
+from . import views, user_views, order_views, course_views, pay
 from django.urls import path
 
 
@@ -20,6 +20,6 @@ urlpatterns = [
   path('listorders/', order_views.getOrders),
   path('getcode/',user_views.getCode),
   path('coursepage/', course_views.loadCourse),
-
   path('admin_userhistory/', client.client_history),
+  path('paywithqr/', pay.pay_qr)
 ]
