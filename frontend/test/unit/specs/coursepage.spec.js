@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import coursepage from '@/components/coursepage'
+import coursepage from '@/components/user/coursepage'
 
 describe('coursepage.vue', () => {
   it('should render correct contents', () => {

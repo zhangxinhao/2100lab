@@ -64,7 +64,7 @@
       <div>
         <img alt="" src="../../assets/class2.jpg" width="600" height="400"/>
       </div>
-      <div id="class">课程{{ title }}</div>
+      <div id="class">课程:{{ title }}</div>
       <div class= "money" v-if = "moneyFlag">￥{{ money }}</div>
       <div class= "money" v-else>免费课程</div>
       <p class="classContent">{{ classIntro }}</p>
@@ -77,20 +77,28 @@
       </div>
     </div>
 
-    <div class = "payDialog">
+    <div class = "paydialog">
       <el-dialog title="支付" :visible.sync="payDialogVisible" width="500px" height="400px">
-        <div id="paymoney">课程金额：￥{{ money }}</div>
-        <el-button  class="pay" type="primary" round>支付宝支付</el-button><br />
-        <el-button  class="pay" type="primary" round v-if ="bountyFlag">赏金支付</el-button>
-        <el-button  class="pay" type="primary" round v-else disabled>赏金不足</el-button>
+        <div class="payhead">
+          <div id="paymoney">课程:{{ title }}</div>
+          <div id="paydialogmoney">￥{{ money }}</div>
+        </div>
+        <div class="hint">现金支付</div>
+        <div class="payframe">
+          <el-radio v-model="radio1" label="alipay_qr" border @change="payway">支付宝支付</el-radio>
+          <el-radio v-model="radio1" label="wx_pub_qr" border @change="payway">微信支付</el-radio>
+        </div>
+        <div class="hint">赏金支付</div>
+        <el-button  class="pay" type="primary" v-if ="bountyFlag">赏金支付</el-button>
+        <el-button  class="pay" type="primary" plain v-else disabled>赏金不足</el-button>
         <span id="account">当前赏金： {{ bounty }}</span>
       </el-dialog>
     </div>
 
-     <div class = "shareDialog">
+     <div class = "sharedialog">
       <el-dialog title="分享" :visible.sync="shareDialogVisible" width="400px" height="400px">
         <div style="text-align: center;">
-          <div id="shareText">分享途径</div>
+          <div id="sharetext">分享途径</div>
           <el-button class="share" type="primary" round>微信分享</el-button><br />
           <el-button class="share" type="primary" round>QQ分享</el-button><br />
         </div>
@@ -164,6 +172,7 @@ export default {
       shareDialogVisible: false,
       login: true,
       not_login: false,
+      loginLabelWidth: '100px',
       loginFormVisible: false,
       loform: {
         phonenumber: '',
@@ -186,10 +195,14 @@ export default {
       rules: {
         lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }],
         rephone: [{ required: true, validator: validaterePhone, trigger: 'blur' }]
-      }
+      },
+      radio1: ''
     }
   },
   methods: {
+    payway: function(callback) {
+      this.radio1 = callback
+    }
   }
 }
 </script>
@@ -266,9 +279,9 @@ export default {
 
   .pay {
     margin:20px;
-    margin-left: 40px;
-    width:150px;
-    height: 45px;
+    margin-left: 50px;
+    margin-top: 0px;
+    width:126px;
   }
 
   .el-dialog__body {
@@ -276,27 +289,52 @@ export default {
   }
 
   #paymoney {
-    font-size: 24px;
-    margin-bottom: 40px;
+    font-size: 22px;
+    margin-bottom: 20px;
     margin-left: 50px;
     margin-top: 0px;
     font-weight: bold;
   }
 
-  #account {
-    margin-left: 15px;
-    font-size: 15px;
+  #paydialogmoney {
+    font-size: 22px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+    margin-top: 0px;
+    font-weight: bold;
+    color: red;
   }
 
-  #shareText {
+  .hint {
+    margin-left: 50px;
+    margin-bottom: 20px;
+    font-size: 17px;
+  }
+
+  .payhead {
+    margin-bottom: 40px;
+  }
+
+  .payframe {
+    margin-left: 50px;
+    margin-bottom: 50px;
+  }
+
+  #account {
+    margin-left: 0px;
+    font-size: 15px;
+    color:#409EFF;
+  }
+
+  #sharetext {
     font-size: 24px;
     font-weight: bold;
     margin: 20px;
   }
 
   .share {
-    margin:20px;
-    width:150px;
+    margin: 20px;
+    width: 150px;
     height: 45px;
   }
 

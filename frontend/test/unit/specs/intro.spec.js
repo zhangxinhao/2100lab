@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import intro from '@/components/intro'
+import intro from '@/components/user/intro'
 
 describe('intro', () => {
   it('set a correct data', () => {

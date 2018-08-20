@@ -1,13 +1,13 @@
 <template>
   <div class="firstDiv">
     <div class="searchOrder">
-      <el-input class="searchbox" v-model="input" placeholder="请输入查询订单号"></el-input><el-button class="btn" type="primary" icon="el-icon-search">搜索</el-button>
+      <el-input class="searchbox" v-model="inputword" placeholder="请输入查询订单号"></el-input><el-button class="btn" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
     </div>
     <div class="orderTable">
       <div class="orderHead">订单列表</div>
       <div class="reallyTable">
       <el-table
-        border="true"
+        border
         :data="userOrderList"
         style="width: 100%">
         <el-table-column
@@ -54,7 +54,7 @@
           background
           layout="prev, pager, next"
           :total="userOrderList.length"
-          page-size="5"
+          :page-size="pageSize"
           :current-page.sync="nowPage"
           :pager-count="5">
         </el-pagination>
@@ -66,6 +66,7 @@
 export default {
   data() {
     return {
+      inputword: '',
       userOrderList: [
         {userOrderId: '110', userId: '12', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'},
         {userOrderId: '110', userId: '12', courseId: '1', orderStatus: '已退费', orderTime: '2018-3-5'},
@@ -74,7 +75,12 @@ export default {
         {userOrderId: '110', userId: '12', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'},
         {userOrderId: '110', userId: '12', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'}
       ],
-      nowPage: 1
+      nowPage: 1,
+      pageSize: 2
+    }
+  },
+  methods: {
+    search: function() {
     }
   }
 }

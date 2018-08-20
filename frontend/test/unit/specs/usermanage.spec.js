@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import usermanage from '@/components/usermanage'
+import usermanage from '@/components/admin/usermanage'
 
 describe('usermanage', () => {
   it('set a correct data', () => {
