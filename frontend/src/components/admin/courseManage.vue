@@ -14,7 +14,7 @@
       <el-table-column prop="courseId" label="课程编号" width="180" header-align=center></el-table-column>
       <el-table-column prop="courseTitle" label="课程标题" width="220" header-align=center></el-table-column>
       <el-table-column prop="destroyTime" label="焚毁时间" width="130" header-align=center></el-table-column>
-      <el-table-column header-align=center prop="messageRight" label="留言区是否开放" width="130"  :formatter="messageRightCal" show-overflow-tooltip></el-table-column>
+      <el-table-column header-align=center prop="messageRight" label="留言区是否开放" width="130" :formatter="messageRightCal" show-overflow-tooltip></el-table-column>
       <el-table-column prop="coursePrice" label="课程价格" width="130" header-align=center></el-table-column>
       <el-table-column label="操作" header-align=center>
         <template slot-scope="scope">
@@ -78,7 +78,6 @@ export default {
     },
     editFunction(editIndex) {
       this.editVisible = true
-      alert(editIndex)
       this.editIndex = editIndex
     },
     edit() {

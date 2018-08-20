@@ -29,8 +29,9 @@
               <el-menu-item class="col" index="5-1">数据分析</el-menu-item>
             </el-submenu>
              <el-submenu index="6">
-              <template class="secondbar" slot="title"><i class="el-icon-plus"></i>添加管理员</template>
+              <template class="secondbar" slot="title"><i class="el-icon-plus"></i>管理员操作</template>
               <el-menu-item class="col" index="6-1">新增管理员</el-menu-item>
+              <el-menu-item class="col" index="6-2">编辑管理员</el-menu-item>
             </el-submenu>
           </el-menu>
         </el-aside>
@@ -72,6 +73,9 @@ export default {
           break
         case '6-1':
           this.$router.push('/addAdmin')
+          break
+        case '6-2':
+          this.$router.push('/adminManage')
           break
       }
     }
