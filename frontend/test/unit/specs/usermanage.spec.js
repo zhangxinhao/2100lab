@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import usermanage from '@/components/admin/usermanage'
 
 describe('usermanage', () => {

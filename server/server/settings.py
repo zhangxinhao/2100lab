@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, 'server/database.cnf'),
-        },
+        # 'OPTIONS': {
+        #     'read_default_file': os.path.join(BASE_DIR, 'server/database.cnf'),
+        # },
         'USER': 'root',
         'PASSWORD': 'vagrant',
         'NAME': '2100Lab',
