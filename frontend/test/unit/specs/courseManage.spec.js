@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import courseManage from '@/components/admin/courseManage'
 
 describe('courseManage', () => {

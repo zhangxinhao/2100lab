@@ -63,24 +63,34 @@ class logoutTestCase(TestCase):
 
 class listrecentvisitTestCase(TestCase):
     def setUp(self):
+      User.objects.create_user(
+      username=13230037688,
+      password="Captain Science",
+      id=13230037688,
+      alias="Captain Science",
+      icon="captain/science"
+      )
       self.client = Client()
     def test_yes(self):
-      response = self.client.post('/api/listrecentvisit/')
-      self.assertEqual(response.status_code, 200)
-
-class getuserinfoTestCase(TestCase):
-    def setUp(self):
-      self.client = Client()
-    def test_yes(self):
-      response = self.client.post('/api/getuserinfo/')
+      response = self.client.post('/api/listrecentvisit/',{
+        'id': '13230037688'
+      })
       self.assertEqual(response.status_code, 200)
 
 class setaliasTestCase(TestCase):
     def setUp(self):
+      User.objects.create_user(
+      username=13230037688,
+      password="Captain Science",
+      id=13230037688,
+      alias="Captain Science",
+      icon="captain/science"
+      )
       self.client = Client()
     def test_yes(self):
       response = self.client.post('/api/setalias/',{
-        'newAlias': 'hehe'
+        'newAlias': 'hehe',
+        'id': '13230037688'
       })
       self.assertEqual(response.status_code, 200)
 
@@ -89,7 +99,7 @@ class seticonTestCase(TestCase):
       User.objects.create_user(
       username=13230037688,
       password="Captain Science",
-      id=13230037688,
+      id='13230037688',
       alias="Captain Science",
       icon="captain/science"
       )
