@@ -23,6 +23,7 @@ import commentadmin from '@/components/admin/commentadmin'
 import userBrowsing from '@/components/admin/userBrowsing'
 import usermanage from '@/components/admin/usermanage'
 import adminManage from '@/components/admin/adminManage'
+import adminHistory from '@/components/admin/adminHistory'
 
 Vue.use(Router)
 
@@ -135,6 +136,11 @@ export default new Router({
           path: '/adminManage',
           component: adminManage,
           name: 'adminManage'
+        },
+        {
+          path: '/adminHistory',
+          component: adminHistory,
+          name: 'adminHistory'
         }
       ]
     }

@@ -68,6 +68,9 @@ export default {
         case '2-3':
           this.$router.push('/commentadmin')
           break
+        case '3-1':
+          this.$router.push('/adminHistory')
+          break
         case '4-1':
           this.$router.push('/orderAdmin')
           break
