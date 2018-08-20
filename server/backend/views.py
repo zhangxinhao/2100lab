@@ -17,7 +17,7 @@ def recommendCourse(request):
     c = list[i]
     course = {}
     course['id'] = c["course_id"]
-    course['profile_url'] = "/static/img" + c["profile_url"]
+    course['profile_url'] = c["profile_url"]
     courses.append(course)
   return HttpResponse(json.dumps({"courses": courses}))
 
@@ -42,15 +42,20 @@ def listCourses(request, free=None, number=None):
   else:
     list = Course.objects.filter(price__gt=0).order_by("-create_time").values()
   courses = []
+  end = 0
   if number is not None:
-    for i in range(number):
-      course = {}
-      c = list[i]
-      course['id'] = c.course_id
-      course['name'] = c.course_name
-      course['profile_url'] = c.profile_url
-      course['price'] = c.price
-      courses.append(list[i])
+    end = number
   else:
-    courses = list
+    end = len(list)
+  if end is 0:
+    return HttpResponse(json.dumps({"courses": courses}))
+  for i in range(number):
+    course = {}
+    c = list[i]
+    course['id'] = c.course_id
+    course['name'] = c.course_name
+    course['profile_url'] = c.profile_url
+    course['description'] = c.description
+    course['price'] = c.price
+    courses.append(list[i])
   return HttpResponse(json.dumps({"courses": courses}))

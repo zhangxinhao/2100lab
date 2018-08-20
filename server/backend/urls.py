@@ -13,5 +13,7 @@ urlpatterns = [
   path('listrecommend/', views.recommendCourse),
   path('listfreeindex/', views.briefFreeCourses),
   path('listpricedindex/', views.briefPricedCourses),
+  path('listfreecourses/', views.freeCourses),
+  path('listpricedcourses/', views.pricedCourses),
   path('getcode/',user_views.getCode),
 ]
