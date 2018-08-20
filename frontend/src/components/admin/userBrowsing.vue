@@ -1,7 +1,7 @@
 <template>
   <div class="firstdiv">
     <div class="searchorder">
-      <el-input class="searchbox" v-model="input" placeholder="请输入查询课程编号"></el-input><el-button class="btn" type="primary" icon="el-icon-search">搜索</el-button>
+      <el-input class="searchbox" v-model="inputword" placeholder="请输入查询课程编号"></el-input><el-button class="btn" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
     </div>
     <div class="ordertable">
       <div class="orderhead">用户浏览</div>
@@ -40,7 +40,7 @@
           background
           layout="prev, pager, next"
           :total="userBrowsList.length"
-          page-size="5"
+          :page-size="pageSize"
           :current-page.sync="nowPage"
           :pager-count="5">
         </el-pagination>
@@ -52,6 +52,7 @@
 export default {
   data() {
     return {
+      inputword: '',
       userBrowsList: [
         {courseId: '123', userId: '1', userName: '丁一峰', lastTime: '2018-3-6'},
         {courseId: '124', userId: '5', userName: '丁一峰', lastTime: '2018-8-4'},
@@ -60,7 +61,13 @@ export default {
         {courseId: '125', userId: '1', userName: '丁一峰', lastTime: '2018-3-6'},
         {courseId: '123', userId: '2', userName: '丁一峰', lastTime: '2018-3-6'},
         {courseId: '123', userId: '1', userName: '丁一峰', lastTime: '2018-3-6'}
-      ]
+      ],
+      nowPage: 1,
+      pageSize: 2
+    }
+  },
+  methods: {
+    search: function() {
     }
   }
 }
