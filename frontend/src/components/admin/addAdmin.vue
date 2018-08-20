@@ -1,5 +1,6 @@
 <template>
   <div class="addAdmin">
+
     <el-form ref="newAdmin"
       :model="newAdmin"
       label-width="200px" >
@@ -67,6 +68,7 @@ export default {
 <style scoped>
   .addAdmin {
     width: 400px;
-    margin-left: 100px;
+    margin-left: 200px;
+    margin-top: 50px;
   }
 </style>

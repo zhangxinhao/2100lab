@@ -13,9 +13,9 @@
   <div id="user-list">
     <el-table :data="userData" border width=100%>
       <el-table-column type="index" :index="indexMethod" header-align=center></el-table-column>
-      <el-table-column prop="userId" label="用户ID" width="180" header-align=center></el-table-column>
-      <el-table-column prop="userName" label="用户昵称" width="180" header-align=center></el-table-column>
-      <el-table-column prop="balance" label="用户赏金" width="180" header-align=center></el-table-column>
+      <el-table-column prop="userId" label="用户ID" width="200" header-align=center></el-table-column>
+      <el-table-column prop="userName" label="用户昵称" width="220" header-align=center></el-table-column>
+      <el-table-column prop="balance" label="用户赏金" width="220" header-align=center></el-table-column>
       <el-table-column label="操作" header-align=center>
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="editFunction(scope.$index)">删除用户</el-button>
@@ -77,7 +77,7 @@ export default {
   width: 1000px;
 }
 #user-list {
-  width: 800px;
+  width: 1000px;
   height: 1000px;
   margin: 50px auto;
   text-align: center;
