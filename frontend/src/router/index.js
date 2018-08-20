@@ -12,6 +12,7 @@ import destroied from '@/components/destroied'
 import payeds from '@/components/payeds'
 import userorder from '@/components/userorder'
 import personalinfor from '@/components/personalinfor'
+
 import adminlogin from '@/components/admin/adminlogin'
 import baseadmin from '@/components/admin/baseadmin'
 import addAdmin from '@/components/admin/addAdmin'
@@ -19,8 +20,8 @@ import orderAdmin from '@/components/admin/orderAdmin'
 import uploadCourse from '@/components/admin/uploadCourse'
 import courseManage from '@/components/admin/courseManage'
 import commentadmin from '@/components/admin/commentadmin'
-import usermanage from '@/components/usermanage'
 import userBrowsing from '@/components/admin/userBrowsing'
+import usermanage from '@/components/admin/usermanage'
 
 Vue.use(Router)
 
@@ -123,13 +124,13 @@ export default new Router({
           path: '/userBrowsing',
           name: 'userBrowsing',
           component: userBrowsing
+        },
+        {
+          path: '/usermanage',
+          name: 'usermanage',
+          component: usermanage
         }
       ]
-    },
-    {
-      path: '/usermanage',
-      name: 'usermanage',
-      component: usermanage
     }
   ]
 })
