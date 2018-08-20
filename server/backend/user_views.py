@@ -43,8 +43,6 @@ def authenticate(request):
     usr['id'] = user.pk
     usr['alias'] = user.alias
     usr['icon'] = user.icon
-    print(user.alias)
-    print("-----------")
     return HttpResponse(json.dumps({"result": 0, "user": usr}))
   else:
     return HttpResponse(json.dumps({"result": 1}))
