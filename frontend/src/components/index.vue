@@ -1,6 +1,5 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <template>
-
   <div class="index">
     <div class="toolbar">
       <table align="right">
@@ -20,11 +19,15 @@
     </div>
 
     <div class="carousel">
-      <el-carousel :interval="4000" type="card" height="500px" width="800px">
+      <el-carousel :interval="4000" type="card" height="350px">
         <el-carousel-item v-for="item in imgList" :key="item.id">
           <el-row>
             <router-link id="logo" to="/intro">
+<<<<<<< HEAD
               <el-col :span="24"><img ref="500px" height="500px" width="800px" :src="item.profile_url" class="banner_img"/></el-col>
+=======
+              <el-col :span="24"><img ref="500px" height="100%" width="100%" :src="item.idView" class="banner_img"/></el-col>
+>>>>>>> Beautify the page index. Ref #116
             </router-link>
           </el-row>
         </el-carousel-item>
@@ -79,7 +82,7 @@
     <hr />
     <div>&nbsp;</div>
     <div class="free-list">
-      <el-row :gutter="20">
+      <el-row :gutter="30">
         <el-col :span="8">
           <h1 style="text-align:left;">免费区</h1>
         </el-col>
@@ -87,13 +90,13 @@
       <el-row>
         <div>&nbsp;</div>
       </el-row>
-      <el-row :gutter="20">
+      <el-row :gutter="30">
         <el-col v-for="item in freeList_1" :key="item.id" :span="8">
           <img :src="item.profile_url" width="350px" height="250px" >
           <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
         </el-col>
       </el-row>
-      <el-row :gutter="20">
+      <el-row :gutter="30">
         <el-col v-for="item in freeList_2" :key="item.id" :span="8">
           <img :src="item.profile_url" width="350px" height="250px">
           <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
@@ -308,11 +311,11 @@ export default {
   }
 }
 </script>
+
 <style scoped>
   body {
-    margin: 0;
+    margin:0 auto;
   }
-
   #app {
     margin: 0;
     padding: 0;
@@ -323,8 +326,8 @@ export default {
    }
 
   .index {
-    margin: 0;
-    padding: 0;
+    /* width: 1200px; */
+    margin: 0 auto;
   }
 
   .toolbar {
@@ -341,7 +344,7 @@ export default {
   }
 
   .carousel {
-    width: 100%;
+    width: 1200px;
     text-align: center;
     margin: 20px auto;
   }
@@ -358,13 +361,13 @@ export default {
     opacity: 0.7;
   }
   .free-list {
-    width:1500px;
+    width:1200px;
     /* height:550px; */
     margin:20px auto 20px auto;
     /* background-color: black; */
   }
   .cost-list {
-    width:1500px;
+    width:1200px;
     /* height:550px; */
     margin:20px auto 20px auto;
     /* background-color: black; */
@@ -383,5 +386,8 @@ export default {
     background-color:rgb(240, 240, 240);
     opacity: 0.7;
     color:black;
+  }
+  hr {
+    width: 1200px;
   }
 </style>
