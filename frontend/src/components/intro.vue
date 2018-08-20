@@ -25,7 +25,7 @@
               <el-input v-model="loform.phonenumber" auto-complete="true" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/" oninvalid="this.setCustomValidity('warning')"></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="验证码" :label-width="loginLabelWidth">
+          <el-form-item label="验证码" label-width=100px>
             <el-col :span="18">
               <el-input v-model="loform.password" auto-complete="off" clearable></el-input>
             </el-col>
@@ -60,12 +60,12 @@
         </div>
       </el-dialog>
     </div>
-
     <div id="page">
       <div>
         <img alt="" :src="picture" width="600" height="400"/>
       </div>
-      <div id="class">课程 {{ title }}</div>
+      <div id="class">课程{{ title }}</div>
+      {{ message }}
       <div class= "money" v-if = "moneyFlag">￥{{ money }}</div>
       <div class= "money" v-else>免费课程</div>
       <p class="classContent">{{ classIntro }}</p>
@@ -148,6 +148,7 @@ export default {
       }, 100)
     }
     return {
+      message: 'hello!',
       title: '我们爱科学',
       buttonShow: '观看',
       // burnedFlag表示当前是否焚毁（true为已焚毁）
@@ -157,24 +158,15 @@ export default {
       money: '25',
       // paidFlag表示当前用户是否已支付该课程(true 表示已支付)
       paidFlag: false,
-
       classIntro: '在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。',
-      picture: require('../assets/class2.jpg'),
-
-      // 支付框是否显示
+      //picture: require("../assets/class2.jpg"),
       payDialogVisible: false,
-      // 当前用户赏金
       bounty: 15,
-      // 当前赏金是否可以购买课程（true为可购买）
       bountyFlag: false,
-
-      // 分享框是否显示
       shareDialogVisible: false,
-
       login: true,
       not_login: false,
       loginFormVisible: false,
-      loginLabelWidth: '100px',
       loform: {
         phonenumber: '',
         password: '',
