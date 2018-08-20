@@ -20,7 +20,7 @@
     <div class="logindialog">
       <el-dialog title="登录" :visible.sync="loginFormVisible" width="400px" height="700px">
         <el-form :model="loform" :rules="rules">
-          <el-form-item label="手机号" :label-width="loginLabelWidth" prop="lophone">
+          <el-form-item label="手机号" label-width="100px" prop="lophone">
             <el-col :span="18">
               <el-input v-model="loform.phonenumber" auto-complete="true" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/" oninvalid="this.setCustomValidity('warning')"></el-input>
             </el-col>
@@ -72,8 +72,13 @@
           <el-button class="judgeButton" type="danger" plain v-if = "burnedFlag">已焚毁</el-button>
           <el-button class="judgeButton" type="success" v-else-if = "moneyFlag==0">立即观看</el-button>
           <el-button class="judgeButton" type="success" v-else-if = "paidFlag">立即观看</el-button>
-          <el-button class="judgeButton" type="primary" v-else-if = "paidFlag==0" @click="payDialogVisible = true">去支付</el-button>
-          <el-button class="judgeButton" type="primary" icon="el-icon-share" @click.native="shareDialogVisible = true"></el-button>
+          <el-button class="judgeButton" type="primary" v-else-if = "paidFlag==0" @click="payDialogVisible = true" style="width:120px;height:50px">去支付</el-button>
+          <!-- <el-button class="judgeButton" type="primary" icon="el-icon-share" @click.native="shareDialogVisible = true"></el-button> -->
+          <br />
+          <div style="text-align:right">
+          <i class="el-icon-share"></i><span>分享到</span>
+          <share :config="config" style="display:inline"></share>
+          </div>
       </div>
     </div>
 
@@ -95,15 +100,16 @@
       </el-dialog>
     </div>
 
-     <div class = "sharedialog">
+     <!-- <div class = "shareDialog">
       <el-dialog title="分享" :visible.sync="shareDialogVisible" width="400px" height="400px">
         <div style="text-align: center;">
-          <div id="sharetext">分享途径</div>
-          <el-button class="share" type="primary" round>微信分享</el-button><br />
-          <el-button class="share" type="primary" round>QQ分享</el-button><br />
+          <div id="shareText">分享途径</div>
+            <el-button class="share" type="primary" round>微信分享</el-button><br />
+            <el-button class="share" type="primary" round>QQ分享</el-button><br />
+          <share :config="config"></share>
         </div>
       </el-dialog>
-    </div>
+    </div> -->
 
     <div>
       <router-link to="/coursepage">
@@ -196,7 +202,18 @@ export default {
         lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }],
         rephone: [{ required: true, validator: validaterePhone, trigger: 'blur' }]
       },
-      radio1: ''
+      radio1: '',
+      config: {
+        // url: '', // 网址，默认使用 window.location.href
+        source: '', // 来源（QQ空间会用到）, 默认读取head标签
+        title: '', // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
+        description: '', // 描述, 默认读取head标签
+        image: '', // 图片, 默认取网页中第一个img标签
+        sites: ['qzone', 'qq', 'weibo', 'wechat'], // 启用的站点
+        wechatQrcodeTitle: '微信扫一扫：分享', // 微信二维码提示文字
+        wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>'
+        // disabled: ['google', 'facebook', 'twitter'], // 禁用的站点
+      }
     }
   },
   methods: {
@@ -338,4 +355,7 @@ export default {
     height: 45px;
   }
 
+  .operate {
+    text-align: center;
+  }
 </style>
