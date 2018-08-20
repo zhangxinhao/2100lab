@@ -58,6 +58,10 @@ class Order(models.Model):
   status = models.PositiveIntegerField(default=0)
   time = models.PositiveIntegerField()
 
+class Order_status(models.Model):
+  status_code = models.PositiveIntegerField(primary_key=True)
+  status = models.CharField(max_length=6)
+
 class Operation(models.Model):
   operation_code = models.PositiveIntegerField(primary_key=True)
   operation = models.CharField(max_length=50)

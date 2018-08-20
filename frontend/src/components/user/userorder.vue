@@ -9,24 +9,24 @@
         :data="userOrderList">
         <el-table-column
           header-align=center
-          prop="userOrderId"
+          prop="order_id"
           label="订单编号"
           width="180">
         </el-table-column>
         <el-table-column
           header-align=center
-          prop="courseId"
+          prop="course_id"
           label="课程编号"
           width="180">
         </el-table-column>
         <el-table-column
           header-align=center
-          prop="orderStatus"
+          prop="status"
           label="是否支付">
         </el-table-column>
         <el-table-column
           header-align=center
-          prop="orderTime"
+          prop="time"
           label="时间">
         </el-table-column>
       </el-table>
@@ -36,31 +36,72 @@
         <el-pagination
           background
           layout="prev, pager, next"
-          :total="userOrderList.length"
-          page-size="5"
+          :total="totalNumber"
+          :page-size="pageSize"
           :current-page.sync="nowPage"
-          :pager-count="5">
+          :pager-count="5"
+          @current-change="flipeOver">
         </el-pagination>
       </div>
     </div>
   </div>
 </template>
+
 <script>
+import axios from 'axios'
+
 export default {
   data() {
     return {
+      list: [],
       userOrderList: [
-        {userOrderId: '110', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'},
-        {userOrderId: '110', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'},
-        {userOrderId: '110', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'},
-        {userOrderId: '110', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'},
-        {userOrderId: '110', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'},
-        {userOrderId: '110', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'}
+        {order_id: '110', course_id: '1', status: '已支付', time: '2018-3-5'},
+        {order_id: '110', course_id: '1', status: '已支付', time: '2018-3-5'},
+        {order_id: '110', course_id: '1', status: '已支付', time: '2018-3-5'},
+        {order_id: '110', course_id: '1', status: '已支付', time: '2018-3-5'},
+        {order_id: '110', course_id: '1', status: '已支付', time: '2018-3-5'},
+        {order_id: '110', course_id: '1', status: '已支付', time: '2018-3-5'}
       ],
-      nowPage: 1
+      nowPage: 1,
+      pageSize: 2,
+      totalNumber: 100
     }
   },
   methods: {
+    flipeOver: function (page) {
+      let _end = this.pageSize * page
+      let end = this.totalNumber < _end ? this.totalNumber : _end
+      this.userOrderList = []
+      let start = _end - this.pageSize
+      for (let i = start; i < end; i++) {
+        this.userOrderList.push({
+          'order_id': this.list[i].order_id,
+          'course_id': this.list[i].course_id,
+          'status': this.list[i].status,
+          'time': new Date(this.list[i].time * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ')
+        })
+      }
+    }
+  },
+  beforeCreate: function() {
+    axios.post('http://192.168.55.33:8000/api/listorders/').then(response => {
+      this.userOrderList = []
+      this.list = response.data.orders
+      this.totalNumber = this.list.length
+      let size = this.pageSize
+      if (this.totalNumber < size) {
+        this.userOrderList = this.list
+      } else {
+        for (let i = 0; i < size; i++) {
+          this.userOrderList.push({
+            'order_id': this.list[i].order_id,
+            'course_id': this.list[i].course_id,
+            'status': this.list[i].status,
+            'time': new Date(this.list[i].time * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ')
+          })
+        }
+      }
+    })
   }
 }
 </script>
