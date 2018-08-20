@@ -2,7 +2,7 @@
   <div class="destroied"  style="text-align: center">
     <div id="des-outline">
       <div id="des-inner">
-        <img src="../assets/images/fire.png" id="fire-img" style="width:250px">
+        <img src="../../assets/images/fire.png" id="fire-img" style="width:250px">
         <div style="margin:80px auto">
           <div class="des-message">该页面已被焚毁</div>
           <br />

@@ -38,14 +38,14 @@ export default {
   data() {
     return {
       billList: [
-        {pictureSrc: require('../assets/p_course.jpg'), courseTitle: '小雨晨光内', lastBillTime: '2018-3-5'},
-        {pictureSrc: require('../assets/p_course.jpg'), courseTitle: '初来叶上闻', lastBillTime: '2018-3-5'},
-        {pictureSrc: require('../assets/p_course.jpg'), courseTitle: '雾交才洒地', lastBillTime: '2018-3-5'},
-        {pictureSrc: require('../assets/p_course.jpg'), courseTitle: '风逆旋随云', lastBillTime: '2018-3-5'},
-        {pictureSrc: require('../assets/p_course.jpg'), courseTitle: '暂起柴荆色', lastBillTime: '2018-3-5'},
-        {pictureSrc: require('../assets/p_course.jpg'), courseTitle: '轻沾鸟兽群', lastBillTime: '2018-3-5'},
-        {pictureSrc: require('../assets/p_course.jpg'), courseTitle: '麝香山一半', lastBillTime: '2018-3-5'},
-        {pictureSrc: require('../assets/p_course.jpg'), courseTitle: '亭午未全分', lastBillTime: '2018-3-5'}
+        {pictureSrc: require('../../assets/p_course.jpg'), courseTitle: '小雨晨光内', lastBillTime: '2018-3-5'},
+        {pictureSrc: require('../../assets/p_course.jpg'), courseTitle: '初来叶上闻', lastBillTime: '2018-3-5'},
+        {pictureSrc: require('../../assets/p_course.jpg'), courseTitle: '雾交才洒地', lastBillTime: '2018-3-5'},
+        {pictureSrc: require('../../assets/p_course.jpg'), courseTitle: '风逆旋随云', lastBillTime: '2018-3-5'},
+        {pictureSrc: require('../../assets/p_course.jpg'), courseTitle: '暂起柴荆色', lastBillTime: '2018-3-5'},
+        {pictureSrc: require('../../assets/p_course.jpg'), courseTitle: '轻沾鸟兽群', lastBillTime: '2018-3-5'},
+        {pictureSrc: require('../../assets/p_course.jpg'), courseTitle: '麝香山一半', lastBillTime: '2018-3-5'},
+        {pictureSrc: require('../../assets/p_course.jpg'), courseTitle: '亭午未全分', lastBillTime: '2018-3-5'}
       ],
       // 总共有多少记录
       billpages: 200,

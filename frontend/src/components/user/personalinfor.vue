@@ -30,7 +30,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      header: require('../assets/images/header2.jpg'),
+      header: require('../../assets/images/header2.jpg'),
       labelPosition: 'right',
       userMsg: {
         name: 'UJoe',

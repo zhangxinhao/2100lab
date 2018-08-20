@@ -177,27 +177,27 @@ export default {
     }
     return {
       imgList: [
-        {id: 0, profile_url: require('../assets/images/banner1.jpg')},
-        {id: 1, profile_url: require('../assets/images/banner1.jpg')},
-        {id: 2, profile_url: require('../assets/images/banner1.jpg')}
+        {id: 0, profile_url: require('../../assets/images/banner1.jpg')},
+        {id: 1, profile_url: require('../../assets/images/banner1.jpg')},
+        {id: 2, profile_url: require('../../assets/images/banner1.jpg')}
       ],
       freeList_1: [
-        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
-        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../assets/images/free.jpg'), name: '啊啊啊啊啊'}
+        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
+        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'}
       ],
       freeList_2: [
-        {profile_url: require('../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'},
-        {profile_url: require('../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'}
+        {profile_url: require('../../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'},
+        {profile_url: require('../../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'}
       ],
       costList_1: [
-        {profile_url: require('../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
-        {profile_url: require('../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
-        {profile_url: require('../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
+        {profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
+        {profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
+        {profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
       ],
       costList_2: [
-        {profile_url: require('../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
-        {profile_url: require('../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
+        {profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
+        {profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
       ],
       login: true,
       not_login: false,

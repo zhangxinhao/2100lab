@@ -68,9 +68,9 @@ export default {
     return {
       userOrderList: [
         {userOrderId: '110', userId: '12', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'},
+        {userOrderId: '110', userId: '12', courseId: '1', orderStatus: '已退费', orderTime: '2018-3-5'},
         {userOrderId: '110', userId: '12', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'},
-        {userOrderId: '110', userId: '12', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'},
-        {userOrderId: '110', userId: '12', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'},
+        {userOrderId: '110', userId: '12', courseId: '1', orderStatus: '未支付', orderTime: '2018-3-5'},
         {userOrderId: '110', userId: '12', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'},
         {userOrderId: '110', userId: '12', courseId: '1', orderStatus: '已支付', orderTime: '2018-3-5'}
       ],

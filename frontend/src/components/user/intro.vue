@@ -62,7 +62,7 @@
     </div>
     <div id="page">
       <div>
-        <img alt="" src="../assets/class2.jpg" width="600" height="400"/>
+        <img alt="" src="../../assets/class2.jpg" width="600" height="400"/>
       </div>
       <div id="class">课程{{ title }}</div>
       <div class= "money" v-if = "moneyFlag">￥{{ money }}</div>
