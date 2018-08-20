@@ -38,12 +38,12 @@ export default {
   data() {
     return {
       browList: [
-        {pictureSrc: require('../assets/read.jpg'), courseTitle: '春眠不觉晓', lastBrowTime: '2018-3-5'},
-        {pictureSrc: require('../assets/read.jpg'), courseTitle: '处处闻啼鸟', lastBrowTime: '2018-3-5'},
-        {pictureSrc: require('../assets/read.jpg'), courseTitle: '夜来风雨声', lastBrowTime: '2018-3-5'},
-        {pictureSrc: require('../assets/read.jpg'), courseTitle: '花落知多少', lastBrowTime: '2018-3-5'},
-        {pictureSrc: require('../assets/read.jpg'), courseTitle: '少壮不努力', lastBrowTime: '2018-3-5'},
-        {pictureSrc: require('../assets/read.jpg'), courseTitle: '老大徒伤悲', lastBrowTime: '2018-3-5'}
+        {pictureSrc: require('../../assets/read.jpg'), courseTitle: '春眠不觉晓', lastBrowTime: '2018-3-5'},
+        {pictureSrc: require('../../assets/read.jpg'), courseTitle: '处处闻啼鸟', lastBrowTime: '2018-3-5'},
+        {pictureSrc: require('../../assets/read.jpg'), courseTitle: '夜来风雨声', lastBrowTime: '2018-3-5'},
+        {pictureSrc: require('../../assets/read.jpg'), courseTitle: '花落知多少', lastBrowTime: '2018-3-5'},
+        {pictureSrc: require('../../assets/read.jpg'), courseTitle: '少壮不努力', lastBrowTime: '2018-3-5'},
+        {pictureSrc: require('../../assets/read.jpg'), courseTitle: '老大徒伤悲', lastBrowTime: '2018-3-5'}
       ],
       // 总共有多少记录
       browpages: 200,

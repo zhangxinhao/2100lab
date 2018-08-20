@@ -61,11 +61,11 @@
 export default {
   data() {
     return {
-      coursepicture1: require('../assets/images/course1.jpg'),
-      courseaudio1: require('../assets/audios/audio1.mp3'),
+      coursepicture1: require('../../assets/images/course1.jpg'),
+      courseaudio1: require('../../assets/audios/audio1.mp3'),
       course_description: '该课程还没有添加描述哦！',
       posts: [
-        {header: require('../assets/images/header2.jpg'),
+        {header: require('../../assets/images/header2.jpg'),
           created_at: '2018-8-14',
           author: 'UJoe',
           content: 'just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.',
@@ -75,13 +75,13 @@ export default {
           ],
           like: '5',
           dislike: '0'},
-        {header: require('../assets/images/header1.jpg'),
+        {header: require('../../assets/images/header1.jpg'),
           created_at: '2018-8-15',
           author: 'Zombi',
           content: 'I just want your brain.',
           like: '1',
           dislike: '4'},
-        {header: require('../assets/images/header3.jpg'),
+        {header: require('../../assets/images/header3.jpg'),
           created_at: '2018-8-15',
           author: 'Leeroy',
           content: 'I like this audio~',
