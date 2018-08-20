@@ -107,5 +107,7 @@ export default {
   }
   .firstDiv {
     width: 1200px;
+    margin: 50px auto;
+    text-align: center;
   }
 </style>

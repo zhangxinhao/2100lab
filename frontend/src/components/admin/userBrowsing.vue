@@ -24,6 +24,12 @@
         </el-table-column>
         <el-table-column
           header-align=center
+          prop="userName"
+          label="用户昵称"
+          width="300">
+        </el-table-column>
+        <el-table-column
+          header-align=center
           prop="lastTime"
           label="浏览时间">
         </el-table-column>
@@ -47,13 +53,13 @@ export default {
   data() {
     return {
       userBrowsList: [
-        {courseId: '123', userId: '1', lastTime: '2018-3-6'},
-        {courseId: '124', userId: '5', lastTime: '2018-8-4'},
-        {courseId: '128', userId: '1', lastTime: '2018-5-12'},
-        {courseId: '121', userId: '3', lastTime: '2018-5-23'},
-        {courseId: '125', userId: '1', lastTime: '2018-3-6'},
-        {courseId: '123', userId: '2', lastTime: '2018-3-6'},
-        {courseId: '123', userId: '1', lastTime: '2018-3-6'}
+        {courseId: '123', userId: '1', userName: '丁一峰', lastTime: '2018-3-6'},
+        {courseId: '124', userId: '5', userName: '丁一峰', lastTime: '2018-8-4'},
+        {courseId: '128', userId: '1', userName: '丁一峰', lastTime: '2018-5-12'},
+        {courseId: '121', userId: '3', userName: '丁一峰', lastTime: '2018-5-23'},
+        {courseId: '125', userId: '1', userName: '丁一峰', lastTime: '2018-3-6'},
+        {courseId: '123', userId: '2', userName: '丁一峰', lastTime: '2018-3-6'},
+        {courseId: '123', userId: '1', userName: '丁一峰', lastTime: '2018-3-6'}
       ]
     }
   }
@@ -79,7 +85,7 @@ export default {
   }
   .ordertable {
     margin-left: 50px;
-    width: 700px;
+    width: 1000px;
     margin-bottom: 50px;
   }
   .reallytable {
@@ -87,6 +93,8 @@ export default {
   }
   .firstdiv {
     width: 1200px;
+    margin: 50px auto;
+    text-align: center;
   }
   .mytable {
     width: 100%
