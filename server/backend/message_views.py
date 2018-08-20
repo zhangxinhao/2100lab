@@ -12,12 +12,22 @@ def messageBoardDic(request):
 
   """
   course = Course.objects.get(request.POST.get("course_id"))
-  message = Message.objects.filter(course).order_by("-time").values()
-  message = list(message)
-  comment = []
+  message = Message.objects.filter(course_id=course).order_by("-time").values()
+  messages = []
   for msg in message:
-    comment.extend(list(Comment.objects.filter(message=msg).values()))
-  return {"message": message, "comment": comment}
+    user = User.objects.get(pk=msg.author_id)
+    comments = Comment.objects.filter(message_id=msg.id).valuse()
+    messages.append({
+      "message_id": msg.id,
+      "author": user.alias,
+      "icon": user.icon,
+      "content": msg.content,
+      "time": msg.time,
+      "likes": msg.likes,
+      "dislikes": msg.dislikes,
+      "reply": comments
+    })
+  return {"message": messages}
 
 def messageBoard(request):
   """
