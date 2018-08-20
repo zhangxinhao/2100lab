@@ -23,11 +23,7 @@
         <el-carousel-item v-for="item in imgList" :key="item.id">
           <el-row>
             <router-link id="logo" to="/intro">
-<<<<<<< HEAD
-              <el-col :span="24"><img ref="500px" height="500px" width="800px" :src="item.profile_url" class="banner_img"/></el-col>
-=======
-              <el-col :span="24"><img ref="500px" height="100%" width="100%" :src="item.idView" class="banner_img"/></el-col>
->>>>>>> Beautify the page index. Ref #116
+              <el-col :span="24"><img ref="500px" height="100%" width="100%" :src="item.profile_url" class="banner_img"/></el-col>
             </router-link>
           </el-row>
         </el-carousel-item>
