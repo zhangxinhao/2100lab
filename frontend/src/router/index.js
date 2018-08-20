@@ -22,6 +22,7 @@ import courseManage from '@/components/admin/courseManage'
 import commentadmin from '@/components/admin/commentadmin'
 import userBrowsing from '@/components/admin/userBrowsing'
 import usermanage from '@/components/admin/usermanage'
+import adminManage from '@/components/admin/adminManage'
 
 Vue.use(Router)
 
@@ -56,22 +57,22 @@ export default new Router({
         {
           path: '/brows',
           component: brows,
-          name: brows
+          name: 'brows'
         },
         {
           path: '/payeds',
           component: payeds,
-          name: payeds
+          name: 'payeds'
         },
         {
           path: '/userorder',
           component: userorder,
-          name: userorder
+          name: 'userorder'
         },
         {
           path: '/personalinfor',
           component: personalinfor,
-          name: personalinfor
+          name: 'personalinfor'
         }
       ]
     },
@@ -98,7 +99,7 @@ export default new Router({
         {
           path: '/addAdmin',
           component: addAdmin,
-          name: addAdmin
+          name: 'addAdmin'
         },
         {
           path: '/orderAdmin',
@@ -129,6 +130,11 @@ export default new Router({
           path: '/usermanage',
           name: 'usermanage',
           component: usermanage
+        },
+        {
+          path: '/adminManage',
+          component: adminManage,
+          name: 'adminManage'
         }
       ]
     }
