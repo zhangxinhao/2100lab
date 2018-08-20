@@ -1,5 +1,5 @@
 from django.conf.urls import url, include
-from . import views, user_views, order_views
+from . import views, user_views, order_views, course_views
 from django.urls import path
 
 urlpatterns = [
@@ -17,4 +17,5 @@ urlpatterns = [
   path('listpricedcourses/', views.pricedCourses),
   path('listorders/', order_views.getOrders),
   path('getcode/',user_views.getCode),
+  path('coursepage/', course_views.loadCourse)
 ]

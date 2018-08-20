@@ -38,7 +38,7 @@
                 <h3>{{ post.author }}</h3>
                 <h4>发表于 {{ post.created_at }}</h4>
                 <div class="msg_content">{{ post.content }} </div>
-                <el-button id="course_dislike" icon="el-icon-arrow-down">({{ post.like }})</el-button>
+                <el-button id="course_dislike" icon="el-icon-arrow-down">({{ post.dislike }})</el-button>
                 <el-button id="course_like" icon="el-icon-arrow-up">({{ post.like }})</el-button>
                 <el-button id="course_reply_author">回复</el-button>
                 <div >
@@ -58,12 +58,17 @@
 </template>
 
 <script>
+import axios from 'axios'
+import qs from 'qs'
+
 export default {
   data() {
     return {
       coursepicture1: require('../../assets/images/course1.jpg'),
       courseaudio1: require('../../assets/audios/audio1.mp3'),
+      courseid: '',
       course_description: '该课程还没有添加描述哦！',
+      tempcourse: [],
       posts: [
         {header: require('../../assets/images/header2.jpg'),
           created_at: '2018-8-14',
@@ -89,6 +94,31 @@ export default {
           dislike: '0'}
       ]
     }
+  },
+  methods: {
+
+  },
+  created: function () {
+    axios.post('http://192.168.55.33:8000/api/coursepage/', qs.stringify({
+      course_id: this.courseid
+    })).then(response => {
+      this.posts = []
+      this.tempcourse = response.data.course
+      this.coursepicture1 = this.tempcourse.pictures
+      this.courseaudio1 = this.tempcourse.audio
+      this.course_description = this.tempcourse.course_description
+      for (let i = 0; i < this.tempcourse.lenth; i++) {
+        this.posts.push({
+          'header': this.tempcourse.message.icon,
+          'create_at': this.tempcourse.message.time,
+          'author': this.tempcourse.message.author,
+          'content': this.tempcourse.message.content,
+          'reply': this.tempcourse.message.reply,
+          'like': this.tempcourse.message.likes,
+          'dislike': this.tempcourse.message.dislikes
+        })
+      }
+    })
   }
 }
 </script>

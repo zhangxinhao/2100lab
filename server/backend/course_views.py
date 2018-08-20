@@ -18,6 +18,7 @@ def loadCourse(request):
   pictures = Picture.objects.filter(course=course).order_by("start").values()
   pictures = list(pictures)
   audio = course.audio_url
+  course_description = course.description
   mb = messageBoardDic(request)
-  course = {"pictures": pictures, "audio": audio, "message": mb["message"], "comment": mb["comment"]}
-  return HttpResponse(json.dumps(course))
+  course = {"pictures": pictures, "audio": audio, "message": mb, "course_description": course_description}
+  return HttpResponse(json.dumps({"course": course}))
