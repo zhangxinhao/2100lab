@@ -90,9 +90,10 @@
         </div>
         <div class="hint">现金支付</div>
         <div class="payframe">
-          <el-radio v-model="radio1" label="alipay_qr" border @change="payway">支付宝支付</el-radio>
-          <el-radio v-model="radio1" label="wx_pub_qr" border @change="payway">微信支付</el-radio>
+          <el-radio v-model="radio1" label="alipay_qr" @change="payway">支付宝支付</el-radio>
+          <el-radio v-model="radio1" label="wx_pub_qr" @change="payway">微信支付</el-radio>
         </div>
+        <el-button  class="pay" type="primary">立即支付</el-button>
         <div class="hint">赏金支付</div>
         <el-button  class="pay" type="primary" v-if ="bountyFlag">赏金支付</el-button>
         <el-button  class="pay" type="primary" plain v-else disabled>赏金不足</el-button>
@@ -298,7 +299,8 @@ export default {
     margin:20px;
     margin-left: 50px;
     margin-top: 0px;
-    width:126px;
+    margin-bottom: 60px;
+    width: 100px;
   }
 
   .el-dialog__body {
@@ -324,17 +326,18 @@ export default {
 
   .hint {
     margin-left: 50px;
-    margin-bottom: 20px;
-    font-size: 17px;
+    margin-bottom: 40px;
+    font-size: 18px;
+    font-weight: bolder;
   }
 
   .payhead {
-    margin-bottom: 40px;
+    margin-bottom: 60px;
   }
 
   .payframe {
     margin-left: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
   }
 
   #account {
