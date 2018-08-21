@@ -40,7 +40,7 @@
           :page-size="pageSize"
           :current-page.sync="nowPage"
           :pager-count="5"
-          @current-change="flipeOver">
+          @current-change="flipOver">
         </el-pagination>
       </div>
     </div>
@@ -68,7 +68,7 @@ export default {
     }
   },
   methods: {
-    flipeOver: function (page) {
+    flipOver: function (page) {
       let _end = this.pageSize * page
       let end = this.totalNumber < _end ? this.totalNumber : _end
       this.userOrderList = []
@@ -89,17 +89,19 @@ export default {
       this.list = response.data.orders
       this.totalNumber = this.list.length
       let size = this.pageSize
+      let end
       if (this.totalNumber < size) {
-        this.userOrderList = this.list
+        end = this.totalNumber
       } else {
-        for (let i = 0; i < size; i++) {
-          this.userOrderList.push({
-            'order_id': this.list[i].order_id,
-            'course_id': this.list[i].course_id,
-            'status': this.list[i].status,
-            'time': new Date(this.list[i].time * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ')
-          })
-        }
+        end = size
+      }
+      for (let i = 0; i < end; i++) {
+        this.userOrderList.push({
+          'order_id': this.list[i].order_id,
+          'course_id': this.list[i].course_id,
+          'status': this.list[i].status,
+          'time': new Date(this.list[i].time * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ')
+        })
       }
     })
   }
