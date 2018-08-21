@@ -2,15 +2,22 @@
 <template>
   <div class="index">
     <div class="toolbar">
+      <div class="logo">
+      <img src="../../assets/logo1.png" width="200%" height="100%">
+      </div>
       <table align="right">
         <tr>
           <td>
-            <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true">登录/注册&nbsp;&nbsp;</el-button>
+            <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true">登录/注册</el-button>
+          </td>
+          <td>
+            <router-link to="/personal">
+              <el-button class="user-ope" type="text" v-if="login">个人中心</el-button>
+            </router-link>
           </td>
           <td>
             <el-button class="user-ope" type="text" v-if="login" @click="logout">登出</el-button>
           </td>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
         </tr>
       </table>
     </div>
@@ -200,8 +207,7 @@ export default {
         {id: 10, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
         {id: 11, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
       ],
-      login: false,
-      not_login: true,
+      login: true,
       loginFormVisible: false,
       loginLabelWidth: '100px',
       loform: {
@@ -315,19 +321,24 @@ export default {
 
   .toolbar {
     width: 100%;
-    height: 55px;
+    min-height: 55px;
+    max-height: 70px;
     margin: 0;
     padding: 0;
-    text-align: right;
     background-color:lightskyblue;
-    background: linear-gradient(lightskyblue, white);
     opacity: 0.7;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+  }
+
+  .logo {
+    margin-left: 50px;
+    display: inline-block;
+    width: 55px;
+    height: 55px;
   }
   .user-ope {
-    color:#085078;
+    color: black;
     font-size:18px;
+    margin-right: 60px;
   }
   .carousel {
     max-width: 1200px;
@@ -405,6 +416,16 @@ export default {
     .user-ope {
       color:#085078;
       font-size:15px;
+      margin-right: 10px;
+    }
+    .toolbar {
+      min-height: 42px;
+    }
+    .logo {
+      margin-left: 50px;
+      display: inline-block;
+      width: 42px;
+      height: 42px;
     }
   }
   .el-carousel__container {

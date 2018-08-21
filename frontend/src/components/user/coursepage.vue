@@ -2,18 +2,23 @@
   <div>
     <el-container>
       <el-header>
-        <div class="course_toolbar">
-          <table align="right">
-            <tr>
-              <td>
-                <router-link to="/personal">
-                  <el-button class="user_ope" type="text">个人中心</el-button>
-                </router-link>
-              </td>
-              <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            </tr>
-          </table>
-        </div>
+        <div class="toolbar">
+      <div class="logo">
+      <img src="../../assets/logo1.png" width="200%" height="100%">
+      </div>
+      <table align="right">
+        <tr>
+          <td>
+            <router-link to="/personal">
+              <el-button class="user_ope" type="text">个人中心</el-button>
+            </router-link>
+          </td>
+          <td>
+            <el-button class="user-ope" type="text" @click="logout">登出</el-button>
+          </td>
+        </tr>
+      </table>
+    </div>
       </el-header>
       <el-main align="center">
         <div>
@@ -124,17 +129,32 @@ export default {
 </script>
 
 <style scoped>
-  .course_toolbar {
+  .toolbar {
     width: 100%;
-    height: 55px;
+    min-height: 55px;
+    max-height: 70px;
     margin: 0;
     padding: 0;
-    text-align: right;
     background-color:lightskyblue;
-    background: linear-gradient(lightskyblue, white);
     opacity: 0.7;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+  }
+
+  .logo {
+    margin-left: 50px;
+    display: inline-block;
+    width: 55px;
+    height: 55px;
+  }
+
+  .user-ope {
+    color: black;
+    font-size:18px;
+    margin-right: 60px;
+  }
+  .user_ope {
+    color: black;
+    font-size:18px;
+    margin-right: 60px;
   }
 
   .el-footer {
@@ -145,10 +165,6 @@ export default {
     background-color:lightskyblue;
     background: linear-gradient(white, lightskyblue);
     opacity: 0.7;
-  }
-
-  .user_ope {
-    color: blue;
   }
 
   .coursepicture {
@@ -256,5 +272,27 @@ export default {
 
   h3 {
     margin-left: 8%;
+  }
+
+  @media screen and (max-width: 500px) {
+    .user-ope {
+      color: black;
+      font-size:15px;
+      margin-right: 10px;
+    }
+    .user_ope {
+      color: black;
+      font-size:15px;
+      margin-right: 10px;
+    }
+    .toolbar {
+      min-height: 42px;
+    }
+    .logo {
+      margin-left: 50px;
+      display: inline-block;
+      width: 42px;
+      height: 42px;
+    }
   }
   </style>
