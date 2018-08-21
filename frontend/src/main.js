@@ -7,6 +7,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Share from 'vue-social-share'
 import 'vue-social-share/dist/client.css'
+import 'element-ui/lib/theme-chalk/display.css'
 
 Vue.use(Share)
 Vue.config.productionTip = false

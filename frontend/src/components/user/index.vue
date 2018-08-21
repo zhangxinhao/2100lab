@@ -5,13 +5,10 @@
       <table align="right">
         <tr>
           <td>
-            <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true" style="color:#085078;font-size:18px">登录&nbsp;&nbsp;&nbsp;</el-button>
+            <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true">登录/注册&nbsp;&nbsp;</el-button>
           </td>
           <td>
-            <el-button class="user-ope" type="text" v-if="!login" @click="registerFormVisible = true" style="color:#085078;font-size:18px">注册</el-button>
-          </td>
-          <td>
-            <el-button class="user-ope" type="text" v-if="login" @click="logout" style="color:white">登出</el-button>
+            <el-button class="user-ope" type="text" v-if="login" @click="logout">登出</el-button>
           </td>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
         </tr>
@@ -19,19 +16,17 @@
     </div>
 
     <div class="carousel">
-      <el-carousel :interval="4000" type="card" height="350px">
+      <el-carousel :interval="4000" type="card">
         <el-carousel-item v-for="item in imgList" :key="item.id">
-          <el-row>
             <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
-              <el-col :span="24"><img ref="500px" height="100%" width="100%" :src="item.profile_url" class="banner_img"/></el-col>
+              <el-col :span="24"><img height="100%" width="100%" :src="item.profile_url" class="banner_img"/></el-col>
             </router-link>
-          </el-row>
         </el-carousel-item>
       </el-carousel>
     </div>
 
     <div class="logindialog">
-      <el-dialog title="登录" :visible.sync="loginFormVisible" width="400px" height="700px">
+      <el-dialog title="登录" :visible.sync="loginFormVisible" class="lodialog" width="330px" height="500px">
         <el-form :model="loform" :rules="rules">
           <el-form-item label="手机号" :label-width="loginLabelWidth" prop="lophone">
             <el-col :span="18">
@@ -52,35 +47,28 @@
       </el-dialog>
     </div>
 
-    <div class="registerdialog">
-      <el-dialog title="注册" :visible.sync="registerFormVisible" width="400px" height="700px">
-        <el-form :model="reform" :rules="rules">
-          <el-form-item label="手机号" :label-width="registerLabelWidth" prop="rephone">
-            <el-col :span="18">
-              <el-input v-model="reform.phonenumber" auto-complete="off" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="验证码" :label-width="registerLabelWidth">
-            <el-col :span="18">
-              <el-input v-model="reform.password" auto-complete="off" clearable></el-input>
-            </el-col>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="register-footer">
-          <el-button type="primary" @click="loginFormVisible = false">获取验证码</el-button>
-          <el-button @click="registerFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="registerFormVisible = false">确 定</el-button>
-        </div>
-      </el-dialog>
-    </div>
-
-    <div>&nbsp;</div>
+    <div class="hidden-md-and-down">&nbsp;</div>
     <hr />
-    <div>&nbsp;</div>
+    <div class="hidden-md-and-down">&nbsp;</div>
     <div class="free-list">
-      <el-row :gutter="30">
+      <el-row :gutter="30" class="hidden-md-and-down">
         <el-col :span="8">
           <h1 style="text-align:left;">免费区</h1>
+        </el-col>
+        <el-col :span="4" :offset="11">
+          <router-link to="/freelistpage">
+            <el-button class="morelist" type="text">更多<i class="el-icon-more el-icon--right"></i></el-button>
+          </router-link>
+        </el-col>
+      </el-row>
+      <el-row class="hidden-lg-and-up">
+        <el-col :span="8">
+          <h3 style="text-align:left;">免费区</h3>
+        </el-col>
+        <el-col :span="4" :offset="11">
+          <router-link to="/freelistpage">
+            <el-button class="phonemorelist" type="text">更多<i class="el-icon-more el-icon--right"></i></el-button>
+          </router-link>
         </el-col>
       </el-row>
       <el-row>
@@ -89,7 +77,7 @@
       <el-row :gutter="30">
         <el-col v-for="item in freeList_1" :key="item.id" :span="8">
           <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
-            <img :src="item.profile_url" width="350px" height="250px" >
+            <img :src="item.profile_url" class="recomimg" >
             <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
           </router-link>
         </el-col>
@@ -97,26 +85,41 @@
       <el-row :gutter="30">
         <el-col v-for="item in freeList_2" :key="item.id" :span="8">
           <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
-            <img :src="item.profile_url" width="350px" height="250px">
+            <img :src="item.profile_url" class="recomimg">
             <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
           </router-link>
         </el-col>
-        <el-col :span="8">
+        <!-- <el-col :span="8">
           <router-link to="/freelistpage">
             <el-button icon="el-icon-more" class="morelist">更多</el-button>
           </router-link>
-        </el-col>
+        </el-col> -->
       </el-row>
     </div>
 
-    <div>&nbsp;</div>
+    <div class="hidden-md-and-down">&nbsp;</div>
     <hr />
-    <div>&nbsp;</div>
+    <div class="hidden-md-and-down">&nbsp;</div>
 
     <div class="cost-list">
-      <el-row :gutter="20">
+      <el-row :gutter="20" class="hidden-md-and-down">
         <el-col :span="8">
           <h1 style="text-align:left;">付费区</h1>
+        </el-col>
+        <el-col :span="4" :offset="11">
+          <router-link to="/freelistpage">
+            <el-button class="morelist" type="text">更多<i class="el-icon-more el-icon--right"></i></el-button>
+          </router-link>
+        </el-col>
+      </el-row>
+      <el-row class="hidden-lg-and-up">
+        <el-col :span="8">
+          <h3 style="text-align:left;">付费区</h3>
+        </el-col>
+        <el-col :span="4" :offset="11">
+          <router-link to="/costlistpage">
+            <el-button class="phonemorelist" type="text">更多<i class="el-icon-more el-icon--right"></i></el-button>
+          </router-link>
         </el-col>
       </el-row>
       <el-row>
@@ -125,7 +128,7 @@
       <el-row :gutter="20">
         <el-col v-for="item in costList_1" :key="item.id" :span="8">
           <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
-            <img :src="item.profile_url" width="350px" height="250px" >
+            <img :src="item.profile_url" class="recomimg">
             <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
           </router-link>
         </el-col>
@@ -133,21 +136,21 @@
       <el-row :gutter="20">
         <el-col v-for="item in costList_2" :key="item.id" :span="8">
           <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
-            <img :src="item.profile_url" width="350px" height="250px">
+            <img :src="item.profile_url" class="recomimg">
             <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
           </router-link>
         </el-col>
-        <el-col :span="8">
+        <!-- <el-col :span="8">
           <router-link to="/costlistpage">
             <el-button icon="el-icon-more" class="morelist">更多</el-button>
           </router-link>
-        </el-col>
+        </el-col> -->
       </el-row>
     </div>
     <br />
     <br />
     <br />
-    <el-footer height="50px">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
+    <el-footer height="50px" class="hidden-lg-and-down">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
 
   </div>
 </template>
@@ -171,18 +174,6 @@ export default {
         }
       }, 100)
     }
-    var validaterePhone = (rule, value, callback) => {
-      if (!this.reform.phonenumber) {
-        return callback(new Error('号码不能为空'))
-      }
-      setTimeout(() => {
-        if (!phoneReg.test(this.reform.phonenumber)) {
-          callback(new Error('格式有误'))
-        } else {
-          callback()
-        }
-      }, 100)
-    }
     return {
       imgList: [
         {id: 0, profile_url: require('../../assets/images/banner1.jpg')},
@@ -190,25 +181,27 @@ export default {
         {id: 2, profile_url: require('../../assets/images/banner1.jpg')}
       ],
       freeList_1: [
-        {id: 0, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
+        {id: 0, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
         {id: 1, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
         {id: 2, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'}
       ],
       freeList_2: [
         {id: 3, profile_url: require('../../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'},
-        {id: 4, profile_url: require('../../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'}
+        {id: 4, profile_url: require('../../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'},
+        {id: 5, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'}
       ],
       costList_1: [
-        {id: 5, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
         {id: 6, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
-        {id: 7, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
+        {id: 7, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
+        {id: 8, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
       ],
       costList_2: [
-        {id: 8, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
-        {id: 9, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
+        {id: 9, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
+        {id: 10, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
+        {id: 11, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
       ],
-      login: true,
-      not_login: false,
+      login: false,
+      not_login: true,
       loginFormVisible: false,
       loginLabelWidth: '100px',
       loform: {
@@ -217,19 +210,8 @@ export default {
         delivery: false,
         usercode: ''
       },
-      registerFormVisible: false,
-      registerLabelWidth: '100px',
-      reform: {
-        phonenumber: '',
-        password: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      },
       rules: {
-        lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }],
-        rephone: [{ required: true, validator: validaterePhone, trigger: 'blur' }]
+        lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }]
       }
     }
   },
@@ -343,9 +325,12 @@ export default {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
-
+  .user-ope {
+    color:#085078;
+    font-size:18px;
+  }
   .carousel {
-    width: 1200px;
+    max-width: 1200px;
     text-align: center;
     margin: 20px auto;
   }
@@ -362,20 +347,20 @@ export default {
     opacity: 0.7;
   }
   .free-list {
-    width:1200px;
+    max-width:1200px;
     /* height:550px; */
     margin:20px auto 20px auto;
     /* background-color: black; */
   }
   .cost-list {
-    width:1200px;
+    max-width:1200px;
     /* height:550px; */
     margin:20px auto 20px auto;
     /* background-color: black; */
   }
   .morelist {
-    width: 350px;
-    height: 250px;
+    width: 100%;
+    height: 100%;
     /* background:rgb(149, 202, 255); */
     border: 2px, solid, black;
     border-radius: 5px;
@@ -388,7 +373,45 @@ export default {
     opacity: 0.7;
     color:black;
   }
+  .phonemorelist {
+    width: 100%;
+    height: 100%;
+    /* background:rgb(149, 202, 255); */
+    border: 2px, solid, black;
+    border-radius: 5px;
+    font-size: 18px;
+    /* opacity: 0.7; */
+    color: black;
+  }
   hr {
-    width: 1200px;
+    max-width: 1200px;
+  }
+  .recomimg {
+    width: 90%;
+    height: 80%
+  }
+  @media screen and (max-width: 500px) {
+    .el-carousel {
+      max-width: 1200px;
+      max-height: 160px;
+    }
+    .el-carousel__container {
+      max-width: 1200px;
+      max-height: 140px;
+    }
+    .el-carousel__item {
+      max-height: 120px
+    }
+    .user-ope {
+      color:#085078;
+      font-size:15px;
+    }
+  }
+  .el-carousel__container {
+      max-width: 1200px;
+      height: 350px;
+  }
+  .el-carousel__item {
+    max-height: 350px;
   }
 </style>
