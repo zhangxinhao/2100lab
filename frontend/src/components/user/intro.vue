@@ -1,18 +1,22 @@
 <template>
   <div id="body">
     <div class="toolbar">
+      <div class="logo">
+      <img src="../../assets/logo1.png" width="200%" height="100%">
+      </div>
       <table align="right">
         <tr>
           <td>
-            <el-button class="user-ope" type="text" v-if="login" @click="loginFormVisible = true" style="color:#085078;font-size:18px">登录&nbsp;&nbsp;&nbsp;</el-button>
+            <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true">登录/注册</el-button>
           </td>
           <td>
-            <el-button class="user-ope" type="text" v-if="login" @click="registerFormVisible = true" style="color:#085078;font-size:18px">注册</el-button>
+            <router-link to="/personal">
+              <el-button class="user-ope" type="text" v-if="login">个人中心</el-button>
+            </router-link>
           </td>
           <td>
-            <el-button class="user-ope" type="text" v-if="not_login" @click="logout" style="color:white">登出</el-button>
+            <el-button class="user-ope" type="text" v-if="login" @click="logout">登出</el-button>
           </td>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
         </tr>
       </table>
     </div>
@@ -177,7 +181,7 @@ export default {
       bounty: 15,
       bountyFlag: false,
       shareDialogVisible: false,
-      login: false,
+      login: true,
       not_login: false,
       loginLabelWidth: '100px',
       loginFormVisible: false,
@@ -255,15 +259,25 @@ export default {
 <style scoped>
   .toolbar {
     width: 100%;
-    height: 55px;
+    min-height: 55px;
+    max-height: 70px;
     margin: 0;
     padding: 0;
-    text-align: right;
     background-color:lightskyblue;
-    background: linear-gradient(lightskyblue, white);
     opacity: 0.7;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+  }
+
+  .logo {
+    margin-left: 50px;
+    display: inline-block;
+    width: 55px;
+    height: 55px;
+  }
+
+  .user-ope {
+    color: black;
+    font-size:18px;
+    margin-right: 60px;
   }
 
   #class {
@@ -388,5 +402,22 @@ export default {
 
   .operate {
     text-align: center;
+  }
+
+  @media screen and (max-width: 500px) {
+    .user-ope {
+      color: black;
+      font-size:15px;
+      margin-right: 10px;
+    }
+    .toolbar {
+      min-height: 42px;
+    }
+    .logo {
+      margin-left: 50px;
+      display: inline-block;
+      width: 42px;
+      height: 42px;
+    }
   }
 </style>
