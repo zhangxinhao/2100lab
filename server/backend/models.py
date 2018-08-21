@@ -12,6 +12,7 @@ class User(AbstractUser):
   alias = models.CharField(max_length=15)
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
   manage_right = models.PositiveIntegerField(default=0)
+  # talking_allowed = models.BooleanField(default=True)
 
   def setActive(self, active):
     self.is_active = active
