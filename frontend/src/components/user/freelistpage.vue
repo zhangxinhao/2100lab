@@ -268,7 +268,7 @@ export default {
     padding: 10px;
     text-align: right;
   }
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 800px) {
     li, ul {
       list-style: none;
       margin: 5px 10px;
@@ -322,6 +322,76 @@ export default {
     }
     .read {
       padding: 5px;
+    }
+  }
+  @media screen and (min-width: 800px) and (max-width: 1100px){
+    li, ul {
+      list-style: none;
+      margin: 5px 10px;
+      padding: 0px;
+    }
+    .user-ope {
+      color:#085078;
+      font-size:15px;
+    }
+    .main-inner {
+      max-width: 1250px;
+      height: 1080px;
+      margin: 0 auto;
+      position: relative;
+      zoom: 1;
+    }
+    .video-list {
+      zoom: 1;
+      height:1080px;
+      margin-bottom: 30px;
+    }
+    .listone-outer {
+      max-width: 500px;
+    }
+    .listone-inner {
+      max-width: 300px;
+    }
+    .listone {
+      display: block;
+      float: left;
+      max-width: 500px;
+      margin: 5px 0px;
+      border: 1px, solid, gray;
+    }
+    .aside {
+      max-width: 200px !important;
+    }
+    .imgList {
+      max-width: 200px;
+      height: 150px;
+    }
+    .header {
+      max-width: 300px;
+      height: 100px !important;
+    }
+    .main {
+      max-width: 300px;
+      height: 50px;
+      padding: 10px;
+      text-align: right;
+    }
+    .read {
+      padding: 5px;
+    }
+  }
+  @media screen and (min-width: 500px) and (max-width: 800px) {
+    .main-inner {
+      max-width: 1250px;
+      height: 780px;
+      margin: 0 auto;
+      position: relative;
+      zoom: 1;
+    }
+    .video-list {
+      zoom: 1;
+      height:780px;
+      margin-bottom: 30px;
     }
   }
 </style>
