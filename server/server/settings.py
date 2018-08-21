@@ -83,16 +83,10 @@ DATABASES = {
         # 'OPTIONS': {
         #     'read_default_file': os.path.join(BASE_DIR, 'server/database.cnf'),
         # },
-        'USER': 'root',
+        'USER': 'lab',
         'PASSWORD': 'vagrant',
         'NAME': '2100Lab',
-        # 'CHARSET': 'utf8',
-        # 'COLLATION': 'utf8_general_ci',
-        # 'TEST': {
-        #   'NAME': 'test',
-        #   'CHARSET': 'utf8',
-        #   'COLLATION': 'utf8_general_ci',
-        # }
+        'HOST': '123.206.19.149'
     }
 }
 
