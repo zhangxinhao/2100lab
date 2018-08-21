@@ -29,6 +29,7 @@
             <el-upload
               action="upload_pic_URL"
               list-type="picture-card"
+              :file-list="update_form.imgList"
               :on-preview="handlePictureCardPreview">
               <i class="el-icon-plus"></i>
             </el-upload>
@@ -37,6 +38,13 @@
             </el-dialog>
           </el-col>
         </el-form-item>
+
+        <!-- <el-form-item>
+          <el-col :span="18" v-for="item in update_form.imgList" :key="item.id">
+            <span>{{item.name}}:</span>
+            <el-input placeholder="请输入开始时间(时:分:秒)" v-model="input" @blur="addTime"></el-input>
+          </el-col>
+        </el-form-item> -->
 
         <el-form-item label="图片显示时间：" label-width="120px">
           <el-col :span="18">
@@ -59,6 +67,12 @@
         <el-form-item label="价格：" label-width="120px" style="text-align:left;width:250px">
           <el-row :span="18" style="width:300px">
             <el-input v-model="update_form.price" auto-complete="true" required="required" style="width:100px"></el-input>
+          </el-row>
+        </el-form-item>
+
+        <el-form-item label="赏金比例：" label-width="120px" style="text-align:left;width:250px" v-if="update_form.price!=0">
+          <el-row :span="18" style="width:300px">
+            <el-input v-model="update_form.balance" auto-complete="true" style="width:100px"></el-input>
           </el-row>
         </el-form-item>
 
@@ -91,13 +105,16 @@ export default {
         message_right: true,
         price: 0,
         destroy_time: 0,
-        audioList: []
+        audioList: [],
+        imgList: [],
+        balance: 0
       },
       // uploadURL 为上传动作的后端接口
       upload_audio_URL: '',
       upload_pic_URL: '',
       dialogImageUrl: '',
-      dialogVisible: false
+      dialogVisible: false,
+      input: ''
     }
   },
   methods: {
@@ -125,6 +142,9 @@ export default {
       this.update_form.price = 0
       this.update_form.destroy_time = 0
       this.update_form.audioList = []
+    },
+    addTime() {
+
     }
   }
 }
