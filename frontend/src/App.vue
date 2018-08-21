@@ -25,4 +25,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+@media screen and (max-width: 500px) {
+    .el-carousel {
+      max-width: 1200px;
+      max-height: 120px;
+    }
+    .el-carousel__container {
+      max-width: 1200px;
+      max-height: 120px;
+    }
+  }
+.el-carousel__container {
+  height: 350px;
+}
 </style>
