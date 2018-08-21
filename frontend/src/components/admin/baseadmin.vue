@@ -1,7 +1,18 @@
 <template>
   <div clsss="outdiv">
+    <div class="toolbar">
+      <div class="logo">
+      <img src="../../assets/logo1.png" width="200%" height="100%">
+      </div>
+      <table align="right">
+        <tr>
+          <td>
+            <el-button class="user-ope" type="text" @click="logout">登出</el-button>
+          </td>
+        </tr>
+      </table>
+    </div>
     <el-container class="adminfirst">
-      <el-header class="adminheader">Header</el-header>
       <el-container class="adminsecond">
         <el-aside class="adminaside">
           <el-menu @select="handleSelect" unique-opened:false >
@@ -61,6 +72,8 @@ export default {
   methods: {
     handleChange(value) {
     },
+    logout: function() {
+    },
     handleSelect(key, keyPath) {
       switch (key) {
         case '1-1':
@@ -104,21 +117,50 @@ export default {
 }
 </script>
 <style scoped>
+   .toolbar {
+    width: 100%;
+    min-height: 55px;
+    max-height: 70px;
+    margin: 0;
+    padding: 0;
+    background-color: #606266;
+    opacity: 0.7;
+  }
+
+  .logo {
+    margin-left: 50px;
+    display: inline-block;
+    width: 55px;
+    height: 55px;
+  }
+
+  .user-ope {
+    color: black;
+    font-size:18px;
+    margin-right: 60px;
+  }
   .adminfirst {
     width: 1600px;
     margin: 0px auto 0px auto;
     text-align: center;
-    color:#d2dce6;
+    color: white;
   }
   .el-submenu__title {
     height: 60px !important;
     line-height:60px !important;
-    background-color: rgb(238, 243, 247);
+    background-color: white;
     font-size: 18px;
     vertical-align: middle;
     font-weight: bold;
   }
   .col {
     height: 60px;
+  }
+
+  li {
+     background-color: rgb(248, 248, 247);
+  }
+  li:hover {
+    background-color: white !important;
   }
 </style>

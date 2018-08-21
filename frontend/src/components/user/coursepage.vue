@@ -1,8 +1,6 @@
 <template>
   <div>
-    <el-container>
-      <el-header>
-        <div class="toolbar">
+    <div class="toolbar">
       <div class="logo">
       <img src="../../assets/logo1.png" width="200%" height="100%">
       </div>
@@ -19,7 +17,7 @@
         </tr>
       </table>
     </div>
-      </el-header>
+    <el-container>
       <el-main align="center">
         <div>
           <div>
