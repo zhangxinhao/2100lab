@@ -22,7 +22,7 @@
       <el-carousel :interval="4000" type="card" height="350px">
         <el-carousel-item v-for="item in imgList" :key="item.id">
           <el-row>
-            <router-link id="logo" to="/intro">
+            <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
               <el-col :span="24"><img ref="500px" height="100%" width="100%" :src="item.profile_url" class="banner_img"/></el-col>
             </router-link>
           </el-row>
@@ -88,14 +88,18 @@
       </el-row>
       <el-row :gutter="30">
         <el-col v-for="item in freeList_1" :key="item.id" :span="8">
-          <img :src="item.profile_url" width="350px" height="250px" >
-          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
+          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
+            <img :src="item.profile_url" width="350px" height="250px" >
+            <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
+          </router-link>
         </el-col>
       </el-row>
       <el-row :gutter="30">
         <el-col v-for="item in freeList_2" :key="item.id" :span="8">
-          <img :src="item.profile_url" width="350px" height="250px">
-          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
+          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
+            <img :src="item.profile_url" width="350px" height="250px">
+            <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
+          </router-link>
         </el-col>
         <el-col :span="8">
           <router-link to="/freelistpage">
@@ -120,14 +124,18 @@
       </el-row>
       <el-row :gutter="20">
         <el-col v-for="item in costList_1" :key="item.id" :span="8">
-          <img :src="item.profile_url" width="350px" height="250px" >
-          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
+          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
+            <img :src="item.profile_url" width="350px" height="250px" >
+            <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
+          </router-link>
         </el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col v-for="item in costList_2" :key="item.id" :span="8">
-          <img :src="item.profile_url" width="350px" height="250px">
-          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
+          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
+            <img :src="item.profile_url" width="350px" height="250px">
+            <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
+          </router-link>
         </el-col>
         <el-col :span="8">
           <router-link to="/costlistpage">
@@ -182,22 +190,22 @@ export default {
         {id: 2, profile_url: require('../../assets/images/banner1.jpg')}
       ],
       freeList_1: [
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'}
+        {id: 0, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
+        {id: 1, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {id: 2, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'}
       ],
       freeList_2: [
-        {profile_url: require('../../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'}
+        {id: 3, profile_url: require('../../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'},
+        {id: 4, profile_url: require('../../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'}
       ],
       costList_1: [
-        {profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
+        {id: 5, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
+        {id: 6, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
+        {id: 7, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
       ],
       costList_2: [
-        {profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
+        {id: 8, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
+        {id: 9, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
       ],
       login: true,
       not_login: false,
