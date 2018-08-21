@@ -34,7 +34,9 @@ def client_history(request):
 
 def client_information(request):
   user_id = request.POST.get("user_id")
-  user_alias = request.POST.get("alias")
+  print(type(user_id))
+  print(user_id)
+  user_alias = request.POST.get("user_alias")
   list = None
   searched = False
   if user_id:
@@ -44,15 +46,34 @@ def client_information(request):
   else:
     if user_alias:
       list = User.objects.filter(alias=user_alias)
-  if not searched:
+  if list is None:
     list = User.objects.filter()
   list = list.values()
   query = []
   for client in list:
-    print(client["balance"])
     query.append({
       "userId": client["id"],
-      "alias": client["alias"],
+      "userAlias": client["alias"],
       "bonus": str(client["balance"])
     })
+  if not len(query):
+    query.append({
+      "usreId": " ",
+      "userAlias": " ",
+      "bonus": " "
+    })
   return HttpResponse(json.dumps({"query": query}))
+
+def delete(request):
+  user_id = request.POST.get("user_id")
+  user = User.objects.get(id)
+  user.is_acitve = False
+  user.save()
+  return HttpResponse()
+
+def ban(request):
+  user_id = request.POST.get("user_id")
+  user = User.objects.get(id)
+  user.talking_allowed = False
+  user.save()
+  return HttpResponse()

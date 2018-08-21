@@ -5,7 +5,7 @@
     <el-row :gutter="20">
       <el-col :span="6" :offset="8"><el-input v-model="search_userId" placeholder="请输入用户ID"></el-input></el-col>
       <el-col :span="6" :offset="1"><el-input v-model="search_userAlias" placeholder="请输入昵称"></el-input></el-col>
-      <el-col :span="2"><el-button type="primary" icon="el-icon-search">搜索</el-button></el-col>
+      <el-col :span="2"><el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button></el-col>
     </el-row>
   </div>
 
@@ -61,7 +61,7 @@
 
 <script>
 import axios from 'axios'
-// import qs from 'qs'
+import qs from 'qs'
 
 export default {
   data() {
@@ -92,6 +92,10 @@ export default {
       this.deleteIndex = deleteIndex
     },
     deleteuser() {
+      axios.post('http://192.168.55.33:8000/api/deleteclient/', qs.stringify({
+        user_id: this.deleteuser
+      })).then(response => {
+      })
       this.deleteVisible = false
     },
     forbideFunction(forbideIndex) {
@@ -99,7 +103,30 @@ export default {
       this.forbideIndex = forbideIndex
     },
     forbideuser() {
+      axios.post('http://192.168.55.33:8000/api/banclient/', qs.stringify({
+        user_id: this.forbideuser
+      })).then(response => {
+      })
       this.forbideVisible = false
+    },
+    search() {
+      axios.post('http://192.168.55.33:8000/api/clientinfor/', qs.stringify({
+        user_id: this.search_userId,
+        user_alias: this.search_userAlias
+      })).then(response => {
+        this.list = response.data.query
+        this.totalnumber = this.list.length
+        let totalnumber = this.totalnumber
+        this.userData = []
+        let size = this.pageSize
+        if (totalnumber < size) {
+          this.userData = this.list
+        } else {
+          for (let i = 0; i < size; i++) {
+            this.userData.push(this.list[i])
+          }
+        }
+      })
     },
     flipOver(page) {
       let _end = this.pageSize * page

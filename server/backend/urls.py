@@ -23,4 +23,6 @@ urlpatterns = [
   path('admin_userhistory/', client.client_history),
   path('paywithqr/', pay.pay_qr),
   path('clientinfor/', client.client_information),
+  path('deleteclient/', client.delete),
+  path('banclient/', client.ban),
 ]
