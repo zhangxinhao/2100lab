@@ -5,13 +5,13 @@
       <table align="right">
         <tr>
           <td>
-            <el-button class="user-ope" type="text" v-if="login" @click="loginFormVisible = true" style="color:#085078;font-size:18px">登录&nbsp;&nbsp;&nbsp;</el-button>
+            <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true" style="color:#085078;font-size:18px">登录&nbsp;&nbsp;&nbsp;</el-button>
           </td>
           <td>
-            <el-button class="user-ope" type="text" v-if="login" @click="registerFormVisible = true" style="color:#085078;font-size:18px">注册</el-button>
+            <el-button class="user-ope" type="text" v-if="!login" @click="registerFormVisible = true" style="color:#085078;font-size:18px">注册</el-button>
           </td>
           <td>
-            <el-button class="user-ope" type="text" v-if="not_login" @click="logout" style="color:white">登出</el-button>
+            <el-button class="user-ope" type="text" v-if="login" @click="logout" style="color:white">登出</el-button>
           </td>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
         </tr>
@@ -240,15 +240,12 @@ export default {
         return
       }
       this.loginFormVisible = false
-      this.login = false
-      this.not_login = true
       axios.post('http://192.168.55.33:8000/api/authenticate/', qs.stringify({
         phone_number: this.loform.phonenumber,
         verification_code: 0
       })).then(
         response => {
           this.login = true
-          this.login = false
           //  = response.data.user.alias
           //  = response.data.user.icon
         }
@@ -270,15 +267,15 @@ export default {
       )
     },
     logout: function() {
-      this.login = true
-      this.not_login = false
-      axios.post('http://192.168.55.33:8000/api/logout/').then(
-        response => {
-        }
-      )
+      axios.post('http://192.168.55.33:8000/api/logout/').then(response => {
+        this.login = false
+      })
     }
   },
   created: function () {
+    axios.post('http://192.168.55.33:8000/api/login/').then(response => {
+      this.login = response.data.status
+    })
     axios.post('http://192.168.55.33:8000/api/listrecommend/').then(response => {
       this.imgList = response.data.courses
     })
