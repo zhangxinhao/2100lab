@@ -15,22 +15,24 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="login-footer">
-      <router-link to="/baseadmin">
-        <el-button type="primary">登录</el-button>
-      </router-link>
+      <el-button type="primary" @click="login">登录</el-button>
     </div>
   </div>
 </div>
 </template>
+
 <script>
+import axios from 'axios'
+import qs from 'qs'
+
 export default {
   data() {
-    var validateAdminId = (rule, value, callback) => {
+    let validateAdminId = (rule, value, callback) => {
       if (!this.loform.adminId) {
         return callback(new Error('用户名不能为空'))
       }
     }
-    var validatePassword = (rule, value, callback) => {
+    let validatePassword = (rule, value, callback) => {
       if (!this.loform.password) {
         return callback(new Error('密码不能为空'))
       }
@@ -48,6 +50,22 @@ export default {
     }
   },
   methods: {
+    hash(str) {
+      return str
+    },
+    login() {
+      axios.post('http://192.168.55.33:8000/api/adminlogin/', qs.stringify({
+        username: this.loform.adminId,
+        password: this.$options.methods.hash(this.loform.password)
+      })).then(response => {
+        let status = response.data.status
+        if (status === 0) {
+          this.$router.push({ path: '/baseadmin' })
+        } else {
+          return alert('登录失败')
+        }
+      })
+    }
   }
 }
 </script>
