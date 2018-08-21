@@ -90,10 +90,10 @@
         </div>
         <div class="hint">现金支付</div>
         <div class="payframe">
-          <el-radio v-model="radio1" label="alipay_qr" @change="payway">支付宝支付</el-radio>
-          <el-radio v-model="radio1" label="wx_pub_qr" @change="payway">微信支付</el-radio>
+          <el-radio v-model="channel" label="alipay_qr">支付宝支付</el-radio>
+          <el-radio v-model="channel" label="wx_pub_qr">微信支付</el-radio>
         </div>
-        <el-button  class="pay" type="primary">立即支付</el-button>
+        <el-button  class="pay" type="primary" @click="payWithCash">立即支付</el-button>
         <div class="hint">赏金支付</div>
         <el-button  class="pay" type="primary" v-if ="bountyFlag">赏金支付</el-button>
         <el-button  class="pay" type="primary" plain v-else disabled>赏金不足</el-button>
@@ -134,6 +134,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+import qs from 'qs'
+
 export default {
   data() {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
@@ -203,7 +206,7 @@ export default {
         lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }],
         rephone: [{ required: true, validator: validaterePhone, trigger: 'blur' }]
       },
-      radio1: '',
+      channel: '',
       config: {
         // url: '', // 网址，默认使用 window.location.href
         source: '', // 来源（QQ空间会用到）, 默认读取head标签
@@ -218,8 +221,17 @@ export default {
     }
   },
   methods: {
-    payway: function(callback) {
-      this.radio1 = callback
+    payWithCash: function() {
+      axios.post('http://192.168.55.33:8000/api/paywithqr/', qs.stringify({
+        channel: this.channel,
+        amount: this.money,
+        course_name: this.title
+      })).then(response => {
+        let status = response.data.status
+        if (status === 0) {
+          window.open(response.data.result)
+        }
+      })
     }
   }
 }
