@@ -43,23 +43,20 @@ def authenticate(request):
     usr['id'] = user.pk
     usr['alias'] = user.alias
     usr['icon'] = user.icon
-    return HttpResponse(json.dumps({"result": 0, "user": usr}))
+    return HttpResponse(json.dumps({"result": 0}))
   else:
     return HttpResponse(json.dumps({"result": 1}))
     #verified wrong
 
 def login(request):
-  id = request.POST.get("id")
-  user = User.objects.get(pk=id)
-  if user.is_authenticated:
-    user = model_to_dict(user)
-    return HttpResponse(json.dumps({"status": True,"user": user}))
+  if request.user.is_authenticated:
+    return HttpResponse(json.dumps({"status": True}))
   else:
     return HttpResponse(json.dumps({"status": False}))
 
 def logout(request):
   auth.logout(request)
-  return HttpResponse(json.dumps({"status": False}))
+  return HttpResponse()
 
 def delete(request):
   id = request.POST.get("id")
