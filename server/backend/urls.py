@@ -1,4 +1,4 @@
-from .manager import client
+from .manager import client, admin
 from django.conf.urls import url, include
 from . import views, user_views, order_views, course_views, pay
 from django.urls import path
@@ -27,4 +27,6 @@ urlpatterns = [
   path('clientinfor/', client.client_information),
   path('deleteclient/', client.delete),
   path('banclient/', client.ban),
+  path('adminlogin/', admin.authenticate),
+  path('adminlogout/', admin.logout),
 ]
