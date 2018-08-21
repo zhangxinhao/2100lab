@@ -11,6 +11,7 @@ urlpatterns = [
   path('logout/', user_views.logout),
   path('listrecentvisit/', user_views.listRecentVisit),
   path('getuserinfo/', user_views.getUserInfor),
+  path('getcourseinfo/', course_views.getCourseInfo),
   path('setalias/', user_views.setAlias),
   path('seticon/', user_views.setIcon),
   path('listrecommend/', views.recommendCourse),
