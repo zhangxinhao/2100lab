@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
+import time
 # Create your models here.
 #本数据库中时间均为时间戳，操作记录中除外
 
@@ -12,7 +13,7 @@ class User(AbstractUser):
   alias = models.CharField(max_length=15)
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
   manage_right = models.PositiveIntegerField(default=0)
-  # talking_allowed = models.BooleanField(default=True)
+  talking_allowed = models.BooleanField(default=True)
 
   def setActive(self, active):
     self.is_active = active
@@ -32,12 +33,12 @@ class Course(models.Model):
   course_name = models.CharField(max_length=50)
   description = models.CharField(max_length=200)
   content = models.TextField()
-  price = models.PositiveIntegerField(default=0)
+  price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
   burnt_time = models.PositiveIntegerField(default=0)
   message_on = models.BooleanField(default=True)
   audio_url = models.CharField(max_length=150)
   profile_url = models.CharField(max_length=150)
-  create_time = models.DateTimeField(default=timezone.now)
+  create_time = models.PositiveIntegerField(default=int(time.time()))
 
 class Picture(models.Model):
   course = models.ForeignKey('Course', on_delete=models.CASCADE)
@@ -48,7 +49,7 @@ class Visit_record(models.Model):
   course = models.ForeignKey('Course', on_delete=models.CASCADE)
   user = models.ForeignKey('User', on_delete=models.CASCADE)
   first_visit = models.PositiveIntegerField()
-  last_visit = models.PositiveIntegerField(default=first_visit)
+  last_visit = models.PositiveIntegerField()
   last_time = models.PositiveIntegerField(default=0)
 
 class Order(models.Model):
@@ -77,7 +78,7 @@ class Message(models.Model):
   course = models.ForeignKey('Course', on_delete=models.CASCADE)
   author = models.ForeignKey('User', on_delete=models.CASCADE)
   content = models.CharField(max_length=140)
-  time = models.DateTimeField(timezone.now)
+  time = models.DateTimeField(default=timezone.now)
   likes = models.PositiveIntegerField(default=0)
   dislikes = models.PositiveIntegerField(default=0)
 
