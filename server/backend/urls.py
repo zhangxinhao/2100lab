@@ -29,4 +29,6 @@ urlpatterns = [
   path('banclient/', client.ban),
   path('adminlogin/', admin.authenticate),
   path('adminlogout/', admin.logout),
+  path('authorizationcheck/', admin.authorization_check),
+
 ]

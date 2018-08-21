@@ -5,22 +5,22 @@
       <el-container class="adminsecond">
         <el-aside class="adminaside">
           <el-menu @select="handleSelect" unique-opened:false >
-            <el-submenu index="1">
+            <el-submenu index="1" v-if="authorizationList.course_manage">
               <template class="firsebar" slot="title"><i class="el-icon-edit"></i>课程管理</template>
               <el-menu-item class="col" index="1-1">课程上传</el-menu-item>
               <el-menu-item class="col" index="1-2">课程编辑</el-menu-item>
             </el-submenu>
-            <el-submenu index="2">
+            <el-submenu index="2" v-if="authorizationList.user_manage">
               <template class="secondbar" slot="title"><i class="el-icon-document"></i>管理用户</template>
               <el-menu-item class="col" index="2-1">用户信息</el-menu-item>
               <el-menu-item class="col" index="2-2">用户浏览</el-menu-item>
               <el-menu-item class="col" index="2-3">留言管理</el-menu-item>
             </el-submenu>
-            <el-submenu index="3">
+            <el-submenu index="3" v-if="authorizationList.operation_history">
               <template class="secondbar" slot="title"><i class="el-icon-date"></i>操作历史</template>
               <el-menu-item class="col" index="3-1">后台操作历史</el-menu-item>
             </el-submenu>
-             <el-submenu index="4">
+             <el-submenu index="4" v-if="authorizationList.order_manage">
               <template class="secondbar" slot="title"><i class="el-icon-news"></i>订单管理</template>
               <el-menu-item class="col" index="4-1">用户订单</el-menu-item>
             </el-submenu>
@@ -28,7 +28,7 @@
               <template class="secondbar" slot="title"><i class="el-icon-view"></i>数据统计</template>
               <el-menu-item class="col" index="5-1">数据分析</el-menu-item>
             </el-submenu>
-             <el-submenu index="6">
+             <el-submenu index="6" v-if="authorizationList.admin_manage">
               <template class="secondbar" slot="title"><i class="el-icon-plus"></i>管理员操作</template>
               <el-menu-item class="col" index="6-1">新增管理员</el-menu-item>
               <el-menu-item class="col" index="6-2">编辑管理员</el-menu-item>
@@ -42,10 +42,20 @@
     </el-container>
   </div>
 </template>
+
 <script>
+import axios from 'axios'
+
 export default {
   data() {
     return {
+      authorizationList: {
+        course_manage: true,
+        user_manage: false,
+        operation_history: true,
+        order_manage: true,
+        admin_manage: false
+      }
     }
   },
   methods: {
@@ -85,6 +95,11 @@ export default {
           break
       }
     }
+  },
+  created: function() {
+    axios.post('http://192.168.55.33:8000/api/authorizationcheck/').then(response => {
+      this.authorizationList = response.data.rights
+    })
   }
 }
 </script>
