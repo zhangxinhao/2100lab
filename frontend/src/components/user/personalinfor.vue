@@ -5,10 +5,29 @@
         <img :src="header" class="header_img">
       </el-col>
     </el-form-item>
-    <router-link to="" class="change_header">修改头像</router-link>
-    <div class="input_block"></div>
+    <el-button @click="dialogVisible = true" class="change_header" type="text">修改头像</el-button>
+    <el-dialog
+      title="更换头像"
+      :visible.sync="dialogVisible"
+      width="25%"
+      :before-close="handleClose">
+      <span class="dialog_msg">请上传头像</span>
+      <el-upload
+        class="avatar-uploader"
+        action=""
+        :show-file-list="false"
+        :on-success="handleAvatarSuccess"
+        :before-upload="beforeAvatarUpload">
+        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="clickToChangeIcon">确 定</el-button>
+      </span>
+    </el-dialog>
     <el-form :label-position="labelPosition" label-width="80px" :model="userMsg">
-      <el-form-item label="认证用户" v-if="userMsg.is_V" class="is_V"></el-form-item>
+      <el-form-item label="认证用户" v-if="userMsg.is_V" class="V"></el-form-item>
       <el-form-item label="用户名" class="infor_text">
         <el-input v-model="userMsg.name" class="infor"></el-input>
       </el-form-item>
@@ -37,7 +56,9 @@ export default {
         phonenumber: '13600000000',
         balance: '1123',
         is_V: true
-      }
+      },
+      dialogVisible: false,
+      imageUrl: ''
     }
   },
   methods: {
@@ -51,11 +72,23 @@ export default {
       )
     },
     clickToChangeIcon() {
-      axios.post('http://192.168.55.33:8000/api/seticon/').then(
-        response => {
-          alert(response.data.result)
-        }
-      )
+      this.dialogVisible = false
+      this.header = require('../../assets/images/header1.jpg')
+    },
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg'
+      const isLt2M = file.size / 1024 / 1024 < 2
+
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!')
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+      }
+      return isJPG && isLt2M
     }
   },
   mounted: function() {
@@ -88,11 +121,38 @@ export default {
   }
 
   .change_header {
-    margin-left: 31.5%;
+    margin-left: 32%;
   }
 
-  .input_block {
-    margin: 20px;
+  .dialog_msg {
+    margin-left: 5%;
+  }
+
+  .avatar-uploader {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    width: 120px;
+    height: 120px;
+    margin-left: 32%;
+  }
+
+  .avatar-uploader:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
+  }
+  .avatar {
+    width: 120px;
+    height: 120px;
+    display: block;
   }
 
   .personalinfor_describelable {
@@ -101,8 +161,7 @@ export default {
     margin-top: 80px;
   }
 
-  .is_V {
-    color: red !important;
+  .V {
     margin-left: 31%;
   }
 
