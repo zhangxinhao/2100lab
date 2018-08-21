@@ -31,3 +31,28 @@ def client_history(request):
       "last_visit": rcd.last_visit
     })
   return HttpResponse(json.dumps({"history": history}))
+
+def client_information(request):
+  user_id = request.POST.get("user_id")
+  user_alias = request.POST.get("alias")
+  list = None
+  searched = False
+  if user_id:
+    list = User.objects.filter(id=user_id)
+    if user_alias:
+      list = list.filter(alias=user_alias)
+  else:
+    if user_alias:
+      list = User.objects.filter(alias=user_alias)
+  if not searched:
+    list = User.objects.filter()
+  list = list.values()
+  query = []
+  for client in list:
+    print(client["balance"])
+    query.append({
+      "userId": client["id"],
+      "alias": client["alias"],
+      "bonus": str(client["balance"])
+    })
+  return HttpResponse(json.dumps({"query": query}))

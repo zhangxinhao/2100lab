@@ -21,5 +21,6 @@ urlpatterns = [
   path('getcode/',user_views.getCode),
   path('coursepage/', course_views.loadCourse),
   path('admin_userhistory/', client.client_history),
-  path('paywithqr/', pay.pay_qr)
+  path('paywithqr/', pay.pay_qr),
+  path('clientinfor/', client.client_information),
 ]
