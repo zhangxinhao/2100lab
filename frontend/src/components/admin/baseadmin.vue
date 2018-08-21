@@ -74,6 +74,9 @@ export default {
         case '4-1':
           this.$router.push('/orderAdmin')
           break
+        case '5-1':
+          this.$router.push('/dataAnalize')
+          break
         case '6-1':
           this.$router.push('/addAdmin')
           break

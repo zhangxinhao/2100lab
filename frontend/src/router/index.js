@@ -24,6 +24,7 @@ import userBrowsing from '@/components/admin/userBrowsing'
 import usermanage from '@/components/admin/usermanage'
 import adminManage from '@/components/admin/adminManage'
 import adminHistory from '@/components/admin/adminHistory'
+import dataAnalize from '@/components/admin/dataAnalize'
 
 Vue.use(Router)
 
@@ -141,6 +142,11 @@ export default new Router({
           path: '/adminHistory',
           component: adminHistory,
           name: 'adminHistory'
+        },
+        {
+          path: '/dataAnalize',
+          component: dataAnalize,
+          name: 'dataAnalize'
         }
       ]
     }
