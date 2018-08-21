@@ -69,10 +69,11 @@
       <div class= "money" v-else>免费课程</div>
       <p class="classContent">{{ classIntro }}</p>
       <div class="operate">
-          <el-button class="judgeButton" type="danger" plain v-if = "burnedFlag">已焚毁</el-button>
-          <el-button class="judgeButton" type="success" v-else-if = "moneyFlag==0">立即观看</el-button>
-          <el-button class="judgeButton" type="success" v-else-if = "paidFlag">立即观看</el-button>
-          <el-button class="judgeButton" type="primary" v-else-if = "paidFlag==0" @click="payDialogVisible = true" style="width:120px;height:50px">去支付</el-button>
+          <el-button class="judgeButton" type="primary" v-if = "login" @click="loginFormVisible = true">立即观看</el-button>
+          <el-button class="judgeButton" type="danger" plain v-else-if = "burnedFlag&&!login" @click="fire">已焚毁</el-button>
+          <el-button class="judgeButton" type="success" v-else-if = "moneyFlag==0&&!login" >立即观看</el-button>
+          <el-button class="judgeButton" type="success" v-else-if = "paidFlag&&!login">立即观看</el-button>
+          <el-button class="judgeButton" type="primary" v-else-if = "paidFlag==0&&!login" @click="payDialogVisible = true" style="width:120px;height:50px">去支付</el-button>
           <!-- <el-button class="judgeButton" type="primary" icon="el-icon-share" @click.native="shareDialogVisible = true"></el-button> -->
           <br />
           <div style="text-align:right">
@@ -122,11 +123,6 @@
         <button>个人中心</button>
       </router-link>
     </div>
-    <div>
-      <router-link to="/destroied">
-        <button>焚毁界面</button>
-      </router-link>
-    </div>
     <br />
     <el-footer height="50px">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
 
@@ -169,7 +165,7 @@ export default {
       title: '我们爱科学',
       buttonShow: '观看',
       // burnedFlag表示当前是否焚毁（true为已焚毁）
-      burnedFlag: false,
+      burnedFlag: true,
       // money表示当前课程的价钱，moneyFlag表示该课是否免费（true为付费 false为免费）
       moneyFlag: true,
       money: '25',
@@ -181,7 +177,7 @@ export default {
       bounty: 15,
       bountyFlag: false,
       shareDialogVisible: false,
-      login: true,
+      login: false,
       not_login: false,
       loginLabelWidth: '100px',
       loginFormVisible: false,
@@ -233,6 +229,9 @@ export default {
           window.open(response.data.result)
         }
       })
+    },
+    fire: function() {
+      this.$router.push({ path: '/destroied' })
     }
   },
   created: function() {
