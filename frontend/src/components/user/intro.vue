@@ -113,7 +113,7 @@
     </div> -->
 
     <div>
-      <router-link to="/coursepage">
+      <router-link :to="{name:'coursepage',params:{courseid: courseid}}">
         <button>进入课程</button>
       </router-link>
     </div>
@@ -165,6 +165,7 @@ export default {
       }, 100)
     }
     return {
+      courseid: '',
       title: '我们爱科学',
       buttonShow: '观看',
       // burnedFlag表示当前是否焚毁（true为已焚毁）
@@ -233,6 +234,9 @@ export default {
         }
       })
     }
+  },
+  created: function() {
+    this.courseid = this.$route.params.courseid
   }
 }
 </script>

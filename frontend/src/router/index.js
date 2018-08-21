@@ -36,12 +36,12 @@ export default new Router({
       component: index
     },
     {
-      path: '/intro',
+      path: '/intro/:courseid',
       name: 'intro',
       component: intro
     },
     {
-      path: '/coursepage',
+      path: '/coursepage/:courseid',
       name: 'coursepage',
       component: coursepage
     },

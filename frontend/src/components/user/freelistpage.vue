@@ -88,7 +88,9 @@
           <li v-for="item in freeList" :key="item.id" class="listone">
             <el-container class="listone-outer">
               <el-aside width="200px">
-                <img :src="item.profile_url" :alt="item.name" width="200px" height="150px">
+                <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
+                  <img :src="item.profile_url" :alt="item.name" width="200px" height="150px">
+                </router-link>
               </el-aside>
               <el-container class="listone-inner">
                 <el-header style="width:320px;height:90px"><div>{{item.name}}</div></el-header>
@@ -177,18 +179,18 @@ export default {
       },
       courses: [],
       freeList: [
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'}
+        {id: 10, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
+        {id: 11, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {id: 12, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {id: 13, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {id: 14, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {id: 15, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {id: 16, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {id: 17, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {id: 18, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {id: 19, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {id: 20, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
+        {id: 21, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'}
       ],
       pageSize: 12,
       totalnumber: 100,

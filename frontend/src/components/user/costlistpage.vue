@@ -88,7 +88,9 @@
             <li v-for="item in costList" :key="item.id" class="listone">
               <el-container class="listone-outer">
                 <el-aside width="200px">
-                  <img :src="item.profile_url" :alt="item.name" width="200px" height="150px">
+                  <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
+                    <img :src="item.profile_url" :alt="item.name" width="200px" height="150px">
+                  </router-link>
                 </el-aside>
                 <el-container class="listone-inner">
                   <el-header style="width:320px;height:90px"><div>{{item.name}}</div></el-header>
@@ -177,18 +179,18 @@ export default {
       },
       courses: [],
       costList: [
-        {profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'}
+        {id: 30, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
+        {id: 31, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 32, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 33, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 34, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 35, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 36, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 37, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 38, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 39, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 40, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 41, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'}
       ],
       pageSize: 12,
       totalnumber: 90,

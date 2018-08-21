@@ -96,11 +96,11 @@ export default {
     }
   },
   methods: {
-
   },
-  created: function () {
+  created: function() {
+    this.courseid = this.$route.params.courseid
     axios.post('http://192.168.55.33:8000/api/coursepage/', qs.stringify({
-      course_id: this.courseid
+      course_id: this.$route.params.courseid
     })).then(response => {
       this.posts = []
       this.tempcourse = response.data.course
