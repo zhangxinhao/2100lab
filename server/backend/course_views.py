@@ -22,3 +22,22 @@ def loadCourse(request):
   mb = messageBoardDic(request)
   course = {"pictures": pictures, "audio": audio, "message": mb, "course_description": course_description}
   return HttpResponse(json.dumps({"course": course}))
+
+def getCourseInfo(request):
+  course_id = request.POST.get("course_id")
+  info = {}
+  try:
+    course = Course.objects.get(course_id=int(course_id))
+  except Course.DoesNotExist:
+    course = None
+  if course:
+    info["title"] = course.course_name
+    info['description'] = course.description
+    info['profile_url'] = course.profile_url
+    info['price'] = str(course.price)
+  else:
+    info["title"] = " "
+    info['description'] = " "
+    info['profile_url'] = " "
+    info['price'] = 0
+  return HttpResponse(json.dumps(info))

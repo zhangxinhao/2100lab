@@ -237,6 +237,19 @@ export default {
   },
   created: function() {
     this.courseid = this.$route.params.courseid
+    axios.post('http://192.168.55.33:8000/api/getcourseinfo/', qs.stringify({
+      course_id: this.courseid
+    })).then(response => {
+      let data = response.data
+      this.title = data.title
+      this.classIntro = data.description
+      this.money = parseFloat(data.price)
+      if (this.money > 0) {
+        this.moneyFlag = true
+      } else {
+        this.moneyFlag = false
+      }
+    })
   }
 }
 </script>
