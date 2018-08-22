@@ -46,6 +46,8 @@
 <script>
 import qs from 'qs'
 import axios from 'axios'
+import * as utils from '../utils/utils.js'
+
 export default {
   data() {
     return {
@@ -63,7 +65,7 @@ export default {
   },
   methods: {
     onSubmitConfirm() {
-      axios.post('http://192.168.55.33:8000/api/setalias/', qs.stringify({
+      axios.post(utils.getURL() + 'api/setalias/', qs.stringify({
         newAlias: this.userMsg.name
       })).then(
         response => {
@@ -99,7 +101,7 @@ export default {
     }
   },
   mounted: function() {
-    axios.post('http://192.168.55.33:8000/api/getuserinfo/').then(
+    axios.post(utils.getURL() + 'api/getuserinfo/').then(
       response => {
         this.userMsg.name = response.data
       }

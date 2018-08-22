@@ -62,6 +62,7 @@
 <script>
 import axios from 'axios'
 import qs from 'qs'
+import * as utils from '../utils/utils.js'
 
 export default {
   data() {
@@ -92,7 +93,7 @@ export default {
       this.deleteIndex = deleteIndex
     },
     deleteuser() {
-      axios.post('http://192.168.55.33:8000/api/deleteclient/', qs.stringify({
+      axios.post(utils.getURL() + 'api/deleteclient/', qs.stringify({
         user_id: this.deleteuser
       })).then(response => {
       })
@@ -103,14 +104,14 @@ export default {
       this.forbideIndex = forbideIndex
     },
     forbideuser() {
-      axios.post('http://192.168.55.33:8000/api/banclient/', qs.stringify({
+      axios.post(utils.getURL() + 'api/banclient/', qs.stringify({
         user_id: this.forbideuser
       })).then(response => {
       })
       this.forbideVisible = false
     },
     search() {
-      axios.post('http://192.168.55.33:8000/api/clientinfor/', qs.stringify({
+      axios.post(utils.getURL() + 'api/clientinfor/', qs.stringify({
         user_id: this.search_userId,
         user_alias: this.search_userAlias
       })).then(response => {
@@ -139,7 +140,7 @@ export default {
     }
   },
   created: function() {
-    axios.post('http://192.168.55.33:8000/api/clientinfor/').then(response => {
+    axios.post(utils.getURL() + 'api/clientinfor/').then(response => {
       this.list = response.data.query
       this.totalnumber = this.list.length
       let totalnumber = this.totalnumber

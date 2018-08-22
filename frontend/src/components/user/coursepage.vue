@@ -127,6 +127,7 @@
 <script>
 import axios from 'axios'
 import qs from 'qs'
+import * as utils from '../utils/utils.js'
 
 export default {
   data() {
@@ -226,7 +227,7 @@ export default {
   },
   created: function() {
     this.courseid = this.$route.params.courseid
-    axios.post('http://192.168.55.33:8000/api/coursepage/', qs.stringify({
+    axios.post(utils.getURL() + 'api/coursepage/', qs.stringify({
       course_id: this.$route.params.courseid
     })).then(response => {
       this.posts = []

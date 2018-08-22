@@ -49,6 +49,7 @@
 
 <script>
 import axios from 'axios'
+import * as utils from '../utils/utils.js'
 
 export default {
   data() {
@@ -84,7 +85,7 @@ export default {
     }
   },
   beforeCreate: function() {
-    axios.post('http://192.168.55.33:8000/api/listorders/').then(response => {
+    axios.post(utils.getURL() + 'api/listorders/').then(response => {
       this.userOrderList = []
       this.list = response.data.orders
       this.totalNumber = this.list.length

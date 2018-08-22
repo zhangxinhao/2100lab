@@ -24,7 +24,7 @@
 <script>
 import axios from 'axios'
 import qs from 'qs'
-
+import * as utils from '../utils/utils.js'
 export default {
   data() {
     let validateAdminId = (rule, value, callback) => {
@@ -54,7 +54,7 @@ export default {
       return str
     },
     login() {
-      axios.post('http://192.168.55.33:8000/api/adminlogin/', qs.stringify({
+      axios.post(utils.getURL() + 'api/adminlogin/', qs.stringify({
         username: this.loform.adminId,
         password: this.$options.methods.hash(this.loform.password)
       })).then(response => {

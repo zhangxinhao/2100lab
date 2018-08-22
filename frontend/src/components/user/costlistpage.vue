@@ -98,6 +98,7 @@
 
 <script>
 import axios from 'axios'
+import * as utils from '../utils/utils.js'
 
 export default {
   data() {
@@ -163,7 +164,7 @@ export default {
     }
   },
   created: function () {
-    axios.post('http://192.168.55.33:8000/api/listcostcourses/').then(response => {
+    axios.post(utils.getURL() + 'api/listcostcourses/').then(response => {
       this.courses = response.data.courses
       this.totalnumber = this.courses.length
       let totalnumber = this.totalnumber
