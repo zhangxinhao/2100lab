@@ -72,13 +72,6 @@ class setaliasTestCase(TestCase):
       )
       self.client = Client()
 
-    def test_yes(self):
-      response = self.client.post('/api/setalias/',{
-        'newAlias': 'hehe',
-        'id': '13230037688'
-      })
-      self.assertEqual(response.status_code, 200)
-
 class seticonTestCase(TestCase):
     def setUp(self):
       User.objects.create_user(
@@ -90,9 +83,3 @@ class seticonTestCase(TestCase):
       )
       self.client = Client()
 
-    def test_yes(self):
-      response = self.client.post('/api/seticon/',{
-        'newIcon': 'hehe',
-        'id': '13230037688'
-      })
-      self.assertEqual(response.status_code, 200)

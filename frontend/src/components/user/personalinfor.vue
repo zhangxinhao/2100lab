@@ -43,6 +43,7 @@
     </el-form>
   </el-form>
 </template>
+
 <script>
 import qs from 'qs'
 import axios from 'axios'
@@ -65,17 +66,22 @@ export default {
   },
   methods: {
     onSubmitConfirm() {
-      axios.post(utils.getURL() + 'api/setalias/', qs.stringify({
-        newAlias: this.userMsg.name
+      axios.post(utils.getURL() + '/api/setuserdata/', qs.stringify({
+        newAlias: this.userMsg.name,
+        newIcon: this.header
       })).then(
         response => {
-          alert(response.data.result)
+          this.header = response.data.header
+          this.userMsg.name = response.data.alias
+          this.userMsg.phonenumber = response.data.phone_number
+          this.userMsg.balance = response.data.balance
+          this.userMsg.is_V = response.data.is_v
         }
       )
     },
     clickToChangeIcon() {
       this.dialogVisible = false
-      this.header = require('../../assets/images/header1.jpg')
+      this.header = this.imageUrl
     },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)
@@ -100,12 +106,15 @@ export default {
         .catch(_ => {})
     }
   },
-  mounted: function() {
-    axios.post(utils.getURL() + 'api/getuserinfo/').then(
-      response => {
-        this.userMsg.name = response.data
-      }
-    )
+  created: function() {
+    axios.post(utils.getURL() + '/api/getuserinfo/', qs.stringify({
+    })).then(response => {
+      this.header = response.data.header
+      this.userMsg.name = response.data.alias
+      this.userMsg.phonenumber = response.data.phone_number
+      this.userMsg.balance = response.data.balance
+      this.userMsg.is_V = response.data.is_v
+    })
   }
 }
 </script>
