@@ -1,4 +1,4 @@
-from .manager import client, admin, msg_mng
+from .manager import client, admin_views, msg_mng
 from django.conf.urls import url, include
 from . import views, user_views, order_views, course_views, pay
 from django.urls import path
@@ -27,9 +27,10 @@ urlpatterns = [
   path('clientinfor/', client.client_information),
   path('deleteclient/', client.delete),
   path('banclient/', client.ban),
-  path('adminlogin/', admin.authenticate),
-  path('adminlogout/', admin.logout),
-  path('authorizationcheck/', admin.authorization_check),
+  path('adminlogin/', admin_views.authenticate),
+  path('adminlogout/', admin_views.logout),
+  path('authorizationcheck/', admin_views.authorization_check),
   path('showmessage/', msg_mng.show_msg),
-
+  path('deletemsg/', msg_mng.delete_msg),
+  path('shutup/', admin_views.ban_client),
 ]

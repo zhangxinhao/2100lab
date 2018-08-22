@@ -47,3 +47,17 @@ def authorization_check(request):
         "admin_manage": True
       }
   return HttpResponse(json.dumps({"rights": rights}))
+
+
+def ban_client(request):
+  client_id = request.POST.get("userId")
+  status = 0
+  try:
+    user = User.objects.get(id=client_id)
+    if user:
+      user.cannot_talk()
+    else:
+      status = 1
+  except User.DoesNotExist as e:
+    status = 1
+  return HttpResponse(json.dumps({"status": status}))

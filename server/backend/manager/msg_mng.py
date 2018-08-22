@@ -24,7 +24,9 @@ def show_msg(request):
     course = message.course
     c_id = course.course_id
     message_query.append({
+      "id":message_id,
       "courseId": c_id,
+      "userId": message.author_id,
       "userName": message.author.alias,
       "phoneNumber": message.author.id,
       "msgContent": message.content,
@@ -33,12 +35,36 @@ def show_msg(request):
     comment_list = Comment.objects.filter(message=message).order_by("-time")
     for comment in comment_list:
       course_query.append({
+        "id": comment.id,
         "courseId": c_id,
+        "userId": comment.author_id,
         "userName": comment.author.alias,
         "phoneNumber": comment.author.id,
         "msgContent": comment.content,
         "createdAt": str(comment.time)
       })
   query = __querysort__(message_query, comment_query)
+  query = [{
+    "id": "comment.id",
+    "courseId": "c_id",
+    "userId": "comment.author_id",
+    "userName": "comment.author.alias",
+    "phoneNumber": "comment.author.id",
+    "msgContent": "comment.content",
+    "createdAt": "str(comment.time)"
+  }]
   return HttpResponse(json.dumps({"query": query}))
 
+def delete_msg(request):
+  msg_id = request.POST.get("msgId")
+  msg_id = int(msg_id)
+  status = 0
+  try:
+    msg = Message.objects.get(id=msg_id)
+    if msg:
+      msg.delete()
+    else:
+      status = 1
+  except Message.DoesNotExist as e:
+    status = 1
+  return HttpResponse(json.dumps({"status": status}))

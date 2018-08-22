@@ -94,7 +94,7 @@ export default {
     },
     deleteuser() {
       axios.post(utils.getURL() + 'api/deleteclient/', qs.stringify({
-        user_id: this.deleteuser
+        user_id: this.userData[this.deleteIndex].userId
       })).then(response => {
       })
       this.deleteVisible = false
@@ -105,7 +105,7 @@ export default {
     },
     forbideuser() {
       axios.post(utils.getURL() + 'api/banclient/', qs.stringify({
-        user_id: this.forbideuser
+        user_id: this.userData[this.forbideIndex].userId
       })).then(response => {
       })
       this.forbideVisible = false

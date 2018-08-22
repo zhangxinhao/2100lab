@@ -15,14 +15,21 @@ class User(AbstractUser):
   manage_right = models.PositiveIntegerField(default=0)
   talking_allowed = models.BooleanField(default=True)
 
-  def setActive(self, active):
+  def setActive(self, active=False):
     self.is_active = active
+    self.save()
 
   def setAlias(self, newAlias):
     self.alias = newAlias
+    self.save()
 
   def setIcon(self, newIcon):
     self.icon = newIcon
+    self.save()
+
+  def cannot_talk(self):
+    self.talking_allowed = False
+    self.save()
 
 class rights_list(models.Model):
   id = models.PositiveIntegerField(primary_key=True)
