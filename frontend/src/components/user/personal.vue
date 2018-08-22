@@ -1,8 +1,9 @@
 <template>
+<div>
   <div id="person">
     <div class="toolbar">
       <div class="logo">
-      <img src="../../assets/logo1.png" width="200%" height="100%">
+        <img src="../../assets/logo1.png" width="200%" height="100%">
       </div>
       <table align="right">
         <tr>
@@ -12,11 +13,16 @@
         </tr>
       </table>
     </div>
+  </div>
+  <div id="person" class="hidden-md-and-down">
     <el-container class="firstcontainer">
       <el-aside>
-        <el-menu :default-openeds="['5']" default-active="1" class="el-menu-vertical-demo" @select="handleSelect">
+        <el-menu :default-openeds="['5']" default-active="1" class="el-menu-vertical-demo" @select="handleSelect" :collapse="false">
           <el-submenu index="5">
-            <template class="head" slot="title"><i class="el-icon-message"></i>个人中心</template>
+            <template class="head" slot="title">
+              <i class="el-icon-message"></i>
+              <span slot="title">个人中心</span>
+            </template>
             <el-menu-item class="col" index="1">浏览历史</el-menu-item>
             <el-menu-item class="col" index="2">订单列表</el-menu-item>
             <el-menu-item class="col" index="3">已购课程</el-menu-item>
@@ -29,11 +35,36 @@
       </el-main>
     </el-container>
   </div>
+
+  <div id="personmini" class="hidden-lg-and-up">
+    <el-container class="firstcontainer">
+      <el-aside>
+        <el-menu :default-openeds="['5']" default-active="1" class="el-menu-vertical-demo" @select="handleSelect" :collapse="true">
+          <el-submenu index="5">
+            <template class="head" slot="title">
+              <i class="el-icon-message"></i>
+              <span slot="title">个人中心</span>
+            </template>
+            <el-menu-item class="col" index="1">浏览历史</el-menu-item>
+            <el-menu-item class="col" index="2">订单列表</el-menu-item>
+            <el-menu-item class="col" index="3">已购课程</el-menu-item>
+            <el-menu-item class="col" index="4">个人信息</el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+    </el-container>
+  </div>
+
+</div>
 </template>
 <script>
 export default {
   data() {
     return {
+
     }
   },
   methods: {
@@ -107,10 +138,10 @@ export default {
     width: 1600px;
   }
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 800px) {
     .user-ope {
       color: black;
-      font-size:15px;
+      font-size: 15px;
       margin-right: 10px;
     }
     .toolbar {
@@ -121,6 +152,15 @@ export default {
       display: inline-block;
       width: 42px;
       height: 42px;
+    }
+    .el-aside {
+      width: 65px !important;
+      margin-left: 0px;
+    }
+    .firstcontainer {
+      text-align: center;
+      margin: 0px auto;
+      width: 1600px;
     }
   }
 </style>

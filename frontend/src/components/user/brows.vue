@@ -21,13 +21,16 @@
         <!-- 最多显示八个页面按钮 page-count -->
       <div>
         <el-pagination
-          background
+        background
+        small
           layout="prev, pager, next"
-          :total="browpages"
-          page-size=6
-          :current-page.sync="nowPage"
-          :pager-count=6>
-        </el-pagination>
+          :page-size="pageSize"
+          :total="totalnumber"
+          :current-page.sync="pageNo"
+          :pager-count="7"
+          @current-change="flipeOver"
+        >
+      </el-pagination>
       </div>
     </div>
   </div>
@@ -45,14 +48,22 @@ export default {
         {pictureSrc: require('../../assets/read.jpg'), courseTitle: '少壮不努力', lastBrowTime: '2018-3-5'},
         {pictureSrc: require('../../assets/read.jpg'), courseTitle: '老大徒伤悲', lastBrowTime: '2018-3-5'}
       ],
-      // 总共有多少记录
-      browpages: 200,
-      // 设置当前处于哪个页面按钮上
-      nowPage: 1
+      pageSize: 12,
+      totalnumber: 100,
+      pageNo: 1
     }
   },
   methods: {
     handleChange(value) {
+    },
+    flipeOver: function (page) {
+      let _end = this.pageSize * page
+      let end = this.totalnumber < (_end) ? this.totalnumber : _end
+      this.freeList = []
+      let start = this.pageSize * (page - 1)
+      for (let i = start; i < end; i++) {
+        this.freeList.push(this.courses[i])
+      }
     }
   },
   mounted: function() {
