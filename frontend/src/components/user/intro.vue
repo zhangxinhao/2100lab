@@ -103,6 +103,7 @@
 <script>
 import axios from 'axios'
 import qs from 'qs'
+import * as utils from '../utils/utils.js'
 
 export default {
   data() {
@@ -179,7 +180,7 @@ export default {
   },
   methods: {
     payWithCash: function() {
-      axios.post('http://192.168.55.33:8000/api/paywithqr/', qs.stringify({
+      axios.post(utils.getURL() + 'api/paywithqr/', qs.stringify({
         channel: this.channel,
         amount: this.money,
         course_name: this.title
@@ -196,7 +197,7 @@ export default {
   },
   created: function() {
     this.courseid = this.$route.params.courseid
-    axios.post('http://192.168.55.33:8000/api/getcourseinfo/', qs.stringify({
+    axios.post(utils.getURL() + 'api/getcourseinfo/', qs.stringify({
       course_id: this.courseid
     })).then(response => {
       let data = response.data

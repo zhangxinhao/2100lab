@@ -54,6 +54,7 @@
 <script>
 import axios from 'axios'
 import qs from 'qs'
+import * as utils from '../utils/utils.js'
 
 export default {
   data() {
@@ -90,7 +91,7 @@ export default {
       }
     },
     search: function(id) {
-      axios.post('http://192.168.55.33:8000/api/admin_userhistory/', qs.stringify({
+      axios.post(utils.getURL() + 'api/admin_userhistory/', qs.stringify({
         course_id: id
       })).then(response => {
         this.userBrowsList = []
@@ -114,7 +115,7 @@ export default {
     }
   },
   created: function() {
-    axios.post('http://192.168.55.33:8000/api/admin_userhistory/').then(response => {
+    axios.post(utils.getURL() + 'api/admin_userhistory/').then(response => {
       this.list = response.data.history
       this.totalNumber = this.list.length
       this.userBrowsList = []

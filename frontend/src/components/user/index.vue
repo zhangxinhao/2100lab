@@ -156,6 +156,7 @@
 <script>
 import axios from 'axios'
 import qs from 'qs'
+import * as utils from '../utils/utils.js'
 
 export default {
   data: function () {
@@ -227,7 +228,7 @@ export default {
         return
       }
       this.loginFormVisible = false
-      axios.post('http://192.168.55.33:8000/api/authenticate/', qs.stringify({
+      axios.post(utils.getURL() + 'api/authenticate/', qs.stringify({
         phone_number: this.loform.phonenumber,
         verification_code: 0
       })).then(
@@ -244,7 +245,7 @@ export default {
         return
       }
       this.createRandom()
-      axios.post('http://192.168.55.33:8000/api/getcode/', qs.stringify({
+      axios.post(utils.getURL() + 'api/getcode/', qs.stringify({
         phone_number: this.loform.phonenumber,
         password: this.loform.password
       })).then(
@@ -254,19 +255,19 @@ export default {
       )
     },
     logout: function() {
-      axios.post('http://192.168.55.33:8000/api/logout/').then(response => {
+      axios.post(utils.getURL() + 'api/logout/').then(response => {
         this.login = false
       })
     }
   },
   created: function () {
-    axios.post('http://192.168.55.33:8000/api/login/').then(response => {
+    axios.post(utils.getURL() + 'api/login/').then(response => {
       this.login = response.data.status
     })
-    axios.post('http://192.168.55.33:8000/api/listrecommend/').then(response => {
+    axios.post(utils.getURL() + 'api/listrecommend/').then(response => {
       this.imgList = response.data.courses
     })
-    axios.post('http://192.168.55.33:8000/api/listfreeindex/').then(response => {
+    axios.post(utils.getURL() + 'api/listfreeindex/').then(response => {
       this.freeList_1 = []
       this.freeList_2 = []
       let freelist = response.data.courses
@@ -277,7 +278,7 @@ export default {
         this.freeList_2.push(freelist[i])
       }
     })
-    axios.post('http://192.168.55.33:8000/api/listpricedindex/').then(response => {
+    axios.post(utils.getURL() + 'api/listpricedindex/').then(response => {
       this.costList_1 = []
       this.costList_2 = []
       let costList = response.data.courses
