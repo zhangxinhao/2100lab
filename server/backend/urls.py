@@ -1,4 +1,4 @@
-from .manager import client, admin_views, msg_mng
+from .manager import client, admin_views, msg_mng, orders_views
 from django.conf.urls import url, include
 from . import views, user_views, order_views, course_views, pay
 from django.urls import path
@@ -34,4 +34,5 @@ urlpatterns = [
   path('showmessage/', msg_mng.show_msg),
   path('deletemsg/', msg_mng.delete_msg),
   path('shutup/', admin_views.ban_client),
+  path('manageorder/', orders_views.list_order),
 ]

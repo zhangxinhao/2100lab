@@ -25,7 +25,7 @@ def getOrders(request):
     order["course_name"] = course_name
     order['course_id'] = course.id
     order["price"] = price
-    order["status"] = Order_status.objectsstatus
+    order["status"] = Order_status.objects.get(status_code=status)
     order["time"] = time
     orders.append(order)
   return HttpResponse(json.dumps({"orders": orders}))
