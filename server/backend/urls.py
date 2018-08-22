@@ -14,6 +14,7 @@ urlpatterns = [
   path('getcourseinfo/', course_views.getCourseInfo),
   path('setalias/', user_views.setAlias),
   path('seticon/', user_views.setIcon),
+  path('setuserdata/', user_views.setUserData),
   path('listrecommend/', views.recommendCourse),
   path('listfreeindex/', views.briefFreeCourses),
   path('listpricedindex/', views.briefPricedCourses),
