@@ -1,130 +1,106 @@
 <template>
-  <div class="costlist">
+<div class="costlist">
 
-    <div class="toolbar">
-      <table align="right">
-        <tr>
-          <td>
-            <el-button class="user-ope" type="text" v-if="login" @click="loginFormVisible = true" style="color:#085078;font-size:18px">登录&nbsp;&nbsp;&nbsp;</el-button>
-          </td>
-          <td>
-            <el-button class="user-ope" type="text" v-if="login" @click="registerFormVisible = true" style="color:#085078;font-size:18px">注册</el-button>
-          </td>
-          <td>
-            <el-button class="user-ope" type="text" v-if="not_login" @click="logout" style="color:white">登出</el-button>
-          </td>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        </tr>
-      </table>
-    </div>
+  <div class="toolbar">
+    <table align="right">
+      <tr>
+        <td>
+          <el-button class="user-ope" type="text" v-if="login" @click="loginFormVisible = true">登录/注册&nbsp;&nbsp;</el-button>
+        </td>
+        <td>
+          <el-button class="user-ope" type="text" v-if="not_login" @click="logout" style="color:white">登出</el-button>
+        </td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      </tr>
+    </table>
+  </div>
 
-    <div class="logindialog">
-      <el-dialog title="登录" :visible.sync="loginFormVisible" width="400px" height="700px">
-        <el-form :model="loform" :rules="rules">
-          <el-form-item label="手机号" :label-width="loginLabelWidth" prop="lophone">
-            <el-col :span="18">
-              <el-input v-model="loform.phonenumber" auto-complete="true" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/" oninvalid="this.setCustomValidity('warning')"></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="验证码" :label-width="loginLabelWidth">
-            <el-col :span="18">
-              <el-input v-model="loform.password" auto-complete="off" clearable></el-input>
-            </el-col>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="login-footer">
-          <el-button type="primary" @click="loginFormVisible = false">获取验证码</el-button>
-          <el-button @click="loginFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="loginFormVisible = false">确 定</el-button>
-        </div>
-      </el-dialog>
-    </div>
-
-    <div class="registerdialog">
-      <el-dialog title="注册" :visible.sync="registerFormVisible" width="400px" height="700px">
-        <el-form :model="reform" :rules="rules">
-          <el-form-item label="手机号" :label-width="registerLabelWidth" prop="rephone">
-            <el-col :span="18">
-              <el-input v-model="reform.phonenumber" auto-complete="off" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="验证码" :label-width="registerLabelWidth">
-            <el-col :span="18">
-              <el-input v-model="reform.password" auto-complete="off" clearable></el-input>
-            </el-col>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="register-footer">
-          <el-button type="primary" @click="loginFormVisible = false">获取验证码</el-button>
-          <el-button @click="registerFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="registerFormVisible = false">确 定</el-button>
-        </div>
-      </el-dialog>
-    </div>
-
-    <div class="menu">
-      <ul>
-        <li style="display:inline; width: 120px; height:20px;float:left"></li>
-        <li style="display:inline">
-          <router-link to="/">
-            <el-button icon="el-icon-back">首页</el-button>
-          </router-link>
-        </li>
-        <li style="display:inline">
-          <router-link to="/freelistpage">
-            <el-button>免费区</el-button>
-          </router-link>
-        </li>
-        <li style="display:inline">
-           <el-button type="primary" disabled>付费区</el-button>
-        </li>
-      </ul>
-    </div>
-
-    <div class="main-inner">
-      <div class="container-body">
-        <div class="video-list">
-          <ul class="vd-list">
-            <li v-for="item in costList" :key="item.id" class="listone">
-              <el-container class="listone-outer">
-                <el-aside width="200px">
-                  <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
-                    <img :src="item.profile_url" :alt="item.name" width="200px" height="150px">
-                  </router-link>
-                </el-aside>
-                <el-container class="listone-inner">
-                  <el-header style="width:320px;height:90px"><div>{{item.name}}</div></el-header>
-                  <el-main style="width:320px;height:50px;padding:10px;text-align:right"><el-button icon="el-icon-caret-right" type="primary">点击阅读</el-button></el-main>
-                </el-container>
-              </el-container>
-              <hr />
-            </li>
-          </ul>
-        </div>
+  <div class="logindialog">
+    <el-dialog title="登录" :visible.sync="loginFormVisible" width="330px" height="500px">
+      <el-form :model="loform" :rules="rules">
+        <el-form-item label="手机号" :label-width="loginLabelWidth" prop="lophone">
+          <el-col :span="18">
+            <el-input v-model="loform.phonenumber" auto-complete="true" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/" oninvalid="this.setCustomValidity('warning')"></el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="验证码" :label-width="loginLabelWidth">
+          <el-col :span="18">
+            <el-input v-model="loform.password" auto-complete="off" clearable></el-input>
+          </el-col>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="login-footer">
+        <el-button type="primary" @click="loginFormVisible = false">获取验证码</el-button>
+        <el-button @click="loginFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="loginFormVisible = false">确 定</el-button>
       </div>
+    </el-dialog>
+  </div>
 
-      <div style="text-align:right">
-        <el-pagination
-          background
+  <div class="menu">
+    <el-row :gutter="100">
+      <el-col :span="1" :offset="2">
+        <router-link to="/">
+          <el-button icon="el-icon-back" class="backtoindex">首页</el-button>
+        </router-link>
+      </el-col>
+      <el-col :span="1">
+        <router-link to="/freelistpage">
+          <el-button>免费区</el-button>
+        </router-link>
+      </el-col>
+      <el-col :span="1">
+          <el-button type="primary" disabled>付费区</el-button>
+      </el-col>
+    </el-row>
+  </div>
+
+  <div class="main-inner">
+    <div class="container-body">
+      <div class="video-list">
+        <ul class="vd-list">
+          <li v-for="item in costList" :key="item.id" class="listone">
+            <el-container class="listone-outer">
+              <el-aside class="aside">
+                <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
+                  <img :src="item.profile_url" :alt="item.name" class="imgList">
+                </router-link>
+              </el-aside>
+              <el-container class="listone-inner">
+                <el-header class="header"><div>{{item.name}}</div></el-header>
+                <el-main class="main"><el-button icon="el-icon-caret-right" type="primary" class="read">点击阅读</el-button></el-main>
+              </el-container>
+            </el-container>
+            <hr />
+          </li>
+        </ul>
+      </div>
+    </div>
+    <el-footer>
+    <div style="text-align:right">
+      <el-pagination
+        background
+        small
           layout="prev, pager, next"
           :page-size="pageSize"
           :total="totalnumber"
           :current-page.sync="pageNo"
           :pager-count="7"
           @current-change="flipeOver"
-          >
-        </el-pagination>
-      </div>
-
+        >
+      </el-pagination>
     </div>
+    </el-footer>
   </div>
+
+</div>
 </template>
 
 <script>
 import axios from 'axios'
 
 export default {
-  data: function () {
+  data() {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
     var validateloPhone = (rule, value, callback) => {
       if (!this.loform.phonenumber) {
@@ -138,18 +114,7 @@ export default {
         }
       }, 100)
     }
-    var validaterePhone = (rule, value, callback) => {
-      if (!this.reform.phonenumber) {
-        return callback(new Error('号码不能为空'))
-      }
-      setTimeout(() => {
-        if (!phoneReg.test(this.reform.phonenumber)) {
-          callback(new Error('格式有误'))
-        } else {
-          callback()
-        }
-      }, 100)
-    }
+
     return {
       login: true,
       not_login: false,
@@ -163,37 +128,26 @@ export default {
         resource: '',
         desc: ''
       },
-      registerFormVisible: false,
-      registerLabelWidth: '100px',
-      reform: {
-        phonenumber: '',
-        password: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      },
       rules: {
-        lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }],
-        rephone: [{ required: true, validator: validaterePhone, trigger: 'blur' }]
+        lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }]
       },
       courses: [],
       costList: [
-        {id: 30, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'},
-        {id: 31, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 32, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 33, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 34, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 35, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 36, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 37, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 38, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 39, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 40, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 41, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'}
+        {id: 10, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 11, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 12, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 13, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 14, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 15, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 16, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 17, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 18, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 19, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 20, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
+        {id: 21, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'}
       ],
       pageSize: 12,
-      totalnumber: 90,
+      totalnumber: 100,
       pageNo: 1
     }
   },
@@ -209,7 +163,7 @@ export default {
     }
   },
   created: function () {
-    axios.post('http://192.168.55.33:8000/api/listpricedcourses/').then(response => {
+    axios.post('http://192.168.55.33:8000/api/listcostcourses/').then(response => {
       this.courses = response.data.courses
       this.totalnumber = this.courses.length
       let totalnumber = this.totalnumber
@@ -237,7 +191,7 @@ export default {
     padding: 0;
   }
 
-  .freelist {
+  .costlist {
     margin: 0;
     padding: 0;
   }
@@ -254,6 +208,10 @@ export default {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
+  .user-ope {
+    color:#085078;
+    font-size:18px;
+  }
   li, ul {
     list-style: none;
     margin: 10px 10px;
@@ -269,7 +227,7 @@ export default {
     border-bottom: 1px, solid, black;
   }
   .main-inner {
-    width: 1250px;
+    max-width: 1250px;
     height: 1250px;
     margin: 0 auto;
     position: relative;
@@ -278,7 +236,6 @@ export default {
   .video-list {
     zoom: 1;
     height:1150px;
-    min-height: 400px;
     margin-bottom: 30px;
   }
   .listone-outer {
@@ -293,5 +250,148 @@ export default {
     width: 550px;
     margin: 10px 10px;
     border: 1px, solid, gray;
+  }
+  .aside {
+    width: 200px !important;
+  }
+  .imgList {
+    width: 200px;
+    height: 150px;
+  }
+  .header {
+    width: 320px;
+    height: 90px !important;
+  }
+  .main {
+    width: 320px;
+    height: 50px;
+    padding: 10px;
+    text-align: right;
+  }
+  @media screen and (max-width: 800px) {
+    li, ul {
+      list-style: none;
+      margin: 5px 10px;
+      padding: 0px;
+    }
+    .user-ope {
+      color:#085078;
+      font-size:15px;
+    }
+    .main-inner {
+      max-width: 1250px;
+      height: 1580px;
+      margin: 0 auto;
+      position: relative;
+      zoom: 1;
+    }
+    .video-list {
+      zoom: 1;
+      height:1580px;
+      margin-bottom: 30px;
+    }
+    .listone-outer {
+      max-width: 350px;
+    }
+    .listone-inner {
+      max-width: 200px;
+    }
+    .listone {
+      display: block;
+      float: left;
+      max-width: 350px;
+      margin: 5px 0px;
+      border: 1px, solid, gray;
+    }
+    .aside {
+      max-width: 150px !important;
+    }
+    .imgList {
+      max-width: 150px;
+      height: 100px;
+    }
+    .header {
+      max-width: 200px;
+      height: 50px !important;
+    }
+    .main {
+      max-width: 200px;
+      height: 50px;
+      padding: 10px;
+      text-align: right;
+    }
+    .read {
+      padding: 5px;
+    }
+  }
+  @media screen and (min-width: 800px) and (max-width: 1100px){
+    li, ul {
+      list-style: none;
+      margin: 5px 10px;
+      padding: 0px;
+    }
+    .user-ope {
+      color:#085078;
+      font-size:15px;
+    }
+    .main-inner {
+      max-width: 1250px;
+      height: 1080px;
+      margin: 0 auto;
+      position: relative;
+      zoom: 1;
+    }
+    .video-list {
+      zoom: 1;
+      height:1080px;
+      margin-bottom: 30px;
+    }
+    .listone-outer {
+      max-width: 500px;
+    }
+    .listone-inner {
+      max-width: 300px;
+    }
+    .listone {
+      display: block;
+      float: left;
+      max-width: 500px;
+      margin: 5px 0px;
+      border: 1px, solid, gray;
+    }
+    .aside {
+      max-width: 200px !important;
+    }
+    .imgList {
+      max-width: 200px;
+      height: 150px;
+    }
+    .header {
+      max-width: 300px;
+      height: 100px !important;
+    }
+    .main {
+      max-width: 300px;
+      height: 50px;
+      padding: 10px;
+      text-align: right;
+    }
+    .read {
+      padding: 5px;
+    }
+  }
+  @media screen and (min-width: 500px) and (max-width: 800px) {
+    .main-inner {
+      max-width: 1250px;
+      height: 780px;
+      margin: 0 auto;
+      position: relative;
+      zoom: 1;
+    }
+    .video-list {
+      zoom: 1;
+      height:780px;
+      margin-bottom: 30px;
+    }
   }
 </style>
