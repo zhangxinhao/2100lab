@@ -4,20 +4,19 @@
       <div class="browshead">订单列表</div>
       <div id="usertable">
       <el-table
-        border
         class="ordertable"
         :data="userOrderList">
         <el-table-column
           header-align=center
           prop="order_id"
           label="订单编号"
-          width="180">
+          >
         </el-table-column>
         <el-table-column
           header-align=center
           prop="course_id"
           label="课程编号"
-          width="180">
+        >
         </el-table-column>
         <el-table-column
           header-align=center
@@ -40,6 +39,7 @@
           :page-size="pageSize"
           :current-page.sync="nowPage"
           :pager-count="5"
+          small
           @current-change="flipOver">
         </el-pagination>
       </div>
@@ -65,7 +65,7 @@ export default {
       ],
       nowPage: 1,
       pageSize: 2,
-      totalNumber: 100
+      totalNumber: 10
     }
   },
   methods: {
@@ -121,4 +121,21 @@ export default {
     font-weight: bold;
     margin-bottom: 30px;
   }
+  @media screen and (max-width: 500px) {
+    .browstitle {
+      width: 260px;
+    }
+    .el-table__header {
+      width: 260px !important;
+    }
+    .el-table__body {
+      width: 260px !important;
+    }
+    col {
+      width: 50px !important;
+    }
+    .el-table {
+      font-size: 7px;
+    }
+}
 </style>

@@ -68,6 +68,8 @@ export default {
     }
   },
   methods: {
+    logout: function() {
+    },
     handleChange(value) {
     },
     handleSelect(key, keyPath) {
@@ -92,8 +94,7 @@ export default {
 <style scoped>
   .toolbar {
     width: 100%;
-    min-height: 55px;
-    max-height: 70px;
+    max-height: 50px;
     margin: 0;
     padding: 0;
     background-color:lightskyblue;
@@ -103,8 +104,8 @@ export default {
   .logo {
     margin-left: 50px;
     display: inline-block;
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
   }
 
   .user-ope {
@@ -114,20 +115,21 @@ export default {
   }
 
   .el-aside {
-    width: 300px !important;
-    margin-left: 40px;
+    width: 250px !important;
+    margin-left: 0px;
+  }
+  li {
+     background-color: rgb(248, 248, 247);
   }
   .col {
     height: 60px !important;
-    line-height:60px !important;
-    font-size: 18px;
     background-color:white;
   }
   .el-submenu__title {
     height: 60px !important;
     line-height:60px !important;
     background-color: rgb(238, 243, 247);
-    font-size: 16px;
+    font-size: 18px;
     vertical-align:middle;
     font-weight: bold;
   }
@@ -135,7 +137,7 @@ export default {
   .firstcontainer {
     text-align: center;
     margin: 0px auto;
-    width: 1600px;
+    width: 100%;
   }
 
   @media screen and (max-width: 800px) {
@@ -148,7 +150,7 @@ export default {
       min-height: 42px;
     }
     .logo {
-      margin-left: 50px;
+      margin-left: 30px;
       display: inline-block;
       width: 42px;
       height: 42px;
@@ -160,7 +162,7 @@ export default {
     .firstcontainer {
       text-align: center;
       margin: 0px auto;
-      width: 1600px;
+      width: 100%;
     }
   }
 </style>

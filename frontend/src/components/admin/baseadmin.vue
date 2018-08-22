@@ -2,7 +2,7 @@
   <div clsss="outdiv">
     <div class="toolbar">
       <div class="logo">
-      <img src="../../assets/logo1.png" width="200%" height="100%">
+      <img src="../../assets/logo2.png" width="200%" height="100%">
       </div>
       <table align="right">
         <tr>
@@ -118,10 +118,13 @@ export default {
 }
 </script>
 <style scoped>
+  .el-aside {
+    width: 250px !important;
+    margin-left: 0px;
+  }
    .toolbar {
     width: 100%;
-    min-height: 55px;
-    max-height: 70px;
+    min-height: 50px;
     margin: 0;
     padding: 0;
     background-color: #606266;
@@ -131,8 +134,8 @@ export default {
   .logo {
     margin-left: 50px;
     display: inline-block;
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
   }
 
   .user-ope {
