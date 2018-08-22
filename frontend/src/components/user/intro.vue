@@ -216,8 +216,7 @@ export default {
 <style scoped>
   .toolbar {
     width: 100%;
-    min-height: 55px;
-    max-height: 70px;
+    max-height: 50px;
     margin: 0;
     padding: 0;
     background-color:lightskyblue;
@@ -380,7 +379,7 @@ export default {
       min-height: 42px;
     }
     .logo {
-      margin-left: 50px;
+      margin-left: 30px;
       display: inline-block;
       width: 42px;
       height: 42px;
