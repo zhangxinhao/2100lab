@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div class="toolbar">
       <div class="logo">
       <img src="../../assets/logo1.png" width="200%" height="100%">
@@ -8,132 +9,216 @@
         <tr>
           <td>
             <router-link to="/personal">
-              <el-button class="user_ope" type="text">个人中心</el-button>
+              <el-button class="user-ope" type="text" v-if="login">个人中心</el-button>
             </router-link>
           </td>
           <td>
-            <el-button class="user-ope" type="text" @click="logout">登出</el-button>
+            <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true">登录/注册&nbsp;&nbsp;</el-button>
+          </td>
+          <td>
+            <el-button class="user-ope" type="text" v-if="login" @click="logout">登出</el-button>
           </td>
         </tr>
       </table>
     </div>
-    <el-container>
-      <el-main align="center">
-        <div>
-          <div>
-            <img :src="coursepicture1" class="coursepicture">
-          </div>
-          <div id="player_sharer" align="center">
-            <div class="audioplayer">
-              <el-row>
-                <el-col :span="4">
-                  <el-button
-                  @click="play"
-                  id="playerbutton"
-                  icon="el-icon-caret-right"
-                  circle></el-button>
-                </el-col>
-                <el-col :span="16">
-                  <el-row>
-                    <el-col :span="10">
-                      <el-slider
-                      @change="changeTime"
-                      :format-tooltip="formatTime"
-                      :max="music.maxTime"
-                      v-model="music.currentTime"
-                      ></el-slider>
-                    </el-col>
-                    <el-col :span="6" class="volumelabel">
-                      <el-label>音量：{{ music.volume }}%</el-label>
-                    </el-col>
-                    <el-col :span="4">
-                      <el-button
-                      @click="changeVolume(-10)"
-                      id="playerbutton"
-                      icon="el-icon-minus"
-                      circle></el-button>
-                    </el-col>
-                    <el-col :span="3">
-                      <el-button
-                      @click="changeVolume(10)"
-                      id="playerbutton"
-                      icon="el-icon-plus"
-                      circle></el-button>
-                    </el-col>
-                  </el-row>
-                </el-col>
-                <el-col :span="4" class="audiotime">
-                  {{formatTime(music.currentTime)}}/{{formatTime(music.maxTime)}}
-                </el-col>
-              </el-row>
-              <audio ref="music" autoplay>
-                <source :src="courseaudio1">
-              </audio>
-            </div>
-            <el-button class="share" icon="el-icon-share" circle></el-button>
-          </div>
-          <div class="course_description">
-            <h1 id="course_description" :course_description="course_description">{{ course_description }}</h1>
-          </div>
-          <div>
-            <el-button class="leave_msg" @click="dialogVisible = true">写留言</el-button>
-            <el-dialog
-              title="写留言"
-              :visible.sync="dialogVisible"
-              width="50%"
-              :before-close="handleClose"
-              align="left">
-              <span class="dialog_msg">在此编辑你的留言：</span>
-              <el-input
-                type="textarea"
-                :rows="5"
-                class="comment_input"
-                placeholder="请输入内容"
-                v-model="tempcomment">
-              </el-input>
-              <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="confirmMsg">确 定</el-button>
-              </span>
-            </el-dialog>
-            <h2>留言区</h2>
-            <div>
-              <el-col class="course_msgboard" v-for="post in posts" :key="post.id">
-                <div class="course_header">
-                    <img :src="post.header" class="header_img">
-                </div>
-                <h3>{{ post.author }}</h3>
-                <h4>发表于 {{ post.created_at }}</h4>
-                <div class="msg_content">{{ post.content }}</div>
-                <el-button id="course_dislike" icon="el-icon-arrow-down">({{ post.dislike }})</el-button>
-                <el-button id="course_like" icon="el-icon-arrow-up">({{ post.like }})</el-button>
-                <el-button id="course_reply_author">回复</el-button>
-                <div >
-                  <el-col class="course_reply" v-for="reply in post.reply" :key="reply.id">
-                    <h5>{{ reply.author }}：</h5>
-                    <div class="reply_content">{{ reply.content }}</div>
-                  </el-col>
-                </div>
-              </el-col>
-            </div>
-          </div>
+
+    <div class="logindialog">
+      <el-dialog title="登录" :visible.sync="loginFormVisible" class="lodialog" width="330px" height="500px">
+        <el-form :model="loform" :rules="rules">
+          <el-form-item label="手机号" :label-width="loginLabelWidth" prop="lophone">
+            <el-col :span="18">
+              <el-input v-model="loform.phonenumber" auto-complete="true" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/" oninvalid="this.setCustomValidity('warning')"></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="验证码" :label-width="loginLabelWidth">
+            <el-col :span="18">
+              <el-input v-model="loform.usercode" auto-complete="off" clearable></el-input>
+            </el-col>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="login-footer">
+          <el-button type="primary">获取验证码</el-button>
+          <el-button @click="loginFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="loginFormVisible = false">确 定</el-button>
         </div>
-      </el-main>
-      <el-footer height="50px">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
-    </el-container>
+      </el-dialog>
+    </div>
+
+    <div class="main-container">
+
+      <div class="img-container">
+        <img :src="coursePic" class="coursePic">
+      </div>
+
+      <div class="audio-container">
+        <el-row>
+          <el-col :span="2">
+            <el-button id="play-btn" type="primary" circle>
+              <i class="el-icon-caret-right" width="30px" height="30px"></i>
+            </el-button>
+          </el-col>
+          <el-col :span="16">
+            <el-slider v-model="playTime" :format-tooltip="formatTime"></el-slider>
+          </el-col>
+          <el-col :span="2">
+            <span id="voice">音量：</span>
+          </el-col>
+          <el-col :span="4">
+            <el-slider v-model="music.volume" :format-tooltip="formatVoice"></el-slider>
+          </el-col>
+        </el-row>
+      </div>
+
+      <div class="artical-container">
+        {{ course_artical }}
+      </div>
+
+      <div class="share-container">
+        <i class="el-icon-share"></i><span>分享到</span>
+        <share :config="config" style="display:inline"></share>
+      </div>
+    </div>
+
+    <div class="discuss-container">
+      <div class="discuss-header">
+        <h1>评论区</h1>
+      </div>
+
+      <div class="write-discuss">
+        <el-input
+          type="textarea"
+          :rows="4"
+          placeholder="请输入内容"
+          v-model="discussWord">
+        </el-input>
+      </div>
+
+      <div class="discuss-btn">
+        <el-button type="primary" icon="el-icon-edit">发表</el-button>
+        <el-button icon="el-icon-delete">清空</el-button>
+      </div>
+
+      <div class="discuss-area">
+        <div v-for="item in discussionList" :key="item.id">
+          <el-container>
+            <el-aside class="userImg-container">
+              <el-row>
+                <img :src="item.userImg" class="userImg">
+              </el-row>
+              <el-row style="text-align:center">
+                <div>{{ item.userName }}</div>
+                <div v-if="item.userType">V</div>
+              </el-row>
+            </el-aside>
+            <el-container>
+              <el-header class="discussion">
+                <el-row class="disMes">
+                  <el-col :span=24>
+                    {{ item.discussMessage }}
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="9">
+                    <el-button icon="el-icon-time" type="text" style="color: black">{{ item.discussTime }}</el-button>
+                  </el-col>
+                  <el-col :span="3">
+                    <el-button icon="el-icon-caret-top" type="text">赞</el-button>
+                    <span>: {{ item.likeNum }} </span>
+                  </el-col>
+                  <el-col :span="3">
+                    <el-button icon="el-icon-caret-bottom" type="text">踩</el-button>
+                    <span>: {{ item.dislikeNum }} </span>
+                  </el-col>
+                  <el-col :span="3">
+                    <el-button icon="el-icon-plus" type="text" @click="item.addreply=true">回复</el-button>
+                  </el-col>
+                </el-row>
+              </el-header>
+              <el-main class="indis-container">
+                <el-row v-for="initem in item.indiscussion" :key="initem.id">
+                  <el-col :span="2">
+                    {{ initem.userName }}
+                  </el-col>
+                  <el-col :span="2" v-if="initem.userType">
+                    V
+                  </el-col>
+                  <el-col :span="20">
+                    <div>:{{ initem.indisMessage }}</div>
+                  </el-col>
+                </el-row>
+                <el-row v-if="item.addreply">
+                  <div class="write-reply">
+                    <el-input
+                      type="textarea"
+                      :rows="4"
+                      placeholder="请输入内容"
+                      v-model="item.replyMsg">
+                    </el-input>
+                  </div>
+                  <div class="reply-btn">
+                    <el-button type="primary" icon="el-icon-edit" @click="item.addreply=false">发表</el-button>
+                    <el-button icon="el-icon-delete" @click="item.replyMsg=''">清空</el-button>
+                  </div>
+                </el-row>
+              </el-main>
+            </el-container>
+          </el-container>
+          <hr />
+        </div>
+      </div>
+
+      <div class="pager-container">
+        <el-pagination
+          background
+          small
+          layout="prev, pager, next"
+          :page-size="pageSize"
+          :total="totalnumber"
+          :current-page.sync="pageNo"
+          :pager-count="7"
+          @current-change="flipeOver"
+        >
+        </el-pagination>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import qs from 'qs'
-import * as utils from '../utils/utils.js'
-
+// import axios from 'axios'
+// import qs from 'qs'
 export default {
-  data() {
+  data: function() {
+    var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
+    var validateloPhone = (rule, value, callback) => {
+      if (!this.loform.phonenumber) {
+        return callback(new Error('号码不能为空'))
+      }
+      setTimeout(() => {
+        if (!phoneReg.test(this.loform.phonenumber)) {
+          callback(new Error('格式有误'))
+        } else {
+          callback()
+        }
+      }, 100)
+    }
     return {
-      coursepicture1: require('../../assets/images/course1.jpg'),
-      courseaudio1: require('../../assets/audios/audio1.mp3'),
+      login: true,
+      loginFormVisible: false,
+      loginLabelWidth: '100px',
+      loform: {
+        phonenumber: '',
+        password: '',
+        delivery: false,
+        usercode: ''
+      },
+      rules: {
+        lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }]
+      },
+      coursePic: require('../../assets/images/free.jpg'),
+      playTime: 0,
+      courseaudio: require('../../assets/audios/audio1.mp3'),
       music: {
         isPlay: false,
         currentTime: 0,
@@ -141,113 +226,157 @@ export default {
         volume: 100
       },
       courseid: '',
-      course_description: '该课程还没有添加描述哦！',
-      dialogVisible: false,
-      tempcomment: '',
-      tempcourse: [],
-      posts: [
-        {header: require('../../assets/images/header2.jpg'),
-          created_at: '2018-8-14',
-          author: 'UJoe',
-          content: 'just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.just a test.',
-          reply: [
-            {author: 'Leeroy', content: 'Long time no see'},
-            {author: 'Zombi', content: 'Long ...brain'}
-          ],
-          like: '5',
-          dislike: '0'},
-        {header: require('../../assets/images/header1.jpg'),
-          created_at: '2018-8-15',
-          author: 'Zombi',
-          content: 'I just want your brain.',
-          like: '1',
-          dislike: '4'},
-        {header: require('../../assets/images/header3.jpg'),
-          created_at: '2018-8-15',
-          author: 'Leeroy',
-          content: 'I like this audio~',
-          like: '12',
-          dislike: '0'}
-      ]
+      course_artical: '在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。',
+      config: {
+        // url: '', // 网址，默认使用 window.location.href
+        source: '', // 来源（QQ空间会用到）, 默认读取head标签
+        title: '', // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
+        description: '', // 描述, 默认读取head标签
+        image: '', // 图片, 默认取网页中第一个img标签
+        sites: ['qzone', 'qq', 'weibo', 'wechat'], // 启用的站点
+        wechatQrcodeTitle: '微信扫一扫：分享', // 微信二维码提示文字
+        wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>'
+        // disabled: ['google', 'facebook', 'twitter'], // 禁用的站点
+      },
+      discussWord: '',
+      discussionList: [
+        {
+          userName: 'gyy',
+          userImg: require('../../assets/images/userImg.jpg'),
+          userType: false,
+          discussTime: '2018.8.22 19:00',
+          discussMessage: '啦啦啦啦啦啦啦啦啦啦',
+          likeNum: 0,
+          dislikeNum: 0,
+          addreply: false,
+          replyMsg: '',
+          indiscussion: [
+            {
+              userName: 'zyfcka',
+              userType: true,
+              indisMessage: 'mdzz'
+            }
+          ]
+        },
+        {
+          userName: 'lyx',
+          userImg: require('../../assets/images/userImg2.jpg'),
+          userType: true,
+          discussTime: '2018.8.22 20:00',
+          discussMessage: '我超聪明你超笨',
+          likeNum: 0,
+          dislikeNum: 0,
+          addreply: false,
+          replyMsg: '',
+          indiscussion: [
+            {
+              userName: 'hyl',
+              userType: false,
+              indisMessage: '我超聪明你超笨'
+            }
+          ]
+        }
+      ],
+      pageSize: 12,
+      totalnumber: 100,
+      pageNo: 1
     }
   },
-  mounted() {
-    this.$nextTick(() => {
-      setInterval(this.listenMusic, 1000)
-    })
-  },
+  // mounted() {
+  //   this.$nextTick(() => {
+  //     setInterval(this.listenMusic, 1000)
+  //   })
+  // },
   methods: {
-    listenMusic() {
-      if (!this.$refs.music) {
-        return
-      }
-      if (this.$refs.music.readyState) {
-        this.music.maxTime = this.$refs.music.duration
-      }
-      this.music.isPlay = !this.$refs.music.paused
-      this.music.currentTime = this.$refs.music.currentTime
+    // listenMusic() {
+    //   if (!this.$refs.music) {
+    //     return
+    //   }
+    //   if (this.$refs.music.readyState) {
+    //     this.music.maxTime = this.$refs.music.duration
+    //   }
+    //   this.music.isPlay = !this.$refs.music.paused
+    //   this.music.currentTime = this.$refs.music.currentTime
+    // },
+    // play() {
+    //   if (this.$refs.music.paused) {
+    //     this.$refs.music.play()
+    //   } else {
+    //     this.$refs.music.pause()
+    //   }
+    //   this.music.isPlay = !this.$refs.music.paused
+    //   this.$nextTick(() => {
+    //     document.getElementById('play').blur()
+    //   })
+    // },
+    // changeTime(time) {
+    //   this.$refs.music.currentTime = time
+    // },
+    // changeVolume(v) {
+    //   this.music.volume += v
+    //   if (this.music.volume > 100) {
+    //     this.music.volume = 100
+    //   }
+    //   if (this.music.volume < 0) {
+    //     this.music.volume = 0
+    //   }
+    //   this.$refs.music.volume = this.music.volume / 100
+    // },
+    // formatTime(time) {
+    //   let it = parseInt(time)
+    //   let m = parseInt(it / 60)
+    //   let s = parseInt(it % 60)
+    //   return (m < 10 ? '0' : '') + parseInt(it / 60) + ':' + (s < 10 ? '0' : '') + parseInt(it % 60)
+    // },
+    // handleClose(done) {
+    //   this.$confirm('确认关闭？你的编辑在离开网页时将会丢失！')
+    //     .then(_ => {
+    //       done()
+    //     })
+    //     .catch(_ => {})
+    // },
+    logout() {
+      this.login = false
     },
-    play() {
-      if (this.$refs.music.paused) {
-        this.$refs.music.play()
-      } else {
-        this.$refs.music.pause()
+    formatTime(val) {
+      return val / 100 * this.music.maxTime
+    },
+    formatVoice(val) {
+      return val
+    },
+    flipeOver: function (page) {
+      let _end = this.pageSize * page
+      let end = this.totalnumber < (_end) ? this.totalnumber : _end
+      this.freeList = []
+      let start = this.pageSize * (page - 1)
+      for (let i = start; i < end; i++) {
+        this.freeList.push(this.courses[i])
       }
-      this.music.isPlay = !this.$refs.music.paused
-      this.$nextTick(() => {
-        document.getElementById('play').blur()
-      })
-    },
-    changeTime(time) {
-      this.$refs.music.currentTime = time
-    },
-    changeVolume(v) {
-      this.music.volume += v
-      if (this.music.volume > 100) {
-        this.music.volume = 100
-      }
-      if (this.music.volume < 0) {
-        this.music.volume = 0
-      }
-      this.$refs.music.volume = this.music.volume / 100
-    },
-    formatTime(time) {
-      let it = parseInt(time)
-      let m = parseInt(it / 60)
-      let s = parseInt(it % 60)
-      return (m < 10 ? '0' : '') + parseInt(it / 60) + ':' + (s < 10 ? '0' : '') + parseInt(it % 60)
-    },
-    handleClose(done) {
-      this.$confirm('确认关闭？你的编辑在离开网页时将会丢失！')
-        .then(_ => {
-          done()
-        })
-        .catch(_ => {})
     }
-  },
-  created: function() {
-    this.courseid = this.$route.params.courseid
-    axios.post(utils.getURL() + 'api/coursepage/', qs.stringify({
-      course_id: this.$route.params.courseid
-    })).then(response => {
-      this.posts = []
-      this.tempcourse = response.data.course
-      this.coursepicture1 = this.tempcourse.pictures
-      this.courseaudio1 = this.tempcourse.audio
-      this.course_description = this.tempcourse.course_description
-      for (let i = 0; i < this.tempcourse.lenth; i++) {
-        this.posts.push({
-          'header': this.tempcourse.message.icon,
-          'create_at': this.tempcourse.message.time,
-          'author': this.tempcourse.message.author,
-          'content': this.tempcourse.message.content,
-          'reply': this.tempcourse.message.reply,
-          'like': this.tempcourse.message.likes,
-          'dislike': this.tempcourse.message.dislikes
-        })
-      }
-    })
   }
+  // created: function() {
+  //   this.courseid = this.$route.params.courseid
+  //   axios.post('http://192.168.55.33:8000/api/coursepage/', qs.stringify({
+  //     course_id: this.$route.params.courseid
+  //   })).then(response => {
+  //     this.posts = []
+  //     this.tempcourse = response.data.course
+  //     this.coursepicture1 = this.tempcourse.pictures
+  //     this.courseaudio1 = this.tempcourse.audio
+  //     this.course_description = this.tempcourse.course_description
+  //     for (let i = 0; i < this.tempcourse.lenth; i++) {
+  //       this.posts.push({
+  //         'header': this.tempcourse.message.icon,
+  //         'create_at': this.tempcourse.message.time,
+  //         'author': this.tempcourse.message.author,
+  //         'content': this.tempcourse.message.content,
+  //         'reply': this.tempcourse.message.reply,
+  //         'like': this.tempcourse.message.likes,
+  //         'dislike': this.tempcourse.message.dislikes
+  //       })
+  //     }
+  //   })
+  // }
 }
 </script>
 
@@ -274,11 +403,6 @@ export default {
     font-size:18px;
     margin-right: 60px;
   }
-  .user_ope {
-    color: black;
-    font-size:18px;
-    margin-right: 60px;
-  }
 
   .el-footer {
     background-color: #B3C0D1;
@@ -289,156 +413,116 @@ export default {
     background: linear-gradient(white, lightskyblue);
     opacity: 0.7;
   }
-
-  .coursepicture {
-    width: 25%;
-    height: 25%;
-    object-fit: contain;
+  hr {
+    height: 2px;
+    border: none;
+    background: rgb(233, 233, 233);
   }
-
-  .course_description {
-    width:40%;
-    height: 40%;
-    position: relative; left: 30%;
-    overflow: hidden;
-    word-break: break-all; word-wrap: break-word;
-    border: 3px solid blue;
-    border-radius: 4px;
-    margin-top: 20px;
-    color: skyblue;
+  .main-container {
+    max-width: 1200px;
+    margin: 20px auto;
   }
-
-  #player_sharer {
-    display: flex;
+  .img-container {
+    width: 700px;
+    height: 500px;
+    margin: 20px auto 0 auto;
+    text-align:center;
+    vertical-align: middle;
   }
-
-  .audioplayer {
-    border: 1px solid black;
-    width: 36%;
-    height: 50px;
-    padding-top: 1%;
-    border-radius: 20px;
-    margin-left: 30%;
-  }
-
-  .audiotime {
-    color: #909399;
-    font-size: 13px;
-    margin-top: 2.5%;
-  }
-
-  .volumelabel {
-    font-size: 1%;
-    margin-top: 3%;
-    margin-left: 3%;
-  }
-
-  .share {
-    height: 40px;
-    margin-left: 1%;
-    margin-top: 1%;
-  }
-
-  .leave_msg {
-    float: right;
-    margin-right: 20%;
-    background-color: skyblue;
-    color: blue;
-  }
-
-  .dialog_msg {
-    margin-left: 10%;
-  }
-
-  .comment_input {
-    width: 80%;
-    margin-left: 10%;
-    margin-top: 20px;
-  }
-
-  .course_msgboard {
-    text-align: left;
-    margin-left: 20%;
-    width: 60%;
-    border: 1px solid black;
-    margin-bottom: 3%;
-    border-radius: 4px;
-    padding-bottom: 2%;
-  }
-
-  .course_reply {
-    text-align: left;
-    margin-left: 5%;
+  .coursePic {
     width: 90%;
-    border: 1px solid moccasin;
-    border-radius: 4px;
-    margin-top: 3%;
+    height: 90%;
+    object-fit: contain;
+    position: relative;
+    top: 50%;
+    transform: translate(0,-50%);
   }
-
-  .course_header {
-    width: 50px;
-    height: 50px;
-    border-radius: 300px;
-    overflow: hidden;
-    float: left;
-    border: 3px solid skyblue;
+  .audio-container {
+    width: 900px;
+    height: 60px;
+    margin: auto auto 10px auto;
+    text-align: center;
+    vertical-align: middle;
   }
-
-  .header_img {
+  .el-icon-caret-right::before {
+    font-size: 25px;
+  }
+  .playTimer {
+    display: inline;
+  }
+  .el-slider {
+    display: inline-block;
+    width: 90%;
+    margin: 7px auto;
+  }
+  #voice {
+    margin: 20px auto auto auto;
+  }
+  .artical-container {
+    width: 630px;
+    margin: 20px auto 0 auto;
+    font-size: 20px;
+  }
+  .share-container {
+    width: 900px;
+    margin: 80px auto 150px auto;
+    text-align: right;
+  }
+  .discuss-container {
+    width: 1200px;
+    max-height: 2500px;
+    margin: 20px auto;
+  }
+  .discuss-header {
+    width: 900px;
+    height: 100px;
+    margin: 0 auto 5px auto;
+    text-align: left;
+  }
+  .write-discuss {
+    width: 700px;
+    margin: 0 auto;
+  }
+  .discuss-btn {
+    width: 900px;
+    text-align: right;
+    margin: 30px auto;
+  }
+  .discuss-area {
+    width: 900px;
+    margin: 30px auto;
+  }
+  .userImg-container {
+    width: 100px !important;
+  }
+  .userImg {
     width: 100%;
-    height: 100%;
-    object-fit: fill;
   }
-
-  .msg_content {
-    margin-left: 40px;
+  .discussion {
+    min-height: 100px;
   }
-
-  .reply_content {
-    margin-left: 40px;
-    margin-bottom: 3%;
+  .disMes {
+    min-height: 65px;
+    margin: 5px auto 5px auto;
   }
-
-  #course_reply_author {
-    width: 10%;
-    height: 7%;
-    font-size: 5%;
-    float: right;
-    margin-right: 1%;
+  .indis-container {
+    margin-top: 20px;
   }
-
-  #course_like {
-    width: 10%;
-    height: 7%;
-    font-size: 5%;
-    float: right;
-    margin-right: 2%;
+  .pager-container {
+    text-align: right;
   }
-
-  #course_dislike {
-    width: 10%;
-    height: 7%;
-    font-size: 5%;
-    float: right;
-    margin-right: 2%;
+  .write-reply {
+    width: 500px;
+    margin: 30px auto;
   }
-
-  h2 {
-    color: blue;
-    margin-left: 25%;
-  }
-
-  h3 {
-    margin-left: 8%;
+  .reply-btn {
+    width: 700px;
+    text-align: right;
+    margin: 10px auto;
   }
 
   @media screen and (max-width: 500px) {
     .user-ope {
-      color: black;
-      font-size:15px;
-      margin-right: 10px;
-    }
-    .user_ope {
       color: black;
       font-size:15px;
       margin-right: 10px;
