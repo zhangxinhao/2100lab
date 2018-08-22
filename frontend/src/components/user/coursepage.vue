@@ -25,9 +25,54 @@
           <div>
             <img :src="coursepicture1" class="coursepicture">
           </div>
-          <div>
-            <audio autoplay="autoplay" controls="controls" preload="auto" :src="courseaudio1"></audio>
-            <el-button class="share_button" icon="el-icon-share"></el-button>
+          <div id="player_sharer" align="center">
+            <div class="audioplayer">
+              <el-row>
+                <el-col :span="4">
+                  <el-button
+                  @click="play"
+                  id="playerbutton"
+                  icon="el-icon-caret-right"
+                  circle></el-button>
+                </el-col>
+                <el-col :span="16">
+                  <el-row>
+                    <el-col :span="10">
+                      <el-slider
+                      @change="changeTime"
+                      :format-tooltip="formatTime"
+                      :max="music.maxTime"
+                      v-model="music.currentTime"
+                      ></el-slider>
+                    </el-col>
+                    <el-col :span="6" class="volumelabel">
+                      <el-label>音量：{{ music.volume }}%</el-label>
+                    </el-col>
+                    <el-col :span="4">
+                      <el-button
+                      @click="changeVolume(-10)"
+                      id="playerbutton"
+                      icon="el-icon-minus"
+                      circle></el-button>
+                    </el-col>
+                    <el-col :span="3">
+                      <el-button
+                      @click="changeVolume(10)"
+                      id="playerbutton"
+                      icon="el-icon-plus"
+                      circle></el-button>
+                    </el-col>
+                  </el-row>
+                </el-col>
+                <el-col :span="4" class="audiotime">
+                  {{formatTime(music.currentTime)}}/{{formatTime(music.maxTime)}}
+                </el-col>
+              </el-row>
+              <audio ref="music">
+                <source :src="courseaudio1">
+              </audio>
+            </div>
+            <el-button class="share" icon="el-icon-share" circle></el-button>
           </div>
           <div class="course_description">
             <h1 id="course_description" :course_description="course_description">{{ course_description }}</h1>
@@ -42,7 +87,7 @@
                 </div>
                 <h3>{{ post.author }}</h3>
                 <h4>发表于 {{ post.created_at }}</h4>
-                <div class="msg_content">{{ post.content }} </div>
+                <div class="msg_content">{{ post.content }}</div>
                 <el-button id="course_dislike" icon="el-icon-arrow-down">({{ post.dislike }})</el-button>
                 <el-button id="course_like" icon="el-icon-arrow-up">({{ post.like }})</el-button>
                 <el-button id="course_reply_author">回复</el-button>
@@ -71,6 +116,12 @@ export default {
     return {
       coursepicture1: require('../../assets/images/course1.jpg'),
       courseaudio1: require('../../assets/audios/audio1.mp3'),
+      music: {
+        isPlay: false,
+        currentTime: 0,
+        maxTime: 0,
+        volume: 100
+      },
       courseid: '',
       course_description: '该课程还没有添加描述哦！',
       tempcourse: [],
@@ -100,7 +151,52 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.$nextTick(() => {
+      setInterval(this.listenMusic, 1000)
+    })
+  },
   methods: {
+    listenMusic() {
+      if (!this.$refs.music) {
+        return
+      }
+      if (this.$refs.music.readyState) {
+        this.music.maxTime = this.$refs.music.duration
+      }
+      this.music.isPlay = !this.$refs.music.paused
+      this.music.currentTime = this.$refs.music.currentTime
+    },
+    play() {
+      if (this.$refs.music.paused) {
+        this.$refs.music.play()
+      } else {
+        this.$refs.music.pause()
+      }
+      this.music.isPlay = !this.$refs.music.paused
+      this.$nextTick(() => {
+        document.getElementById('play').blur()
+      })
+    },
+    changeTime(time) {
+      this.$refs.music.currentTime = time
+    },
+    changeVolume(v) {
+      this.music.volume += v
+      if (this.music.volume > 100) {
+        this.music.volume = 100
+      }
+      if (this.music.volume < 0) {
+        this.music.volume = 0
+      }
+      this.$refs.music.volume = this.music.volume / 100
+    },
+    formatTime(time) {
+      let it = parseInt(time)
+      let m = parseInt(it / 60)
+      let s = parseInt(it % 60)
+      return (m < 10 ? '0' : '') + parseInt(it / 60) + ':' + (s < 10 ? '0' : '') + parseInt(it % 60)
+    }
   },
   created: function() {
     this.courseid = this.$route.params.courseid
@@ -185,10 +281,35 @@ export default {
     color: skyblue;
   }
 
-  .share_button {
-    width: 50px;
+  #player_sharer {
+    display: flex;
+  }
+
+  .audioplayer {
+    border: 1px solid black;
+    width: 36%;
+    height: 50px;
+    padding-top: 1%;
+    border-radius: 20px;
+    margin-left: 30%;
+  }
+
+  .audiotime {
+    color: #909399;
+    font-size: 13px;
+    margin-top: 2.5%;
+  }
+
+  .volumelabel {
+    font-size: 1%;
+    margin-top: 3%;
+    margin-left: 3%;
+  }
+
+  .share {
     height: 40px;
-    vertical-align: 100%;
+    margin-left: 1%;
+    margin-top: 1%;
   }
 
   .leave_msg {
