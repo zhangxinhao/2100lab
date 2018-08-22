@@ -18,7 +18,7 @@
         header-align=center
         prop="courseId"
         label="课程编号"
-        width="150">
+        width="100">
       </el-table-column>
       <el-table-column
         header-align=center
@@ -40,16 +40,22 @@
       </el-table-column>
       <el-table-column
         header-align=center
+        prop="createdAt"
+        label="留言时间"
+        width="150">
+      </el-table-column>
+      <el-table-column
+        header-align=center
         label="操作">
         <template slot-scope="scope">
           <el-button
-            @click.native.prevent="deleteMsg"
+            @click.native.prevent="deleteMsg(scope.$index)"
             type="text"
             size="small">
             删除
           </el-button>
           <el-button
-            @click.native.prevent="forbidUser"
+            @click.native.prevent="forbidUser(scope.$index)"
             type="text"
             size="small">
             禁言
@@ -60,6 +66,9 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
+import qs from 'qs'
+
 export default {
   data() {
     var idReg = /^[0-9]*$/
@@ -84,15 +93,19 @@ export default {
       },
       post: [
         {
+          id: 11111,
           courseId: '135156',
           phoneNumber: '13600000000',
           userName: 'UJoe',
+          userId: 5443,
           msgContent: 'just a test. '
         },
         {
+          id: 2222,
           courseId: '135156',
           phoneNumber: '13600000000',
           userName: 'UJoe',
+          userId: 89088,
           msgContent: 'just a test. 在十九课里，我们学到了赵州桥是多么的雄伟、壮观。'
         }
       ],
@@ -117,10 +130,38 @@ export default {
     onSubmitClearPhone() {
       this.commentMsg.phoneNumber = ''
     },
-    deleteMsg() {
+    deleteMsg(index) {
+      let msgId = this.post[index].id
+      axios.post('http://192.168.55.33:8000/api/deletemsg/', qs.stringify({
+        msgId: msgId
+      })).then(response => {
+        let status = response.data.status
+        if (status === 0) {
+          alert('已禁言')
+        } else {
+          alert('信息有误！')
+        }
+      })
     },
-    forbidUser() {
+    forbidUser(index) {
+      let userId = this.post[index].userId
+      alert(userId)
+      axios.post('http://192.168.55.33:8000/api/shutup/', qs.stringify({
+        userId: userId
+      })).then(response => {
+        let status = response.data.status
+        if (status === 0) {
+          alert('已禁言')
+        } else {
+          alert('用户信息有误！')
+        }
+      })
     }
+  },
+  created: function() {
+    axios.post('http://192.168.55.33:8000/api/showmessage/').then(response => {
+      this.post = response.data.query
+    })
   }
 }
 </script>

@@ -32,9 +32,32 @@ def authorization_check(request):
   list = __to_Binary__(user.manage_right)
   rights = {}
   for i in range(len(list)):
-    right = rights_list.objects.get(id=i).right
-    if list[i] is '1':
-      rights[right] = True
-    else:
-      rights[right] = False
+    try:
+      right = rights_list.objects.get(id=i).right
+      if list[i] is '1':
+        rights[right] = True
+      else:
+        rights[right] = False
+    except rights_list.DoesNotExist as e:
+      rights = {
+        "course_manage": True,
+        "user_manage": True,
+        "operation_history": True,
+        "order_manage": True,
+        "admin_manage": True
+      }
   return HttpResponse(json.dumps({"rights": rights}))
+
+
+def ban_client(request):
+  client_id = request.POST.get("userId")
+  status = 0
+  try:
+    user = User.objects.get(id=client_id)
+    if user:
+      user.cannot_talk()
+    else:
+      status = 1
+  except User.DoesNotExist as e:
+    status = 1
+  return HttpResponse(json.dumps({"status": status}))
