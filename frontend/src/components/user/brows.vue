@@ -35,6 +35,7 @@
 <script>
 import axios from 'axios'
 import * as utils from '../utils/utils.js'
+import qs from 'qs'
 
 export default {
   data() {
@@ -47,6 +48,7 @@ export default {
         {pictureSrc: require('../../assets/read.jpg'), courseTitle: '少壮不努力', lastBrowTime: '2018-3-5'},
         {pictureSrc: require('../../assets/read.jpg'), courseTitle: '老大徒伤悲', lastBrowTime: '2018-3-5'}
       ],
+      courses: [],
       pageSize: 12,
       totalnumber: 100,
       pageNo: 1
@@ -58,18 +60,30 @@ export default {
     flipeOver: function (page) {
       let _end = this.pageSize * page
       let end = this.totalnumber < (_end) ? this.totalnumber : _end
-      this.freeList = []
+      this.browList = []
       let start = this.pageSize * (page - 1)
       for (let i = start; i < end; i++) {
-        this.freeList.push(this.courses[i])
+        this.browList.push(this.courses[i])
       }
     }
   },
-  mounted: function() {
-    axios.post(utils.getURL() + 'api/listrecentvisit/').then(
-      response => {
+  created: function() {
+    axios.post(utils.getURL() + 'api/listrecentvisit/', qs.stringify({
+      id: this.$route.params.userid
+    })).then(response => {
+      this.courses = response.data.courses
+      this.totalnumber = this.courses.length
+      let totalnumber = this.totalnumber
+      this.browList = []
+      let size = this.pageSize
+      if (totalnumber < size) {
+        this.browList = this.courses
+      } else {
+        for (let i = 0; i < size; i++) {
+          this.browList.push(this.courses[i])
+        }
       }
-    )
+    })
   }
 }
 </script>
