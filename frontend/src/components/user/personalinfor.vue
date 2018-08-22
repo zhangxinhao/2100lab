@@ -8,9 +8,8 @@
     <el-button @click="dialogVisible = true" class="change_header" type="text">修改头像</el-button>
     <el-dialog
       title="更换头像"
-      :visible.sync="dialogVisible"
-      width="25%"
-      :before-close="handleClose">
+      width="300px"
+      :visible.sync="dialogVisible">
       <span class="dialog_msg">请上传头像</span>
       <el-upload
         class="avatar-uploader"
@@ -97,13 +96,6 @@ export default {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
       return isJPG && isLt2M
-    },
-    handleClose(done) {
-      this.$confirm('确认关闭？你的编辑在离开网页时将会丢失！')
-        .then(_ => {
-          done()
-        })
-        .catch(_ => {})
     }
   },
   created: function() {
@@ -180,7 +172,7 @@ export default {
   }
 
   .V {
-    margin-left: 31%;
+    margin-left: 30%;
   }
 
   .infor {
@@ -188,6 +180,26 @@ export default {
   }
 
   .infor_text {
-    margin-left:16%;
+    margin-left: 16%;
   }
+  .el-dialog {
+    width: 25%;
+  }
+  @media screen and (max-width: 500px) {
+  .V {
+    margin-left: 30%;
+  }
+
+  .infor {
+    width: 70%;
+  }
+
+  .infor_text {
+    margin-left: 0px;
+  }
+  .el-dialog {
+    width: 100%;
+    height: 100px !important;
+  }
+}
 </style>

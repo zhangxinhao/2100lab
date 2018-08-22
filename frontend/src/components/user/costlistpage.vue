@@ -2,15 +2,22 @@
 <div class="costlist">
 
   <div class="toolbar">
+    <div class="logo">
+      <img src="../../assets/logo1.png" width="200%" height="100%">
+    </div>
     <table align="right">
       <tr>
         <td>
-          <el-button class="user-ope" type="text" v-if="login" @click="loginFormVisible = true">登录/注册&nbsp;&nbsp;</el-button>
+          <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true">登录/注册</el-button>
         </td>
         <td>
-          <el-button class="user-ope" type="text" v-if="not_login" @click="logout" style="color:white">登出</el-button>
+          <router-link to="/personal">
+            <el-button class="user-ope" type="text" v-if="login">个人中心</el-button>
+          </router-link>
         </td>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>
+          <el-button class="user-ope" type="text" v-if="login" @click="logout">登出</el-button>
+        </td>
       </tr>
     </table>
   </div>
@@ -183,6 +190,27 @@ export default {
 </script>
 
 <style scoped>
+  .toolbar {
+    width: 100%;
+    min-height: 55px;
+    max-height: 70px;
+    margin: 0;
+    padding: 0;
+    background-color:lightskyblue;
+    opacity: 0.7;
+  }
+
+  .logo {
+    margin-left: 50px;
+    display: inline-block;
+    width: 55px;
+    height: 55px;
+  }
+  .user-ope {
+    color: black;
+    font-size:18px;
+    margin-right: 60px;
+  }
   body {
     margin: 0;
   }
@@ -197,22 +225,6 @@ export default {
     padding: 0;
   }
 
-  .toolbar {
-    width: 100%;
-    height: 55px;
-    margin: 0;
-    padding: 0;
-    text-align: right;
-    background-color:lightskyblue;
-    background: linear-gradient(lightskyblue, white);
-    opacity: 0.7;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
-  .user-ope {
-    color:#085078;
-    font-size:18px;
-  }
   li, ul {
     list-style: none;
     margin: 10px 10px;
@@ -323,6 +335,20 @@ export default {
     }
     .read {
       padding: 5px;
+    }
+    .user-ope {
+      color:#085078;
+      font-size:15px;
+      margin-right: 10px;
+    }
+    .toolbar {
+      min-height: 42px;
+    }
+    .logo {
+      margin-left: 30px;
+      display: inline-block;
+      width: 42px;
+      height: 42px;
     }
   }
   @media screen and (min-width: 800px) and (max-width: 1100px){

@@ -3,7 +3,7 @@
   <div class="index">
     <div class="toolbar">
       <div class="logo">
-      <img src="../../assets/logo1.png" width="200%" height="100%">
+        <img src="../../assets/logo1.png" width="200%" height="100%">
       </div>
       <table align="right">
         <tr>
@@ -148,7 +148,7 @@
     <br />
     <br />
     <br />
-    <el-footer height="50px" >2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
+    <el-footer height="50px" class="hidden-lg-and-down">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
 
   </div>
 </template>
@@ -199,7 +199,7 @@ export default {
         {id: 10, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
         {id: 11, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
       ],
-      login: true,
+      login: false,
       loginFormVisible: false,
       loginLabelWidth: '100px',
       loform: {
@@ -301,10 +301,6 @@ export default {
     margin: 0;
     padding: 0;
   }
-
-  #user-ope {
-    margin-right: 100px;
-   }
 
   .index {
     margin: 0 auto;

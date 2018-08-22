@@ -14,7 +14,7 @@
       </table>
     </div>
   </div>
-  <div id="person" class="hidden-md-and-down">
+  <div id="person" class="hidden-sm-and-down">
     <el-container class="firstcontainer">
       <el-aside>
         <el-menu :default-openeds="['5']" default-active="1" class="el-menu-vertical-demo" @select="handleSelect" :collapse="false">
@@ -36,7 +36,7 @@
     </el-container>
   </div>
 
-  <div id="personmini" class="hidden-lg-and-up">
+  <div id="personmini" class="hidden-md-and-up">
     <el-container class="firstcontainer">
       <el-aside>
         <el-menu :default-openeds="['5']" default-active="1" class="el-menu-vertical-demo" @select="handleSelect" :collapse="true">

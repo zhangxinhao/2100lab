@@ -149,7 +149,7 @@ export default {
       bounty: 15,
       bountyFlag: false,
       shareDialogVisible: false,
-      login: true,
+      login: false,
       loginLabelWidth: '100px',
       loginFormVisible: false,
       loform: {
