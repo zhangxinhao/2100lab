@@ -37,8 +37,9 @@
           layout="prev, pager, next"
           :total="totalNumber"
           :page-size="pageSize"
-          :current-page.sync="nowPage"
+          :current-page.sync="pageNo"
           :pager-count="5"
+          @current-change="flipeOver"
           small>
         </el-pagination>
       </div>
@@ -47,6 +48,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+import * as utils from '../utils/utils.js'
+
 export default {
   data() {
     return {
@@ -59,12 +63,46 @@ export default {
         {course_id: '110', course_name: '1', money: '12', time: '2018-3-5'},
         {course_id: '110', course_name: '1', money: '24', time: '2018-3-5'}
       ],
-      nowPage: 1,
+      pageNo: 1,
       pageSize: 2,
       totalNumber: 10
     }
   },
   methods: {
+    flipeOver: function (page) {
+      let _end = this.pageSize * page
+      let end = this.totalnumber < (_end) ? this.totalnumber : _end
+      this.paidCourseList = []
+      let start = this.pageSize * (page - 1)
+      for (let i = start; i < end; i++) {
+        this.paidCourseList.push(this.list[i])
+      }
+    }
+  },
+  created: function() {
+    axios.post(utils.getURL() + 'api/listorders/').then(response => {
+      let lists = response.data.orders
+      this.list = []
+      for (let i = 0; i < response.data.orders.length; i++) {
+        this.list.push({
+          'course_id': lists[i].course_id,
+          'course_name': lists[i].course_name,
+          'money': lists[i].price,
+          'time': lists[i].time
+        })
+      }
+      this.totalnumber = this.list.length
+      let totalnumber = this.totalnumber
+      this.paidCourseList = []
+      let size = this.pageSize
+      if (totalnumber < size) {
+        this.paidCourseList = this.list
+      } else {
+        for (let i = 0; i < size; i++) {
+          this.paidCourseList.push(this.list[i])
+        }
+      }
+    })
   }
 }
 </script>
