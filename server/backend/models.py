@@ -81,11 +81,22 @@ class Message(models.Model):
   time = models.DateTimeField(default=timezone.now)
   likes = models.PositiveIntegerField(default=0)
   dislikes = models.PositiveIntegerField(default=0)
+  deleted_at = models.DateTimeField(null=True, default=None)
+
+  def delete(self):
+    self.deleted_at = timezone.now()
+    self.save()
 
 class Comment(models.Model):
   message = models.ForeignKey('Message', on_delete=models.CASCADE)
   author = models.ForeignKey('User', on_delete=models.CASCADE)
   content = models.CharField(max_length=140)
+  time = models.DateTimeField(default=timezone.now)
+  deleted_at = models.DateTimeField(null=True, default=None)
+
+  def delete(self):
+    self.deleted_at = timezone.now()
+    self.save()
 
 class Attitude(models.Model):
   message = models.ForeignKey('Message',on_delete=models.CASCADE)

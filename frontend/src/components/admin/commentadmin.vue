@@ -18,7 +18,7 @@
         header-align=center
         prop="courseId"
         label="课程编号"
-        width="150">
+        width="100">
       </el-table-column>
       <el-table-column
         header-align=center
@@ -37,6 +37,12 @@
         prop="msgContent"
         label="留言内容"
         width="300">
+      </el-table-column>
+      <el-table-column
+        header-align=center
+        prop="createdAt"
+        label="留言时间"
+        width="150">
       </el-table-column>
       <el-table-column
         header-align=center
@@ -60,6 +66,8 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
+
 export default {
   data() {
     var idReg = /^[0-9]*$/
@@ -121,6 +129,11 @@ export default {
     },
     forbidUser() {
     }
+  },
+  created: function() {
+    axios.post('http://192.168.55.33:8000/api/showmessage/').then(response => {
+      this.post = response.data.query
+    })
   }
 }
 </script>

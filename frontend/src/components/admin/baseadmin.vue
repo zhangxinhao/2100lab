@@ -63,10 +63,10 @@ export default {
     return {
       authorizationList: {
         course_manage: true,
-        user_manage: false,
+        user_manage: true,
         operation_history: true,
         order_manage: true,
-        admin_manage: false
+        admin_manage: true
       }
     }
   },

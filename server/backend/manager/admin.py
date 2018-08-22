@@ -32,9 +32,18 @@ def authorization_check(request):
   list = __to_Binary__(user.manage_right)
   rights = {}
   for i in range(len(list)):
-    right = rights_list.objects.get(id=i).right
-    if list[i] is '1':
-      rights[right] = True
-    else:
-      rights[right] = False
+    try:
+      right = rights_list.objects.get(id=i).right
+      if list[i] is '1':
+        rights[right] = True
+      else:
+        rights[right] = False
+    except rights_list.DoesNotExist as e:
+      rights = {
+        "course_manage": True,
+        "user_manage": True,
+        "operation_history": True,
+        "order_manage": True,
+        "admin_manage": True
+      }
   return HttpResponse(json.dumps({"rights": rights}))

@@ -1,4 +1,4 @@
-from .manager import client, admin
+from .manager import client, admin, msg_mng
 from django.conf.urls import url, include
 from . import views, user_views, order_views, course_views, pay
 from django.urls import path
@@ -30,5 +30,6 @@ urlpatterns = [
   path('adminlogin/', admin.authenticate),
   path('adminlogout/', admin.logout),
   path('authorizationcheck/', admin.authorization_check),
+  path('showmessage/', msg_mng.show_msg),
 
 ]
