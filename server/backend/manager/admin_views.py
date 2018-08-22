@@ -48,7 +48,6 @@ def authorization_check(request):
       }
   return HttpResponse(json.dumps({"rights": rights}))
 
-
 def ban_client(request):
   client_id = request.POST.get("userId")
   status = 0
@@ -60,4 +59,33 @@ def ban_client(request):
       status = 1
   except User.DoesNotExist as e:
     status = 1
+  return HttpResponse(json.dumps({"status": status}))
+
+def create_admin(request):
+  user_name = request.POST.get("adminName")
+  status = 0
+  try:
+    user = User.objects.filter(id=user_name)
+    if user:
+      stattus = 1
+      return HttpResponse(json.dumps({"status": status}))
+  except User.DoesNotExist as e:
+    status = 0
+  rights_code = ['0', '0', '0', '0', '0']
+  list = rights_list.objects.filter().values()
+  for right in list:
+    order = request.POST.get(right['right'])
+    if order is str('true'):
+      rights_code[right['id']] = '1'
+  right = int(''.join(rights_code), 2)
+  user = User.objects.create_user(
+    username=user_name,
+    email=None,
+    password=request.POST.get('password'),
+    id=user_name,
+    is_staff=True,
+    is_superuser=True,
+    manage_right=right
+  )
+  user.save()
   return HttpResponse(json.dumps({"status": status}))
