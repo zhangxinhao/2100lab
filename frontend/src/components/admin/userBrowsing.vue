@@ -58,6 +58,7 @@ import qs from 'qs'
 export default {
   data() {
     return {
+      input: '',
       list: [],
       userBrowsList: [
         {courseId: '123', userId: '1', userName: 'dyf', lastTime: '2018-3-6'},
