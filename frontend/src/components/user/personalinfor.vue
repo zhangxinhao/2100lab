@@ -89,6 +89,13 @@ export default {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
       return isJPG && isLt2M
+    },
+    handleClose(done) {
+      this.$confirm('确认关闭？你的编辑在离开网页时将会丢失！')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {})
     }
   },
   mounted: function() {

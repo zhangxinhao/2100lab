@@ -66,7 +66,7 @@
                   {{formatTime(music.currentTime)}}/{{formatTime(music.maxTime)}}
                 </el-col>
               </el-row>
-              <audio ref="music">
+              <audio ref="music" autoplay>
                 <source :src="courseaudio1">
               </audio>
             </div>
@@ -76,7 +76,26 @@
             <h1 id="course_description" :course_description="course_description">{{ course_description }}</h1>
           </div>
           <div>
-            <el-button class="leave_msg">写留言</el-button>
+            <el-button class="leave_msg" @click="dialogVisible = true">写留言</el-button>
+            <el-dialog
+              title="写留言"
+              :visible.sync="dialogVisible"
+              width="50%"
+              :before-close="handleClose"
+              align="left">
+              <span class="dialog_msg">在此编辑你的留言：</span>
+              <el-input
+                type="textarea"
+                :rows="5"
+                class="comment_input"
+                placeholder="请输入内容"
+                v-model="tempcomment">
+              </el-input>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="confirmMsg">确 定</el-button>
+              </span>
+            </el-dialog>
             <h2>留言区</h2>
             <div>
               <el-col class="course_msgboard" v-for="post in posts" :key="post.id">
@@ -92,7 +111,7 @@
                 <div >
                   <el-col class="course_reply" v-for="reply in post.reply" :key="reply.id">
                     <h5>{{ reply.author }}：</h5>
-                    <div class="reply_content">{{ reply.content }} </div>
+                    <div class="reply_content">{{ reply.content }}</div>
                   </el-col>
                 </div>
               </el-col>
@@ -122,6 +141,8 @@ export default {
       },
       courseid: '',
       course_description: '该课程还没有添加描述哦！',
+      dialogVisible: false,
+      tempcomment: '',
       tempcourse: [],
       posts: [
         {header: require('../../assets/images/header2.jpg'),
@@ -194,6 +215,13 @@ export default {
       let m = parseInt(it / 60)
       let s = parseInt(it % 60)
       return (m < 10 ? '0' : '') + parseInt(it / 60) + ':' + (s < 10 ? '0' : '') + parseInt(it % 60)
+    },
+    handleClose(done) {
+      this.$confirm('确认关闭？你的编辑在离开网页时将会丢失！')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {})
     }
   },
   created: function() {
@@ -315,6 +343,16 @@ export default {
     margin-right: 20%;
     background-color: skyblue;
     color: blue;
+  }
+
+  .dialog_msg {
+    margin-left: 10%;
+  }
+
+  .comment_input {
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 20px;
   }
 
   .course_msgboard {
