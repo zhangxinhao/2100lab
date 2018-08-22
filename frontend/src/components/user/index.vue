@@ -96,11 +96,7 @@
             <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
           </router-link>
         </el-col>
-        <!-- <el-col :span="8">
-          <router-link to="/freelistpage">
-            <el-button icon="el-icon-more" class="morelist">更多</el-button>
-          </router-link>
-        </el-col> -->
+
       </el-row>
     </div>
 
@@ -147,17 +143,12 @@
             <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
           </router-link>
         </el-col>
-        <!-- <el-col :span="8">
-          <router-link to="/costlistpage">
-            <el-button icon="el-icon-more" class="morelist">更多</el-button>
-          </router-link>
-        </el-col> -->
       </el-row>
     </div>
     <br />
     <br />
     <br />
-    <el-footer height="50px" class="hidden-lg-and-down">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
+    <el-footer height="50px" >2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
 
   </div>
 </template>
@@ -315,7 +306,6 @@ export default {
    }
 
   .index {
-    /* width: 1200px; */
     margin: 0 auto;
   }
 
@@ -359,24 +349,18 @@ export default {
   }
   .free-list {
     max-width:1200px;
-    /* height:550px; */
     margin:20px auto 20px auto;
-    /* background-color: black; */
   }
   .cost-list {
     max-width:1200px;
-    /* height:550px; */
     margin:20px auto 20px auto;
-    /* background-color: black; */
   }
   .morelist {
     width: 100%;
     height: 100%;
-    /* background:rgb(149, 202, 255); */
     border: 2px, solid, black;
     border-radius: 5px;
     font-size: 30px;
-    /* opacity: 0.7; */
     color: grey;
   }
   .morelist:hover {
@@ -387,11 +371,9 @@ export default {
   .phonemorelist {
     width: 100%;
     height: 100%;
-    /* background:rgb(149, 202, 255); */
     border: 2px, solid, black;
     border-radius: 5px;
     font-size: 18px;
-    /* opacity: 0.7; */
     color: black;
   }
   hr {

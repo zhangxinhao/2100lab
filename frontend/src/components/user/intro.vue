@@ -43,30 +43,9 @@
       </el-dialog>
     </div>
 
-    <div class="registerdialog">
-      <el-dialog title="注册" :visible.sync="registerFormVisible" width="400px" height="700px">
-        <el-form :model="reform" :rules="rules">
-          <el-form-item label="手机号" :label-width="registerLabelWidth" prop="rephone">
-            <el-col :span="18">
-              <el-input v-model="reform.phonenumber" auto-complete="off" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="验证码" :label-width="registerLabelWidth">
-            <el-col :span="18">
-              <el-input v-model="reform.password" auto-complete="off" clearable></el-input>
-            </el-col>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="register-footer">
-          <el-button type="primary" @click="loginFormVisible = false">获取验证码</el-button>
-          <el-button @click="registerFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="registerFormVisible = false">确 定</el-button>
-        </div>
-      </el-dialog>
-    </div>
     <div id="page">
-      <div>
-        <img alt="" src="../../assets/class2.jpg" width="600" height="400"/>
+      <div class="picturebox">
+        <img alt="" src="../../assets/class2.jpg" width="100%" height="100%"/>
       </div>
       <div id="class">课程:{{ title }}</div>
       <div class= "money" v-if = "moneyFlag">￥{{ money }}</div>
@@ -78,9 +57,8 @@
           <el-button class="judgeButton" type="success" v-else-if = "moneyFlag==0&&!login" >立即观看</el-button>
           <el-button class="judgeButton" type="success" v-else-if = "paidFlag&&!login">立即观看</el-button>
           <el-button class="judgeButton" type="primary" v-else-if = "paidFlag==0&&!login" @click="payDialogVisible = true" style="width:120px;height:50px">去支付</el-button>
-          <!-- <el-button class="judgeButton" type="primary" icon="el-icon-share" @click.native="shareDialogVisible = true"></el-button> -->
           <br />
-          <div style="text-align:right">
+          <div class="sharediv">
           <i class="el-icon-share"></i><span>分享到</span>
           <share :config="config" style="display:inline"></share>
           </div>
@@ -106,17 +84,6 @@
       </el-dialog>
     </div>
 
-     <!-- <div class = "shareDialog">
-      <el-dialog title="分享" :visible.sync="shareDialogVisible" width="400px" height="400px">
-        <div style="text-align: center;">
-          <div id="shareText">分享途径</div>
-            <el-button class="share" type="primary" round>微信分享</el-button><br />
-            <el-button class="share" type="primary" round>QQ分享</el-button><br />
-          <share :config="config"></share>
-        </div>
-      </el-dialog>
-    </div> -->
-
     <div>
       <router-link :to="{name:'coursepage',params:{courseid: courseid}}">
         <button>进入课程</button>
@@ -128,7 +95,7 @@
       </router-link>
     </div>
     <br />
-    <el-footer height="50px">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
+    <el-footer height="50px" class="hidden-lg-and-down">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
 
   </div>
 </template>
@@ -182,20 +149,9 @@ export default {
       bountyFlag: false,
       shareDialogVisible: false,
       login: true,
-      not_login: false,
       loginLabelWidth: '100px',
       loginFormVisible: false,
       loform: {
-        phonenumber: '',
-        password: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      },
-      registerFormVisible: false,
-      registerLabelWidth: '100px',
-      reform: {
         phonenumber: '',
         password: '',
         delivery: false,
@@ -295,8 +251,13 @@ export default {
     padding-bottom: 20px;
   }
 
-  #page {
+  .picturebox {
     width: 600px;
+    height: 400px;
+  }
+
+  #page {
+    max-width: 600px;
     margin:0px auto 0px auto;
     padding:40px;
     border-left-style: solid;
@@ -404,6 +365,10 @@ export default {
     text-align: center;
   }
 
+  .sharediv {
+    text-align: center;
+    padding-top: 10%;
+  }
   @media screen and (max-width: 500px) {
     .user-ope {
       color: black;
@@ -418,6 +383,30 @@ export default {
       display: inline-block;
       width: 42px;
       height: 42px;
+    }
+    .picturebox {
+      width: 100%;
+      height: 10%;
+    }
+    #class {
+      font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+      font-size: 18px;
+      font-weight: bold;
+      padding-bottom: 10px;
+      padding-top: 10px;
+    }
+    .money {
+      color: red ;
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 0;
+      padding-bottom: 10px;
+    }
+    .classContent {
+      text-indent: 2em;
+      margin-bottom: 40px;
+      letter-spacing: 0.2em;
+      font-size: 14px;
     }
   }
 </style>
