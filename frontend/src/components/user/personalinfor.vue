@@ -13,7 +13,8 @@
       <span class="dialog_msg">请上传头像</span>
       <el-upload
         class="avatar-uploader"
-        action=""
+        :action="uploadURL()"
+        :data="userMsg"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload">
@@ -55,7 +56,7 @@ export default {
       labelPosition: 'right',
       userMsg: {
         name: 'UJoe',
-        phonenumber: '13600000000',
+        phonenumber: '13230037688',
         balance: '1123',
         is_V: true
       },
@@ -64,8 +65,11 @@ export default {
     }
   },
   methods: {
+    uploadURL() {
+      return utils.getURL() + 'api/seticon/'
+    },
     onSubmitConfirm() {
-      axios.post(utils.getURL() + '/api/setuserdata/', qs.stringify({
+      axios.post(utils.getURL() + 'api/setuserdata/', qs.stringify({
         newAlias: this.userMsg.name,
         newIcon: this.header
       })).then(
@@ -99,9 +103,9 @@ export default {
     }
   },
   created: function() {
-    axios.post(utils.getURL() + '/api/getuserinfo/', qs.stringify({
+    axios.post(utils.getURL() + 'api/getuserinfo/', qs.stringify({
     })).then(response => {
-      this.header = response.data.header
+      // this.header = response.data.header
       this.userMsg.name = response.data.alias
       this.userMsg.phonenumber = response.data.phone_number
       this.userMsg.balance = response.data.balance
