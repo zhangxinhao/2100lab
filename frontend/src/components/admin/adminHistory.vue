@@ -5,7 +5,7 @@
     <el-row :gutter="20">
       <el-col :span="6" :offset="7"><el-input v-model="search_adminId" placeholder="请输入管理员编号"></el-input></el-col>
       <el-col :span="6" :offset="1"><el-input v-model="search_objectId" placeholder="请输入对象编号"></el-input></el-col>
-      <el-col :span="2"><el-button type="primary" icon="el-icon-search" @click="getList">搜索</el-button></el-col>
+      <el-col :span="2"><el-button type="primary" icon="el-icon-search" @click="getList" class="searchbtn">搜索</el-button></el-col>
     </el-row>
   </div>
 
