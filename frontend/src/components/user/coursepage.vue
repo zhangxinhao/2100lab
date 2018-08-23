@@ -47,7 +47,7 @@
     <div class="main-container">
 
       <div class="img-container">
-        <img :src="coursePic" class="coursePic">
+        <img :src="nowPic.position" class="coursePic">
       </div>
 
       <div class="audio-container">
@@ -234,8 +234,35 @@ export default {
         lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }]
       },
       tempcourse: [],
-      coursePic: require('../../assets/images/free.jpg'),
-      courseaudio: require('../../assets/audios/audio1.mp3'),
+      coursePic: [
+        {
+          position: require('../../assets/images/1-1.001.png'),
+          start: 0
+        },
+        {
+          position: require('../../assets/images/1-1.002.png'),
+          start: 8
+        },
+        {
+          position: require('../../assets/images/1-1.003.png'),
+          start: 38
+        },
+        {
+          position: require('../../assets/images/1-1.004.png'),
+          start: 72
+        },
+        {
+          position: require('../../assets/images/1-1.005.png'),
+          start: 100
+        },
+        {
+          position: require('../../assets/images/1-1.006.png'),
+          start: 114
+        }
+      ],
+      nowPic: {},
+      nowPos: 1,
+      courseaudio: require('../../assets/audios/1.mp3'),
       music: {
         isPlay: false,
         currentTime: 0,
@@ -306,10 +333,20 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      setInterval(this.listenMusic, 1000)
+      setInterval(this.imgplay, 500)
     })
   },
   methods: {
+    imgplay() {
+      let i = 0
+      for (i = 0; i < this.coursePic.length; i++) {
+        if (this.coursePic[i].start > parseInt(this.$refs.music.currentTime)) {
+          break
+        }
+      }
+      this.nowPic = this.coursePic[i - 1]
+      this.listenMusic()
+    },
     listenMusic() {
       if (!this.$refs.music) {
         return
@@ -359,12 +396,13 @@ export default {
   },
   created: function() {
     this.courseid = this.$route.params.courseid
+    this.nowPic = this.coursePic[0]
     axios.post(utils.getURL() + 'api/coursepage/', qs.stringify({
       course_id: this.$route.params.courseid
     })).then(response => {
       this.discussionList = []
       this.tempcourse = response.data.course
-      this.coursePic = this.tempcourse.pictures
+      // this.coursePic = this.tempcourse.pictures
       this.courseaudio = this.tempcourse.audio
       this.course_artical = this.tempcourse.course_description
       for (let i = 0; i < this.tempcourse.lenth; i++) {

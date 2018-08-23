@@ -15,12 +15,17 @@ def loadCourse(request):
   """
   course_id = request.POST.get("course_id")
   course = Course.objects.get(pk=course_id)
-  pictures = Picture.objects.filter(course=course).order_by("start").values()
-  pictures = list(pictures)
+  course_pic = []
+  pictures = Picture.objects.filter(course=course).order_by("start")
+  for pic in pictures:
+    course_pic.append({
+      "position": pic.postion,
+      "start": pic.start
+    })
   audio = course.audio_url
   course_description = course.description
   mb = messageBoardDic(request)
-  course = {"pictures": pictures, "audio": audio, "message": mb, "course_description": course_description}
+  course = {"pictures": course_pic, "audio": audio, "message": mb, "course_description": course_description}
   return HttpResponse(json.dumps({"course": course}))
 
 def getCourseInfo(request):
