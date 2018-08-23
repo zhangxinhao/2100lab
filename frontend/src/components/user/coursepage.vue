@@ -86,7 +86,6 @@
         {{ course_artical }}
       </div>
 
-      {{ courseid }}hong
       <div class="share-container">
         <i class="el-icon-share"></i><span>分享到</span>
         <share :config="config" style="display:inline"></share>
