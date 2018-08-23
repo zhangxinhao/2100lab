@@ -39,5 +39,7 @@ urlpatterns = [
   path('getadmin/', admin_views.get_admin),
   path('editadmin/', admin_views.edit_admin),
   path('deleteadmin/', admin_views.delete_admin),
+  path('getpv/', orders_views.get_PV),
+  path('getvol/', orders_views.get_VOL),
 
 ]
