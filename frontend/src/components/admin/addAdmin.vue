@@ -14,19 +14,19 @@
       </el-form-item>
 
       <el-form-item label="课程管理权限">
-        <el-switch v-model="newAdmin.course_manage" active-value="true" inactive-value="false" @change="changeC"></el-switch>
+        <el-switch v-model="newAdmin.course_manage" active-value="true" inactive-value="false" @change="changeC" class="changec"></el-switch>
       </el-form-item>
 
       <el-form-item label="管理用户权限" >
-        <el-switch v-model="newAdmin.user_manage" active-value="true" inactive-value="false"  @change="changeU"></el-switch>
+        <el-switch v-model="newAdmin.user_manage" active-value="true" inactive-value="false"  @change="changeU" class="changeu"></el-switch>
       </el-form-item>
 
       <el-form-item label="操作历史权限">
-        <el-switch v-model="newAdmin.operaion_history" active-value="true" inactive-value="false" @change="changeH"></el-switch>
+        <el-switch v-model="newAdmin.operaion_history" active-value="true" inactive-value="false" @change="changeH" class="changeh"></el-switch>
       </el-form-item>
 
       <el-form-item label="订单管理权限">
-        <el-switch v-model="newAdmin.order_manage" active-value="true" inactive-value="false"  @change="changeO"></el-switch>
+        <el-switch v-model="newAdmin.order_manage" active-value="true" inactive-value="false"  @change="changeO" class="changeo"></el-switch>
       </el-form-item>
 
       <el-form-item>
