@@ -85,7 +85,7 @@
         <el-form-item style="text-align:right">
           <br />
           <el-button type="primary" icon="el-icon-upload">上传课程</el-button>
-          <el-button icon="el-icon-delete" @click="clearpage">清空</el-button>
+          <el-button icon="el-icon-delete" @click="clearpage" class="clear">清空</el-button>
           <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         </el-form-item>
       </el-form>
