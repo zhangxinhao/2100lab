@@ -35,4 +35,9 @@ urlpatterns = [
   path('deletemsg/', msg_mng.delete_msg),
   path('shutup/', admin_views.ban_client),
   path('manageorder/', orders_views.list_order),
+  path('createadmin/', admin_views.create_admin),
+  path('getadmin/', admin_views.get_admin),
+  path('editadmin/', admin_views.edit_admin),
+  path('deleteadmin/', admin_views.delete_admin),
+
 ]

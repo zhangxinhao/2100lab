@@ -25,6 +25,8 @@
 import axios from 'axios'
 import qs from 'qs'
 import * as utils from '../utils/utils.js'
+import * as hash from '../utils/hash.js'
+
 export default {
   data() {
     let validateAdminId = (rule, value, callback) => {
@@ -50,13 +52,10 @@ export default {
     }
   },
   methods: {
-    hash(str) {
-      return str
-    },
     login() {
       axios.post(utils.getURL() + 'api/adminlogin/', qs.stringify({
         username: this.loform.adminId,
-        password: this.$options.methods.hash(this.loform.password)
+        password: hash.getHash(this.loform.password)
       })).then(response => {
         let status = response.data.status
         if (status === 0) {

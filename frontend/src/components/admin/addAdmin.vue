@@ -10,57 +10,80 @@
       </el-form-item>
 
       <el-form-item label="管理员密码" >
-        <el-input v-model="newAdmin.adminKey" class="inp"></el-input>
+        <el-input v-model="newAdmin.password" class="inp"></el-input>
       </el-form-item>
 
       <el-form-item label="课程管理权限">
-        <el-switch v-model="newAdmin.courseManege" active-value="true" inactive-value="false"></el-switch>
+        <el-switch v-model="newAdmin.course_manage" active-value="true" inactive-value="false" @change="changeC"></el-switch>
       </el-form-item>
 
       <el-form-item label="管理用户权限" >
-        <el-switch v-model="newAdmin.userManege" active-value="true" inactive-value="false"></el-switch>
+        <el-switch v-model="newAdmin.user_manage" active-value="true" inactive-value="false"  @change="changeU"></el-switch>
       </el-form-item>
 
       <el-form-item label="操作历史权限">
-        <el-switch v-model="newAdmin.historyManage" active-value="true" inactive-value="false" @change="newv"></el-switch>
+        <el-switch v-model="newAdmin.operaion_history" active-value="true" inactive-value="false" @change="changeH"></el-switch>
       </el-form-item>
 
       <el-form-item label="订单管理权限">
-        <el-switch v-model="newAdmin.orderManege" active-value="true" inactive-value="false"></el-switch>
-      </el-form-item>
-
-      <el-form-item label="添加管理员权限">
-        <el-switch v-model="newAdmin.adminManage" active-value="true" inactive-value="false"></el-switch>
+        <el-switch v-model="newAdmin.order_manage" active-value="true" inactive-value="false"  @change="changeO"></el-switch>
       </el-form-item>
 
       <el-form-item>
         <el-button type="primary" @click="onSubmit" class="end">立即创建</el-button>
-        <el-button>取消</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
+
 <script>
+import axios from 'axios'
+import qs from 'qs'
+import * as utils from '../utils/utils.js'
+import * as hash from '../utils/hash.js'
+
 export default {
   data() {
     return {
       newAdmin: {
         adminName: '',
-        adminKey: '',
-        courseManege: false,
-        userManege: false,
-        historyManage: false,
-        orderManege: false,
-        adminManage: false
+        password: '',
+        course_manage: false,
+        user_manage: false,
+        operation_history: false,
+        order_manage: false
       }
     }
   },
   methods: {
-    onSubmit() {
+    changeC: function(status) {
+      this.newAdmin.course_manage = status
     },
-    // 当开关触发后对应绑定的value会变化（分别为true和false）
-    // @change 为开关改变状态触发的参数，返回值是当前绑定的value
-    newv: function(callback) {
+    changeU: function(status) {
+      this.newAdmin.user_manage = status
+    },
+    changeH: function(status) {
+      this.newAdmin.operaion_history = status
+    },
+    changeO: function(status) {
+      this.newAdmin.order_manage = status
+    },
+    onSubmit: function() {
+      axios.post(utils.getURL() + 'api/createadmin/', qs.stringify({
+        adminName: this.newAdmin.adminName,
+        password: hash.getHash(this.newAdmin.password),
+        course_manage: this.newAdmin.course_manage,
+        user_manage: this.newAdmin.user_manage,
+        operation_history: this.newAdmin.operaion_history,
+        order_manage: this.newAdmin.order_manage
+      })).then(response => {
+        if (response.data.status === 0) {
+          alert('创建成功！')
+          window.location.reload()
+        } else {
+          alert('编号已存在')
+        }
+      })
     }
   }
 }
