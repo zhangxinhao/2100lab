@@ -112,7 +112,7 @@ def get_admin(request):
               admin[rght] = True
             else:
               admin[rght] = False
-            admins.append(admin)
+            admins.append(admin[rght])
         except rights_list.DoesNotExist as e:
           status = 1
       else:
@@ -123,7 +123,7 @@ def get_admin(request):
     list = User.objects.filter(is_staff=True).order_by("id").values()
     for admin in list:
       right = __to_Binary__(admin["manage_right"])
-      one = {"adminId": admin.id, "password": ''}
+      one = {"adminId": admin["id"], "password": ''}
       try:
         for i in range(len(right)):
           rght = rights_list.objects.get(id=i).right
@@ -131,7 +131,7 @@ def get_admin(request):
             admin[rght] = True
           else:
             admin[rght] = False
-          admins.append(admin)
+          admins.append(admin[rght])
       except rights_list.DoesNotExist as e:
         status = 1
   return HttpResponse(json.dumps({"status": status, "admins": admins}))

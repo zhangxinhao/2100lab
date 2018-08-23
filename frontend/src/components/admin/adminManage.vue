@@ -55,8 +55,8 @@
 
       </el-form>
       <div slot="footer" class="edit-footer">
-        <el-button @click="editCancel">取 消</el-button>
-        <el-button type="primary" @click="edit">确 定</el-button>
+        <el-button type="primary" @click="editCancel">取 消</el-button>
+        <el-button @click="edit">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -65,8 +65,8 @@
     <el-dialog title="删除管理员" :visible.sync="deleteVisible" width="400px" height="700px">
       <div>确认要删除编号为：{{adminData[editIndex].adminId}} 的用户？</div>
       <div slot="footer" class="edit-footer">
-        <el-button @click="deleteCancel">取 消</el-button>
-        <el-button type="primary" @click="deleteIt">确 定</el-button>
+        <el-button type="primary" @click="deleteCancel">取 消</el-button>
+        <el-button @click="deleteIt">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -92,7 +92,10 @@ export default {
       adminData: [
         {adminId: '001', password: '123456', course_manage: true, user_manage: true, operation_history: true, order_manage: true, admin_manage: true},
         {adminId: '122', password: '111111', course_manage: false, user_manage: true, operation_history: true, order_manage: false, admin_manage: false}
-      ]
+      ],
+      Backup: {
+        course_manage: true, user_manage: true, operation_history: true, order_manage: true
+      }
     }
   },
   methods: {
@@ -102,6 +105,11 @@ export default {
     editFunction(editIndex) {
       this.editVisible = true
       this.editIndex = editIndex
+      this.Backup.course_manage = this.adminData[editIndex].course_manage
+      this.Backup.user_manage = this.adminData[editIndex].user_manage
+      this.Backup.operation_history = this.adminData[editIndex].operation_history
+      this.Backup.admin_manage = this.adminData[editIndex].course_manage
+      console.log(this.Backup.course_manage)
     },
     edit() {
       this.editVisible = false
@@ -158,6 +166,13 @@ export default {
     },
     editCancel() {
       this.editVisible = false
+      console.log(this.Backup.course_manage)
+      console.log(this.editIndex)
+      this.adminData[this.editIndex].course_manage = this.Backup.course_manage
+      this.adminData[this.editIndex].user_manage = this.Backup.user_manage
+      this.adminData[this.editIndex].operation_history = this.Backup.operation_history
+      this.adminData[this.editIndex].order_manage = this.Backup.order_manage
+      console.log(this.Backup)
     },
     deleteCancel() {
       this.deleteVisible = false
