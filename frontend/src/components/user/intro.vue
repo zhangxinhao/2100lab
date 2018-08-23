@@ -83,7 +83,7 @@
         <span id="account">当前赏金： {{ bounty }}</span>
       </el-dialog>
     </div>
-
+    {{ courseid }}
     <div>
       <router-link :to="{name:'coursepage',params:{courseid: courseid}}">
         <button>进入课程</button>
