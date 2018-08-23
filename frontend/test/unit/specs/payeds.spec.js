@@ -10,4 +10,9 @@ describe('payeds', () => {
     let inputs = wrapper.findAll('el-table-column')
     expect(inputs.length).toBe(0)
   })
+  it('数目显示', () => {
+    let inputs = wrapper.findAll('span')
+    expect(inputs.length).toBe(0)
+    expect(wrapper.contains('el-dialog')).toBe(false)
+  })
 })
