@@ -12,11 +12,18 @@ def messageBoardDic(request):
 
   """
   course = Course.objects.get(request.POST.get("course_id"))
-  message = Message.objects.filter(course_id=course).order_by("-time").values()
+  message = Message.objects.filter(course_id=course).order_by("-time")
   messages = []
   for msg in message:
-    user = User.objects.get(pk=msg.author_id)
-    comments = Comment.objects.filter(message_id=msg.id).valuse()
+    user = msg.author
+    comments = Comment.objects.filter(message_id=msg.id)
+    reply = []
+    for cmt in comments:
+      reply.append({
+        "userName": cmt.author.alias,
+        "userType": cmt.author.is_V,
+        "indisMessage": cmt.content
+      })
     messages.append({
       "message_id": msg.id,
       "author": user.alias,
@@ -25,7 +32,8 @@ def messageBoardDic(request):
       "time": msg.time,
       "likes": msg.likes,
       "dislikes": msg.dislikes,
-      "reply": comments
+      "reply": reply,
+      "usertype": user.is_V
     })
   return {"message": messages}
 
