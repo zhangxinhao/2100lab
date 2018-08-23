@@ -1,7 +1,8 @@
 from django.contrib import auth
-from ..models import User, rights_list
+from ..models import User, rights_list, Admin_operation_record, Operation
 from django.http import HttpResponse
 import json
+import time
 
 def authenticate(request):
   username = request.POST.get('username')
@@ -165,3 +166,29 @@ def delete_admin(request):
   else:
     status = 1
   return HttpResponse(json.dumps({"status": status}))
+
+def record_list(request):
+  status = 0
+  admin_id = request.POST.get("adminId")
+  object_id = request.POST.get("objectId")
+  record = None
+  if admin_id:
+    record = Admin_operation_record.objects.filter(admin_id=admin_id)
+    if object_id:
+      record = record.filter(object=object_id)
+  elif object_id:
+    record = Admin_operation_record.objects.filter(object=object_id)
+  else:
+    record = Admin_operation_record.objects.filter().order_by("-time")
+  history = []
+  for data in record:
+    try:
+      history.append({
+        "adminId": data.admin_id,
+        "operation": Operation.objects.get(operation_code=data.operation_code).operation,
+        "objectId": data.object,
+        "time": time.strptime(data.time.timestamp(), "%Y-%m-%d %H:%M:%S")
+      })
+    except DoesNotExist as e:
+      status = 1
+  return HttpResponse(json.dumps({"status": status, "history": history}))

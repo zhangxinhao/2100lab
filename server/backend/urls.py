@@ -41,5 +41,6 @@ urlpatterns = [
   path('deleteadmin/', admin_views.delete_admin),
   path('getpv/', orders_views.get_PV),
   path('getvol/', orders_views.get_VOL),
+  path('recordlist/', admin_views.record_list),
 
 ]
