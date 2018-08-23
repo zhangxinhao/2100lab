@@ -1,4 +1,4 @@
-from .manager import client, admin_views, msg_mng, orders_views
+from .manager import client, admin_views, msg_mng, orders_views, course_mng_views
 from django.conf.urls import url, include
 from . import views, user_views, order_views, course_views, pay
 from django.urls import path
@@ -42,5 +42,6 @@ urlpatterns = [
   path('getpv/', orders_views.get_PV),
   path('getvol/', orders_views.get_VOL),
   path('recordlist/', admin_views.record_list),
+  path('showcourse/', course_mng_views.show_courses),
 
 ]
