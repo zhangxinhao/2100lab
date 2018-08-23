@@ -86,6 +86,7 @@
         {{ course_artical }}
       </div>
 
+      {{ courseid }}hong
       <div class="share-container">
         <i class="el-icon-share"></i><span>分享到</span>
         <share :config="config" style="display:inline"></share>
@@ -97,7 +98,6 @@
         <h1 class="hidden-md-and-down">评论区</h1>
         <h3 class="hidden-lg-and-up">评论区</h3>
       </div>
-
       <div class="write-discuss">
         <el-input
           type="textarea"

@@ -97,6 +97,7 @@
 export default {
   data() {
     return {
+      courseid: '',
       update_form: {
         course_title: '',
         course_description: '',
@@ -144,8 +145,10 @@ export default {
       this.update_form.audioList = []
     },
     addTime() {
-
     }
+  },
+  created: function() {
+    this.courseid = this.$route.params.courseid
   }
 }
 </script>
