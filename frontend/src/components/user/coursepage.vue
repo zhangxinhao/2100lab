@@ -53,26 +53,33 @@
       <div class="audio-container">
         <el-row class="hidden-md-and-down">
           <el-col :span="2">
-            <el-button id="play-btn" type="primary" circle>
+            <el-button id="play-btn" type="primary" circle @click="play">
               <i class="el-icon-caret-right" width="30px" height="30px"></i>
             </el-button>
           </el-col>
-          <el-col :span="16">
-            <el-slider v-model="playTime" :format-tooltip="formatTime"></el-slider>
+          <el-col :span="12">
+            <el-slider v-model="music.currentTime" :max="music.maxTime" :format-tooltip="formatTime" @change="changeTime"></el-slider>
+          </el-col>
+          <el-col :span="4">
+            {{formatTime(music.currentTime)}}/{{formatTime(music.maxTime)}}
           </el-col>
           <el-col :span="2">
             <span id="voice">音量：</span>
           </el-col>
           <el-col :span="4">
-            <el-slider v-model="music.volume" :format-tooltip="formatVoice"></el-slider>
+            <el-slider v-model="music.volume" :format-tooltip="formatVoice" @change="changeVoice"></el-slider>
           </el-col>
         </el-row>
 
         <el-row class="hidden-lg-and-up">
           <el-col>
-            <el-slider v-model="playTime" :format-tooltip="formatTime"></el-slider>
+            <el-slider v-model="music.currentTime" :max="music.maxTime" :format-tooltip="formatTime" @change="changeTime"></el-slider>
           </el-col>
         </el-row>
+
+        <audio ref="music" autoplay>
+          <source :src="courseaudio">
+        </audio>
       </div>
 
       <div class="artical-container">
@@ -136,8 +143,8 @@
                     <el-button icon="el-icon-caret-bottom" type="text">踩</el-button>
                     <span class="hidden-md-and-down">: {{ item.dislikeNum }} </span>
                   </el-col>
-                  <el-col :span="3" :xs="4" :sm="4" :md="4" :lg="3" :xl="3">
-                    <el-button icon="el-icon-plus" type="text" @click="item.addreply=true">回复</el-button>
+                  <el-col :span="3">
+                    <el-button icon="el-icon-plus" type="text" @click="item.addreply=!item.addreply">回复</el-button>
                   </el-col>
                 </el-row>
               </el-header>
@@ -194,6 +201,10 @@
 </template>
 
 <script>
+import axios from 'axios'
+import qs from 'qs'
+import * as utils from '../utils/utils.js'
+
 export default {
   data: function() {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
@@ -222,8 +233,8 @@ export default {
       rules: {
         lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }]
       },
+      tempcourse: [],
       coursePic: require('../../assets/images/free.jpg'),
-      playTime: 0,
       courseaudio: require('../../assets/audios/audio1.mp3'),
       music: {
         isPlay: false,
@@ -293,15 +304,48 @@ export default {
       pageNo: 1
     }
   },
+  mounted() {
+    this.$nextTick(() => {
+      setInterval(this.listenMusic, 1000)
+    })
+  },
   methods: {
+    listenMusic() {
+      if (!this.$refs.music) {
+        return
+      }
+      if (this.$refs.music.readyState) {
+        this.music.maxTime = this.$refs.music.duration
+      }
+      this.music.isPlay = !this.$refs.music.paused
+      this.music.currentTime = this.$refs.music.currentTime
+    },
+    play() {
+      if (this.$refs.music.paused) {
+        this.$refs.music.play()
+      } else {
+        this.$refs.music.pause()
+      }
+      this.music.isPlay = !this.$refs.music.paused
+    },
+    changeTime(time) {
+      this.$refs.music.currentTime = time
+    },
+    formatTime(time) {
+      let it = parseInt(time)
+      let m = parseInt(it / 60)
+      let s = parseInt(it % 60)
+      return (m < 10 ? '0' : '') + parseInt(it / 60) + ':' + (s < 10 ? '0' : '') + parseInt(it % 60)
+    },
     logout() {
       this.login = false
     },
-    formatTime(val) {
-      return val / 100 * this.music.maxTime
-    },
     formatVoice(val) {
-      return val
+      return this.music.volume
+    },
+    changeVoice(val) {
+      this.music.volume = val
+      this.$refs.music.volume = this.music.volume / 100
     },
     flipeOver: function (page) {
       let _end = this.pageSize * page
@@ -312,6 +356,30 @@ export default {
         this.freeList.push(this.courses[i])
       }
     }
+  },
+  created: function() {
+    this.courseid = this.$route.params.courseid
+    axios.post(utils.getURL() + 'api/coursepage/', qs.stringify({
+      course_id: this.$route.params.courseid
+    })).then(response => {
+      this.discussionList = []
+      this.tempcourse = response.data.course
+      this.coursePic = this.tempcourse.pictures
+      this.courseaudio = this.tempcourse.audio
+      this.course_artical = this.tempcourse.course_description
+      for (let i = 0; i < this.tempcourse.lenth; i++) {
+        this.discussionList.push({
+          'userImg': this.tempcourse.message.icon,
+          'discussTime': this.tempcourse.message.time,
+          'userName': this.tempcourse.message.author,
+          'discussMessage': this.tempcourse.message.content,
+          'indiscussion': this.tempcourse.message.reply,
+          'likeNum': this.tempcourse.message.likes,
+          'dislikeNum': this.tempcourse.message.dislikes,
+          'userType': this.tempcourse.message.usertype
+        })
+      }
+    })
   }
 }
 </script>
