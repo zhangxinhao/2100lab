@@ -51,7 +51,7 @@
       </div>
 
       <div class="audio-container">
-        <el-row>
+        <el-row class="hidden-md-and-down">
           <el-col :span="2">
             <el-button id="play-btn" type="primary" circle>
               <i class="el-icon-caret-right" width="30px" height="30px"></i>
@@ -65,6 +65,12 @@
           </el-col>
           <el-col :span="4">
             <el-slider v-model="music.volume" :format-tooltip="formatVoice"></el-slider>
+          </el-col>
+        </el-row>
+
+        <el-row class="hidden-lg-and-up">
+          <el-col>
+            <el-slider v-model="playTime" :format-tooltip="formatTime"></el-slider>
           </el-col>
         </el-row>
       </div>
@@ -81,7 +87,8 @@
 
     <div class="discuss-container">
       <div class="discuss-header">
-        <h1>评论区</h1>
+        <h1 class="hidden-md-and-down">评论区</h1>
+        <h3 class="hidden-lg-and-up">评论区</h3>
       </div>
 
       <div class="write-discuss">
@@ -118,32 +125,33 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="9">
+                  <el-col :span="9" :xs="12" :sm="12" :md="12" :lg="9" :xl="9">
                     <el-button icon="el-icon-time" type="text" style="color: black">{{ item.discussTime }}</el-button>
                   </el-col>
-                  <el-col :span="3">
+                  <el-col :span="3" :xs="4" :sm="4" :md="4" :lg="3" :xl="3">
                     <el-button icon="el-icon-caret-top" type="text">赞</el-button>
-                    <span>: {{ item.likeNum }} </span>
+                    <span class="hidden-md-and-down">: {{ item.likeNum }} </span>
                   </el-col>
-                  <el-col :span="3">
+                  <el-col :span="3" :xs="4" :sm="4" :md="4" :lg="3" :xl="3">
                     <el-button icon="el-icon-caret-bottom" type="text">踩</el-button>
-                    <span>: {{ item.dislikeNum }} </span>
+                    <span class="hidden-md-and-down">: {{ item.dislikeNum }} </span>
                   </el-col>
-                  <el-col :span="3">
+                  <el-col :span="3" :xs="4" :sm="4" :md="4" :lg="3" :xl="3">
                     <el-button icon="el-icon-plus" type="text" @click="item.addreply=true">回复</el-button>
                   </el-col>
                 </el-row>
               </el-header>
               <el-main class="indis-container">
                 <el-row v-for="initem in item.indiscussion" :key="initem.id">
-                  <el-col :span="2">
+                  <el-col :span="8">
                     {{ initem.userName }}
+                    <div style="display:inline" v-if="initem.userType">&nbsp;&nbsp;V</div>
                   </el-col>
-                  <el-col :span="2" v-if="initem.userType">
-                    V
-                  </el-col>
-                  <el-col :span="20">
+                  <el-col>
                     <div>:{{ initem.indisMessage }}</div>
+                  </el-col>
+                  <el-col>
+                    <br />
                   </el-col>
                 </el-row>
                 <el-row v-if="item.addreply">
@@ -186,8 +194,6 @@
 </template>
 
 <script>
-// import axios from 'axios'
-// import qs from 'qs'
 export default {
   data: function() {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
@@ -255,6 +261,11 @@ export default {
               userName: 'zyfcka',
               userType: true,
               indisMessage: 'mdzz'
+            },
+            {
+              userName: 'dyf',
+              userType: true,
+              indisMessage: 'mdzz'
             }
           ]
         },
@@ -282,59 +293,7 @@ export default {
       pageNo: 1
     }
   },
-  // mounted() {
-  //   this.$nextTick(() => {
-  //     setInterval(this.listenMusic, 1000)
-  //   })
-  // },
   methods: {
-    // listenMusic() {
-    //   if (!this.$refs.music) {
-    //     return
-    //   }
-    //   if (this.$refs.music.readyState) {
-    //     this.music.maxTime = this.$refs.music.duration
-    //   }
-    //   this.music.isPlay = !this.$refs.music.paused
-    //   this.music.currentTime = this.$refs.music.currentTime
-    // },
-    // play() {
-    //   if (this.$refs.music.paused) {
-    //     this.$refs.music.play()
-    //   } else {
-    //     this.$refs.music.pause()
-    //   }
-    //   this.music.isPlay = !this.$refs.music.paused
-    //   this.$nextTick(() => {
-    //     document.getElementById('play').blur()
-    //   })
-    // },
-    // changeTime(time) {
-    //   this.$refs.music.currentTime = time
-    // },
-    // changeVolume(v) {
-    //   this.music.volume += v
-    //   if (this.music.volume > 100) {
-    //     this.music.volume = 100
-    //   }
-    //   if (this.music.volume < 0) {
-    //     this.music.volume = 0
-    //   }
-    //   this.$refs.music.volume = this.music.volume / 100
-    // },
-    // formatTime(time) {
-    //   let it = parseInt(time)
-    //   let m = parseInt(it / 60)
-    //   let s = parseInt(it % 60)
-    //   return (m < 10 ? '0' : '') + parseInt(it / 60) + ':' + (s < 10 ? '0' : '') + parseInt(it % 60)
-    // },
-    // handleClose(done) {
-    //   this.$confirm('确认关闭？你的编辑在离开网页时将会丢失！')
-    //     .then(_ => {
-    //       done()
-    //     })
-    //     .catch(_ => {})
-    // },
     logout() {
       this.login = false
     },
@@ -354,29 +313,6 @@ export default {
       }
     }
   }
-  // created: function() {
-  //   this.courseid = this.$route.params.courseid
-  //   axios.post('http://192.168.55.33:8000/api/coursepage/', qs.stringify({
-  //     course_id: this.$route.params.courseid
-  //   })).then(response => {
-  //     this.posts = []
-  //     this.tempcourse = response.data.course
-  //     this.coursepicture1 = this.tempcourse.pictures
-  //     this.courseaudio1 = this.tempcourse.audio
-  //     this.course_description = this.tempcourse.course_description
-  //     for (let i = 0; i < this.tempcourse.lenth; i++) {
-  //       this.posts.push({
-  //         'header': this.tempcourse.message.icon,
-  //         'create_at': this.tempcourse.message.time,
-  //         'author': this.tempcourse.message.author,
-  //         'content': this.tempcourse.message.content,
-  //         'reply': this.tempcourse.message.reply,
-  //         'like': this.tempcourse.message.likes,
-  //         'dislike': this.tempcourse.message.dislikes
-  //       })
-  //     }
-  //   })
-  // }
 }
 </script>
 
@@ -403,7 +339,9 @@ export default {
     font-size:18px;
     margin-right: 60px;
   }
-
+  .el-main {
+    padding-bottom: 0 !important;
+  }
   .el-footer {
     background-color: #B3C0D1;
     color: #333;
@@ -446,9 +384,6 @@ export default {
   }
   .el-icon-caret-right::before {
     font-size: 25px;
-  }
-  .playTimer {
-    display: inline;
   }
   .el-slider {
     display: inline-block;
@@ -535,6 +470,179 @@ export default {
       display: inline-block;
       width: 42px;
       height: 42px;
+    }
+    hr {
+      height: 1px;
+      border: none;
+      background: rgb(233, 233, 233);
+    }
+    .img-container {
+      width: 300px;
+      height: 215px;
+      margin: 20px auto 0 auto;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .audio-container {
+      width: 350px;
+      height: 50px;
+      margin: auto auto 10px auto;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .artical-container {
+      width: 300px;
+      margin: 20px auto 0 auto;
+      font-size: 18px;
+    }
+    .share-container {
+      width: 350px;
+      margin: 50px auto 80px auto;
+      text-align: right;
+    }
+    .discuss-container {
+      max-width: 350px;
+      max-height: 600px;
+      margin: 20px auto;
+    }
+    .discuss-header {
+      max-width: 350px;
+      height: 50px;
+      margin: 0 auto 5px auto;
+      text-align: left;
+    }
+    .write-discuss {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .discuss-btn {
+      max-width: 350px;
+      text-align: right;
+      margin: 30px auto;
+    }
+    .discuss-area {
+      max-width: 350px;
+      margin: 30px auto;
+    }
+    .userImg-container {
+      max-width: 50px !important;
+    }
+    .discussion {
+      min-height: 50px;
+    }
+    .disMes {
+      min-height: 40px;
+      margin: 5px auto 5px auto;
+    }
+    .indis-container {
+      margin-top: 20px;
+    }
+    .pager-container {
+      text-align: right;
+    }
+    .write-reply {
+      width: 250px;
+      margin: 10px auto;
+    }
+    .reply-btn {
+      width: 280px;
+      text-align: right;
+      margin: 10px auto;
+    }
+  }
+
+  @media screen and (min-width: 500px) and (max-width: 1100px) {
+    .user-ope {
+      color: black;
+      font-size:15px;
+      margin-right: 10px;
+    }
+    .toolbar {
+      min-height: 42px;
+    }
+    .logo {
+      margin-left: 30px;
+      display: inline-block;
+      width: 42px;
+      height: 42px;
+    }
+    hr {
+      height: 1px;
+      border: none;
+      background: rgb(233, 233, 233);
+    }
+    .img-container {
+      width: 500px;
+      height: 350px;
+      margin: 20px auto 0 auto;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .audio-container {
+      width: 600px;
+      height: 50px;
+      margin: auto auto 10px auto;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .artical-container {
+      width: 500px;
+      margin: 20px auto 0 auto;
+      font-size: 18px;
+    }
+    .share-container {
+      width: 600px;
+      margin: 50px auto 80px auto;
+      text-align: right;
+    }
+    .discuss-container {
+      max-width: 600px;
+      max-height: 2000px;
+      margin: 20px auto;
+    }
+    .discuss-header {
+      max-width: 600px;
+      height: 50px;
+      margin: 0 auto 5px auto;
+      text-align: left;
+    }
+    .write-discuss {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .discuss-btn {
+      max-width: 600px;
+      text-align: right;
+      margin: 30px auto;
+    }
+    .discuss-area {
+      max-width: 500px;
+      margin: 30px auto;
+    }
+    .userImg-container {
+      max-width: 50px !important;
+    }
+    .discussion {
+      min-height: 50px;
+    }
+    .disMes {
+      min-height: 40px;
+      margin: 5px auto 5px auto;
+    }
+    .indis-container {
+      margin-top: 20px;
+    }
+    .pager-container {
+      text-align: right;
+    }
+    .write-reply {
+      width: 400px;
+      margin: 10px auto;
+    }
+    .reply-btn {
+      width: 450px;
+      text-align: right;
+      margin: 10px auto;
     }
   }
   </style>
