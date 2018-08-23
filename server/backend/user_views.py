@@ -104,20 +104,20 @@ def getUserInfor(request):
   return HttpResponse(json.dumps({"phone_number": phone_number, "alias": alias, "header": icon, "is_v": is_V, "balance": balance}))
 
 def setAlias(request):
-  newAlias = request.POST.get("newAlias")
-  id = request.POST.get("id")
+  newAlias = request.POST.get("file")
+  id = request.POST.get("phonenumber")
   user = User.objects.get(pk=id)
   user.setAlias(newAlias)
   user.save()
   return
 
 def setIcon(request):
-  newIcon = request.POST.get("newIcon")
-  id = request.POST.get("id")
+  newIcon = request.FILES.get("file")
+  id = request.POST.get("phonenumber")
   user = User.objects.get(pk=id)
   user.setIcon(newIcon)
   user.save()
-  return
+  return HttpResponse(json.dumps({"phone_number": id}))
 
 def setUserData(request):
   setAlias(request)

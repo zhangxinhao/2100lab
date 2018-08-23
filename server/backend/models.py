@@ -8,7 +8,7 @@ import time
 
 class User(AbstractUser):
   id = models.CharField(max_length=11, primary_key=True)
-  icon = models.CharField(max_length=150)
+  icon = models.ImageField(upload_to='usericon', blank=True, null=True)
   is_V = models.BooleanField(default=False)
   alias = models.CharField(max_length=15)
   balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
