@@ -20,7 +20,10 @@
 </template>
 
 <script>
+import * as utils from '../utils/utils.js'
 import echarts from 'echarts'
+import axios from 'axios'
+import qs from 'qs'
 
 export default {
   data() {
@@ -34,10 +37,36 @@ export default {
     }
   },
   mounted() {
-    this.drawBrowseChart()
-    this.drawPayChart()
+    this.getBrows()
+    this.getOrders()
   },
   methods: {
+    getBrows() {
+      axios.post(utils.getURL() + 'api/getpv/', qs.stringify({
+        days: this.day_browse
+      })).then(response => {
+        if (response.data.status === 0) {
+          this.browseData = response.data.PV_list
+          this.dayOfBrowse = response.data.time
+          this.drawBrowseChart()
+        } else {
+          alert('内部错误')
+        }
+      })
+    },
+    getOrders() {
+      axios.post(utils.getURL() + 'api/getvol/', qs.stringify({
+        days: this.day_pay
+      })).then(response => {
+        if (response.data.status === 0) {
+          this.payData = response.data.VOL_list
+          this.dayOfPay = response.data.time
+          this.drawPayChart()
+        } else {
+          alert('内部错误')
+        }
+      })
+    },
     drawBrowseChart() {
       let browseChart = echarts.init(document.getElementById('browse_chart'))
       browseChart.setOption({
@@ -76,25 +105,13 @@ export default {
       if (this.day_browse === '') {
         this.day_browse = 7
       }
-      this.dayOfBrowse = []
-      this.browseData = []
-      for (let i = this.day_browse; i >= 1; i--) {
-        this.dayOfBrowse.push(i)
-        this.browseData.push(i * 14927 % 121)
-      }
-      this.drawBrowseChart()
+      this.getBrows()
     },
     payClick() {
       if (this.day_pay === '') {
         this.day_pay = 8
       }
-      this.dayOfPay = []
-      this.payData = []
-      for (let i = this.day_pay; i >= 1; i--) {
-        this.dayOfPay.push(i)
-        this.payData.push(i * 14927 % 37)
-      }
-      this.drawPayChart()
+      this.getOrders()
     }
   },
   created: function() {
@@ -102,14 +119,8 @@ export default {
     this.browseData = []
     this.dayOfPay = []
     this.payData = []
-    for (let i = this.day_browse; i >= 1; i--) {
-      this.dayOfBrowse.push(i)
-      this.browseData.push(i * 14927 % 121)
-    }
-    for (let i = this.day_pay; i >= 1; i--) {
-      this.dayOfPay.push(i)
-      this.payData.push(i * 14927 % 37)
-    }
+    this.day_browse = 7
+    this.day_pay = 7
   }
 }
 </script>
