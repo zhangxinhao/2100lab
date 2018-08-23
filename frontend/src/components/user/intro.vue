@@ -51,7 +51,7 @@
       <div class= "money" v-if = "moneyFlag">￥{{ money }}</div>
       <div class= "money" v-else>免费课程</div>
       <p class="classContent">{{ classIntro }}</p>
-      <div class="operate">
+      <div class="operate">np
           <el-button class="judgeButton" type="primary" v-if = "login" @click="loginFormVisible = true">立即观看</el-button>
           <el-button class="judgeButton" type="danger" plain v-else-if = "burnedFlag&&!login" @click="fire">已焚毁</el-button>
           <el-button class="judgeButton" type="success" v-else-if = "moneyFlag==0&&!login" >立即观看</el-button>

@@ -1,9 +1,11 @@
 import intro from '@/components/user/intro'
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import VueRouter from 'vue-router'
+import ElementUI from 'element-ui'
 
 const localVue = createLocalVue()
 localVue.use(VueRouter)
+localVue.use(ElementUI)
 const router = new VueRouter()
 shallowMount(intro, {
   localVue,
