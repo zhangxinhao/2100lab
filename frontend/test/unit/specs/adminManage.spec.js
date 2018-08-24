@@ -4,9 +4,14 @@ import Vue from 'vue'
 Vue.use(ElementUI)
 
 describe('adminManage', () => {
+  it('have correct data', () => {
+    expect(typeof adminManage.data).toBe('function')
+    const defaultData = adminManage.data()
+    expect(defaultData.deleteIndex).toBe(0)
+  })
   it('correctly sets the index', () => {
     const vm = new Vue(adminManage).$mount()
-    expect(vm.indexMethod(7)).toBe(8)
+    expect(vm.indexMethod(4)).toBe(5)
   })
   it('correctly editFunction', () => {
     const vm = new Vue(adminManage).$mount()
