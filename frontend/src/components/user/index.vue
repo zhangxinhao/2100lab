@@ -25,7 +25,7 @@
     <div class="carousel">
       <el-carousel :interval="4000" type="card">
         <el-carousel-item v-for="item in imgList" :key="item.id">
-            <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
+            <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, userid: user}}">
               <el-col :span="24"><img height="100%" width="100%" :src="item.profile_url" class="banner_img"/></el-col>
             </router-link>
         </el-carousel-item>
@@ -174,6 +174,7 @@ export default {
       }, 100)
     }
     return {
+      user: '123',
       imgList: [
         {id: 0, profile_url: require('../../assets/images/banner1.jpg')},
         {id: 1, profile_url: require('../../assets/images/banner1.jpg')},

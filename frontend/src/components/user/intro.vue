@@ -51,7 +51,7 @@
       <div class= "money" v-if = "moneyFlag">￥{{ money }}</div>
       <div class= "money" v-else>免费课程</div>
       <p class="classContent">{{ classIntro }}</p>
-      <div class="operate">np
+      <div class="operate">
           <el-button class="judgeButton" type="primary" v-if = "login" @click="loginFormVisible = true">立即观看</el-button>
           <el-button class="judgeButton" type="danger" plain v-else-if = "burnedFlag&&!login" @click="fire">已焚毁</el-button>
           <el-button class="judgeButton" type="success" v-else-if = "moneyFlag==0&&!login" >立即观看</el-button>
@@ -83,12 +83,12 @@
         <span id="account">当前赏金： {{ bounty }}</span>
       </el-dialog>
     </div>
-    {{ courseid }}
     <div>
       <router-link :to="{name:'coursepage',params:{courseid: courseid}}">
         <button>进入课程</button>
       </router-link>
     </div>
+    {{ shareperson }}777
     <div>
       <router-link to="/personal">
         <button>个人中心</button>
@@ -153,7 +153,7 @@ export default {
       },
       channel: '',
       config: {
-        // url: '', // 网址，默认使用 window.location.href
+        url: '', // 网址，默认使用 window.location.href
         source: '', // 来源（QQ空间会用到）, 默认读取head标签
         title: '', // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
         description: '', // 描述, 默认读取head标签
@@ -162,7 +162,8 @@ export default {
         wechatQrcodeTitle: '微信扫一扫：分享', // 微信二维码提示文字
         wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>'
         // disabled: ['google', 'facebook', 'twitter'], // 禁用的站点
-      }
+      },
+      shareperson: ''
     }
   },
   methods: {
@@ -184,6 +185,7 @@ export default {
   },
   created: function() {
     this.courseid = this.$route.params.courseid
+    this.shareperson = this.$route.params.user
     axios.post(utils.getURL() + 'api/getcourseinfo/', qs.stringify({
       course_id: this.courseid
     })).then(response => {
