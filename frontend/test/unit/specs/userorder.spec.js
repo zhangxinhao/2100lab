@@ -8,4 +8,9 @@ describe('coursepage', () => {
     const wrapper = mount(userorder)
     expect(wrapper.contains('el-table')).toBe(false)
   })
+  it('数目', () => {
+    const wrapper = mount(userorder)
+    let inputs = wrapper.findAll('el-table-column')
+    expect(inputs.length).toBe(0)
+  })
 })

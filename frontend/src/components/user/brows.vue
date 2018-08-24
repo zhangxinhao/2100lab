@@ -55,8 +55,6 @@ export default {
     }
   },
   methods: {
-    handleChange(value) {
-    },
     flipeOver: function (page) {
       let _end = this.pageSize * page
       let end = this.totalnumber < (_end) ? this.totalnumber : _end

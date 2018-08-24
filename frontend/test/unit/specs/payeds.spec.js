@@ -15,4 +15,11 @@ describe('payeds', () => {
     expect(inputs.length).toBe(0)
     expect(wrapper.contains('el-dialog')).toBe(false)
   })
+  const vm = new Vue(payeds).$mount()
+  it('翻页 ', () => {
+    vm.flipeOver(4)
+    vm.$nextTick(() => {
+      expect(vm._end).toBe(false)
+    })
+  })
 })
