@@ -28,10 +28,10 @@ def pricedCourses(request):
   return listCourses(request, False)
 
 def briefFreeCourses(request):
-  return listCourses(request, True, 5)
+  return listCourses(request, True, 6)
 
 def briefPricedCourses(request):
-  return listCourses(request, False, 5)
+  return listCourses(request, False, 6)
 
 def listCourses(request, free=None, number=None):
   list = []
@@ -43,13 +43,16 @@ def listCourses(request, free=None, number=None):
     list = Course.objects.filter(price__gt=0).order_by("-create_time").values()
   courses = []
   end = 0
+  _end_ = len(list)
   if number is not None:
-    end = number
+    if number > _end_:
+      end = _end_
+    else:
+      end = number
   else:
     end = len(list)
-  if end is 0:
-    return HttpResponse(json.dumps({"courses": courses}))
-  for i in range(number):
+
+  for i in range(end):
     course = {}
     c = list[i]
     course['id'] = c.course_id
@@ -57,5 +60,12 @@ def listCourses(request, free=None, number=None):
     course['profile_url'] = c.profile_url
     course['description'] = c.description
     course['price'] = c.price
-    courses.append(list[i])
+    courses.append(course)
+  courses.append({
+    "id": 11,
+    "name": "test",
+    "profile_url": "/static/img/banner1.8f478db.jpg",
+    "description": "Realy test",
+    "price": 10
+  })
   return HttpResponse(json.dumps({"courses": courses}))

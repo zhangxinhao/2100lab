@@ -268,25 +268,35 @@ export default {
       this.imgList = response.data.courses
     })
     axios.post(utils.getURL() + 'api/listfreeindex/').then(response => {
+      let list = response.data.courses
+      let length = list.length
       this.freeList_1 = []
       this.freeList_2 = []
-      let freelist = response.data.courses
-      for (let i = 0; i < 3; i++) {
-        this.freeList_1.push(freelist[i])
-      }
-      for (let i = 3; i < 5; i++) {
-        this.freeList_2.push(freelist[i])
+      if (length > 3) {
+        for (let i = 0; i < 3; i++) {
+          this.freeList_1.push(list[i])
+        }
+        for (let i = 3; i < length; i++) {
+          this.freeList_2.push(list[i])
+        }
+      } else {
+        this.freeList_1 = list
       }
     })
     axios.post(utils.getURL() + 'api/listpricedindex/').then(response => {
+      let list = response.data.courses
+      let length = list.length
       this.costList_1 = []
       this.costList_2 = []
-      let costList = response.data.courses
-      for (let i = 0; i < 3; i++) {
-        this.costList_1.push(costList[i])
-      }
-      for (let i = 3; i < 5; i++) {
-        this.costList_2.push(costList[i])
+      if (length > 3) {
+        for (let i = 0; i < 3; i++) {
+          this.costList_1.push(list[i])
+        }
+        for (let i = 3; i < length; i++) {
+          this.costList_2.push(list[i])
+        }
+      } else {
+        this.costList_1 = list
       }
     })
   }
