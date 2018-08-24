@@ -135,11 +135,11 @@
                     <el-button icon="el-icon-time" type="text" style="color: black">{{ item.discussTime }}</el-button>
                   </el-col>
                   <el-col :span="3" :xs="4" :sm="4" :md="4" :lg="3" :xl="3">
-                    <el-button icon="el-icon-caret-top" type="text">赞</el-button>
+                    <el-button icon="el-icon-caret-top" type="text" @click="leaveAttitude(item, 'like')">赞</el-button>
                     <span class="hidden-md-and-down">: {{ item.likeNum }} </span>
                   </el-col>
                   <el-col :span="3" :xs="4" :sm="4" :md="4" :lg="3" :xl="3">
-                    <el-button icon="el-icon-caret-bottom" type="text">踩</el-button>
+                    <el-button icon="el-icon-caret-bottom" type="text" @click="leaveAttitude(item, 'dislike')">踩</el-button>
                     <span class="hidden-md-and-down">: {{ item.dislikeNum }} </span>
                   </el-col>
                   <el-col :span="3">
@@ -422,6 +422,16 @@ export default {
           this.refresh(tempmessage)
         })
       }
+    },
+    leaveAttitude(msg, attitude) {
+      axios.post(utils.getURL() + 'api/attitude/', qs.stringify({
+        message_id: msg.message_id,
+        attitude: attitude
+      })).then(response => {
+        this.discussionList = []
+        let tempmessage = response.data.message
+        this.refresh(tempmessage)
+      })
     },
     flipeOver: function (page) {
       let _end = this.pageSize * page

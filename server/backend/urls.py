@@ -49,5 +49,6 @@ urlpatterns = [
   path('authorize/', client.authorize),
   path('leaveMessage/', message_views.leaveMessage),
   path('comment/', message_views.comment),
+  path('attitude/', message_views.express),
 
 ]
