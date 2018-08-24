@@ -237,7 +237,6 @@ export default {
     margin-top: 10px;
     margin-bottom: 30px;
     z-index: 99;
-    border-bottom: 1px, solid, black;
   }
   .main-inner {
     max-width: 1250px;
@@ -262,7 +261,6 @@ export default {
     float: left;
     width: 550px;
     margin: 10px 10px;
-    border: 1px, solid, gray;
   }
   .aside {
     width: 200px !important;
@@ -314,7 +312,6 @@ export default {
       float: left;
       max-width: 350px;
       margin: 5px 0px;
-      border: 1px, solid, gray;
     }
     .aside {
       max-width: 150px !important;
@@ -384,7 +381,6 @@ export default {
       float: left;
       max-width: 500px;
       margin: 5px 0px;
-      border: 1px, solid, gray;
     }
     .aside {
       max-width: 200px !important;
