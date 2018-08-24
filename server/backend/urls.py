@@ -46,4 +46,6 @@ urlpatterns = [
   path('uploadaudio/', course_mng_views.upload_audio),
   path('uploadcourse/', course_mng_views.upload_course),
   path('uploadcoursepicture/', course_mng_views.upload_course_picture),
+  path('authorize/', client.authorize),
+
 ]
