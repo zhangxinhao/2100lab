@@ -85,9 +85,9 @@ def express(request):
 
   """
   choice = False
-  if request.POST.get("attittude") == "like":
+  if request.POST.get("attitude") == "like":
     choice = True
-  message_id = request.POST.get('message_id')
+  message_id = request.POST.get("message_id")
   id = request.POST.get("id")
   user = User.objects.get(pk=id)
   delta = 0
@@ -97,7 +97,7 @@ def express(request):
     Attitude.objects.create(user=user, message=message, like=choice)
     delta = 1
   else:
-    delta = -2
+    delta = -1
     done.delete()
   number = 0
   if choice:
