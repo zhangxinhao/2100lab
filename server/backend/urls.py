@@ -48,5 +48,6 @@ urlpatterns = [
   path('uploadcoursepicture/', course_mng_views.upload_course_picture),
   path('authorize/', client.authorize),
   path('leaveMessage/', message_views.leaveMessage),
+  path('comment/', message_views.comment),
 
 ]

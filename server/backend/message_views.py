@@ -68,8 +68,10 @@ def comment(request):
   A method to make comment. Message id, to which this comment belongs, is needed.
 
   """
-  id = request.POST.get("id")
-  user = User.objects.get(pk=id)
+  user = request.user
+  if not user.talking_allowed:
+    status = 1
+    return HttpResponse(json.dumps({"status": status}))
   message_id = request.POST.get("message_id")
   content = request.POST.get("content")
   message = Message.objects.get(pk=message_id)

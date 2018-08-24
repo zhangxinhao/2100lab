@@ -112,7 +112,7 @@
       </div>
 
       <div class="discuss-area">
-        <div v-for="item in discussionList" :key="item.id">
+        <div v-for="item in onePageDiscussion" :key="item.id">
           <el-container>
             <el-aside class="userImg-container">
               <el-row>
@@ -170,7 +170,7 @@
                     </el-input>
                   </div>
                   <div class="reply-btn">
-                    <el-button type="primary" icon="el-icon-edit" @click="item.addreply=false">发表</el-button>
+                    <el-button type="primary" icon="el-icon-edit" @click="leaveComment(item)">发表</el-button>
                     <el-button icon="el-icon-delete" @click="item.replyMsg=''">清空</el-button>
                   </div>
                 </el-row>
@@ -281,8 +281,8 @@ export default {
         // disabled: ['google', 'facebook', 'twitter'], // 禁用的站点
       },
       discussWord: '',
-      onePageDiscussion: [],
-      discussionList: [
+      discussionList: [],
+      onePageDiscussion: [
         {
           userName: 'gyy',
           userImg: require('../../assets/images/userImg.jpg'),
@@ -403,6 +403,26 @@ export default {
         })
       }
     },
+    leaveComment(msg) {
+      let msgReg = /^[\s\t\n]*$/
+      if (msgReg.test(msg.replyMsg)) {
+        alert('回复内容不能为空！')
+        msg.replyMsg = ''
+      } else {
+        axios.post(utils.getURL() + 'api/comment/', qs.stringify({
+          message_id: msg.message_id,
+          content: msg.replyMsg
+        })).then(response => {
+          if (response.data.status === 1) {
+            alert('无法发表回复！您已被系统禁言！')
+            return
+          }
+          this.discussionList = []
+          let tempmessage = response.data.message
+          this.refresh(tempmessage)
+        })
+      }
+    },
     flipeOver: function (page) {
       let _end = this.pageSize * page
       let end = this.totalnumber < (_end) ? this.totalnumber : _end
@@ -428,7 +448,8 @@ export default {
           'indiscussion': message[i].reply,
           'likeNum': message[i].likes,
           'dislikeNum': message[i].dislikes,
-          'userType': message[i].usertype
+          'userType': message[i].usertype,
+          'messageId': message[i].message_id
         })
       }
       this.totalnumber = this.discussionList.length
