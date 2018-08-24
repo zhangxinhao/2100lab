@@ -46,16 +46,29 @@
           </el-col>
         </el-form-item>
 
-        <!-- <el-form-item>
-          <el-col :span="18" v-for="item in update_form.imgList" :key="item.id">
-            <span>{{item.name}}:</span>
-            <el-input placeholder="请输入开始时间(时:分:秒)" v-model="input" @blur="addTime"></el-input>
+        <el-form-item label="图片显示时间：" label-width="120px" style="text-align:left">
+          <el-col :span="3">
+            <el-dropdown @command="handleCommand">
+              <span class="el-dropdown-link">
+                {{dropdownMessage}}<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item v-for="item in update_form.imgList" :key="item.id" :command="item.id">
+                  图片{{ item.id }}
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </el-col>
-        </el-form-item> -->
-
-        <el-form-item label="图片显示时间：" label-width="120px">
-          <el-col :span="18">
-            <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}" auto-complete="true" placeholder="请输入每张图片开始播放的时间，格式为: 01:25(1分25秒)，每个时间以空格分隔" v-model="update_form.timelist" clearable required="required"></el-input>
+          <el-col :span="3">
+            <el-input auto-complete="true" placeholder="0" style="width:80px"></el-input>
+            <span class="time">分</span>
+          </el-col>
+          <el-col :span="3">
+            <el-input auto-complete="true" placeholder="0" style="width:80px"></el-input>
+            <span class="time">秒</span>
+          </el-col>
+          <el-col :span="3" :offset="1">
+            <el-button type="primary">确定</el-button>
           </el-col>
         </el-form-item>
 
@@ -112,19 +125,24 @@ export default {
         courseid: '11',
         course_title: '',
         course_description: '',
-        timelist: '',
+        timelist: [],
         course_contain: '',
         message_right: true,
         price: 0,
         destroy_time: 0,
         audioList: [],
-        imgList: [],
+        imgList: [
+          {id: 0, profile_url: require('../../assets/images/banner1.jpg')},
+          {id: 1, profile_url: require('../../assets/images/banner1.jpg')},
+          {id: 2, profile_url: require('../../assets/images/banner1.jpg')}
+        ],
         balance: 0
       },
       // uploadURL 为上传动作的后端接口
       dialogImageUrl: '',
       dialogVisible: false,
-      input: ''
+      input: '',
+      dropdownMessage: '选择图片'
     }
   },
   methods: {
@@ -161,6 +179,9 @@ export default {
     },
     addTime() {
     },
+    handleCommand(command) {
+      this.dropdownMessage = '图片' + command
+    },
     uploadcourse() {
       axios.post(utils.getURL() + 'api/uploadcourse/', qs.stringify({
         courseid: this.update_form.courseid,
@@ -190,7 +211,14 @@ export default {
   }
   .upload-inner {
     width:1000px;
-    text-align: center;
+    /* text-align: center; */
     margin: 0 auto;
+  }
+  .el-form-item__content {
+    text-align: left !important;
+  }
+  .time {
+    color: black;
+    font-size: 16px;
   }
 </style>
