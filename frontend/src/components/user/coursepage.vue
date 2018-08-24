@@ -107,8 +107,8 @@
       </div>
 
       <div class="discuss-btn">
-        <el-button type="primary" icon="el-icon-edit">发表</el-button>
-        <el-button icon="el-icon-delete">清空</el-button>
+        <el-button type="primary" icon="el-icon-edit" @click="leaveDiscussion">发表</el-button>
+        <el-button icon="el-icon-delete" @click="discussWord = ''">清空</el-button>
       </div>
 
       <div class="discuss-area">
@@ -206,8 +206,8 @@ import * as utils from '../utils/utils.js'
 
 export default {
   data: function() {
-    var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
-    var validateloPhone = (rule, value, callback) => {
+    let phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
+    let validateloPhone = (rule, value, callback) => {
       if (!this.loform.phonenumber) {
         return callback(new Error('号码不能为空'))
       }
@@ -260,7 +260,6 @@ export default {
         }
       ],
       nowPic: {},
-      nowPos: 1,
       courseaudio: require('../../assets/audios/1.mp3'),
       music: {
         isPlay: false,
@@ -282,6 +281,7 @@ export default {
         // disabled: ['google', 'facebook', 'twitter'], // 禁用的站点
       },
       discussWord: '',
+      onePageDiscussion: [],
       discussionList: [
         {
           userName: 'gyy',
@@ -383,6 +383,26 @@ export default {
       this.music.volume = val
       this.$refs.music.volume = this.music.volume / 100
     },
+    leaveDiscussion() {
+      let msgReg = /^[\s\t\n]*$/
+      if (msgReg.test(this.discussWord)) {
+        alert('发表内容不能为空！')
+        this.discussWord = ''
+      } else {
+        axios.post(utils.getURL() + 'api/leaveMessage/', qs.stringify({
+          course_id: this.$route.params.courseid,
+          content: this.discussWord
+        })).then(response => {
+          if (response.data.status === 1) {
+            alert('无法发表评论！您已被系统禁言！')
+            return
+          }
+          this.discussionList = []
+          let tempmessage = response.data.message
+          this.refresh(tempmessage)
+        })
+      }
+    },
     flipeOver: function (page) {
       let _end = this.pageSize * page
       let end = this.totalnumber < (_end) ? this.totalnumber : _end
@@ -390,6 +410,37 @@ export default {
       let start = this.pageSize * (page - 1)
       for (let i = start; i < end; i++) {
         this.freeList.push(this.courses[i])
+      }
+    },
+    initialize(course) {
+      this.coursePic = course.pictures
+      this.courseaudio = course.audio
+      this.course_artical = course.course_description
+      this.refresh(course.message)
+    },
+    refresh(message) {
+      for (let i = 0; i < message.lenth; i++) {
+        this.discussionList.push({
+          'userImg': message[i].icon,
+          'discussTime': message[i].time,
+          'userName': message[i].author,
+          'discussMessage': message[i].content,
+          'indiscussion': message[i].reply,
+          'likeNum': message[i].likes,
+          'dislikeNum': message[i].dislikes,
+          'userType': message[i].usertype
+        })
+      }
+      this.totalnumber = this.discussionList.length
+      let totalnumber = this.totalnumber
+      this.onePageDiscussion = []
+      let size = this.pageSize
+      if (totalnumber < size) {
+        this.onePageDiscussion = this.discussionList
+      } else {
+        for (let i = 0; i < size; i++) {
+          this.onePageDiscussion.push(this.discussionList[i])
+        }
       }
     }
   },
@@ -401,21 +452,7 @@ export default {
     })).then(response => {
       this.discussionList = []
       this.tempcourse = response.data.course
-      // this.coursePic = this.tempcourse.pictures
-      this.courseaudio = this.tempcourse.audio
-      this.course_artical = this.tempcourse.course_description
-      for (let i = 0; i < this.tempcourse.lenth; i++) {
-        this.discussionList.push({
-          'userImg': this.tempcourse.message.icon,
-          'discussTime': this.tempcourse.message.time,
-          'userName': this.tempcourse.message.author,
-          'discussMessage': this.tempcourse.message.content,
-          'indiscussion': this.tempcourse.message.reply,
-          'likeNum': this.tempcourse.message.likes,
-          'dislikeNum': this.tempcourse.message.dislikes,
-          'userType': this.tempcourse.message.usertype
-        })
-      }
+      this.initialize(this.tempcourse)
     })
   }
 }
