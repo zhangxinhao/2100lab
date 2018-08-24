@@ -46,17 +46,17 @@
             </el-col>
           </el-form-item>
         </el-form>
+        <el-button type="text" class="getcheck" @click="getVerification">获取验证码</el-button>
         <div slot="footer" class="login-footer">
-          <el-button type="primary" @click="getVerification">获取验证码</el-button>
           <el-button @click="loginFormVisible = false">取 消</el-button>
           <el-button type="primary" @click="loginFunction">确 定</el-button>
         </div>
       </el-dialog>
     </div>
 
-    <div class="hidden-md-and-down">&nbsp;</div>
+    <div class="hidden-md-and-down"><br></div>
     <hr />
-    <div class="hidden-md-and-down">&nbsp;</div>
+    <div class="hidden-md-and-down"><br></div>
     <div class="free-list">
       <el-row :gutter="30" class="hidden-md-and-down">
         <el-col :span="8">
@@ -64,7 +64,9 @@
         </el-col>
         <el-col :span="4" :offset="11">
           <router-link to="/freelistpage">
-            <el-button class="morelist" type="text">更多<i class="el-icon-more el-icon--right"></i></el-button>
+            <el-button class="morelist" type="text">更多
+              <i class="el-icon-more el-icon--right"></i>
+            </el-button>
           </router-link>
         </el-col>
       </el-row>
@@ -74,12 +76,14 @@
         </el-col>
         <el-col :span="4" :offset="11">
           <router-link to="/freelistpage">
-            <el-button class="phonemorelist" type="text">更多<i class="el-icon-more el-icon--right"></i></el-button>
+            <el-button class="phonemorelist" type="text">更多
+              <i class="el-icon-more el-icon--right"></i>
+            </el-button>
           </router-link>
         </el-col>
       </el-row>
       <el-row>
-        <div>&nbsp;</div>
+      <br>
       </el-row>
       <el-row :gutter="30">
         <el-col v-for="item in freeList_1" :key="item.id" :span="8">
@@ -100,9 +104,9 @@
       </el-row>
     </div>
 
-    <div class="hidden-md-and-down">&nbsp;</div>
+    <div class="hidden-md-and-down"><br></div>
     <hr />
-    <div class="hidden-md-and-down">&nbsp;</div>
+    <div class="hidden-md-and-down"><br></div>
 
     <div class="cost-list">
       <el-row :gutter="20" class="hidden-md-and-down">
@@ -111,7 +115,9 @@
         </el-col>
         <el-col :span="4" :offset="11">
           <router-link to="/freelistpage">
-            <el-button class="morelist" type="text">更多<i class="el-icon-more el-icon--right"></i></el-button>
+            <el-button class="morelist" type="text">更多
+              <i class="el-icon-more el-icon--right"></i>
+            </el-button>
           </router-link>
         </el-col>
       </el-row>
@@ -121,12 +127,14 @@
         </el-col>
         <el-col :span="4" :offset="11">
           <router-link to="/costlistpage">
-            <el-button class="phonemorelist" type="text">更多<i class="el-icon-more el-icon--right"></i></el-button>
+            <el-button class="phonemorelist" type="text">更多
+              <i class="el-icon-more el-icon--right"></i>
+            </el-button>
           </router-link>
         </el-col>
       </el-row>
       <el-row>
-        <div>&nbsp;</div>
+      <br>
       </el-row>
       <el-row :gutter="20">
         <el-col v-for="item in costList_1" :key="item.id" :span="8">
@@ -148,7 +156,9 @@
     <br />
     <br />
     <br />
-    <el-footer height="50px" class="hidden-lg-and-down">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
+    <el-footer height="50px" class="hidden-lg-and-down">
+      2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长
+    </el-footer>
 
   </div>
 </template>
@@ -363,10 +373,12 @@ export default {
     max-width:1200px;
     margin:20px auto 20px auto;
   }
+  .getcheck {
+    margin-left: 100px !important;
+  }
   .morelist {
     width: 100%;
     height: 100%;
-    border: 2px, solid, black;
     border-radius: 5px;
     font-size: 30px;
     color: grey;
@@ -379,7 +391,6 @@ export default {
   .phonemorelist {
     width: 100%;
     height: 100%;
-    border: 2px, solid, black;
     border-radius: 5px;
     font-size: 18px;
     color: black;

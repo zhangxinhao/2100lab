@@ -13,7 +13,11 @@
             </router-link>
           </td>
           <td>
-            <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true">登录/注册&nbsp;&nbsp;</el-button>
+            <el-button class="user-ope"
+              type="text"
+              v-if="!login"
+              @click="loginFormVisible = true">登录/注册<br><br>
+            </el-button>
           </td>
           <td>
             <el-button class="user-ope" type="text" v-if="login" @click="logout">登出</el-button>
