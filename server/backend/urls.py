@@ -1,6 +1,6 @@
 from .manager import client, admin_views, msg_mng, orders_views, course_mng_views
 from django.conf.urls import url, include
-from . import views, user_views, order_views, course_views, pay
+from . import views, user_views, order_views, course_views, message_views, pay
 from django.urls import path
 
 
@@ -47,5 +47,6 @@ urlpatterns = [
   path('uploadcourse/', course_mng_views.upload_course),
   path('uploadcoursepicture/', course_mng_views.upload_course_picture),
   path('authorize/', client.authorize),
+  path('leaveMessage/', message_views.leaveMessage),
 
 ]

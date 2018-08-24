@@ -52,8 +52,10 @@ def leaveMessage(request):
 
   """
   time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-  id = request.POST.get("id")
-  user = User.objects.get(pk=id)
+  user = request.user
+  if not user.talking_allowed:
+    status = 1
+    return HttpResponse(json.dumps({"status": status}))
   course_id = request.POST.get("course_id")
   content = request.POST.get("content")
   course = Course.objects.get(pk=course_id)
