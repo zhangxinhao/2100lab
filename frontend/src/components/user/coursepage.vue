@@ -331,13 +331,17 @@ export default {
       ],
       pageSize: 12,
       totalnumber: 100,
-      pageNo: 1
+      pageNo: 1,
+      intervalId: 0
     }
   },
   mounted() {
     this.$nextTick(() => {
-      setInterval(this.imgplay, 500)
+      this.intervalId = setInterval(this.imgplay, 500)
     })
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalId)
   },
   methods: {
     imgplay() {
