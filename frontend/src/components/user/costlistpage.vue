@@ -8,7 +8,11 @@
     <table align="right">
       <tr>
         <td>
-          <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true">登录/注册</el-button>
+          <el-button class="user-ope"
+            type="text"
+            v-if="!login"
+            @click="loginFormVisible = true">登录/注册
+          </el-button>
         </td>
         <td>
           <router-link to="/personal">
@@ -27,7 +31,13 @@
       <el-form :model="loform" :rules="rules">
         <el-form-item label="手机号" :label-width="loginLabelWidth" prop="lophone">
           <el-col :span="18">
-            <el-input v-model="loform.phonenumber" auto-complete="true" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/" oninvalid="this.setCustomValidity('warning')"></el-input>
+            <el-input v-model="loform.phonenumber"
+              auto-complete="true"
+              clearable
+              required="required"
+              pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"
+              oninvalid="this.setCustomValidity('warning')">
+            </el-input>
           </el-col>
         </el-form-item>
         <el-form-item label="验证码" :label-width="loginLabelWidth">
@@ -75,7 +85,9 @@
               </el-aside>
               <el-container class="listone-inner">
                 <el-header class="header"><div>{{item.name}}</div></el-header>
-                <el-main class="main"><el-button icon="el-icon-caret-right" type="primary" class="read">点击阅读</el-button></el-main>
+                <el-main class="main">
+                  <el-button icon="el-icon-caret-right" type="primary" class="read">点击阅读</el-button>
+                </el-main>
               </el-container>
             </el-container>
             <hr />
