@@ -14,11 +14,13 @@
       <el-table-column type="index" :index="indexMethod" header-align=center></el-table-column>
       <el-table-column prop="userId" label="用户ID" width="250" header-align=center></el-table-column>
       <el-table-column prop="userAlias" label="用户昵称" width="220" header-align=center></el-table-column>
+      <el-table-column prop="is_V" label="用户认证" width="100" header-align=center :formatter="vCall"></el-table-column>
       <el-table-column prop="bonus" label="用户赏金" width="220" header-align=center></el-table-column>
       <el-table-column label="操作" header-align=center>
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="deleteFunction(scope.$index)">删除用户</el-button>
-          <el-button type="text" size="small" @click="forbideFunction(scope.$index)">禁言用户</el-button>
+          <el-button type="text" size="small" @click="deleteFunction(scope.$index)">删除</el-button>
+          <el-button type="text" size="small" @click="forbideFunction(scope.$index)">禁言</el-button>
+          <el-button type="text" size="small" @click="authorizeFunction(scope.$index)">认证</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -76,8 +78,8 @@ export default {
       forbideVisible: false,
       list: [],
       userData: [
-        {userId: '15222681355', userAlias: 'zzgyy', bonus: 250},
-        {userId: '15222681356', userAlias: 'gyysz', bonus: 250}
+        {userId: '15222681355', userAlias: 'zzgyy', is_V: false, bonus: 250},
+        {userId: '15222681356', userAlias: 'gyysz', is_V: true, bonus: 250}
       ],
       pageSize: 20,
       totalnumber: 100,
@@ -85,6 +87,9 @@ export default {
     }
   },
   methods: {
+    vCall(data) {
+      return data.is_V ? '是' : '否'
+    },
     indexMethod(index) {
       return index + 1
     },
@@ -109,6 +114,16 @@ export default {
       })).then(response => {
       })
       this.forbideVisible = false
+    },
+    authorizeFunction(authorizeIndex) {
+      axios.post(utils.getURL() + 'api/authorize/', qs.stringify({
+        user_id: this.userData[authorizeIndex].userId,
+        auth: !this.userData[authorizeIndex].is_V
+      })).then(response => {
+        if (response.data.status === 0) {
+          this.userData[authorizeIndex].is_V = !this.userData[authorizeIndex].is_V
+        }
+      })
     },
     search() {
       axios.post(utils.getURL() + 'api/clientinfor/', qs.stringify({

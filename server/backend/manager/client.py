@@ -54,26 +54,47 @@ def client_information(request):
     query.append({
       "userId": client["id"],
       "userAlias": client["alias"],
-      "bonus": str(client["balance"])
+      "bonus": str(client["balance"]),
+      "is_V": client["is_V"]
     })
   if not len(query):
     query.append({
       "usreId": " ",
       "userAlias": " ",
-      "bonus": " "
+      "bonus": " ",
     })
   return HttpResponse(json.dumps({"query": query}))
 
 def delete(request):
+  status = 0
   user_id = request.POST.get("user_id")
-  user = User.objects.get(id)
-  user.is_acitve = False
-  user.save()
-  return HttpResponse()
+  try:
+    user = User.objects.get(id=user_id)
+    user.is_acitve = False
+    user.save()
+  except User.DoesNotExist as e:
+    status = 1
+  return HttpResponse(json.dumps({"status": status}))
 
 def ban(request):
+  status = 0
   user_id = request.POST.get("user_id")
-  user = User.objects.get(id)
-  user.talking_allowed = False
-  user.save()
-  return HttpResponse()
+  try:
+    user = User.objects.get(id=user_id)
+    user.talking_allowed = False
+    user.save()
+  except User.DoesNotExist as e:
+    status = 1
+  return HttpResponse(json.dumps({"status": status}))
+
+def authorize(request):
+  status = 0
+  user_id = request.POST.get("user_id")
+  try:
+    user = User.objects.get(id=user_id)
+    auth = json.loads(request.POST.get("auth"))
+    user.is_V = auth
+    user.save()
+  except User.DoesNotExist as e:
+    status = 1
+  return HttpResponse(json.dumps({"status": status}))

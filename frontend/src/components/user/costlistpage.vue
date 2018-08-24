@@ -171,7 +171,7 @@ export default {
     }
   },
   created: function () {
-    axios.post(utils.getURL() + 'api/listcostcourses/').then(response => {
+    axios.post(utils.getURL() + 'api/listpricedcourses/').then(response => {
       this.courses = response.data.courses
       this.totalnumber = this.courses.length
       let totalnumber = this.totalnumber
