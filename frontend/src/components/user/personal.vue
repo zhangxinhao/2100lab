@@ -70,8 +70,6 @@ export default {
   methods: {
     logout: function() {
     },
-    handleChange(value) {
-    },
     handleSelect(key, keyPath) {
       switch (key) {
         case '1':

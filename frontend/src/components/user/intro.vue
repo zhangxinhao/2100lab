@@ -120,18 +120,6 @@ export default {
         }
       }, 100)
     }
-    var validaterePhone = (rule, value, callback) => {
-      if (!this.reform.phonenumber) {
-        return callback(new Error('号码不能为空'))
-      }
-      setTimeout(() => {
-        if (!phoneReg.test(this.reform.phonenumber)) {
-          callback(new Error('格式有误'))
-        } else {
-          callback()
-        }
-      }, 100)
-    }
     return {
       courseid: '',
       title: '我们爱科学',
@@ -161,8 +149,7 @@ export default {
         desc: ''
       },
       rules: {
-        lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }],
-        rephone: [{ required: true, validator: validaterePhone, trigger: 'blur' }]
+        lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }]
       },
       channel: '',
       config: {
