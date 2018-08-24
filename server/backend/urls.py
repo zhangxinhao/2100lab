@@ -43,5 +43,7 @@ urlpatterns = [
   path('getvol/', orders_views.get_VOL),
   path('recordlist/', admin_views.record_list),
   path('showcourse/', course_mng_views.show_courses),
-
+  path('uploadaudio/', course_mng_views.upload_audio),
+  path('uploadcourse/', course_mng_views.upload_course),
+  path('uploadcoursepicture/', course_mng_views.upload_course_picture),
 ]

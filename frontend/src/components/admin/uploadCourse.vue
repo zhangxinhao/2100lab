@@ -17,7 +17,13 @@
 
         <el-form-item label="上传音频：" label-width="120px" style="text-align:left">
           <el-col :span="18">
-            <el-upload class="upload-demo" action="upload_audio_URL" :on-change="handleChange" :before-upload="beforeUpload" :file-list="update_form.audioList">
+            <el-upload
+              class="upload-demo"
+              :action="upload_audio_URL()"
+              :data="update_form"
+              :on-change="handleChange"
+              :before-upload="beforeUpload"
+              :file-list="update_form.audioList">
               <el-button size="small" type="primary">点击上传</el-button>
               <div slot="tip" class="el-upload__tip">只能上传mp3/wav文件</div>
             </el-upload>
@@ -27,7 +33,8 @@
         <el-form-item label="上传图片：" label-width="120px" style="text-align:left">
           <el-col :span="18">
             <el-upload
-              action="upload_pic_URL"
+              :action="upload_pic_URL()"
+              :data="update_form"
               list-type="picture-card"
               :file-list="update_form.imgList"
               :on-preview="handlePictureCardPreview">
@@ -84,7 +91,7 @@
 
         <el-form-item style="text-align:right">
           <br />
-          <el-button type="primary" icon="el-icon-upload">上传课程</el-button>
+          <el-button type="primary" @click="uploadcourse" icon="el-icon-upload">上传课程</el-button>
           <el-button icon="el-icon-delete" @click="clearpage" class="clear">清空</el-button>
           <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         </el-form-item>
@@ -94,11 +101,15 @@
 </template>
 
 <script>
+import qs from 'qs'
+import axios from 'axios'
+import * as utils from '../utils/utils.js'
+
 export default {
   data() {
     return {
-      courseid: '',
       update_form: {
+        courseid: '11',
         course_title: '',
         course_description: '',
         timelist: '',
@@ -111,14 +122,18 @@ export default {
         balance: 0
       },
       // uploadURL 为上传动作的后端接口
-      upload_audio_URL: '',
-      upload_pic_URL: '',
       dialogImageUrl: '',
       dialogVisible: false,
       input: ''
     }
   },
   methods: {
+    upload_audio_URL() {
+      return utils.getURL() + 'api/uploadaudio/'
+    },
+    upload_pic_URL() {
+      return utils.getURL() + 'api/uploadcoursepicture/'
+    },
     beforeUpload(file) {
       if (['audio/mp3', 'audio/wav'].indexOf(file.type) === -1) {
         this.$message.error('请上传正确的音频格式')
@@ -145,6 +160,20 @@ export default {
       this.update_form.audioList = []
     },
     addTime() {
+    },
+    uploadcourse() {
+      axios.post(utils.getURL() + 'api/uploadcourse/', qs.stringify({
+        courseid: this.update_form.courseid,
+        course_title: this.update_form.course_title,
+        course_description: this.update_form.course_description,
+        course_contain: this.update_form.course_contain,
+        price: this.update_form.price,
+        destroy_time: this.update_form.destroy_time
+      })).then(
+        response => {
+          console.log(response)
+        }
+      )
     }
   },
   created: function() {
