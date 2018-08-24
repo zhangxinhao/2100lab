@@ -43,13 +43,13 @@ class Course(models.Model):
   price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
   burnt_time = models.PositiveIntegerField(default=0)
   message_on = models.BooleanField(default=True)
-  audio_url = models.CharField(max_length=150)
-  profile_url = models.CharField(max_length=150)
+  audio_url = models.FileField(upload_to='audio', blank=True, null=True)
+  profile_url = models.ImageField(upload_to='course_picture', blank=True, null=True)
   create_time = models.PositiveIntegerField(default=int(time.time()))
 
 class Picture(models.Model):
   course = models.ForeignKey('Course', on_delete=models.CASCADE)
-  postion = models.CharField(max_length=150)
+  postion = models.ImageField(upload_to='course_picture', blank=True, null=True)
   start = models.PositiveIntegerField(default=0)
 
 class Visit_record(models.Model):

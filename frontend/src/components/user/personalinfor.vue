@@ -69,16 +69,12 @@ export default {
       return utils.getURL() + 'api/seticon/'
     },
     onSubmitConfirm() {
-      axios.post(utils.getURL() + 'api/setuserdata/', qs.stringify({
+      axios.post(utils.getURL() + 'api/setalias/', qs.stringify({
         newAlias: this.userMsg.name,
-        newIcon: this.header
+        phonenumber: this.userMsg.phonenumber
       })).then(
         response => {
-          this.header = response.data.header
-          this.userMsg.name = response.data.alias
-          this.userMsg.phonenumber = response.data.phone_number
-          this.userMsg.balance = response.data.balance
-          this.userMsg.is_V = response.data.is_v
+
         }
       )
     },
@@ -105,11 +101,11 @@ export default {
   created: function() {
     axios.post(utils.getURL() + 'api/getuserinfo/', qs.stringify({
     })).then(response => {
-      // this.header = response.data.header
-      this.userMsg.name = response.data.alias
-      this.userMsg.phonenumber = response.data.phone_number
-      this.userMsg.balance = response.data.balance
-      this.userMsg.is_V = response.data.is_v
+      this.header = utils.getURL() + 'media/' + response.data.list[0].fields.icon
+      this.userMsg.name = response.data.list[0].fields.alias
+      this.userMsg.phonenumber = response.data.list[0].fields.username
+      this.userMsg.balance = response.data.list[0].fields.balance
+      this.userMsg.is_V = response.data.list[0].fields.is_v
     })
   }
 }
