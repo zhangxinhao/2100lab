@@ -71,8 +71,6 @@ export default {
     }
   },
   methods: {
-    handleChange(value) {
-    },
     logout: function() {
     },
     handleSelect(key, keyPath) {
