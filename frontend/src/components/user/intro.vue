@@ -52,11 +52,10 @@
       <div class= "money" v-else>免费课程</div>
       <p class="classContent">{{ classIntro }}</p>
       <div class="operate">
-          <el-button class="judgeButton" type="primary" v-if = "login" @click="loginFormVisible = true">立即观看</el-button>
-          <el-button class="judgeButton" type="danger" plain v-else-if = "burnedFlag&&!login" @click="fire">已焚毁</el-button>
-          <el-button class="judgeButton" type="success" v-else-if = "moneyFlag==0&&!login" >立即观看</el-button>
-          <el-button class="judgeButton" type="success" v-else-if = "paidFlag&&!login">立即观看</el-button>
-          <el-button class="judgeButton" type="primary" v-else-if = "paidFlag==0&&!login" @click="payDialogVisible = true" style="width:120px;height:50px">去支付</el-button>
+          <el-button class="judgeButton" type="primary" v-if = "!login" @click="loginFormVisible = true">立即观看</el-button>
+          <el-button class="judgeButton" type="danger" plain v-else-if = "burnedFlag" @click="fire">已焚毁</el-button>
+          <el-button class="judgeButton" type="success" v-else-if = "paidFlag || !moneyFlag" @click="toCourse">立即观看</el-button>
+          <el-button class="judgeButton" type="primary" v-else-if = "paidFlag==0" @click="payDialogVisible = true" style="width:120px;height:50px">去支付</el-button>
           <br />
           <div class="sharediv">
           <i class="el-icon-share"></i><span>分享到</span>
@@ -125,7 +124,7 @@ export default {
       title: '我们爱科学',
       buttonShow: '观看',
       // burnedFlag表示当前是否焚毁（true为已焚毁）
-      burnedFlag: true,
+      burnedFlag: false,
       // money表示当前课程的价钱，moneyFlag表示该课是否免费（true为付费 false为免费）
       moneyFlag: true,
       money: '25',
@@ -137,7 +136,7 @@ export default {
       bounty: 15,
       bountyFlag: false,
       shareDialogVisible: false,
-      login: false,
+      login: true,
       loginLabelWidth: '100px',
       loginFormVisible: false,
       loform: {
@@ -167,6 +166,9 @@ export default {
     }
   },
   methods: {
+    toCourse() {
+      this.$router.push({path: '/coursepage/' + this.courseid})
+    },
     payWithCash: function() {
       axios.post(utils.getURL() + 'api/paywithqr/', qs.stringify({
         channel: this.channel,
