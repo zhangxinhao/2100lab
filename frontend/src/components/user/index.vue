@@ -85,16 +85,18 @@
       <el-row>
       <br>
       </el-row>
-      <el-row :gutter="30">
-        <el-col v-for="item in freeList_1" :key="item.id" :span="8">
+      <el-row :gutter="30" class="list-onerow">
+        <el-col v-for="item in freeList_1" :key="item.id" :span="8" class="list-one">
           <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
             <img :src="item.profile_url" class="recomimg" >
+            <br />
+            <br />
             <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
           </router-link>
         </el-col>
       </el-row>
-      <el-row :gutter="30">
-        <el-col v-for="item in freeList_2" :key="item.id" :span="8">
+      <el-row :gutter="30" class="list-onerow">
+        <el-col v-for="item in freeList_2" :key="item.id" :span="8" class="list-one">
           <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
             <img :src="item.profile_url" class="recomimg">
             <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
@@ -136,16 +138,16 @@
       <el-row>
       <br>
       </el-row>
-      <el-row :gutter="20">
-        <el-col v-for="item in costList_1" :key="item.id" :span="8">
+      <el-row :gutter="20" class="list-onerow">
+        <el-col v-for="item in costList_1" :key="item.id" :span="8" class="list-one">
           <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
             <img :src="item.profile_url" class="recomimg">
             <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
           </router-link>
         </el-col>
       </el-row>
-      <el-row :gutter="20">
-        <el-col v-for="item in costList_2" :key="item.id" :span="8">
+      <el-row :gutter="20" class="list-onerow">
+        <el-col v-for="item in costList_2" :key="item.id" :span="8" class="list-one">
           <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
             <img :src="item.profile_url" class="recomimg">
             <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
@@ -153,6 +155,15 @@
         </el-col>
       </el-row>
     </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <br />
     <br />
     <br />
@@ -315,18 +326,12 @@ export default {
 </script>
 
 <style scoped>
-  body {
-    margin:0 auto;
-  }
-  #app {
-    margin: 0;
-    padding: 0;
-  }
-
   .index {
-    margin: 0 auto;
+    background-image: url('../../assets/class.jpg');
+    filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";
+    -moz-background-size:100% 100%;
+        background-size:100% 100%;
   }
-
   .toolbar {
     width: 100%;
     min-height: 55px;
@@ -401,6 +406,9 @@ export default {
   .recomimg {
     width: 90%;
     height: 80%
+  }
+  .list-onerow {
+    margin-bottom: 50px;
   }
   @media screen and (max-width: 500px) {
     .el-carousel {
