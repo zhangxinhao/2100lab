@@ -58,17 +58,22 @@
         <el-row class="hidden-md-and-down">
           <el-col :span="2">
             <el-button id="play-btn" type="primary" circle @click="play">
-              <i class="el-icon-caret-right" width="30px" height="30px"></i>
+              <i class="el-icon-caret-right" v-if="isplay"></i>
+              <i class="iconfont icon-zanting" v-if="!isplay"></i>
             </el-button>
           </el-col>
           <el-col :span="12">
             <el-slider v-model="music.currentTime" :max="music.maxTime" :format-tooltip="formatTime" @change="changeTime"></el-slider>
           </el-col>
           <el-col :span="4">
-            {{formatTime(music.currentTime)}}/{{formatTime(music.maxTime)}}
+            <div class="word-in">
+              {{formatTime(music.currentTime)}}/{{formatTime(music.maxTime)}}
+            </div>
           </el-col>
           <el-col :span="2">
-            <span id="voice">音量：</span>
+            <div class="word-in">
+              <span id="voice">音量：</span>
+            </div>
           </el-col>
           <el-col :span="4">
             <el-slider v-model="music.volume" :format-tooltip="formatVoice" @change="changeVoice"></el-slider>
@@ -76,7 +81,13 @@
         </el-row>
 
         <el-row class="hidden-lg-and-up">
-          <el-col>
+          <el-col :span="2">
+            <el-button id="play-btn" type="primary" circle @click="play">
+              <i class="el-icon-caret-right" v-if="isplay"></i>
+              <i class="iconfont icon-zanting" v-if="!isplay"></i>
+            </el-button>
+          </el-col>
+          <el-col :span="22">
             <el-slider v-model="music.currentTime" :max="music.maxTime" :format-tooltip="formatTime" @change="changeTime"></el-slider>
           </el-col>
         </el-row>
@@ -559,12 +570,18 @@ export default {
   .audio-container {
     width: 900px;
     height: 60px;
-    margin: auto auto 10px auto;
+    margin: 50px auto 50px auto;
     text-align: center;
     vertical-align: middle;
   }
   .el-icon-caret-right::before {
     font-size: 25px;
+  }
+  .icon-zanting:before {
+    font-size: 25px;
+  }
+  .word-in {
+    margin-top: 16px;
   }
   .el-slider {
     display: inline-block;
@@ -578,6 +595,8 @@ export default {
     width: 630px;
     margin: 20px auto 0 auto;
     font-size: 20px;
+    line-height: 40px;
+    text-indent:2em;
   }
   .share-container {
     width: 900px;
@@ -638,6 +657,12 @@ export default {
   }
 
   @media screen and (max-width: 500px) {
+    .el-icon-caret-right::before {
+      font-size: 16px;
+    }
+    .icon-zanting:before {
+      font-size: 16px;
+    }
     .user-ope {
       color: black;
       font-size:15px;
