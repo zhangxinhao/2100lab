@@ -36,7 +36,7 @@ class rights_list(models.Model):
   right = models.CharField(max_length=20)
 
 class Course(models.Model):
-  course_id = models.PositiveIntegerField(primary_key=True)
+  course_id = models.AutoField(primary_key=True)
   course_name = models.CharField(max_length=50)
   description = models.CharField(max_length=200)
   content = models.TextField()
@@ -46,6 +46,12 @@ class Course(models.Model):
   audio_url = models.FileField(upload_to='audio', blank=True, null=True)
   profile_url = models.ImageField(upload_to='course_picture', blank=True, null=True)
   create_time = models.PositiveIntegerField(default=int(time.time()))
+
+class AudioTemp(models.Model):
+  position = models.FileField(upload_to='audio_temp', blank=True, null=True)
+
+class PictureTemp(models.Model):
+  position = models.ImageField(upload_to='picture_temp', blank=True, null=True)
 
 class Picture(models.Model):
   course = models.ForeignKey('Course', on_delete=models.CASCADE)

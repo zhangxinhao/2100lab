@@ -20,6 +20,7 @@
             <el-upload
               class="upload-demo"
               :action="upload_audio_URL()"
+              :on-success="audioResponse"
               :data="update_form"
               :on-change="handleChange"
               :before-upload="beforeUpload"
@@ -34,6 +35,7 @@
           <el-col :span="18">
             <el-upload
               :action="upload_pic_URL()"
+              :on-success="pictureResponse"
               :data="update_form"
               list-type="picture-card"
               :file-list="update_form.imgList"
@@ -53,22 +55,22 @@
                 {{dropdownMessage}}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item v-for="item in update_form.imgList" :key="item.id" :command="item.id">
-                  图片{{ item.id }}
+                <el-dropdown-item v-for="(item, index) in update_form.imgInfo" :key="item.id" :command="index + 1">
+                  图片{{ index + 1 }}
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-col>
           <el-col :span="3">
-            <el-input auto-complete="true" placeholder="0" style="width:80px"></el-input>
+            <el-input auto-complete="true" placeholder="0" style="width:80px" v-model="miniteCache"></el-input>
             <span class="time">分</span>
           </el-col>
           <el-col :span="3">
-            <el-input auto-complete="true" placeholder="0" style="width:80px"></el-input>
+            <el-input auto-complete="true" placeholder="0" style="width:80px" v-model="secondeCache"></el-input>
             <span class="time">秒</span>
           </el-col>
           <el-col :span="3" :offset="1">
-            <el-button type="primary">确定</el-button>
+            <el-button type="primary" @click="getTime">确定</el-button>
           </el-col>
         </el-form-item>
 
@@ -80,7 +82,7 @@
 
         <el-form-item label="" label-width="120px" style="text-align:left">
           <el-col :span="18">
-            <el-checkbox v-model="update_form.message_right">开放留言区</el-checkbox>
+            <el-checkbox v-model="update_form.message_on">开放留言区</el-checkbox>
           </el-col>
         </el-form-item>
 
@@ -92,7 +94,7 @@
 
         <el-form-item label="赏金比例：" label-width="120px" style="text-align:left;width:250px" v-if="update_form.price!=0">
           <el-row :span="18" style="width:300px">
-            <el-input v-model="update_form.balance" auto-complete="true" style="width:100px"></el-input>
+            <el-input v-model="update_form.percentage" auto-complete="true" style="width:100px"></el-input>
           </el-row>
         </el-form-item>
 
@@ -122,30 +124,60 @@ export default {
   data() {
     return {
       update_form: {
-        courseid: '11',
+        mark: '',
         course_title: '',
         course_description: '',
         timelist: [],
         course_contain: '',
-        message_right: true,
+        messageOn: true,
         price: 0,
         destroy_time: 0,
+        audioId: NaN,
         audioList: [],
-        imgList: [
-          {id: 0, profile_url: require('../../assets/images/banner1.jpg')},
-          {id: 1, profile_url: require('../../assets/images/banner1.jpg')},
-          {id: 2, profile_url: require('../../assets/images/banner1.jpg')}
-        ],
-        balance: 0
+        imgList: [],
+        imgInfo: [],
+        pictureIndex: -1,
+        percentage: 0
       },
       // uploadURL 为上传动作的后端接口
       dialogImageUrl: '',
       dialogVisible: false,
       input: '',
-      dropdownMessage: '选择图片'
+      dropdownMessage: '选择图片',
+      miniteCache: 0,
+      secondeCache: 0
     }
   },
   methods: {
+    getTime() {
+      let minite = 0
+      let seconde = 0
+      let secondes
+      if (typeof this.pictureIndex === 'undefined') {
+        alert('请选择图片')
+        return
+      }
+      try {
+        alert(typeof this.secondeCache)
+        if (this.miniteCache) {
+          minite = this.miniteCache
+        }
+        if (this.secondeCache) {
+          seconde = this.secondeCache
+        }
+        secondes = minite * 60 + seconde
+        this.imgInfo[this.pictureIndex].start = secondes
+      } catch (err) {
+        alert('请输入正确时间')
+      }
+      alert(this.imgInfo[this.pictureIndex].start)
+    },
+    audioResponse(response) {
+      this.update_form.audioId = response.id
+    },
+    pictureResponse(response) {
+      this.update_form.imgInfo.push({id: response.id, start: 0})
+    },
     upload_audio_URL() {
       return utils.getURL() + 'api/uploadaudio/'
     },
@@ -172,7 +204,7 @@ export default {
       this.update_form.course_description = ''
       this.update_form.timelist = ''
       this.update_form.course_contain = ''
-      this.update_form.message_right = true
+      this.update_form.message_on = true
       this.update_form.price = 0
       this.update_form.destroy_time = 0
       this.update_form.audioList = []
@@ -180,25 +212,24 @@ export default {
     addTime() {
     },
     handleCommand(command) {
+      this.pictureIndex = command - 1
       this.dropdownMessage = '图片' + command
     },
     uploadcourse() {
       axios.post(utils.getURL() + 'api/uploadcourse/', qs.stringify({
-        courseid: this.update_form.courseid,
-        course_title: this.update_form.course_title,
-        course_description: this.update_form.course_description,
-        course_contain: this.update_form.course_contain,
-        price: this.update_form.price,
-        destroy_time: this.update_form.destroy_time
-      })).then(
-        response => {
-          console.log(response)
+        updateForm: JSON.stringify(this.update_form)
+      })).then(response => {
+        if (response.data.status === 0) {
+          alert('创建成功')
+          location.replace()
+        } else {
+          alert('ERROR!')
         }
-      )
+      })
     }
   },
   created: function() {
-    this.courseid = this.$route.params.courseid
+    this.update_form.mark = (new Date()).valueOf()
   }
 }
 </script>
