@@ -58,8 +58,8 @@
         <el-row class="hidden-md-and-down">
           <el-col :span="2">
             <el-button id="play-btn" type="primary" circle @click="play">
-              <i class="el-icon-caret-right" v-if="isplay"></i>
-              <i class="iconfont icon-zanting" v-if="!isplay"></i>
+              <i class="el-icon-caret-right" v-if="!music.isPlay"></i>
+              <i class="iconfont icon-zanting" v-else></i>
             </el-button>
           </el-col>
           <el-col :span="12">
@@ -83,8 +83,8 @@
         <el-row class="hidden-lg-and-up">
           <el-col :span="2">
             <el-button id="play-btn" type="primary" circle @click="play">
-              <i class="el-icon-caret-right" v-if="isplay"></i>
-              <i class="iconfont icon-zanting" v-if="!isplay"></i>
+              <i class="el-icon-caret-right" v-if="!music.isPlay"></i>
+              <i class="iconfont icon-zanting" v-else></i>
             </el-button>
           </el-col>
           <el-col :span="22">
