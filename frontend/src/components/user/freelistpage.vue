@@ -44,22 +44,11 @@
     </el-dialog>
   </div>
 
-  <div class="menu">
-    <el-row :gutter="100">
-      <el-col :span="1" :offset="2">
-        <router-link to="/">
-          <el-button icon="el-icon-back" class="backtoindex">首页</el-button>
-        </router-link>
-      </el-col>
-      <el-col :span="1">
-        <el-button type="primary" disabled>免费区</el-button>
-      </el-col>
-      <el-col :span="1">
-        <router-link to="/costlistpage">
-          <el-button>付费区</el-button>
-        </router-link>
-      </el-col>
-    </el-row>
+   <div class="dumpbutton">
+    <el-button type="primary" disabled>免费区</el-button>
+    <router-link to="/costlistpage">
+      <el-button>付费区</el-button>
+    </router-link>
   </div>
 
   <div class="main-inner">
@@ -190,6 +179,11 @@ export default {
 </script>
 
 <style scoped>
+  .dumpbutton {
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-bottom: 50px;
+  }
   .toolbar {
     width: 100%;
     min-height: 55px;

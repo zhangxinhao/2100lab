@@ -54,22 +54,11 @@
     </el-dialog>
   </div>
 
-  <div class="menu">
-    <el-row :gutter="100">
-      <el-col :span="1" :offset="2">
-        <router-link to="/">
-          <el-button icon="el-icon-back" class="backtoindex">首页</el-button>
-        </router-link>
-      </el-col>
-      <el-col :span="1">
-        <router-link to="/freelistpage">
-          <el-button>免费区</el-button>
-        </router-link>
-      </el-col>
-      <el-col :span="1">
-          <el-button type="primary" disabled>付费区</el-button>
-      </el-col>
-    </el-row>
+ <div class="dumpbutton">
+    <router-link to="/freelistpage">
+      <el-button  type="primary">免费区</el-button>
+    </router-link>
+    <el-button type="primary" disabled>付费区</el-button>
   </div>
 
   <div class="main-inner">
@@ -211,7 +200,11 @@ export default {
     background-color:lightskyblue;
     opacity: 0.7;
   }
-
+  .dumpbutton {
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-bottom: 50px;
+  }
   .logo {
     margin-left: 50px;
     display: inline-block;
