@@ -1,5 +1,5 @@
 #user_views.py
-from django.core import serializers
+from django.core.serializers import serialize
 from django.http import HttpResponse, JsonResponse
 from django.forms.models import model_to_dict
 from .models import User, Visit_record, Picture, Course
@@ -92,15 +92,16 @@ def getVisitHistory(request):
     infor["profile_url"] = course.profile_url
     infor["last_visit"] = r.last_visit
     history.append(infor)
+    history = json.loads(serialize('json', history))
   return HttpResponse(json.dumps({"history": history}))
 
 def getUserInfor(request):
   # user = request.user
   user = User.objects.filter(pk=13230037688)
   response = {}
-  response['list'] = json.loads(
-                serializers.serialize("json", user))
+  response['list'] = json.loads(serialize("json", user))
   return JsonResponse(response)
+
 def setAlias(request):
   newAlias = request.POST.get("newAlias")
   id = request.POST.get("phonenumber")

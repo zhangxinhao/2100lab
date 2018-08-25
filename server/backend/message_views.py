@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from .models import User, Course, Message, Comment, Attitude
 from django.contrib import auth
+from django.core.serializers import serialize
 import datetime
 import json
 
@@ -35,6 +36,7 @@ def messageBoardDic(request):
       "reply": reply,
       "usertype": user.is_V
     })
+    messages = json.loads(serialize('json', messages))
   return {"message": messages}
 
 def messageBoard(request):

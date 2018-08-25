@@ -1,7 +1,7 @@
 from .models import User, Course, Picture
 from .message_views import messageBoardDic
 from django.http import HttpResponse
-from django.core import serializers
+from django.core.serializers import serialize
 from django.contrib import auth
 
 import json
@@ -22,10 +22,12 @@ def loadCourse(request):
       "position": pic.postion,
       "start": pic.start
     })
+  course_pic = json.loads(serialize('json', course_pic))
   audio = course.audio_url
   course_description = course.description
   mb = messageBoardDic(request)
   course = {"pictures": course_pic, "audio": audio, "message": mb, "course_description": course_description}
+  course = json.loads(serialize('json', course))
   return HttpResponse(json.dumps({"course": course}))
 
 def getCourseInfo(request):
@@ -45,4 +47,5 @@ def getCourseInfo(request):
     info['description'] = " "
     info['profile_url'] = " "
     info['price'] = 0
+  info = json.loads(serialize('json', info))
   return HttpResponse(json.dumps(info))
