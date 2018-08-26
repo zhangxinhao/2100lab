@@ -336,7 +336,7 @@ export default {
     background-image: url('../../assets/class.jpg');
     filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";
     -moz-background-size:100% 100%;
-        background-size:100% 100%;
+    background-size:100% 100%;
   }
   .toolbar {
     width: 100%;
@@ -394,11 +394,6 @@ export default {
     font-size: 30px;
     color: grey;
   }
-  .morelist:hover {
-    background-color:rgb(240, 240, 240);
-    opacity: 0.7;
-    color:black;
-  }
   .phonemorelist {
     width: 100%;
     height: 100%;
@@ -410,8 +405,8 @@ export default {
     max-width: 1200px;
   }
   .recomimg {
-    width: 90%;
-    height: 80%
+    width: 80%;
+    height: 70%
   }
   .list-onerow {
     margin-bottom: 50px;
@@ -423,6 +418,7 @@ export default {
     display: inline;
     word-break: break-all;
     word-wrap: break-word;
+    font-size: 20px;
   }
   @media screen and (max-width: 500px) {
     .el-carousel {

@@ -88,7 +88,15 @@
     </div>
     </el-footer>
   </div>
-
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
 </div>
 </template>
 
@@ -179,6 +187,12 @@ export default {
 </script>
 
 <style scoped>
+  .freelist {
+    background-image: url('../../assets/class.jpg');
+    filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";
+    -moz-background-size:100% 100%;
+    background-size:100% 100%;
+  }
   .dumpbutton {
     margin-top: 50px;
     margin-left: 50px;
