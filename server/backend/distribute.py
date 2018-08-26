@@ -1,10 +1,10 @@
-from django.http import JsonResponse
-from .models import User
+import math
+from .models import Course, User
 
 PERCENTAGE = 0.05
 
 
-def distribute(request):
+def distribute(sharer_id, course_id, price):
     """
 
     A method to distribute bonus while a user-shared course was bought.
@@ -19,29 +19,26 @@ def distribute(request):
     If status is 1, the result wiil be "User inexistent", which means the sharer_id is inexistent.
 
     """
-    sharer_id = request.POST.get("sharer_id")
-    if sharer_id:
+    status = 0
+    try:
         sharer = User.objects.get(id=sharer_id)
-        if not sharer:
-            return JsonResponse({"status": 1, "result": "User inexistent"})
-        price = request.POST.get("price")
-        bonus = __get_bonus__(price)
+        bonus = _get_bonus_(course_id, price)
         sharer.balance = sharer.balance + bonus
-    return JsonResponse({"status": 0, "result": "Distributed"})
+    except User.DoesNotExist:
+        status = 1
+    return status
 
 
-def __get_bonus__(price):
+def _get_bonus_(course_id, price):
     """
 
     An inner method to return a number with at most 2 decimal fractions.
 
     """
-    bonus = price * 0.05
-    bonus = bonus * 100
-    bonus_str = str(bonus)
-    if "." in bonus_str:
-        bonus_split = bonus_str.split(".")
-        bonus = int(bonus_split[0])
-        if bonus_split[1][0] > '4':
-            bonus = bonus + 1
-    return bonus / 100
+    try:
+        course = Course.objects.get(course_id=course_id)
+        bonus = price * course.percentage
+        bonus = math.floor(bonus * 100)
+        return bonus / 100
+    except Course.DoesNotExist:
+        return 0
