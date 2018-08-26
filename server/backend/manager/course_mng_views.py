@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from ..models import Course, User, Picture, AudioTemp, PictureTemp
+from .admin_views import record
 import json
 
 def show_courses(request):
@@ -79,8 +80,8 @@ def upload_course(request):
   )
   course.save()
   status = _insertPictrue_(imgInfo, course)
+  record(request.user.id, 0, course.course_id)
   return HttpResponse(json.dumps({"status": status}))
-
 
 def _insertPictrue_(image_list, course):
   for img in image_list:

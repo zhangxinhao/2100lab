@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from ..models import Visit_record, User
+from .admin_views import record
 
 import json
 
@@ -72,6 +73,7 @@ def delete(request):
     user = User.objects.get(id=user_id)
     user.is_acitve = False
     user.save()
+    record(request.user.id, 2, user_id)
   except User.DoesNotExist as e:
     status = 1
   return HttpResponse(json.dumps({"status": status}))
@@ -83,6 +85,7 @@ def ban(request):
     user = User.objects.get(id=user_id)
     user.talking_allowed = False
     user.save()
+    record(request.user.id, 3, user_id)
   except User.DoesNotExist as e:
     status = 1
   return HttpResponse(json.dumps({"status": status}))
@@ -95,6 +98,7 @@ def authorize(request):
     auth = json.loads(request.POST.get("auth"))
     user.is_V = auth
     user.save()
+    record(request.user.id, 4, user_id)
   except User.DoesNotExist as e:
     status = 1
   return HttpResponse(json.dumps({"status": status}))

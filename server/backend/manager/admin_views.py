@@ -1,5 +1,6 @@
 from django.contrib import auth
 from ..models import User, rights_list, Admin_operation_record, Operation
+from ..models import Admin_operation_record, Operation
 from django.http import HttpResponse
 import json
 import time
@@ -60,16 +61,16 @@ def ban_client(request):
       status = 1
   except User.DoesNotExist as e:
     status = 1
+  if status == 0:
+    record(request.user.id, 3, client_id)
   return HttpResponse(json.dumps({"status": status}))
 
 def create_admin(request):
   status = 0
   user_name = request.POST.get("adminName")
   try:
-    user = User.objects.filter(id=user_name)
-    if user:
-      status = 1
-      return HttpResponse(json.dumps({"status": status}))
+    user = User.objects.get(id=user_name)
+    return HttpResponse(json.dumps({"status": status}))
   except User.DoesNotExist as e:
     status = 0
   rights_code = ['0', '0', '0', '0', '0']
@@ -89,6 +90,7 @@ def create_admin(request):
     manage_right=right
   )
   user.save()
+  record(request.user.id, 7, user_name)
   return HttpResponse(json.dumps({"status": status}))
 
 def get_admin(request):
@@ -139,8 +141,8 @@ def get_admin(request):
 def edit_admin(request):
   status = 0
   admin_id = request.POST.get("adminId")
-  admin = User.objects.get(id=admin_id)
-  if admin:
+  try:
+    admin = User.objects.get(id=admin_id)
     rights_code = ['0', '0', '0', '0', '0']
     list = rights_list.objects.filter().values()
     for right in list:
@@ -153,17 +155,19 @@ def edit_admin(request):
     if password:
       admin.set_password(password)
     admin.save()
-  else:
+    record(request.user.id, 8, admin_id)
+  except User.DoesNotExist as e:
     status = 1
   return HttpResponse(json.dumps({"status": status}))
 
 def delete_admin(request):
   status = 0
   admin_id = request.POST.get(adminId)
-  admin = User.objects.get(id=admin_id)
-  if admin:
+  try:
+    admin = User.objects.get(id=admin_id)
     admin.setActive()
-  else:
+    record(request.user.id, 9, admin_id)
+  except user.DoesNotExist as e:
     status = 1
   return HttpResponse(json.dumps({"status": status}))
 
@@ -192,3 +196,7 @@ def record_list(request):
     except DoesNotExist as e:
       status = 1
   return HttpResponse(json.dumps({"status": status, "history": history}))
+
+def record(admin, operation_id, object_id):
+  Admin_operation_record.objects.create(
+    admin_id=admin.id, operation_id=the_operation_id, object=object_id)

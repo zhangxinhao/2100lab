@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from ..models import User, Message, Comment
+from .admin_views import record
 import datetime
 import json
 
@@ -61,10 +62,8 @@ def delete_msg(request):
   status = 0
   try:
     msg = Message.objects.get(id=msg_id)
-    if msg:
-      msg.delete()
-    else:
-      status = 1
+    msg.delete()
+    record(request.user.id, 5, msg_id)
   except Message.DoesNotExist as e:
     status = 1
   return HttpResponse(json.dumps({"status": status}))
