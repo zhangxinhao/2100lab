@@ -235,6 +235,8 @@ export default {
       }, 100)
     }
     return {
+      user: '',
+      sharePerson: '',
       login: true,
       loginFormVisible: false,
       loginLabelWidth: '100px',
@@ -285,14 +287,14 @@ export default {
       courseid: '',
       course_artical: '在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。',
       config: {
-        // url: '', // 网址，默认使用 window.location.href
-        source: '', // 来源（QQ空间会用到）, 默认读取head标签
-        title: '', // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
-        description: '', // 描述, 默认读取head标签
-        image: '', // 图片, 默认取网页中第一个img标签
-        sites: ['qzone', 'qq', 'weibo', 'wechat'], // 启用的站点
-        wechatQrcodeTitle: '微信扫一扫：分享', // 微信二维码提示文字
-        wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>'
+        url: '', // 网址，默认使用 window.location.href
+        // source: '', // 来源（QQ空间会用到）, 默认读取head标签
+        // title: '', // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
+        // description: '', // 描述, 默认读取head标签
+        // image: '', // 图片, 默认取网页中第一个img标签
+        sites: ['qzone', 'qq', 'weibo', 'wechat'] // 启用的站点
+        // wechatQrcodeTitle: '微信扫一扫：分享', // 微信二维码提示文字
+        // wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>'
         // disabled: ['google', 'facebook', 'twitter'], // 禁用的站点
       },
       discussWord: '',
@@ -496,6 +498,8 @@ export default {
   },
   created: function() {
     this.courseid = this.$route.params.courseid
+    this.sharePerson = this.$route.params.user
+    this.config.url = utils.getURL() + '#/intro/' + this.courseid + '/' + this.user
     this.nowPic = this.coursePic[0]
     axios.post(utils.getURL() + 'api/coursepage/', qs.stringify({
       course_id: this.$route.params.courseid
