@@ -4,7 +4,7 @@ import ElementUI from 'element-ui'
 import Vue from 'vue'
 Vue.use(ElementUI)
 describe('coursepage', () => {
-  it('有按钮', () => {
+  it('有表格', () => {
     const wrapper = mount(userorder)
     expect(wrapper.contains('el-table')).toBe(false)
   })

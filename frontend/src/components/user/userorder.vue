@@ -1,34 +1,32 @@
 <template>
   <div>
-    <div class="browstitle">
-      <div class="browshead">订单列表</div>
-      <div id="usertable">
-      <el-table
-        class="ordertable"
-        :data="userOrderList">
-        <el-table-column
-          header-align=center
-          prop="order_id"
-          label="订单编号"
-          >
-        </el-table-column>
-        <el-table-column
-          header-align=center
-          prop="course_id"
-          label="课程编号"
-        >
-        </el-table-column>
-        <el-table-column
-          header-align=center
-          prop="status"
-          label="是否支付">
-        </el-table-column>
-        <el-table-column
-          header-align=center
-          prop="time"
-          label="时间">
-        </el-table-column>
-      </el-table>
+    <div class="brow-stitle">
+      <div class="brows-head">订单列表</div>
+      <div id="user-table">
+        <el-table
+          class="order-table"
+          :data="userOrderList">
+          <el-table-column
+            header-align=center
+            prop="orderId"
+            label="订单编号">
+          </el-table-column>
+          <el-table-column
+            header-align=center
+            prop="courseId"
+            label="课程编号">
+          </el-table-column>
+          <el-table-column
+            header-align=center
+            prop="status"
+            label="是否支付">
+          </el-table-column>
+          <el-table-column
+            header-align=center
+            prop="time"
+            label="时间">
+          </el-table-column>
+        </el-table>
       </div>
 
       <div>
@@ -56,12 +54,12 @@ export default {
     return {
       list: [],
       userOrderList: [
-        {order_id: '110', course_id: '1', status: '已支付', time: '2018-3-5'},
-        {order_id: '110', course_id: '1', status: '已支付', time: '2018-3-5'},
-        {order_id: '110', course_id: '1', status: '已支付', time: '2018-3-5'},
-        {order_id: '110', course_id: '1', status: '已支付', time: '2018-3-5'},
-        {order_id: '110', course_id: '1', status: '已支付', time: '2018-3-5'},
-        {order_id: '110', course_id: '1', status: '已支付', time: '2018-3-5'}
+        {orderId: '110', courseId: '1', status: '已支付', time: '2018-3-5'},
+        {orderId: '110', courseId: '1', status: '已支付', time: '2018-3-5'},
+        {orderId: '110', courseId: '1', status: '已支付', time: '2018-3-5'},
+        {orderId: '110', courseId: '1', status: '已支付', time: '2018-3-5'},
+        {orderId: '110', courseId: '1', status: '已支付', time: '2018-3-5'},
+        {orderId: '110', courseId: '1', status: '已支付', time: '2018-3-5'}
       ],
       nowPage: 1,
       pageSize: 2,
@@ -70,16 +68,17 @@ export default {
   },
   methods: {
     flipOver: function (page) {
-      let _end = this.pageSize * page
-      let end = this.totalNumber < _end ? this.totalNumber : _end
+      let totalEnd = this.pageSize * page
+      let end = this.totalNumber < totalEnd ? this.totalNumber : totalEnd
       this.userOrderList = []
-      let start = _end - this.pageSize
+      let start = totalEnd - this.pageSize
       for (let i = start; i < end; i++) {
         this.userOrderList.push({
-          'order_id': this.list[i].order_id,
-          'course_id': this.list[i].course_id,
+          'order_id': this.list[i].orderId,
+          'course_id': this.list[i].courseId,
           'status': this.list[i].status,
-          'time': new Date(this.list[i].time * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ')
+          'time': new Date(this.list[i].time * 1000)
+            .toLocaleString().replace(/:\d{1,2}$/, ' ')
         })
       }
     }
@@ -98,10 +97,11 @@ export default {
       }
       for (let i = 0; i < end; i++) {
         this.userOrderList.push({
-          'order_id': this.list[i].order_id,
-          'course_id': this.list[i].course_id,
+          'order_id': this.list[i].orderId,
+          'course_id': this.list[i].courseId,
           'status': this.list[i].status,
-          'time': new Date(this.list[i].time * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ')
+          'time': new Date(this.list[i].time * 1000)
+            .toLocaleString().replace(/:\d{1,2}$/, ' ')
         })
       }
     })
@@ -109,20 +109,20 @@ export default {
 }
 </script>
 <style>
-  .browstitle {
+  .brow-stitle {
     width: 900px;
   }
-  #usertable {
+  #user-table {
     margin-bottom: 50px;
   }
-  .browshead {
+  .brows-head {
     font-size: 20px;
     color: black;
     font-weight: bold;
     margin-bottom: 30px;
   }
   @media screen and (max-width: 500px) {
-    .browstitle {
+    .brow-stitle {
       width: 260px;
     }
     .el-table__header {
