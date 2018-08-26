@@ -1,16 +1,16 @@
 <template>
 <div class="background">
-  <div class="loginform">
-    <el-form :model="loform" :rules="rules" style="margin-top: 12%;">
+  <div class="login-form">
+    <el-form :model="loForm" :rules="rules" style="margin-top: 12%;">
       <h1>欢迎你，科学队长管理者</h1>
       <el-form-item label="用户名" :label-width="loginLabelWidth" prop="adminId">
         <el-col :span="18">
-          <el-input v-model="loform.adminId" auto-complete="true" clearable required="required" oninvalid="this.setCustomValidity('warning')"></el-input>
+          <el-input v-model="loForm.adminId" auto-complete="true" clearable required="required" oninvalid="this.setCustomValidity('warning')"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="密  码" :label-width="loginLabelWidth" prop="password">
         <el-col :span="18">
-          <el-input v-model="loform.password" type="password" auto-complete="off" clearable required="required" oninvalid="this.setCustomValidity('warning')"></el-input>
+          <el-input v-model="loForm.password" type="password" auto-complete="off" clearable required="required" oninvalid="this.setCustomValidity('warning')"></el-input>
         </el-col>
       </el-form-item>
     </el-form>
@@ -30,18 +30,18 @@ import * as hash from '../utils/hash.js'
 export default {
   data() {
     let validateAdminId = (rule, value, callback) => {
-      if (!this.loform.adminId) {
+      if (!this.loForm.adminId) {
         return callback(new Error('用户名不能为空'))
       }
     }
     let validatePassword = (rule, value, callback) => {
-      if (!this.loform.password) {
+      if (!this.loForm.password) {
         return callback(new Error('密码不能为空'))
       }
     }
     return {
       loginLabelWidth: '100px',
-      loform: {
+      loForm: {
         adminId: '',
         password: ''
       },
@@ -54,12 +54,12 @@ export default {
   methods: {
     login() {
       axios.post(utils.getURL() + 'api/adminlogin/', qs.stringify({
-        username: this.loform.adminId,
-        password: hash.getHash(this.loform.password)
+        username: this.loForm.adminId,
+        password: hash.getHash(this.loForm.password)
       })).then(response => {
         let status = response.data.status
         if (status === 0) {
-          this.$router.push({ path: '/baseadmin' })
+          this.$router.push({ path: '/baseAdmin' })
         } else {
           return alert('登录失败')
         }
@@ -70,7 +70,7 @@ export default {
 </script>
 
 <style scoped>
-  .loginform {
+  .login-form {
     width: 400px;
     height: 300px;
     border: 2px solid skyblue;

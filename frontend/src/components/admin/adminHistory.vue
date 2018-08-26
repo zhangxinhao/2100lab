@@ -3,9 +3,9 @@
 
   <div id="search-history">
     <el-row :gutter="20">
-      <el-col :span="6" :offset="7"><el-input v-model="search_adminId" placeholder="请输入管理员编号"></el-input></el-col>
-      <el-col :span="6" :offset="1"><el-input v-model="search_objectId" placeholder="请输入对象编号"></el-input></el-col>
-      <el-col :span="2"><el-button type="primary" icon="el-icon-search" @click="getList" class="searchbtn">搜索</el-button></el-col>
+      <el-col :span="6" :offset="7"><el-input v-model="searchAdminId" placeholder="请输入管理员编号"></el-input></el-col>
+      <el-col :span="6" :offset="1"><el-input v-model="searchObjectId" placeholder="请输入对象编号"></el-input></el-col>
+      <el-col :span="2"><el-button type="primary" icon="el-icon-search" @click="getList" class="search-btn">搜索</el-button></el-col>
     </el-row>
   </div>
 
@@ -30,8 +30,8 @@ import qs from 'qs'
 export default {
   data() {
     return {
-      search_adminId: '',
-      search_objectId: '',
+      searchAdminId: '',
+      searchObjectId: '',
       historyData: [
         {adminId: '001', operation: '添加课程', objectId: '15223', time: '2018.08.20'},
         {adminId: '002', operation: '删除用户', objectId: '15222681355', time: '2018.08.19'}
@@ -44,8 +44,8 @@ export default {
     },
     getList() {
       axios.post(utils.getURL() + 'api/recordlist/', qs.stringify({
-        adminId: this.search_adminId,
-        objectId: this.search_objectId
+        adminId: this.searchAdminId,
+        objectId: this.searchObjectId
       })).then(response => {
         if (response.data.status === 0) {
           this.historyData = response.data.history

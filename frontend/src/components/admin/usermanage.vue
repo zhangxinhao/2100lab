@@ -3,8 +3,8 @@
 
   <div id="search-user">
     <el-row :gutter="20">
-      <el-col :span="6" :offset="8"><el-input v-model="search_userId" placeholder="请输入用户ID"></el-input></el-col>
-      <el-col :span="6" :offset="1"><el-input v-model="search_userAlias" placeholder="请输入昵称"></el-input></el-col>
+      <el-col :span="6" :offset="8"><el-input v-model="searchUserId" placeholder="请输入用户ID"></el-input></el-col>
+      <el-col :span="6" :offset="1"><el-input v-model="searchUserAlias" placeholder="请输入昵称"></el-input></el-col>
       <el-col :span="2"><el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button></el-col>
     </el-row>
   </div>
@@ -12,10 +12,10 @@
   <div id="user-list">
     <el-table :data="userData" border width=100%>
       <el-table-column type="index" :index="indexMethod" header-align=center></el-table-column>
-      <el-table-column prop="userId" label="用户ID" width="250" header-align=center></el-table-column>
-      <el-table-column prop="userAlias" label="用户昵称" width="220" header-align=center></el-table-column>
-      <el-table-column prop="is_V" label="用户认证" width="100" header-align=center :formatter="vCall"></el-table-column>
-      <el-table-column prop="bonus" label="用户赏金" width="220" header-align=center></el-table-column>
+      <el-table-column prop="userId" label="用户ID" width="250px" header-align=center></el-table-column>
+      <el-table-column prop="userAlias" label="用户昵称" width="220px" header-align=center></el-table-column>
+      <el-table-column prop="is_V" label="用户认证" width="100px" header-align=center :formatter="vCall"></el-table-column>
+      <el-table-column prop="bonus" label="用户赏金" width="220px" header-align=center></el-table-column>
       <el-table-column label="操作" header-align=center>
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="deleteFunction(scope.$index)">删除</el-button>
@@ -31,20 +31,20 @@
       background
       layout="prev, pager, next"
       :page-size="pageSize"
-      :total="totalnumber"
+      :total="totalNumber"
       :current-page.sync="pageNo"
       :pager-count="7"
-      @current-change="flipeOver"
+      @current-change="flipOver"
       >
     </el-pagination>
   </div>
 
-  <div class="deletedialog">
+  <div class="delete-dialog">
     <el-dialog title="删除用户" :visible.sync="deleteVisible" width="400px" height="700px">
       <div>确认要删除ID为：{{userData[deleteIndex].userId}} 的用户？</div>
       <div slot="footer" class="delete-footer">
         <el-button @click="deleteVisible = false">取 消</el-button>
-        <el-button type="primary" @click="deleteuser">确 定</el-button>
+        <el-button type="primary" @click="deleteUser">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -53,7 +53,7 @@
       <div>确认要禁言ID为：{{userData[forbideIndex].userId}} 的用户？</div>
       <div slot="footer" class="forbide-footer">
         <el-button @click="forbideVisible = false">取 消</el-button>
-        <el-button type="primary" @click="forbideuser">确 定</el-button>
+        <el-button type="primary" @click="forbideUser">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -69,8 +69,8 @@ import * as utils from '../utils/utils.js'
 export default {
   data() {
     return {
-      search_userId: '',
-      search_userAlias: '',
+      searchUserId: '',
+      searchUserAlias: '',
       index: 0,
       deleteIndex: 0,
       deleteVisible: false,
@@ -82,7 +82,7 @@ export default {
         {userId: '15222681356', userAlias: 'gyysz', is_V: true, bonus: 250}
       ],
       pageSize: 20,
-      totalnumber: 100,
+      totalNumber: 100,
       pageNo: 1
     }
   },
@@ -97,7 +97,7 @@ export default {
       this.deleteVisible = true
       this.deleteIndex = deleteIndex
     },
-    deleteuser() {
+    deleteUser() {
       axios.post(utils.getURL() + 'api/deleteclient/', qs.stringify({
         user_id: this.userData[this.deleteIndex].userId
       })).then(response => {
@@ -108,7 +108,7 @@ export default {
       this.forbideVisible = true
       this.forbideIndex = forbideIndex
     },
-    forbideuser() {
+    forbideUser() {
       axios.post(utils.getURL() + 'api/banclient/', qs.stringify({
         user_id: this.userData[this.forbideIndex].userId
       })).then(response => {
@@ -127,15 +127,15 @@ export default {
     },
     search() {
       axios.post(utils.getURL() + 'api/clientinfor/', qs.stringify({
-        user_id: this.search_userId,
-        user_alias: this.search_userAlias
+        user_id: this.searchUserId,
+        user_alias: this.searchUserAlias
       })).then(response => {
         this.list = response.data.query
-        this.totalnumber = this.list.length
-        let totalnumber = this.totalnumber
+        this.totalNumber = this.list.length
+        let totalNumber = this.totalNumber
         this.userData = []
         let size = this.pageSize
-        if (totalnumber < size) {
+        if (totalNumber < size) {
           this.userData = this.list
         } else {
           for (let i = 0; i < size; i++) {
@@ -146,7 +146,7 @@ export default {
     },
     flipOver(page) {
       let _end = this.pageSize * page
-      let end = this.totalnumber < _end ? this.totalnumber : _end
+      let end = this.totalNumber < _end ? this.totalNumber : _end
       this.userData = []
       let start = this.pageSize * (page - 1)
       for (let i = start; i < end; i++) {
@@ -157,11 +157,11 @@ export default {
   created: function() {
     axios.post(utils.getURL() + 'api/clientinfor/').then(response => {
       this.list = response.data.query
-      this.totalnumber = this.list.length
-      let totalnumber = this.totalnumber
+      this.totalNumber = this.list.length
+      let totalNumber = this.totalNumber
       this.userData = []
       let size = this.pageSize
-      if (totalnumber < size) {
+      if (totalNumber < size) {
         this.userData = this.list
       } else {
         for (let i = 0; i < size; i++) {

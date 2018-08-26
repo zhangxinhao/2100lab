@@ -1,5 +1,5 @@
 <template>
-  <div class="addAdmin">
+  <div class="add-admin">
 
     <el-form ref="newAdmin"
       :model="newAdmin"
@@ -14,19 +14,19 @@
       </el-form-item>
 
       <el-form-item label="课程管理权限">
-        <el-switch v-model="newAdmin.course_manage" active-value="true" inactive-value="false" @change="changeC" class="changec"></el-switch>
+        <el-switch v-model="newAdmin.courseManage" active-value="true" inactive-value="false" @change="changeC" class="change-c"></el-switch>
       </el-form-item>
 
       <el-form-item label="管理用户权限" >
-        <el-switch v-model="newAdmin.user_manage" active-value="true" inactive-value="false"  @change="changeU" class="changeu"></el-switch>
+        <el-switch v-model="newAdmin.userManage" active-value="true" inactive-value="false"  @change="changeU" class="change-u"></el-switch>
       </el-form-item>
 
       <el-form-item label="操作历史权限">
-        <el-switch v-model="newAdmin.operaion_history" active-value="true" inactive-value="false" @change="changeH" class="changeh"></el-switch>
+        <el-switch v-model="newAdmin.operationHistory" active-value="true" inactive-value="false" @change="changeH" class="change-h"></el-switch>
       </el-form-item>
 
       <el-form-item label="订单管理权限">
-        <el-switch v-model="newAdmin.order_manage" active-value="true" inactive-value="false"  @change="changeO" class="changeo"></el-switch>
+        <el-switch v-model="newAdmin.orderManage" active-value="true" inactive-value="false"  @change="changeO" class="change-o"></el-switch>
       </el-form-item>
 
       <el-form-item>
@@ -48,34 +48,34 @@ export default {
       newAdmin: {
         adminName: '',
         password: '',
-        course_manage: false,
-        user_manage: false,
-        operation_history: false,
-        order_manage: false
+        courseManage: false,
+        userManage: false,
+        operationHistory: false,
+        orderManage: false
       }
     }
   },
   methods: {
     changeC: function(status) {
-      this.newAdmin.course_manage = status
+      this.newAdmin.courseManage = status
     },
     changeU: function(status) {
-      this.newAdmin.user_manage = status
+      this.newAdmin.userManage = status
     },
     changeH: function(status) {
-      this.newAdmin.operaion_history = status
+      this.newAdmin.operationHistory = status
     },
     changeO: function(status) {
-      this.newAdmin.order_manage = status
+      this.newAdmin.orderManage = status
     },
     onSubmit: function() {
       axios.post(utils.getURL() + 'api/createadmin/', qs.stringify({
         adminName: this.newAdmin.adminName,
         password: hash.getHash(this.newAdmin.password),
-        course_manage: this.newAdmin.course_manage,
-        user_manage: this.newAdmin.user_manage,
-        operation_history: this.newAdmin.operaion_history,
-        order_manage: this.newAdmin.order_manage
+        course_manage: this.newAdmin.courseManage,
+        user_manage: this.newAdmin.userManage,
+        operation_history: this.newAdmin.operationHistory,
+        order_manage: this.newAdmin.orderManage
       })).then(response => {
         if (response.data.status === 0) {
           alert('创建成功！')
@@ -89,7 +89,7 @@ export default {
 }
 </script>
 <style scoped>
-  .addAdmin {
+  .add-admin {
     width: 400px;
     margin-left: 200px;
     margin-top: 50px;

@@ -1,11 +1,18 @@
 <template>
-  <div class="firstDiv">
-    <div class="searchOrder">
-      <el-input class="searchbox" v-model="inputword" placeholder="请输入查询订单号"></el-input><el-button class="btn" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+  <div class="first-div">
+    <div class="search-order">
+      <el-row>
+        <el-col :span="18">
+          <el-input class="search-box" v-model="inputWord" placeholder="请输入查询订单号"></el-input>
+        </el-col>
+        <el-col :span="6">
+          <el-button class="btn" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+        </el-col>
+      </el-row>
     </div>
-    <div class="orderTable">
-      <div class="orderHead">订单列表</div>
-      <div class="reallyTable">
+    <div class="order-table">
+      <div class="order-head">订单列表</div>
+      <div class="really-table">
       <el-table
         border
         :data="userOrderList"
@@ -46,17 +53,16 @@
           <template slot-scope="scope">
             <el-button  type="text" v-if="userOrderList[scope.$index].status == '已支付'">退费</el-button>
             <el-button  type="text" v-else>&mdash;</el-button>
-
           </template>
         </el-table-column>
       </el-table>
       </div>
-      <div style="text-align: center">
+      <div class="pager">
         <el-pagination
           background
           layout="prev, pager, next"
           :page-size="pageSize"
-          :total="totalnumber"
+          :total="totalNumber"
           :current-page.sync="pageNo"
           :pager-count="7"
           @current-change="flipOver"
@@ -75,7 +81,7 @@ import qs from 'qs'
 export default {
   data() {
     return {
-      inputword: '',
+      inputWord: '',
       list: [],
       userOrderList: [
         {orderNo: '110', userId: '12', courseId: '1', status: '已支付', time: '2018-3-5'},
@@ -86,14 +92,14 @@ export default {
         {orderNo: '110', userId: '12', courseId: '1', status: '已支付', time: '2018-3-5'}
       ],
       pageSize: 12,
-      totalnumber: 100,
+      totalNumber: 100,
       pageNo: 1
     }
   },
   methods: {
     search: function() {
       axios.post(utils.getURL() + 'api/manageorder/', qs.stringify({
-        orderNo: this.inputword
+        orderNo: this.inputWord
       })).then(response => {
         if (response.data.status === 0) {
           this.userOrderList = response.data.orders
@@ -105,7 +111,7 @@ export default {
     },
     flipOver: function(page) {
       let _end = this.pageSize * page
-      let end = this.totalnumber < (_end) ? this.totalnumber : _end
+      let end = this.totalNumber < (_end) ? this.totalNumber : _end
       this.userOrderList = []
       let start = this.pageSize * (page - 1)
       for (let i = start; i < end; i++) {
@@ -117,11 +123,11 @@ export default {
     axios.post(utils.getURL() + 'api/manageorder/').then(response => {
       if (response.data.status === 0) {
         this.list = response.data.orders
-        this.totalnumber = this.list.length
-        let totalnumber = this.totalnumber
+        this.totalNumber = this.list.length
+        let totalNumber = this.totalNumber
         this.userOrderList = []
         let size = this.pageSize
-        if (totalnumber < size) {
+        if (totalNumber < size) {
           this.userOrderList = this.list
         } else {
           for (let i = 0; i < size; i++) {
@@ -134,34 +140,34 @@ export default {
 }
 </script>
 <style scoped>
-  .searchOrder {
-    width:300px;
+  .search-order {
+    width: 300px;
     margin-left: 50px;
     margin-bottom: 60px;
   }
-  .searchbox {
+  .search-box {
     width: 70%;
   }
-  .btn {
-    width: 30%;
-  }
-  .orderHead {
+  .order-head {
     font-size: 20px;
     color:black;
     font-weight: bold;
     margin-bottom: 30px;
   }
-  .orderTable {
+  .order-table {
     margin-left: 50px;
     width: 950px;
     margin-bottom: 50px;
   }
-  .reallyTable {
+  .really-table {
     margin-bottom: 50px;
   }
-  .firstDiv {
+  .first-div {
     width: 1200px;
     margin: 50px auto;
     text-align: center;
+  }
+  .pager {
+    text-align: center
   }
 </style>

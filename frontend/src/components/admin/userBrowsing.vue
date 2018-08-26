@@ -1,11 +1,18 @@
 <template>
-  <div class="firstdiv">
-    <div class="searchorder">
-      <el-input class="searchbox" v-model="input" placeholder="请输入查询课程编号"></el-input><el-button class="btn" type="primary" icon="el-icon-search" @click="search(input)">搜索</el-button>
+  <div class="first-div">
+    <div class="search-order">
+      <el-row>
+        <el-col :span="18">
+          <el-input class="search-box" v-model="input" placeholder="请输入查询课程编号"></el-input>
+        </el-col>
+        <el-col :span="6">
+          <el-button class="btn" type="primary" icon="el-icon-search" @click="search(input)">搜索</el-button>
+        </el-col>
+      </el-row>
     </div>
-    <div class="ordertable">
-      <div class="orderhead">用户浏览</div>
-      <div class="reallytable">
+    <div class="order-table">
+      <div class="order-head">用户浏览</div>
+      <div class="really-table">
       <el-table
         border
         class="mytable"
@@ -138,32 +145,29 @@ export default {
 }
 </script>
 <style scoped>
-  .searchorder {
+  .search-order {
     width: 300px;
     margin-left: 50px;
     margin-bottom: 60px;
   }
-  .searchbox {
+  .search-box {
     width: 70%;
   }
-  .btn {
-    width: 30%;
-  }
-  .orderhead {
+  .order-head {
     font-size: 20px;
     color: black;
     font-weight: bold;
     margin-bottom: 30px;
   }
-  .ordertable {
+  .order-table {
     margin-left: 50px;
     width: 1000px;
     margin-bottom: 50px;
   }
-  .reallytable {
+  .really-table {
     margin-bottom: 50px;
   }
-  .firstdiv {
+  .first-div {
     width: 1200px;
     margin: 50px auto;
     text-align: center;
