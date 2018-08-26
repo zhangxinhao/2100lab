@@ -19,7 +19,7 @@ describe('payeds', () => {
   it('翻页 ', () => {
     vm.flipeOver(4)
     vm.$nextTick(() => {
-      expect(vm._end).toBe(false)
+      expect(vm.totalEnd).toBe(false)
     })
   })
 })

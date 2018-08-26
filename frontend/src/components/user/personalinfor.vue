@@ -1,16 +1,20 @@
 <template>
-  <el-form class="main_form">
+  <el-form class="main-form">
     <el-form-item>
-      <el-col class="personalinfor_header">
-        <img :src="header" class="header_img">
+      <el-col class="personalinfor-header">
+        <img :src="header" class="header-img">
       </el-col>
     </el-form-item>
-    <el-button @click="dialogVisible = true" class="change_header" type="text">修改头像</el-button>
+    <el-button
+      @click="dialogVisible = true"
+      class="change-header"
+      type="text">修改头像
+    </el-button>
     <el-dialog
       title="更换头像"
       width="300px"
       :visible.sync="dialogVisible">
-      <span class="dialog_msg">请上传头像</span>
+      <span class="dialog-msg">请上传头像</span>
       <el-upload
         class="avatar-uploader"
         :action="uploadURL()"
@@ -26,18 +30,29 @@
         <el-button type="primary" @click="clickToChangeIcon">确 定</el-button>
       </span>
     </el-dialog>
-    <el-form :label-position="labelPosition" label-width="80px" :model="userMsg">
-      <el-form-item label="认证用户" v-if="userMsg.is_V" class="V"></el-form-item>
-      <el-form-item label="用户名" class="infor_text">
+    <el-form :label-position="labelPosition"
+      label-width="80px"
+      :model="userMsg">
+      <el-form-item label="认证用户" v-if="userMsg.isV" class="V">
+      </el-form-item>
+      <el-form-item label="用户名" class="infor-text">
         <el-input v-model="userMsg.name" class="infor"></el-input>
       </el-form-item>
-      <el-form-item label="手机号码" class="infor_text">
-        <el-input v-model="userMsg.phonenumber" class="infor" :disabled="true"></el-input>
+      <el-form-item label="手机号码" class="infor-text">
+        <el-input
+          v-model="userMsg.phoneNumber"
+          class="infor"
+          :disabled="true">
+        </el-input>
       </el-form-item>
-      <el-form-item label="赏金" class="infor_text">
-        <el-input v-model="userMsg.balance" class="infor" :disabled="true"></el-input>
+      <el-form-item label="赏金" class="infor-text">
+        <el-input
+          v-model="userMsg.balance"
+          class="infor"
+          :disabled="true">
+        </el-input>
       </el-form-item>
-      <el-form-item class="infor_text">
+      <el-form-item class="infor-text">
         <el-button type="primary" @click="onSubmitConfirm">确认修改</el-button>
       </el-form-item>
     </el-form>
@@ -56,9 +71,9 @@ export default {
       labelPosition: 'right',
       userMsg: {
         name: 'UJoe',
-        phonenumber: '13230037688',
+        phoneNumber: '13230037688',
         balance: '1123',
-        is_V: true
+        isV: true
       },
       dialogVisible: false,
       imageUrl: ''
@@ -71,7 +86,7 @@ export default {
     onSubmitConfirm() {
       axios.post(utils.getURL() + 'api/setalias/', qs.stringify({
         newAlias: this.userMsg.name,
-        phonenumber: this.userMsg.phonenumber
+        phonenumber: this.userMsg.phoneNumber
       })).then(
         response => {
 
@@ -101,17 +116,18 @@ export default {
   created: function() {
     axios.post(utils.getURL() + 'api/getuserinfo/', qs.stringify({
     })).then(response => {
-      this.header = utils.getURL() + 'media/' + response.data.list[0].fields.icon
+      this.header = utils.getURL() + 'media/' +
+        response.data.list[0].fields.icon
       this.userMsg.name = response.data.list[0].fields.alias
-      this.userMsg.phonenumber = response.data.list[0].fields.username
+      this.userMsg.phoneNumber = response.data.list[0].fields.username
       this.userMsg.balance = response.data.list[0].fields.balance
-      this.userMsg.is_V = response.data.list[0].fields.is_v
+      this.userMsg.isV = response.data.list[0].fields.is_v
     })
   }
 }
 </script>
 <style scoped>
-  .personalinfor_header {
+  .personalinfor-header {
     width: 100px;
     height: 100px;
     overflow: hidden;
@@ -119,22 +135,22 @@ export default {
     border: 3px solid skyblue;
   }
 
-  .main_form {
+  .main-form {
     text-align: left;
     margin-left: 10%;
   }
 
-  .header_img {
+  .header-img {
     width: 100%;
     height: 100%;
     object-fit: fill;
   }
 
-  .change_header {
+  .change-header {
     margin-left: 32%;
   }
 
-  .dialog_msg {
+  .dialog-msg {
     margin-left: 5%;
   }
 
@@ -165,12 +181,6 @@ export default {
     display: block;
   }
 
-  .personalinfor_describelable {
-    float: left;
-    width: 80px;
-    margin-top: 80px;
-  }
-
   .V {
     margin-left: 30%;
   }
@@ -179,7 +189,7 @@ export default {
     width: 33%;
   }
 
-  .infor_text {
+  .infor-text {
     margin-left: 16%;
   }
   .el-dialog {
@@ -194,7 +204,7 @@ export default {
     width: 70%;
   }
 
-  .infor_text {
+  .infor-text {
     margin-left: 0px;
   }
   .el-dialog {

@@ -1,20 +1,19 @@
 <template>
   <div>
-    <div class="browstitle">
-      <div class="browshead">已购课程</div>
-      <div id="usertable">
+    <div class="brows-title">
+      <div class="brows-head">已购课程</div>
+      <div id="user-table">
       <el-table
-        class="ordertable"
         :data="paidCourseList">
         <el-table-column
           header-align=center
-          prop="course_id"
+          prop="courseId"
           label="课程编号"
           >
         </el-table-column>
         <el-table-column
           header-align=center
-          prop="course_name"
+          prop="courseName"
           label="课程名字"
         >
         </el-table-column>
@@ -56,12 +55,12 @@ export default {
     return {
       list: [],
       paidCourseList: [
-        {course_id: '110', course_name: '1', money: '56', time: '2018-3-5'},
-        {course_id: '110', course_name: '1', money: '44', time: '2018-3-5'},
-        {course_id: '110', course_name: '1', money: '34', time: '2018-3-5'},
-        {course_id: '110', course_name: '1', money: '45', time: '2018-3-5'},
-        {course_id: '110', course_name: '1', money: '12', time: '2018-3-5'},
-        {course_id: '110', course_name: '1', money: '24', time: '2018-3-5'}
+        {courseId: '110', courseName: '1', money: '56', time: '2018-3-5'},
+        {courseId: '110', courseName: '1', money: '44', time: '2018-3-5'},
+        {courseId: '110', courseName: '1', money: '34', time: '2018-3-5'},
+        {courseId: '110', courseName: '1', money: '45', time: '2018-3-5'},
+        {courseId: '110', courseName: '1', money: '12', time: '2018-3-5'},
+        {courseId: '110', courseName: '1', money: '24', time: '2018-3-5'}
       ],
       pageNo: 1,
       pageSize: 2,
@@ -70,8 +69,8 @@ export default {
   },
   methods: {
     flipeOver: function (page) {
-      let _end = this.pageSize * page
-      let end = this.totalnumber < (_end) ? this.totalnumber : _end
+      let totalEnd = this.pageSize * page
+      let end = this.totalNumber < (totalEnd) ? this.totalNumber : totalEnd
       this.paidCourseList = []
       let start = this.pageSize * (page - 1)
       for (let i = start; i < end; i++) {
@@ -85,17 +84,17 @@ export default {
       this.list = []
       for (let i = 0; i < response.data.orders.length; i++) {
         this.list.push({
-          'course_id': lists[i].course_id,
-          'course_name': lists[i].course_name,
+          'courseId': lists[i].course_id,
+          'courseName': lists[i].course_name,
           'money': lists[i].price,
           'time': lists[i].time
         })
       }
-      this.totalnumber = this.list.length
-      let totalnumber = this.totalnumber
+      this.totalNumber = this.list.length
+      let totalNumber = this.totalNumber
       this.paidCourseList = []
       let size = this.pageSize
-      if (totalnumber < size) {
+      if (totalNumber < size) {
         this.paidCourseList = this.list
       } else {
         for (let i = 0; i < size; i++) {
@@ -107,20 +106,20 @@ export default {
 }
 </script>
 <style>
-  .browstitle {
+  .brows-title {
     width: 900px;
   }
-  #usertable {
+  #user-table {
     margin-bottom: 50px;
   }
-  .browshead {
+  .brows-head {
     font-size: 20px;
     color: black;
     font-weight: bold;
     margin-bottom: 30px;
   }
   @media screen and (max-width: 500px) {
-    .browstitle {
+    .brows-title {
       width: 260px;
     }
     .el-table__header {
