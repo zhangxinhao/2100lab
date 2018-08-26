@@ -26,7 +26,7 @@
     </el-table>
   </div>
 
-  <div style="text-align:right">
+  <div class="pager">
     <el-pagination
       background
       layout="prev, pager, next"
@@ -186,5 +186,8 @@ export default {
   height: 1000px;
   margin: 50px auto;
   text-align: center;
+}
+.pager {
+   text-align: right;
 }
 </style>

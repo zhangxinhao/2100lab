@@ -9,7 +9,7 @@
   </div>
 
   <div id="course-list">
-    <el-table :data="courseData" border style="width: 100%">
+    <el-table :data="courseData" border class="course-table">
       <el-table-column type="index" :index="indexMethod" header-align=center></el-table-column>
       <el-table-column prop="courseId" label="课程编号" width="180" header-align=center></el-table-column>
       <el-table-column prop="courseTitle" label="课程标题" width="220" header-align=center></el-table-column>
@@ -90,5 +90,8 @@ export default {
   width: 950px;
   height: 1000px;
   margin: 50px auto;
+}
+.course-table {
+  width: 100%;
 }
 </style>

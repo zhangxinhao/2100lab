@@ -73,7 +73,7 @@
       </div>
     </div>
     <el-footer>
-    <div style="text-align:right">
+    <div class="pager">
       <el-pagination
         background
         small
@@ -271,6 +271,9 @@ export default {
     width: 320px;
     height: 50px;
     padding: 10px;
+    text-align: right;
+  }
+  .pager {
     text-align: right;
   }
   @media screen and (max-width: 800px) {

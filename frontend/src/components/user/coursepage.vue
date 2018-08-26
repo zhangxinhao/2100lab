@@ -103,7 +103,7 @@
 
       <div class="share-container">
         <i class="el-icon-share"></i><span>分享到</span>
-        <share :config="config" style="display:inline"></share>
+        <share :config="config" class="share"></share>
       </div>
     </div>
 
@@ -133,7 +133,7 @@
               <el-row>
                 <img :src="item.userImg" class="userImg">
               </el-row>
-              <el-row style="text-align:center">
+              <el-row class="reply-user">
                 <div>{{ item.userName }}</div>
                 <div v-if="item.userType">V</div>
               </el-row>
@@ -147,7 +147,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="9" :xs="12" :sm="12" :md="12" :lg="9" :xl="9">
-                    <el-button icon="el-icon-time" type="text" style="color: black">{{ item.discussTime }}</el-button>
+                    <el-button icon="el-icon-time" type="text" color="black">{{ item.discussTime }}</el-button>
                   </el-col>
                   <el-col :span="3" :xs="4" :sm="4" :md="4" :lg="3" :xl="3">
                     <el-button icon="el-icon-caret-top" type="text" @click="leaveAttitude(item, 'like')">赞</el-button>
@@ -166,7 +166,7 @@
                 <el-row v-for="initem in item.indiscussion" :key="initem.id">
                   <el-col :span="8">
                     {{ initem.userName }}
-                    <div style="display:inline" v-if="initem.userType">&nbsp;&nbsp;V</div>
+                    <div class="re-reply-type" v-if="initem.userType">&nbsp;&nbsp;V</div>
                   </el-col>
                   <el-col>
                     <div>:{{ initem.indisMessage }}</div>
@@ -658,6 +658,15 @@ export default {
     width: 700px;
     text-align: right;
     margin: 10px auto;
+  }
+  .share {
+    display: inline;
+  }
+  .reply-user {
+    text-align: center;
+  }
+  .re-reply-type {
+    display: inline;
   }
 
   @media screen and (max-width: 500px) {

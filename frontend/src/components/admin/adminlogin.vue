@@ -1,7 +1,7 @@
 <template>
 <div class="background">
   <div class="login-form">
-    <el-form :model="loForm" :rules="rules" style="margin-top: 12%;">
+    <el-form :model="loForm" :rules="rules" class="form-thing">
       <h1>欢迎你，科学队长管理者</h1>
       <el-form-item label="用户名" :label-width="loginLabelWidth" prop="adminId">
         <el-col :span="18">
@@ -90,5 +90,8 @@ export default {
     height: 100px;
     background: linear-gradient(lightskyblue, white);
     padding-top: 120px;
+  }
+  .form-thing {
+    margin-top: 12%;
   }
 </style>
