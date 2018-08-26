@@ -1,4 +1,5 @@
 import json
+from django.core.files import File
 from django.http import JsonResponse
 from backend.models import Course, Picture, AudioTemp, PictureTemp
 
@@ -39,6 +40,7 @@ def show_courses(request):
 
 def upload_audio(request):
     audio = request.FILES.get("file")
+    print(type(audio))
     audio_temp = AudioTemp(position=audio)
     audio_temp.save()
     return JsonResponse({"status": 0, "id": audio_temp.id})
@@ -60,33 +62,37 @@ def upload_course(request):
             profile = img["id"]
             break
     try:
-        profile_url = PictureTemp.objects.get(pk=profile)
-        audio = AudioTemp.objects.get(pk=form["audioId"])
+        profile = PictureTemp.objects.get(pk=profile).position
+        audio = AudioTemp.objects.get(pk=form["audioId"]).position
     except (PictureTemp.DoesNotExist, AudioTemp.DoesNotExist):
         status = 1
         return JsonResponse({"status": status})
     course = Course(
         course_name=form["courseTitle"],
         description=form["courseDescription"],
-        content=form["courseContain"],
-        price=form["price"],
-        message_on=form["messageOn"],
-        burnt_time=form["destroyTime"],
-        audio_url=audio.position,
-        profile_url=profile_url.position
+        content=form["courseContain"], price=form["price"],
+        message_on=form["messageOn"], burnt_time=form["destroyTime"],
+        audio_url = File(audio, audio.name.split("/")[-1]),
+        profile_url = File(profile, profile.name.split("/")[-1])
     )
+    audio.close()
+    profile.close()
     course.save()
     status = _insert_pictrue_(img_info, course)
     return JsonResponse({"status": status})
-
 
 def _insert_pictrue_(image_list, course):
     for img in image_list:
         try:
             picture_id = int(img["id"])
-            picture = PictureTemp.objects.get(pk=picture_id)
-            Picture.objects.create(
-                course=course, postion=picture.position, start=img["start"])
+            picture = PictureTemp.objects.get(pk=picture_id).position
+            pic = Picture()
+            name = picture.name.split("/")
+            pic.postion = File(picture, name[-1])
+            pic.course = course
+            pic.start = img["start"]
+            picture.close()
+            pic.save()
         except Picture.DoesNotExist:
             return 1
     return 0
