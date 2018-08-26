@@ -68,11 +68,11 @@
             </el-dropdown>
           </el-col>
           <el-col :span="3">
-            <el-input auto-complete="true" placeholder="0" class="time-input" v-model="miniteCache"></el-input>
+            <el-input auto-complete="true" :placeholder="miniteTemp" class="time-input" v-model="miniteTemp"></el-input>
             <span class="time">分</span>
           </el-col>
           <el-col :span="3">
-            <el-input auto-complete="true" placeholder="0" class="time-input" v-model="secondeCache"></el-input>
+            <el-input auto-complete="true" :placeholder="secondeTemp" class="time-input" v-model="secondeTemp"></el-input>
             <span class="time">秒</span>
           </el-col>
           <el-col :span="3" :offset="1">
@@ -130,7 +130,7 @@ export default {
   data() {
     return {
       updateForm: {
-        mark: '',
+        courseId: NaN,
         courseTitle: '',
         courseDescription: '',
         timeList: [],
@@ -142,16 +142,16 @@ export default {
         audioList: [],
         imgList: [],
         imgInfo: [],
-        pictureIndex: -1,
         percentage: 0
       },
+      pictureIndex: -1,
       // uploadURL 为上传动作的后端接口
       dialogImageUrl: '',
       dialogVisible: false,
       input: '',
       dropdownMessage: '选择图片',
-      miniteCache: 0,
-      secondeCache: 0
+      miniteTemp: 0,
+      secondeTemp: 0
     }
   },
   methods: {
@@ -164,19 +164,17 @@ export default {
         return
       }
       try {
-        alert(typeof this.secondeCache)
-        if (this.miniteCache) {
-          minite = this.miniteCache
+        if (this.miniteTemp) {
+          minite = this.miniteTemp
         }
-        if (this.secondeCache) {
-          seconde = this.secondeCache
+        if (this.secondeTemp) {
+          seconde = this.secondeTemp
         }
         secondes = minite * 60 + seconde
-        this.imgInfo[this.pictureIndex].start = secondes
+        this.updateForm.imgInfo[this.pictureIndex].start = secondes
       } catch (err) {
         alert('请输入正确时间')
       }
-      alert(this.imgInfo[this.pictureIndex].start)
     },
     audioResponse(response) {
       this.updateForm.audioId = response.id
@@ -215,11 +213,12 @@ export default {
       this.updateForm.destroyTime = 0
       this.updateForm.audioList = []
     },
-    addTime() {
-    },
     handleCommand(command) {
       this.pictureIndex = command - 1
+      let time = this.updateForm.imgInfo[this.pictureIndex].start
       this.dropdownMessage = '图片' + command
+      this.miniteTemp = Math.floor(time / 60)
+      this.secondeTemp = time % 60
     },
     uploadcourse() {
       axios.post(utils.getURL() + 'api/uploadcourse/', qs.stringify({
@@ -235,7 +234,6 @@ export default {
     }
   },
   created: function() {
-    this.updateForm.mark = (new Date()).valueOf()
   }
 }
 </script>

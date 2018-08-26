@@ -54,30 +54,24 @@ def upload_course_picture(request):
 def upload_course(request):
     status = 0
     form = json.loads(request.POST.get("updateForm"))
-    print(type(form))
-    audio = None
-    profile = None
-    profile_url = None
     img_info = form["imgInfo"]
     for img in img_info:
         if img["start"] == 0:
             profile = img["id"]
             break
-    print(profile)
     try:
         profile_url = PictureTemp.objects.get(pk=profile)
-        print(profile_url)
         audio = AudioTemp.objects.get(pk=form["audioId"])
     except (PictureTemp.DoesNotExist, AudioTemp.DoesNotExist):
         status = 1
         return JsonResponse({"status": status})
     course = Course(
-        course_name=form["course_title"],
-        description=form["course_description"],
-        content=form["course_contain"],
+        course_name=form["courseTitle"],
+        description=form["courseDescription"],
+        content=form["courseContain"],
         price=form["price"],
         message_on=form["messageOn"],
-        burnt_time=form["destroy_time"],
+        burnt_time=form["destroyTime"],
         audio_url=audio.position,
         profile_url=profile_url.position
     )
