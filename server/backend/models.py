@@ -77,17 +77,19 @@ class VisitRecord(models.Model):
 
 
 class Order(models.Model):
-    order_id = models.PositiveIntegerField(primary_key=True)
+    order_id = models.CharField(max_length=50, primary_key=True)
     course = models.ForeignKey('Course', on_delete=models.CASCADE)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
-    price = models.PositiveIntegerField()
-    status = models.PositiveIntegerField(default=0)
-    time = models.PositiveIntegerField()
+    price = models.PositiveIntegerField(default=0)
+    status = models.PositiveIntegerField(default=1)
+    time = models.PositiveIntegerField(int(time.time()))
+    sharer = models.CharField(max_length=11)
+    charge_id = models.CharField(max_length=30)
 
 
 class OrderStatus(models.Model):
     status_code = models.PositiveIntegerField(primary_key=True)
-    status = models.CharField(max_length=6)
+    status = models.CharField(max_length=8)
 
 
 class Operation(models.Model):
