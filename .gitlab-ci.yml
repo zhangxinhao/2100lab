@@ -15,7 +15,7 @@ lint:
     stage: backendlint
     script:
         - cd ./server
-        # - pylint --rcfile=.pylintrc ./**/*.py || exit $((35 & $?))
+        - pylint --rcfile=.pylintrc ./**/*.py
     allow_failure: false
 
 test2:

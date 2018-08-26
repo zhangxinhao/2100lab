@@ -16,16 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from django.urls import path, include
-from . import views
-from django.views.static import serve
 from django.conf import settings
+from django.views.static import serve
+from . import views
 
-urlpatterns = [
-  path('admin/', admin.site.urls),
-  path('', views.index),
-  path('api/',include('backend.urls')),
-  path('api/', include([
-    path('random/', views.random)
-  ])),
-  url(r'^media/(?P<path>.*)', serve, {"document_root": settings.MEDIA_ROOT}),
+
+urlpatterns = [ # pragma pylint: disable=C0103
+    path('admin/', admin.site.urls),
+    path('', views.index),
+    path('api/', include('backend.urls')),
+    path('api/', include([
+        path('random/', views.random)
+    ])),
+    url(r'^media/(?P<path>.*)', serve, {"document_root": settings.MEDIA_ROOT}),
 ]
