@@ -1,44 +1,50 @@
 <template>
   <div class="upload-page">
     <div class="upload-inner">
-      <el-form :v-model="update_form" style="text-align: center;">
+      <el-form :v-model="updateForm" class="update-form">
 
         <el-form-item label="课程标题：" label-width="120px">
           <el-col :span="18">
-            <el-input v-model="update_form.course_title" auto-complete="true" placeholder="请输入内容" clearable required="required"></el-input>
+            <el-input v-model="updateForm.courseTitle"
+              auto-complete="true" placeholder="请输入内容"
+              clearable required="required">
+            </el-input>
           </el-col>
         </el-form-item>
 
         <el-form-item label="课程简介：" label-width="120px">
           <el-col :span="18">
-            <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}" auto-complete="true" placeholder="请输入内容" v-model="update_form.course_description" clearable required="required"></el-input>
+            <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}"
+              auto-complete="true" placeholder="请输入内容" v-model="updateForm.courseDescription"
+              clearable required="required">
+            </el-input>
           </el-col>
         </el-form-item>
 
-        <el-form-item label="上传音频：" label-width="120px" style="text-align:left">
+        <el-form-item label="上传音频：" label-width="120px" class="update-form-item">
           <el-col :span="18">
             <el-upload
               class="upload-demo"
               :action="upload_audio_URL()"
               :on-success="audioResponse"
-              :data="update_form"
+              :data="updateForm"
               :on-change="handleChange"
               :before-upload="beforeUpload"
-              :file-list="update_form.audioList">
+              :file-list="updateForm.audioList">
               <el-button size="small" type="primary">点击上传</el-button>
               <div slot="tip" class="el-upload__tip">只能上传mp3/wav文件</div>
             </el-upload>
           </el-col>
         </el-form-item>
 
-        <el-form-item label="上传图片：" label-width="120px" style="text-align:left">
+        <el-form-item label="上传图片：" label-width="120px" class="update-form-item">
           <el-col :span="18">
             <el-upload
               :action="upload_pic_URL()"
               :on-success="pictureResponse"
-              :data="update_form"
+              :data="updateForm"
               list-type="picture-card"
-              :file-list="update_form.imgList"
+              :file-list="updateForm.imgList"
               :on-preview="handlePictureCardPreview">
               <i class="el-icon-plus"></i>
             </el-upload>
@@ -48,25 +54,25 @@
           </el-col>
         </el-form-item>
 
-        <el-form-item label="图片显示时间：" label-width="120px" style="text-align:left">
+        <el-form-item label="图片显示时间：" label-width="120px" class="update-form-item">
           <el-col :span="3">
             <el-dropdown @command="handleCommand">
               <span class="el-dropdown-link">
-                {{dropdownMessage}}<i class="el-icon-arrow-down el-icon--right"></i>
+                {{ dropdownMessage }}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item v-for="(item, index) in update_form.imgInfo" :key="item.id" :command="index + 1">
+                <el-dropdown-item v-for="(item, index) in updateForm.imgInfo" :key="item.id" :command="index + 1">
                   图片{{ index + 1 }}
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-col>
           <el-col :span="3">
-            <el-input auto-complete="true" placeholder="0" style="width:80px" v-model="miniteCache"></el-input>
+            <el-input auto-complete="true" placeholder="0" class="time-input" v-model="miniteCache"></el-input>
             <span class="time">分</span>
           </el-col>
           <el-col :span="3">
-            <el-input auto-complete="true" placeholder="0" style="width:80px" v-model="secondeCache"></el-input>
+            <el-input auto-complete="true" placeholder="0" class="time-input" v-model="secondeCache"></el-input>
             <span class="time">秒</span>
           </el-col>
           <el-col :span="3" :offset="1">
@@ -76,39 +82,39 @@
 
         <el-form-item label="课程内容：" label-width="120px">
           <el-col :span="18">
-            <el-input type="textarea" :autosize="{ minRows: 5, maxRows: 10}" auto-complete="true" placeholder="请输入内容" v-model="update_form.course_contain" clearable required="required"></el-input>
+            <el-input type="textarea" :autosize="{ minRows: 5, maxRows: 10}" auto-complete="true" placeholder="请输入内容" v-model="updateForm.courseContain" clearable required="required"></el-input>
           </el-col>
         </el-form-item>
 
-        <el-form-item label="" label-width="120px" style="text-align:left">
+        <el-form-item label="" label-width="120px" class="update-form-item">
           <el-col :span="18">
-            <el-checkbox v-model="update_form.message_on">开放留言区</el-checkbox>
+            <el-checkbox v-model="updateForm.messageOn">开放留言区</el-checkbox>
           </el-col>
         </el-form-item>
 
-        <el-form-item label="价格：" label-width="120px" style="text-align:left;width:250px">
-          <el-row :span="18" style="width:300px">
-            <el-input v-model="update_form.price" auto-complete="true" required="required" style="width:100px"></el-input>
+        <el-form-item label="价格：" label-width="120px"  class="update-form-input">
+          <el-row width="300px">
+            <el-input v-model="updateForm.price" auto-complete="true" required="required" width="100px"></el-input>
           </el-row>
         </el-form-item>
 
-        <el-form-item label="赏金比例：" label-width="120px" style="text-align:left;width:250px" v-if="update_form.price!=0">
-          <el-row :span="18" style="width:300px">
-            <el-input v-model="update_form.percentage" auto-complete="true" style="width:100px"></el-input>
+        <el-form-item label="赏金比例(0~1)：" label-width="120px" class="update-form-input" v-if="updateForm.price!=0">
+          <el-row width="300px">
+            <el-input v-model="updateForm.balance" auto-complete="true" width="100px"></el-input>
           </el-row>
         </el-form-item>
 
-        <el-form-item label="焚毁时间：" label-width="120px" style="text-align:left;width:250px">
-          <el-col :span="18">
-            <el-input v-model="update_form.destroy_time" auto-complete="true" required="required" style="width:100px"></el-input>
-          </el-col>
+        <el-form-item label="焚毁时间(小时)：" label-width="120px" class="update-form-input">
+          <el-row width="300px">
+            <el-input v-model="updateForm.destroyTime" auto-complete="true" required="required" width="100px"></el-input>
+          </el-row>
         </el-form-item>
 
-        <el-form-item style="text-align:right">
+        <el-form-item class="update-btn">
           <br />
           <el-button type="primary" @click="uploadcourse" icon="el-icon-upload">上传课程</el-button>
           <el-button icon="el-icon-delete" @click="clearpage" class="clear">清空</el-button>
-          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <br />
         </el-form-item>
       </el-form>
     </div>
@@ -123,15 +129,15 @@ import * as utils from '../utils/utils.js'
 export default {
   data() {
     return {
-      update_form: {
+      updateForm: {
         mark: '',
-        course_title: '',
-        course_description: '',
-        timelist: [],
-        course_contain: '',
+        courseTitle: '',
+        courseDescription: '',
+        timeList: [],
+        courseContain: '',
         messageOn: true,
         price: 0,
-        destroy_time: 0,
+        destroyTime: 0,
         audioId: NaN,
         audioList: [],
         imgList: [],
@@ -173,10 +179,10 @@ export default {
       alert(this.imgInfo[this.pictureIndex].start)
     },
     audioResponse(response) {
-      this.update_form.audioId = response.id
+      this.updateForm.audioId = response.id
     },
     pictureResponse(response) {
-      this.update_form.imgInfo.push({id: response.id, start: 0})
+      this.updateForm.imgInfo.push({id: response.id, start: 0})
     },
     upload_audio_URL() {
       return utils.getURL() + 'api/uploadaudio/'
@@ -200,14 +206,14 @@ export default {
       this.dialogVisible = true
     },
     clearpage() {
-      this.update_form.course_title = ''
-      this.update_form.course_description = ''
-      this.update_form.timelist = ''
-      this.update_form.course_contain = ''
-      this.update_form.message_on = true
-      this.update_form.price = 0
-      this.update_form.destroy_time = 0
-      this.update_form.audioList = []
+      this.updateForm.courseTitle = ''
+      this.updateForm.courseDescription = ''
+      this.updateForm.timeList = ''
+      this.updateForm.courseContain = ''
+      this.updateForm.messageRight = true
+      this.updateForm.price = 0
+      this.updateForm.destroyTime = 0
+      this.updateForm.audioList = []
     },
     addTime() {
     },
@@ -217,7 +223,7 @@ export default {
     },
     uploadcourse() {
       axios.post(utils.getURL() + 'api/uploadcourse/', qs.stringify({
-        updateForm: JSON.stringify(this.update_form)
+        updateForm: JSON.stringify(this.updateForm)
       })).then(response => {
         if (response.data.status === 0) {
           alert('创建成功')
@@ -229,7 +235,7 @@ export default {
     }
   },
   created: function() {
-    this.update_form.mark = (new Date()).valueOf()
+    this.updateForm.mark = (new Date()).valueOf()
   }
 }
 </script>
@@ -251,5 +257,21 @@ export default {
   .time {
     color: black;
     font-size: 16px;
+  }
+  .upload-form {
+    text-align: center;
+  }
+  .update-form-item {
+    text-align: left;
+  }
+  .time-input {
+     width: 80px;
+  }
+  .update-form-input {
+    text-align: left;
+    width: 250px;
+  }
+  .update-btn {
+    text-align: right;
   }
 </style>

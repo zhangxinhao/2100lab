@@ -1,13 +1,13 @@
 <template>
-  <div class="firstdiv">
-    <el-form  class="firstform" :label-position="labelPosition" :inline="true" label-width="100px" :model="commentMsg" :rules="rules" ref="commentMsg">
-      <el-form-item label="课程编号" class="infor_text" prop="courseId">
-        <el-input v-model="commentMsg.courseId" class="infor"></el-input>
+  <div class="first-div">
+    <el-form  class="first-form" :label-position="labelPosition" :inline="true" label-width="100px" :model="commentMsg" :rules="rules" ref="commentMsg">
+      <el-form-item label="课程编号" class="info-text" prop="courseId">
+        <el-input v-model="commentMsg.courseId" class="info"></el-input>
       </el-form-item>
-      <el-form-item label="用户账号" class="infor_text" prop="phoneNumber">
-        <el-input v-model="commentMsg.phoneNumber" class="infor"></el-input>
+      <el-form-item label="用户账号" class="info-text" prop="phoneNumber">
+        <el-input v-model="commentMsg.phoneNumber" class="info"></el-input>
       </el-form-item>
-      <el-form-item class="infor_text">
+      <el-form-item class="info-text">
         <el-button type="primary" @click="onSubmitConfirm('commentMsg')">搜索</el-button>
       </el-form-item>
     </el-form>
@@ -166,13 +166,13 @@ export default {
 }
 </script>
 <style scoped>
-  .firstdiv {
-  width: 1000px;
-  margin: 50px auto;
-  text-align: center;
-}
+  .first-div {
+    width: 1000px;
+    margin: 50px auto;
+    text-align: center;
+  }
 
-  .firstform {
-  margin-bottom: 50px !important;
-}
+  .first-form {
+    margin-bottom: 50px !important;
+  }
 </style>

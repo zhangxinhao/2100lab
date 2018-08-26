@@ -1,20 +1,22 @@
 <template>
 <div>
-  <div class="datablock">
+  <div class="data-block">
     <h1>近期浏览</h1>
-    <div class="confirm_div">
-      近&nbsp;<el-input class="browse_check" v-model="day_browse" placeholder="7"></el-input>&nbsp;天&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="confirm-div">
+      近&nbsp;<el-input class="browse-check" v-model="dayBrowse" placeholder="7"></el-input>
+      &nbsp;天&nbsp;&nbsp;&nbsp;&nbsp;
       <el-button type="primary" @click="browseClick">确定</el-button>
     </div>
-    <div id="browse_chart"></div>
+    <div id="browse-chart"></div>
   </div>
-  <div class="datablock">
+  <div class="data-block">
     <h1>近期支付</h1>
-    <div class="confirm_div">
-      近&nbsp;<el-input class="browse_check" v-model="day_pay" placeholder="8"></el-input>&nbsp;天&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="confirm-div">
+      近&nbsp;<el-input class="browse-check" v-model="dayPay" placeholder="8"></el-input>
+      &nbsp;天&nbsp;&nbsp;&nbsp;&nbsp;
       <el-button type="primary" @click="payClick">确定</el-button>
     </div>
-    <div id="pay_chart"></div>
+    <div id="pay-chart"></div>
   </div>
 </div>
 </template>
@@ -30,8 +32,8 @@ export default {
     return {
       browseData: [5, 20, 36, 10, 10, 20, 7],
       payData: [],
-      day_browse: 7,
-      day_pay: 8,
+      dayBrowse: 7,
+      dayPay: 8,
       dayOfBrowse: [],
       dayOfPay: []
     }
@@ -43,7 +45,7 @@ export default {
   methods: {
     getBrows() {
       axios.post(utils.getURL() + 'api/getpv/', qs.stringify({
-        days: this.day_browse
+        days: this.dayBrowse
       })).then(response => {
         if (response.data.status === 0) {
           this.browseData = response.data.PV_list
@@ -56,7 +58,7 @@ export default {
     },
     getOrders() {
       axios.post(utils.getURL() + 'api/getvol/', qs.stringify({
-        days: this.day_pay
+        days: this.dayPay
       })).then(response => {
         if (response.data.status === 0) {
           this.payData = response.data.VOL_list
@@ -68,9 +70,9 @@ export default {
       })
     },
     drawBrowseChart() {
-      let browseChart = echarts.init(document.getElementById('browse_chart'))
+      let browseChart = echarts.init(document.getElementById('browse-chart'))
       browseChart.setOption({
-        title: { text: '近' + this.day_browse + '天浏览情况' },
+        title: { text: '近' + this.dayBrowse + '天浏览情况' },
         tooltip: {},
         xAxis: {
           data: this.dayOfBrowse
@@ -85,9 +87,9 @@ export default {
       })
     },
     drawPayChart() {
-      let payChart = echarts.init(document.getElementById('pay_chart'))
+      let payChart = echarts.init(document.getElementById('pay-chart'))
       payChart.setOption({
-        title: { text: '近' + this.day_pay + '天支付情况' },
+        title: { text: '近' + this.dayPay + '天支付情况' },
         tooltip: {},
         xAxis: {
           data: this.dayOfPay
@@ -102,14 +104,14 @@ export default {
       })
     },
     browseClick() {
-      if (this.day_browse === '') {
-        this.day_browse = 7
+      if (this.dayBrowse === '') {
+        this.dayBrowse = 7
       }
       this.getBrows()
     },
     payClick() {
-      if (this.day_pay === '') {
-        this.day_pay = 8
+      if (this.dayPay === '') {
+        this.dayPay = 8
       }
       this.getOrders()
     }
@@ -119,13 +121,13 @@ export default {
     this.browseData = []
     this.dayOfPay = []
     this.payData = []
-    this.day_browse = 7
-    this.day_pay = 7
+    this.dayBrowse = 7
+    this.dayPay = 7
   }
 }
 </script>
 <style scoped>
-  .datablock {
+  .data-block {
     width: 90%;
     height: 400px;
     text-align: left;
@@ -137,25 +139,24 @@ export default {
     color: black;
   }
 
-  .confirm_div {
+  .confirm-div {
     color: black;
     margin-left: 1%;
   }
 
-  .browse_check {
+  .browse-check {
     width: 60px;
     margin-bottom: 3%;
     position: relative;
   }
 
-  #browse_chart {
+  #browse-chart {
     width: 60%;
     height: 100%;
   }
 
-  #pay_chart {
+  #pay-chart {
     width: 60%;
     height: 100%;
   }
-
 </style>

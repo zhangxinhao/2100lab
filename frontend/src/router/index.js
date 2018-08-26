@@ -114,7 +114,7 @@ export default new Router({
           component: uploadCourse
         },
         {
-          path: '/editCourse/:courseid',
+          path: '/editCourse/:courseId',
           name: 'editCourse',
           component: uploadCourse
         },

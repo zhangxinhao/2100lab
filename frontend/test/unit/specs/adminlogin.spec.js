@@ -7,7 +7,7 @@ describe('adminlogin', () => {
   const vm = new Vue(adminlogin).$mount()
   it('have correct data', () => {
     const defaultData = adminlogin.data()
-    expect(defaultData.loform.adminId).toBe('')
+    expect(defaultData.loForm.adminId).toBe('')
   })
   it('correctly login', () => {
     vm.login()

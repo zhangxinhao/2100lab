@@ -41,7 +41,7 @@ describe('adminManage', () => {
       expect(vm.deleteVisible).toBe(false)
     })
   })
-  let data = {course_manage: true, user_manage: false, operation_history: true, order_manage: true, admin_manage: false}
+  let data = {courseManage: true, userManage: false, operationHistory: true, orderManage: true, adminManage: false}
   const vm = new Vue(adminManage).$mount()
   it('correctly courseRightCal', () => {
     expect(vm.courseRightCal(data)).toBe('开放')

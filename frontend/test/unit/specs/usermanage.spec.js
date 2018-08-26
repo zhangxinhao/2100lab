@@ -15,7 +15,7 @@ describe('usermanage', () => {
     })
   })
   it('correct delete user', () => {
-    vm.deleteuser()
+    vm.deleteUser()
     vm.$nextTick(() => {
       expect(vm.deleteVisible).toBe(false)
     })
@@ -27,7 +27,7 @@ describe('usermanage', () => {
     })
   })
   it('correct forbide user', () => {
-    vm.forbideuser()
+    vm.forbideUser()
     vm.$nextTick(() => {
       expect(vm.forbideVisible).toBe(false)
     })

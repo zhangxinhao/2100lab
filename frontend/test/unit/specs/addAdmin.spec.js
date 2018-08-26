@@ -9,22 +9,22 @@ describe('addAdmin', () => {
   it('have a correct data', () => {
     expect(typeof addAdmin.data).toBe('function')
     const defaultData = addAdmin.data()
-    expect(defaultData.newAdmin.course_manage).toBe(false)
+    expect(defaultData.newAdmin.courseManage).toBe(false)
   })
   it('click switchc', () => {
-    wrapper.find('el-switch.changec').trigger('click')
+    wrapper.find('el-switch.change-c').trigger('click')
     const defaultData = addAdmin.data()
-    expect(defaultData.newAdmin.course_manage).toBe(false)
+    expect(defaultData.newAdmin.courseManage).toBe(false)
   })
   it('click button', () => {
     wrapper.find('el-button.end').trigger('click')
   })
   it('click switcho', () => {
-    wrapper.find('el-switch.changeo').trigger('click')
+    wrapper.find('el-switch.change-o').trigger('click')
     const defaultData = addAdmin.data()
-    expect(defaultData.newAdmin.order_manage).toBe(false)
+    expect(defaultData.newAdmin.orderManage).toBe(false)
     wrapper.vm.$nextTick(() => {
-      expect(wrapper.vm.newAdmin.order_manage).toBe(true)
+      expect(wrapper.vm.newAdmin.orderManage).toBe(true)
     })
   })
   it('click switch', () => {
