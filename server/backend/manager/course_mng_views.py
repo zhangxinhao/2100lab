@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from ..models import Course, User, Picture
+from ..models import Course, User, Picture, AudioTemp, PictureTemp
 import json
 
 def show_courses(request):
@@ -37,50 +37,57 @@ def show_courses(request):
 
 def upload_audio(request):
   audio = request.FILES.get("file")
-  id = request.POST.get("courseid")
-  course_title = request.POST.get("course_title")
-  course_description = request.POST.get("course_description")
-  course_contain = request.POST.get("course_contain")
-  course_description = request.POST.get("course_description")
-  price = request.POST.get("price")
-  destroy_time = request.POST.get("destroy_time")
-  coures = Course.objects.create(
-      course_id = id,
-      course_name = course_title,
-      description = course_description,
-      content = course_contain,
-      price = price,
-      burnt_time = destroy_time,
-      audio_url = audio,
-      )
-  coures.save()
-  return HttpResponse(json.dumps({"status": 0, "id": id}))
-
-def upload_course(request):
-  id = request.POST.get("courseid")
-  course_title = request.POST.get("course_title")
-  course_description = request.POST.get("course_description")
-  course_contain = request.POST.get("course_contain")
-  course_description = request.POST.get("course_description")
-  price = request.POST.get("price")
-  destroy_time = request.POST.get("destroy_time")
-
-  course = Course.objects.get(pk=id)
-  course.course_name = course_title
-  course.description = course_description
-  course.content = course_contain
-  course.price = price
-  course.burnt_time = destroy_time
-  course.save()
-  return HttpResponse(json.dumps({"status": 0}))
+  audio_temp = AudioTemp(position=audio)
+  audio_temp.save()
+  return HttpResponse(json.dumps({"status": 0, "id": audio_temp.id}))
 
 def upload_course_picture(request):
   upload_picture = request.FILES.get("file")
-  id = request.POST.get("courseid")
-  course = Course.objects.get(pk=id)
-  picture = Picture.objects.create(
-    course = course,
-    postion = upload_picture
-  )
+  picture = PictureTemp(position=upload_picture)
   picture.save()
-  return HttpResponse(json.dumps({"status": 0}))
+  return HttpResponse(json.dumps({"status": 0, "id": picture.id}))
+
+def upload_course(request):
+  status = 0
+  form = json.loads(request.POST.get("updateForm"))
+  print(type(form))
+  audio = None
+  profile = None
+  profile_url = None
+  imgInfo = form["imgInfo"]
+  for img in imgInfo:
+    if img["start"] == 0:
+      profile = img["id"]
+      break
+  print(profile)
+  try:
+    profile_url = PictureTemp.objects.get(pk=profile)
+    print(profile_url)
+    audio = AudioTemp.objects.get(pk=form["audioId"])
+  except (PictureTemp.DoesNotExist, AudioTemp.DoesNotExist) as e:
+    status = 1
+    return HttpResponse(json.dumps({"status": status}))
+  course = Course(
+    course_name=form["course_title"],
+    description=form["course_description"],
+    content=form["course_contain"],
+    price=form["price"],
+    message_on=form["messageOn"],
+    burnt_time=form["destroy_time"],
+    audio_url=audio.position,
+    profile_url=profile_url.position
+  )
+  course.save()
+  status = _insertPictrue_(imgInfo, course)
+  return HttpResponse(json.dumps({"status": status}))
+
+
+def _insertPictrue_(image_list, course):
+  for img in image_list:
+    try:
+      picture_id = int(img["id"])
+      picture = PictureTemp.objects.get(pk=picture_id)
+      Picture.objects.create(course=course, postion=picture.position, start=img["start"])
+    except Picture.DoesNotExist as e:
+      return 1
+  return 0
