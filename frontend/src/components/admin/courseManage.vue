@@ -18,7 +18,7 @@
       <el-table-column prop="coursePrice" label="课程价格" width="130" header-align=center></el-table-column>
       <el-table-column label="操作" header-align=center>
         <template slot-scope="scope">
-          <router-link :to="{name:'coursepage',params:{courseId: courseData[scope.$index].courseId}}">
+          <router-link :to="{name:'coursepage',params:{courseid: courseData[scope.$index].courseId}}">
             <el-button type="text" size="small">查看</el-button>
           </router-link>
           <router-link :to="{name:'editCourse',params:{courseId: courseData[scope.$index].courseId}}">
