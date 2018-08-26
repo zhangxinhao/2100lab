@@ -16,7 +16,7 @@
       <el-table
         border
         :data="userOrderList"
-        style="width: 100%">
+        class="list-table">
         <el-table-column
           header-align=center
           prop="orderNo"
@@ -169,5 +169,8 @@ export default {
   }
   .pager {
     text-align: center
+  }
+  .list-table {
+    width: 100%;
   }
 </style>

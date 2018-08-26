@@ -60,7 +60,7 @@
     <div class="free-list">
       <el-row :gutter="30" class="hidden-md-and-down">
         <el-col :span="8">
-          <h1 style="text-align:left;">免费区</h1>
+          <h1>免费区</h1>
         </el-col>
         <el-col :span="4" :offset="11">
           <router-link to="/freelistpage">
@@ -72,7 +72,7 @@
       </el-row>
       <el-row class="hidden-lg-and-up">
         <el-col :span="8">
-          <h3 style="text-align:left;">免费区</h3>
+          <h3>免费区</h3>
         </el-col>
         <el-col :span="4" :offset="11">
           <router-link to="/freelistpage">
@@ -92,15 +92,17 @@
             <br />
             <br />
           </router-link>
-          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
+          <div class="course-name">{{item.name}}</div>
         </el-col>
       </el-row>
       <el-row :gutter="30" class="list-onerow">
         <el-col v-for="item in freeList_2" :key="item.id" :span="8" class="list-one">
           <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
             <img :src="item.profile_url" class="recomimg">
+            <br />
+            <br />
           </router-link>
-            <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
+            <div class="course-name">{{item.name}}</div>
         </el-col>
 
       </el-row>
@@ -113,7 +115,7 @@
     <div class="cost-list">
       <el-row :gutter="20" class="hidden-md-and-down">
         <el-col :span="8">
-          <h1 style="text-align:left;">付费区</h1>
+          <h1>付费区</h1>
         </el-col>
         <el-col :span="4" :offset="11">
           <router-link to="/freelistpage">
@@ -125,7 +127,7 @@
       </el-row>
       <el-row class="hidden-lg-and-up">
         <el-col :span="8">
-          <h3 style="text-align:left;">付费区</h3>
+          <h3>付费区</h3>
         </el-col>
         <el-col :span="4" :offset="11">
           <router-link to="/costlistpage">
@@ -142,16 +144,20 @@
         <el-col v-for="item in costList_1" :key="item.id" :span="8" class="list-one">
           <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
             <img :src="item.profile_url" class="recomimg">
+            <br />
+            <br />
           </router-link>
-          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
+          <div class="course-name">{{item.name}}</div>
         </el-col>
       </el-row>
       <el-row :gutter="20" class="list-onerow">
         <el-col v-for="item in costList_2" :key="item.id" :span="8" class="list-one">
           <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
             <img :src="item.profile_url" class="recomimg">
+            <br />
+            <br />
           </router-link>
-            <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
+            <div class="course-name">{{item.name}}</div>
         </el-col>
       </el-row>
     </div>
@@ -409,6 +415,14 @@ export default {
   }
   .list-onerow {
     margin-bottom: 50px;
+  }
+  h1, h3 {
+    text-align: left;
+  }
+  .course-name {
+    display: inline;
+    word-break: break-all;
+    word-wrap: break-word;
   }
   @media screen and (max-width: 500px) {
     .el-carousel {
