@@ -27,7 +27,9 @@ class OrderTestCase(TestCase):
             course=course,
             user=user,
             price=10,
-            time=123
+            time=123,
+            sharer=2,
+            charge_id='ch_Hm5uTSifDOuTy9iLeLPSurrD'
         )
         self.user = user
         self.factory = RequestFactory()
@@ -35,7 +37,7 @@ class OrderTestCase(TestCase):
     def test_status(self):
         order = Order.objects.get(pk=1)
         status = order.status
-        self.assertEqual(status, 0)
+        self.assertEqual(status, 1)
 
     def test_get_order(self):
         request = self.factory.post('/api/authenticate/', {

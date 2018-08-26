@@ -136,4 +136,4 @@ class OrderTestCase(TestCase):
     def test_status(self):
         order = Order.objects.get(pk=1)
         status = order.status
-        self.assertEqual(status, 0)
+        self.assertEqual(status, 1)
