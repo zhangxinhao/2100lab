@@ -91,7 +91,6 @@
             <img :src="item.profile_url" class="recomimg" >
             <br />
             <br />
-            <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
           </router-link>
           <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
         </el-col>

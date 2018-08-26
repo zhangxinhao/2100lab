@@ -83,11 +83,10 @@
       </el-dialog>
     </div>
     <div>
-      <router-link :to="{name:'coursepage',params:{courseid: courseid}}">
+      <router-link :to="{name:'coursepage',params:{courseid: courseid, uesr:user }}">
         <button>进入课程</button>
       </router-link>
     </div>
-    {{ shareperson }}777
     <div>
       <router-link to="/personal">
         <button>个人中心</button>
@@ -120,7 +119,9 @@ export default {
       }, 100)
     }
     return {
+      user: '0',
       courseid: '',
+      sharePerson: '',
       title: '我们爱科学',
       buttonShow: '观看',
       // burnedFlag表示当前是否焚毁（true为已焚毁）
@@ -129,7 +130,7 @@ export default {
       moneyFlag: true,
       money: '25',
       // paidFlag表示当前用户是否已支付该课程(true 表示已支付)
-      paidFlag: false,
+      paidFlag: true,
       classIntro: '在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。',
       // picture: require("../assets/class2.jpg"),
       payDialogVisible: false,
@@ -153,27 +154,27 @@ export default {
       channel: '',
       config: {
         url: '', // 网址，默认使用 window.location.href
-        source: '', // 来源（QQ空间会用到）, 默认读取head标签
-        title: '', // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
-        description: '', // 描述, 默认读取head标签
-        image: '', // 图片, 默认取网页中第一个img标签
-        sites: ['qzone', 'qq', 'weibo', 'wechat'], // 启用的站点
-        wechatQrcodeTitle: '微信扫一扫：分享', // 微信二维码提示文字
-        wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>'
+        // source: '', // 来源（QQ空间会用到）, 默认读取head标签
+        // title: '', // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
+        // description: '', // 描述, 默认读取head标签
+        // image: '', // 图片, 默认取网页中第一个img标签
+        sites: ['qzone', 'qq', 'weibo', 'wechat'] // 启用的站点
+        // wechatQrcodeTitle: '微信扫一扫：分享', // 微信二维码提示文字
+        // wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>'
         // disabled: ['google', 'facebook', 'twitter'], // 禁用的站点
-      },
-      shareperson: ''
+      }
     }
   },
   methods: {
-    toCourse() {
-      this.$router.push({path: '/coursepage/' + this.courseid})
+    toCourse: function() {
+      this.$router.push({path: '/coursepage/' + this.courseid + '/' + this.user})
     },
     payWithCash: function() {
       axios.post(utils.getURL() + 'api/paywithqr/', qs.stringify({
         channel: this.channel,
         amount: this.money,
-        course_name: this.title
+        course_name: this.title,
+        sharer: this.shareperson
       })).then(response => {
         let status = response.data.status
         if (status === 0) {
@@ -187,7 +188,9 @@ export default {
   },
   created: function() {
     this.courseid = this.$route.params.courseid
-    this.shareperson = this.$route.params.user
+    this.sharePerson = this.$route.params.user
+    // 以下一行放到登录函数里
+    this.config.url = utils.getURL() + '#/intro/' + this.courseid + '/' + this.user
     axios.post(utils.getURL() + 'api/getcourseinfo/', qs.stringify({
       course_id: this.courseid
     })).then(response => {
