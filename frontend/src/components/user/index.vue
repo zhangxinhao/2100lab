@@ -25,7 +25,7 @@
     <div class="carousel">
       <el-carousel :interval="4000" type="card">
         <el-carousel-item v-for="item in imgList" :key="item.id">
-            <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, userid: user}}">
+            <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
               <el-col :span="24"><img height="100%" width="100%" :src="item.profile_url" class="banner_img"/></el-col>
             </router-link>
         </el-carousel-item>
@@ -87,20 +87,21 @@
       </el-row>
       <el-row :gutter="30" class="list-onerow">
         <el-col v-for="item in freeList_1" :key="item.id" :span="8" class="list-one">
-          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
+          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
             <img :src="item.profile_url" class="recomimg" >
             <br />
             <br />
             <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
           </router-link>
+          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
         </el-col>
       </el-row>
       <el-row :gutter="30" class="list-onerow">
         <el-col v-for="item in freeList_2" :key="item.id" :span="8" class="list-one">
-          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
+          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
             <img :src="item.profile_url" class="recomimg">
-            <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
           </router-link>
+            <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
         </el-col>
 
       </el-row>
@@ -140,18 +141,18 @@
       </el-row>
       <el-row :gutter="20" class="list-onerow">
         <el-col v-for="item in costList_1" :key="item.id" :span="8" class="list-one">
-          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
+          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
             <img :src="item.profile_url" class="recomimg">
-            <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
           </router-link>
+          <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
         </el-col>
       </el-row>
       <el-row :gutter="20" class="list-onerow">
         <el-col v-for="item in costList_2" :key="item.id" :span="8" class="list-one">
-          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
+          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
             <img :src="item.profile_url" class="recomimg">
-            <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
           </router-link>
+            <div style="display:inline word-break:break-all word-wrap:break-word">{{item.name}}</div>
         </el-col>
       </el-row>
     </div>
@@ -195,7 +196,7 @@ export default {
       }, 100)
     }
     return {
-      user: '123',
+      user: '0',
       imgList: [
         {id: 0, profile_url: require('../../assets/images/banner1.jpg')},
         {id: 1, profile_url: require('../../assets/images/banner1.jpg')},

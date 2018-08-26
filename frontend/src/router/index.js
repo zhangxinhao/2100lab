@@ -37,12 +37,12 @@ export default new Router({
       component: index
     },
     {
-      path: '/intro/:courseid',
+      path: '/intro/:courseid/:user',
       name: 'intro',
       component: intro
     },
     {
-      path: '/coursepage/:courseid',
+      path: '/coursepage/:courseid/:user',
       name: 'coursepage',
       component: coursepage
     },
