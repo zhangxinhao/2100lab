@@ -1,49 +1,80 @@
 <template>
-  <div class="course-page">
-
+  <div>
     <div class="toolbar">
       <div class="logo">
-      <img src="../../assets/logo3.png" width="200%" height="80%">
+      <img src="../../assets/logo1.png" width="200%" height="100%">
       </div>
       <table align="right">
         <tr>
           <td>
             <router-link to="/personal">
-              <el-button class="user-ope" type="text" v-if="login">个人中心</el-button>
+              <el-button
+                class="user-ope"
+                type="text"
+                v-if="login">
+                个人中心
+              </el-button>
             </router-link>
           </td>
           <td>
             <el-button class="user-ope"
               type="text"
               v-if="!login"
-              @click="loginFormVisible = true">登录<br><br>
+              @click="loginFormVisible = true">登录/注册<br><br>
             </el-button>
           </td>
           <td>
-            <el-button class="user-ope" type="text" v-if="login" @click="logout">登出</el-button>
+            <el-button
+              class="user-ope"
+              type="text"
+              v-if="login"
+              @click="logout">
+              登出
+            </el-button>
           </td>
         </tr>
       </table>
     </div>
 
-    <div class="logindialog">
-      <el-dialog title="登录" :visible.sync="loginFormVisible" class="lodialog" width="330px" height="500px">
-        <el-form :model="loform" :rules="rules">
-          <el-form-item label="手机号" :label-width="loginLabelWidth" prop="lophone">
+    <div class="login-dialog">
+      <el-dialog
+        title="登录"
+        :visible.sync="loginFormVisible"
+        class="lodialog"
+        width="330px"
+        height="500px">
+        <el-form :model="loForm" :rules="rules">
+          <el-form-item
+            label="手机号"
+            :label-width="loginLabelWidth"
+            prop="loPhone">
             <el-col :span="18">
-              <el-input v-model="loform.phonenumber" auto-complete="true" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/" oninvalid="this.setCustomValidity('warning')"></el-input>
+              <el-input
+                v-model="loForm.phoneNumber"
+                auto-complete="true"
+                clearable
+                required="required"
+                pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"
+                oninvalid="this.setCustomValidity('warning')">
+              </el-input>
             </el-col>
           </el-form-item>
           <el-form-item label="验证码" :label-width="loginLabelWidth">
             <el-col :span="18">
-              <el-input v-model="loform.usercode" auto-complete="off" clearable></el-input>
+              <el-input
+                v-model="loForm.usercode"
+                auto-complete="off"
+                clearable>
+              </el-input>
             </el-col>
           </el-form-item>
         </el-form>
         <div slot="footer" class="login-footer">
           <el-button type="primary">获取验证码</el-button>
           <el-button @click="loginFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="loginFormVisible = false">确 定</el-button>
+          <el-button type="primary" @click="loginFormVisible = false">
+            确 定
+          </el-button>
         </div>
       </el-dialog>
     </div>
@@ -67,7 +98,12 @@
             </el-button>
           </el-col>
           <el-col :span="12">
-            <el-slider v-model="music.currentTime" :max="music.maxTime" :format-tooltip="formatTime" @change="changeTime"></el-slider>
+            <el-slider
+              v-model="music.currentTime"
+              :max="music.maxTime"
+              :format-tooltip="formatTime"
+              @change="changeTime">
+            </el-slider>
           </el-col>
           <el-col :span="4">
             <div class="word-in">
@@ -80,7 +116,11 @@
             </div>
           </el-col>
           <el-col :span="4">
-            <el-slider v-model="music.volume" :format-tooltip="formatVoice" @change="changeVoice"></el-slider>
+            <el-slider
+              v-model="music.volume"
+              :format-tooltip="formatVoice"
+              @change="changeVoice">
+            </el-slider>
           </el-col>
         </el-row>
 
@@ -92,17 +132,22 @@
             </el-button>
           </el-col>
           <el-col :span="22">
-            <el-slider v-model="music.currentTime" :max="music.maxTime" :format-tooltip="formatTime" @change="changeTime"></el-slider>
+            <el-slider
+              v-model="music.currentTime"
+              :max="music.maxTime"
+              :format-tooltip="formatTime"
+              @change="changeTime">
+            </el-slider>
           </el-col>
         </el-row>
 
         <audio ref="music" autoplay>
-          <source :src="courseaudio">
+          <source :src="courseAudio">
         </audio>
       </div>
 
       <div class="artical-container">
-        {{ course_artical }}
+        {{ courseArtical }}
       </div>
 
       <div class="share-container">
@@ -126,8 +171,14 @@
       </div>
 
       <div class="discuss-btn">
-        <el-button type="primary" icon="el-icon-edit" @click="leaveDiscussion">发表</el-button>
-        <el-button icon="el-icon-delete" @click="discussWord = ''">清空</el-button>
+        <el-button type="primary" icon="el-icon-edit" @click="leaveDiscussion">
+          发表
+        </el-button>
+        <el-button
+          icon="el-icon-delete"
+          @click="discussWord = ''">
+          清空
+        </el-button>
       </div>
 
       <div class="discuss-area">
@@ -151,18 +202,42 @@
                 </el-row>
                 <el-row>
                   <el-col :span="9" :xs="12" :sm="12" :md="12" :lg="9" :xl="9">
-                    <el-button icon="el-icon-time" type="text" color="black">{{ item.discussTime }}</el-button>
+                    <el-button
+                      icon="el-icon-time"
+                      type="text"
+                      color="black">
+                      {{ item.discussTime }}
+                    </el-button>
                   </el-col>
                   <el-col :span="3" :xs="4" :sm="4" :md="4" :lg="3" :xl="3">
-                    <el-button icon="el-icon-caret-top" type="text" @click="leaveAttitude(item, 'like')">赞</el-button>
-                    <span class="hidden-md-and-down">: {{ item.likeNum }} </span>
+                    <el-button
+                      icon="el-icon-caret-top"
+                      type="text"
+                      @click="leaveAttitude(item, 'like')">
+                      赞
+                    </el-button>
+                    <span class="hidden-md-and-down">
+                      : {{ item.likeNum }}
+                    </span>
                   </el-col>
                   <el-col :span="3" :xs="4" :sm="4" :md="4" :lg="3" :xl="3">
-                    <el-button icon="el-icon-caret-bottom" type="text" @click="leaveAttitude(item, 'dislike')">踩</el-button>
-                    <span class="hidden-md-and-down">: {{ item.dislikeNum }} </span>
+                    <el-button
+                      icon="el-icon-caret-bottom"
+                      type="text"
+                      @click="leaveAttitude(item, 'dislike')">
+                      踩
+                    </el-button>
+                    <span class="hidden-md-and-down">
+                      : {{ item.dislikeNum }}
+                    </span>
                   </el-col>
                   <el-col :span="3">
-                    <el-button icon="el-icon-plus" type="text" @click="item.addreply=!item.addreply">回复</el-button>
+                    <el-button
+                      icon="el-icon-plus"
+                      type="text"
+                      @click="item.addReply=!item.addReply">
+                      回复
+                    </el-button>
                   </el-col>
                 </el-row>
               </el-header>
@@ -170,7 +245,11 @@
                 <el-row v-for="initem in item.indiscussion" :key="initem.id">
                   <el-col :span="8">
                     {{ initem.userName }}
-                    <div class="re-reply-type" v-if="initem.userType">&nbsp;&nbsp;V</div>
+                    <div
+                      class="re-reply-type"
+                      v-if="initem.userType">
+                      &nbsp;&nbsp;V
+                    </div>
                   </el-col>
                   <el-col>
                     <div>:{{ initem.indisMessage }}</div>
@@ -179,7 +258,7 @@
                     <br />
                   </el-col>
                 </el-row>
-                <el-row v-if="item.addreply">
+                <el-row v-if="item.addReply">
                   <div class="write-reply">
                     <el-input
                       type="textarea"
@@ -189,8 +268,17 @@
                     </el-input>
                   </div>
                   <div class="reply-btn">
-                    <el-button type="primary" icon="el-icon-edit" @click="leaveComment(item)">发表</el-button>
-                    <el-button icon="el-icon-delete" @click="item.replyMsg=''">清空</el-button>
+                    <el-button
+                      type="primary"
+                      icon="el-icon-edit"
+                      @click="leaveComment(item)">
+                      发表
+                    </el-button>
+                    <el-button
+                      icon="el-icon-delete"
+                      @click="item.replyMsg=''">
+                      清空
+                    </el-button>
                   </div>
                 </el-row>
               </el-main>
@@ -206,7 +294,7 @@
           small
           layout="prev, pager, next"
           :page-size="pageSize"
-          :total="totalnumber"
+          :total="totalNumber"
           :current-page.sync="pageNo"
           :pager-count="7"
           @current-change="flipeOver"
@@ -214,9 +302,7 @@
         </el-pagination>
       </div>
     </div>
-    <div class="hidden-md-and-down" id="footer">
-      <img src="../../assets/footer1.png" width=100%>
-    </div>
+
   </div>
 </template>
 
@@ -229,11 +315,11 @@ export default {
   data: function() {
     let phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
     let validateloPhone = (rule, value, callback) => {
-      if (!this.loform.phonenumber) {
+      if (!this.loForm.phoneNumber) {
         return callback(new Error('号码不能为空'))
       }
       setTimeout(() => {
-        if (!phoneReg.test(this.loform.phonenumber)) {
+        if (!phoneReg.test(this.loForm.phoneNumber)) {
           callback(new Error('格式有误'))
         } else {
           callback()
@@ -247,16 +333,22 @@ export default {
       login: true,
       loginFormVisible: false,
       loginLabelWidth: '100px',
-      loform: {
-        phonenumber: '',
+      loForm: {
+        phoneNumber: '',
         password: '',
         delivery: false,
         usercode: ''
       },
       rules: {
-        lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }]
+        loPhone: [
+          {
+            required: true,
+            validator: validateloPhone,
+            trigger: 'blur'
+          }
+        ]
       },
-      tempcourse: [],
+      tempCourse: [],
       coursePic: [
         {
           position: require('../../assets/images/1-1.001.png'),
@@ -284,25 +376,18 @@ export default {
         }
       ],
       nowPic: {},
-      courseaudio: require('../../assets/audios/1.mp3'),
+      courseAudio: require('../../assets/audios/1.mp3'),
       music: {
         isPlay: false,
         currentTime: 0,
         maxTime: 0,
         volume: 100
       },
-      courseid: '',
-      course_artical: '在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。',
+      courseId: '',
+      courseArtical: '你好啊',
       config: {
         url: '', // 网址，默认使用 window.location.href
-        // source: '', // 来源（QQ空间会用到）, 默认读取head标签
-        // title: '', // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
-        // description: '', // 描述, 默认读取head标签
-        // image: '', // 图片, 默认取网页中第一个img标签
         sites: ['qzone', 'qq', 'weibo', 'wechat'] // 启用的站点
-        // wechatQrcodeTitle: '微信扫一扫：分享', // 微信二维码提示文字
-        // wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>'
-        // disabled: ['google', 'facebook', 'twitter'], // 禁用的站点
       },
       discussWord: '',
       discussionList: [],
@@ -315,7 +400,7 @@ export default {
           discussMessage: '啦啦啦啦啦啦啦啦啦啦',
           likeNum: 0,
           dislikeNum: 0,
-          addreply: false,
+          addReply: false,
           replyMsg: '',
           indiscussion: [
             {
@@ -338,7 +423,7 @@ export default {
           discussMessage: '我超聪明你超笨',
           likeNum: 0,
           dislikeNum: 0,
-          addreply: false,
+          addReply: false,
           replyMsg: '',
           indiscussion: [
             {
@@ -350,20 +435,20 @@ export default {
         }
       ],
       pageSize: 12,
-      totalnumber: 100,
+      totalNumber: 100,
       pageNo: 1,
-      intervalId: 0
+      interValId: 0
     }
   },
   mounted() {
     this.$nextTick(() => {
-      this.intervalId = setInterval(this.imgplay, 500)
+      this.interValId = setInterval(this.imgplay, 500)
     })
   },
   beforeDestroy() {
-    clearInterval(this.intervalId)
+    clearInterval(this.interValId)
     axios.post(utils.getURL() + 'api/feedbackrecord', qs.stringify({
-      courseId: this.courseid,
+      courseId: this.courseId,
       last_time: this.music.currentTime
     })).then(response => {})
   },
@@ -371,7 +456,8 @@ export default {
     imgplay() {
       let time = new Date().getTime()
       if (this.burntTime < time / 1000) {
-        this.$router.push({path: '/intro/' + this.courseid + '/' + this.user})
+        this.$router.push({path: '/intro/' +
+          this.courseId + '/' + this.user})
       }
       let i = 0
       for (i = 0; i < this.coursePic.length; i++) {
@@ -407,7 +493,8 @@ export default {
       let it = parseInt(time)
       let m = parseInt(it / 60)
       let s = parseInt(it % 60)
-      return (m < 10 ? '0' : '') + parseInt(it / 60) + ':' + (s < 10 ? '0' : '') + parseInt(it % 60)
+      return (m < 10 ? '0' : '') + parseInt(it / 60) +
+        ':' + (s < 10 ? '0' : '') + parseInt(it % 60)
     },
     logout() {
       this.login = false
@@ -471,7 +558,7 @@ export default {
     },
     flipeOver: function (page) {
       let _end = this.pageSize * page
-      let end = this.totalnumber < (_end) ? this.totalnumber : _end
+      let end = this.totalNumber < (_end) ? this.totalNumber : _end
       this.freeList = []
       let start = this.pageSize * (page - 1)
       for (let i = start; i < end; i++) {
@@ -480,8 +567,8 @@ export default {
     },
     initialize(course) {
       this.coursePic = course.pictures
-      this.courseaudio = course.audio
-      this.course_artical = course.course_description
+      this.courseAudio = course.audio
+      this.courseArtical = course.course_description
       this.refresh(course.message)
     },
     refresh(message) {
@@ -498,11 +585,11 @@ export default {
           'messageId': message[i].message_id
         })
       }
-      this.totalnumber = this.discussionList.length
-      let totalnumber = this.totalnumber
+      this.totalNumber = this.discussionList.length
+      let totalNumber = this.totalNumber
       this.onePageDiscussion = []
       let size = this.pageSize
-      if (totalnumber < size) {
+      if (totalNumber < size) {
         this.onePageDiscussion = this.discussionList
       } else {
         for (let i = 0; i < size; i++) {
@@ -512,17 +599,18 @@ export default {
     }
   },
   created: function() {
-    this.courseid = this.$route.params.courseid
+    this.courseId = this.$route.params.courseid
     this.sharePerson = this.$route.params.user
     this.user = this.$route.params.user
-    this.config.url = utils.getURL() + '#/intro/' + this.courseid + '/' + this.user
+    this.config.url = utils.getURL() + '#/intro/' +
+      this.courseId + '/' + this.user
     this.nowPic = this.coursePic[0]
     axios.post(utils.getURL() + 'api/coursepage/', qs.stringify({
       course_id: this.$route.params.courseid
     })).then(response => {
       this.discussionList = []
-      this.tempcourse = response.data.course
-      this.initialize(this.tempcourse)
+      this.tempCourse = response.data.course
+      this.initialize(this.tempCourse)
     })
     axios.post(utils.getURL() + 'api/checkrecord/', qs.stringify({
       courseId: this.$route.params.courseid
@@ -535,15 +623,14 @@ export default {
 </script>
 
 <style scoped>
-  .course-page {
-    background-color: rgb(240, 240, 240);
-  }
   .toolbar {
     width: 100%;
-    min-height: 45px;
+    min-height: 55px;
     max-height: 70px;
+    margin: 0;
     padding: 0;
-    background-color:#409EFF;
+    background-color:lightskyblue;
+    opacity: 0.7;
   }
 
   .logo {
@@ -554,17 +641,21 @@ export default {
   }
 
   .user-ope {
-    color: white;
+    color: black;
     font-size:18px;
     margin-right: 60px;
   }
   .el-main {
     padding-bottom: 0 !important;
   }
-  #footer {
+  .el-footer {
+    background-color: #B3C0D1;
     color: #333;
     text-align: center;
     line-height: 55px;
+    background-color:lightskyblue;
+    background: linear-gradient(white, lightskyblue);
+    opacity: 0.7;
   }
   hr {
     height: 2px;
