@@ -43,57 +43,98 @@
       </el-dialog>
     </div>
 
-    <div id="page">
-      <div class="picturebox">
-        <img alt="" src="../../assets/class2.jpg" width="100%" height="100%"/>
-      </div>
-      <div id="class">课程:{{ title }}</div>
-      <div class= "money" v-if = "moneyFlag">￥{{ money }}</div>
-      <div class= "money" v-else>免费课程</div>
-      <p class="classContent">{{ classIntro }}</p>
-      <div class="operate">
-          <el-button class="judgeButton" type="primary" v-if = "!login" @click="loginFormVisible = true">立即观看</el-button>
-          <el-button class="judgeButton" type="danger" plain v-else-if = "burnedFlag" @click="fire">已焚毁</el-button>
-          <el-button class="judgeButton" type="success" v-else-if = "paidFlag || !moneyFlag" @click="toCourse">立即观看</el-button>
-          <el-button class="judgeButton" type="primary" v-else-if = "paidFlag==0" @click="payDialogVisible = true" width="120px" height="50px">去支付</el-button>
-          <br />
-          <div class="sharediv">
-          <i class="el-icon-share"></i><span>分享到</span>
+    <div >
+      <el-card class="box-card" shadow="always">
+        <div slot="header" class="clear-fix">
+          <img alt="" :src="picture" width="100%" height="250px"/>
+        </div>
+        <div class="title-div">
+          <el-container>
+            <el-aside>
+              <div id="class">
+                课程:{{ title }}
+              </div>
+            </el-aside>
+            <el-main>
+              <div class="operate">
+                <el-button
+                  class="judge-button"
+                  type="primary"
+                  v-if = "!login"
+                  @click="loginFormVisible = true">立即观看
+                </el-button>
+                <el-button
+                  class="judge-button"
+                  type="danger"
+                  plain v-else-if = "burnedFlag"
+                  @click="fire">已焚毁
+                </el-button>
+                <el-button
+                  class="judge-button"
+                  type="primary"
+                  size="small"
+                  round
+                  v-else-if = "paidFlag || !moneyFlag"
+                  @click="toCourse">立即观看
+                </el-button>
+                <el-button
+                  class="judge-button"
+                  type="primary"
+                  v-else-if = "paidFlag==0"
+                  @click="payDialogVisible = true"
+                  width="120px"
+                  height="50px">￥{{ money }}购买
+                </el-button>
+              </div>
+            </el-main>
+          </el-container>
+        </div>
+        <div>
+          <p class="class-content" align="justify">{{ classIntro }}</p>
+        </div>
+        <div class="share-div">
+          <i class="el-icon-share"></i>
           <share :config="config" class="share"></share>
-          </div>
-      </div>
+        </div>
+      </el-card>
     </div>
-
-    <div class = "paydialog">
-      <el-dialog title="支付" :visible.sync="payDialogVisible" width="500px" height="400px">
-        <div class="payhead">
-          <div id="paymoney">课程:{{ title }}</div>
-          <div id="paydialogmoney">￥{{ money }}</div>
+    <div class = "pay-dialog">
+      <el-dialog
+        title="支付"
+        :visible.sync="payDialogVisible"
+        width="500px"
+        height="400px">
+        <div class="pay-head">
+          <div id="pay-money">课程:{{ title }}</div>
+          <div id="pay-dialog-money">￥{{ money }}</div>
         </div>
         <div class="hint">现金支付</div>
-        <div class="payframe">
+        <div class="pay-frame">
           <el-radio v-model="channel" label="alipay_qr">支付宝支付</el-radio>
           <el-radio v-model="channel" label="wx_pub_qr">微信支付</el-radio>
         </div>
-        <el-button  class="pay" type="primary" @click="payWithCash">立即支付</el-button>
+        <el-button
+          class="pay"
+          type="primary"
+          @click="payWithCash">立即支付
+        </el-button>
         <div class="hint">赏金支付</div>
-        <el-button  class="pay" type="primary" v-if ="bountyFlag">赏金支付</el-button>
-        <el-button  class="pay" type="primary" plain v-else disabled>赏金不足</el-button>
-        <span id="account">当前赏金： {{ bounty }}</span>
+        <el-button
+          class="pay"
+          type="primary"
+          v-if ="bountyFlag">赏金支付
+        </el-button>
+        <el-button
+          class="pay"
+          type="primary"
+          plain v-else disabled>赏金不足
+        </el-button>
+        <span id="account">当前赏金:{{ bounty }}</span>
       </el-dialog>
     </div>
-    <div>
-      <router-link :to="{name:'coursepage',params:{courseid: courseid, uesr:user }}">
-        <button>进入课程</button>
-      </router-link>
-    </div>
-    <div>
-      <router-link to="/personal">
-        <button>个人中心</button>
-      </router-link>
-    </div>
+
     <br />
-    <el-footer height="50px" class="hidden-lg-and-down">2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长</el-footer>
+    <el-footer height="50px" class="hidden-lg-and-down"></el-footer>
 
   </div>
 </template>
@@ -131,8 +172,8 @@ export default {
       money: '25',
       // paidFlag表示当前用户是否已支付该课程(true 表示已支付)
       paidFlag: true,
-      classIntro: '在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。在十九课里，我们学到了赵州桥是多么的雄伟、壮观。想一想，以前的桥就让我们赞不绝口，未来的桥会是怎样的呢？开动你的小脑筋，仔细想一想吧在未来的世界里，桥是透明的，看不见，摸得着。一辆辆车以最快的速度冲向桥，都想争夺第一个飞马王子。原来啊，由于桥是透明的，看不见桥，只能看见一辆辆在桥上飞奔的汽车，所以就像车在天上飞一样。在桥上的人和汽车，既能看见远处的风景，让自己欣赏，又能让别人看了以为是在天上飞的汽车，让他们赞叹不已。这就是未来的桥，一个桥上的创举。',
-      // picture: require("../assets/class2.jpg"),
+      classIntro: '这就是未来的桥，一个桥上的创举。',
+      picture: require('../../assets/class3.jpg'),
       payDialogVisible: false,
       bounty: 15,
       bountyFlag: false,
@@ -149,7 +190,13 @@ export default {
         desc: ''
       },
       rules: {
-        lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }]
+        lophone: [
+          {
+            required: true,
+            validator: validateloPhone,
+            trigger: 'blur'
+          }
+        ]
       },
       channel: '',
       config: {
@@ -167,7 +214,8 @@ export default {
   },
   methods: {
     toCourse: function() {
-      this.$router.push({path: '/coursepage/' + this.courseid + '/' + this.user})
+      this.$router.push({path: '/coursepage/' +
+        this.courseid + '/' + this.user})
     },
     payWithCash: function() {
       axios.post(utils.getURL() + 'api/paywithqr/', qs.stringify({
@@ -191,7 +239,8 @@ export default {
     this.sharePerson = this.$route.params.user
     this.user = this.$route.params.user
     // 以下一行放到登录函数里
-    this.config.url = utils.getURL() + '#/intro/' + this.courseid + '/' + this.user
+    this.config.url = utils.getURL() +
+      '#/intro/' + this.courseid + '/' + this.user
     axios.post(utils.getURL() + 'api/getcourseinfo/', qs.stringify({
       course_id: this.courseid
     })).then(response => {
@@ -209,6 +258,15 @@ export default {
 }
 </script>
 <style scoped>
+  .el-main {
+    padding: 0px;
+  }
+  .box-card {
+    max-width: 1000px;
+    max-height: 800px !important;
+    margin: 20px auto;
+    text-align: center;
+  }
   .toolbar {
     width: 100%;
     max-height: 50px;
@@ -233,15 +291,16 @@ export default {
 
   #class {
     font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
-    padding-bottom: 30px;
+    text-align: left;
   }
 
   .money {
     color: red ;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
+    text-align: left;
     letter-spacing: 0;
     padding-bottom: 20px;
   }
@@ -265,17 +324,12 @@ export default {
     border-top-width: 1px;
   }
 
-  .classContent {
+  .class-content {
     text-indent: 2em;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
     letter-spacing: 0.2em;
-    font-size: 16px;
-  }
-
-  .judgeButton {
-    margin-right: 40px;
-    width: 100px;
-    height:  40px;
+    font-size: 14px;
   }
 
   .el-icon-share {
@@ -305,7 +359,7 @@ export default {
     padding-top: 20px;
   }
 
-  #paymoney {
+  #pay-money {
     font-size: 22px;
     margin-bottom: 20px;
     margin-left: 50px;
@@ -313,7 +367,7 @@ export default {
     font-weight: bold;
   }
 
-  #paydialogmoney {
+  #pay-dialog-money {
     font-size: 22px;
     margin-bottom: 20px;
     margin-left: 50px;
@@ -329,11 +383,11 @@ export default {
     font-weight: bolder;
   }
 
-  .payhead {
+  .pay-head {
     margin-bottom: 60px;
   }
 
-  .payframe {
+  .pay-frame {
     margin-left: 50px;
     margin-bottom: 30px;
   }
@@ -357,12 +411,11 @@ export default {
   }
 
   .operate {
-    text-align: center;
+    text-align: right;
   }
 
-  .sharediv {
-    text-align: center;
-    padding-top: 10%;
+  .share-div {
+    text-align: right;
   }
   .share {
     display: inline;
@@ -372,6 +425,9 @@ export default {
       color: black;
       font-size:15px;
       margin-right: 10px;
+    }
+    .el-aside {
+      width: 50% !important;
     }
     .toolbar {
       min-height: 42px;
@@ -400,7 +456,7 @@ export default {
       letter-spacing: 0;
       padding-bottom: 10px;
     }
-    .classContent {
+    .class-content {
       text-indent: 2em;
       margin-bottom: 40px;
       letter-spacing: 0.2em;
