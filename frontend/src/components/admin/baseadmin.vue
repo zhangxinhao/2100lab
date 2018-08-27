@@ -162,12 +162,16 @@ export default {
   }
   .col {
     height: 60px;
+    min-width: 100px !important;
   }
 
   li {
-     background-color: rgb(248, 248, 247);
+    background-color: rgb(248, 248, 247);
   }
   li:hover {
     background-color: white !important;
+  }
+  .col {
+    min-width: 100px !important;
   }
 </style>

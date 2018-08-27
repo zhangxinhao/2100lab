@@ -45,11 +45,11 @@ def authorization_check(request):
                 rights[right] = False
         except RightsList.DoesNotExist:
             rights = {
-                "course_manage": True,
-                "user_manage": True,
-                "operation_history": True,
-                "order_manage": True,
-                "admin_manage": True
+                "courseManage": False,
+                "userManage": False,
+                "operationHistory": False,
+                "orderManage": False,
+                "adminManage": False
             }
     return JsonResponse({"rights": rights})
 
@@ -91,7 +91,6 @@ def create_admin(request):
         password=request.POST.get('password'),
         id=user_name,
         is_staff=True,
-        is_superuser=True,
         manage_right=right
     )
     user.save()
