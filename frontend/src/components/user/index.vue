@@ -283,38 +283,61 @@ export default {
       this.login = response.data.status
     })
     axios.post(utils.getURL() + 'api/listrecommend/').then(response => {
-      this.imgList = response.data.courses
+      let length = response.data.courses.length
+      for (let i = 0; i < length; i++) {
+        this.imgList[i].id = response.data.courses[i].id
+        this.imgList[i].profile_url = utils.getURL() + 'media/' +
+          response.data.courses[i].profile_url
+      }
     })
     axios.post(utils.getURL() + 'api/listfreeindex/').then(response => {
       let list = response.data.courses
       let length = list.length
-      this.freeList_1 = []
-      this.freeList_2 = []
       if (length > 3) {
         for (let i = 0; i < 3; i++) {
-          this.freeList_1.push(list[i])
+          this.freeList_1[i].id = list[i].pk
+          this.freeList_1[i].profile_url = utils.getURL() + 'media/' +
+          list[i].fields.profile_url
+          this.freeList_1[i].name = list[i].fields.course_name
         }
         for (let i = 3; i < length; i++) {
-          this.freeList_2.push(list[i])
+          this.freeList_2[i].id = list[i].pk
+          this.freeList_2[i].profile_url = utils.getURL() + 'media/' +
+          list[i].fields.profile_url
+          this.freeList_2[i].name = list[i].fields.course_name
         }
       } else {
-        this.freeList_1 = list
+        for (let i = 0; i < length; i++) {
+          this.freeList_1[i].id = list[i].pk
+          this.freeList_1[i].profile_url = utils.getURL() + 'media/' +
+          list[i].fields.profile_url
+          this.freeList_1[i].name = list[i].fields.course_name
+        }
       }
     })
     axios.post(utils.getURL() + 'api/listpricedindex/').then(response => {
       let list = response.data.courses
       let length = list.length
-      this.costList_1 = []
-      this.costList_2 = []
       if (length > 3) {
         for (let i = 0; i < 3; i++) {
-          this.costList_1.push(list[i])
+          this.costList_1[i].id = list[i].pk
+          this.costList_1[i].profile_url = utils.getURL() + 'media/' +
+          list[i].fields.profile_url
+          this.costList_1[i].name = list[i].fields.course_name
         }
         for (let i = 3; i < length; i++) {
-          this.costList_2.push(list[i])
+          this.costList_2[i].id = list[i].pk
+          this.costList_2[i].profile_url = utils.getURL() + 'media/' +
+          list[i].fields.profile_url
+          this.costList_2[i].name = list[i].fields.course_name
         }
       } else {
-        this.costList_1 = list
+        for (let i = 0; i < length; i++) {
+          this.costList_1[i].id = list[i].pk
+          this.costList_1[i].profile_url = utils.getURL() + 'media/' +
+          list[i].fields.profile_url
+          this.costList_1[i].name = list[i].fields.course_name
+        }
       }
     })
   }
