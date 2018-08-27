@@ -50,5 +50,7 @@ urlpatterns = [  # pragma pylint: disable=C0103
     path('comment/', message_views.comment),
     path('attitude/', message_views.express),
     path('chargewebhooks/', pay.webhooks_charge),
+    path('feedbackrecord/', course_views.feedback_course_record),
+    path('checkrecord/', course_views.check_course_record),
 
 ]

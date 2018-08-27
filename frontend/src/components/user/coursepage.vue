@@ -237,6 +237,7 @@ export default {
     return {
       user: '',
       sharePerson: '',
+      burntTime: 999999999999,
       login: true,
       loginFormVisible: false,
       loginLabelWidth: '100px',
@@ -355,9 +356,17 @@ export default {
   },
   beforeDestroy() {
     clearInterval(this.intervalId)
+    axios.post(utils.getURL() + 'api/feedbackrecord', qs.stringify({
+      courseId: this.courseid,
+      last_time: this.music.currentTime
+    })).then(response => {})
   },
   methods: {
     imgplay() {
+      let time = new Date().getTime()
+      if (this.burntTime < time / 1000) {
+        this.$router.push({path: '/intro/' + this.courseid + '/' + this.user})
+      }
       let i = 0
       for (i = 0; i < this.coursePic.length; i++) {
         if (this.coursePic[i].start > parseInt(this.$refs.music.currentTime)) {
@@ -499,6 +508,7 @@ export default {
   created: function() {
     this.courseid = this.$route.params.courseid
     this.sharePerson = this.$route.params.user
+    this.user = this.$route.params.user
     this.config.url = utils.getURL() + '#/intro/' + this.courseid + '/' + this.user
     this.nowPic = this.coursePic[0]
     axios.post(utils.getURL() + 'api/coursepage/', qs.stringify({
@@ -507,6 +517,12 @@ export default {
       this.discussionList = []
       this.tempcourse = response.data.course
       this.initialize(this.tempcourse)
+    })
+    axios.post(utils.getURL() + 'api/checkrecord/', qs.stringify({
+      courseId: this.$route.params.courseid
+    })).then(response => {
+      this.$refs.music.currentTime = response.data.lastTime
+      this.burntTime = response.data.dealVisitTime
     })
   }
 }

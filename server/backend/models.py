@@ -71,9 +71,9 @@ class Picture(models.Model):
 class VisitRecord(models.Model):
     course = models.ForeignKey('Course', on_delete=models.CASCADE)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
-    first_visit = models.PositiveIntegerField()
     last_visit = models.PositiveIntegerField()
     last_time = models.PositiveIntegerField(default=0)
+    deal_visit_time = models.PositiveIntegerField(default=0)
 
 
 class Order(models.Model):

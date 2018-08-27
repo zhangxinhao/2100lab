@@ -98,7 +98,6 @@ class VisitRecordTestCase(TestCase):
         VisitRecord.objects.create(
             course=my_course,
             user=my_user,
-            first_visit=12345,
             last_visit=123444
         )
 

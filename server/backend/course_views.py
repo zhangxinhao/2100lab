@@ -1,7 +1,8 @@
 import json
+import time
 from django.http import JsonResponse
 from django.core.serializers import serialize
-from .models import Course, Picture
+from .models import Course, Picture, VisitRecord
 from .message_views import message_board_dic
 
 
@@ -51,3 +52,46 @@ def get_course_info(request):
         info['price'] = 0
     info = json.loads(serialize('json', info))
     return JsonResponse(info)
+
+
+def check_course_record(request):
+    user = request.user
+    course_id = request.POST("courseId")
+    status = 0
+    try:
+        course = Course.objects.get(pk=course_id)
+    except Course.DoesNotExist:
+        status = 1
+        return JsonResponse({"status": status})
+    try:
+        record = VisitRecord.objects.get(user=user, course=course)
+        last_time = record.last_time
+        deal_visit_time = record.deal_visit_time
+        return JsonResponse({
+            "lastTime": last_time, "dealVisitTime": deal_visit_time})
+    except VisitRecord.DoesNotExist:
+        burnt_time = course.burnt_time
+        current_time = int(time.time())
+        deal_visit_time = burnt_time + current_time
+        VisitRecord.objects.create(
+            course=course, user=user, last_visit=current_time, last_time=0,
+            deal_visit_time=deal_visit_time)
+        return JsonResponse({
+            "lastTime": 0, "dealVisitTime": deal_visit_time})
+
+
+def feedback_course_record(request):
+    user = request.user
+    course_id = request.POST("courseId")
+    last_time = request.POST("currentTime")
+    status = 0
+    try:
+        course = Course.objects.get(pk=course_id)
+        record = VisitRecord.objects.get(user=user, course=course)
+        record.last_time = last_time
+        record.last_visit = int(time.time())
+        record.save()
+        return JsonResponse({"status": status})
+    except (Course.DoesNotExist, VisitRecord.DoesNotExist):
+        status = 1
+        return JsonResponse({"status": status})
