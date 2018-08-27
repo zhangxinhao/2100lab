@@ -260,7 +260,20 @@ export default {
   },
   created: function () {
     axios.post(utils.getURL() + 'api/listpricedcourses/').then(response => {
-      this.courses = response.data.courses
+      let list = response.data.courses
+      let length = list.length
+      let course = {
+        id: '',
+        profileUrl: '',
+        name: ''
+      }
+      for (let i = 0; i < length; i++) {
+        course.id = list[i].pk
+        course.profileUrl = utils.getURL() + 'media/' +
+          list[i].fields.profile_url
+        course.name = list[i].fields.course_name
+        this.courses.push(course)
+      }
       this.totalNumber = this.courses.length
       let totalNumber = this.totalNumber
       this.costList = []
