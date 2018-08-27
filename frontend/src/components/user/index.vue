@@ -1,22 +1,41 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <template>
   <div class="index">
-    <div class="toolbar">
+    <div class="tool-bar">
       <div class="logo">
-        <img src="../../assets/logo3.png" width="200%" height="80%">
+        <route-link to="/index">
+          <img src="../../assets/logo3.png" width="200%" height="80%">
+        </route-link>
       </div>
       <table align="right">
         <tr>
           <td>
-            <el-button class="user-ope" v-if="!login" @click="loginFormVisible = true" type="text">登录</el-button>
+            <el-button
+              class="user-ope"
+              v-if="!login"
+              @click="loginFormVisible = true"
+              type="text">
+              登录
+            </el-button>
           </td>
           <td>
             <router-link to="/personal">
-              <el-button class="user-ope" type="text" v-if="login">个人中心</el-button>
+              <el-button
+                class="user-ope"
+                type="text"
+                v-if="login">
+                个人中心
+              </el-button>
             </router-link>
           </td>
           <td>
-            <el-button class="user-ope" type="text" v-if="login" @click="logout">登出</el-button>
+            <el-button
+              class="user-ope"
+              type="text"
+              v-if="login"
+              @click="logout">
+              登出
+            </el-button>
           </td>
         </tr>
       </table>
@@ -25,31 +44,65 @@
     <div class="carousel">
       <el-carousel :interval="4000" type="card">
         <el-carousel-item v-for="item in imgList" :key="item.id">
-            <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
-              <el-col :span="24"><img height="100%" width="100%" :src="item.profile_url" class="banner_img"/></el-col>
+            <router-link
+              id="logo"
+              :to="{name:'intro',params:{courseid: item.id, user: user}}">
+              <el-col :span="24">
+                <img
+                  height="100%"
+                  width="100%"
+                  :src="item.profileUrl"
+                  class="banner_img"/>
+              </el-col>
             </router-link>
         </el-carousel-item>
       </el-carousel>
     </div>
 
-    <div class="logindialog">
-      <el-dialog title="登录" :visible.sync="loginFormVisible" class="lodialog" width="330px" height="500px">
-        <el-form :model="loform" :rules="rules">
-          <el-form-item label="手机号" :label-width="loginLabelWidth" prop="lophone">
+    <div class="login-dialog">
+      <el-dialog
+        title="登录"
+        :visible.sync="loginFormVisible"
+        class="lo-dialog"
+        width="330px"
+        height="500px">
+        <el-form :model="loForm" :rules="rules">
+          <el-form-item
+            label="手机号"
+            :label-width="loginLabelWidth"
+            prop="loPhone">
             <el-col :span="18">
-              <el-input v-model="loform.phonenumber" auto-complete="true" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/" oninvalid="this.setCustomValidity('warning')"></el-input>
+              <el-input
+                v-model="loForm.phoneNumber"
+                auto-complete="true"
+                clearable
+                required="required"
+                pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"
+                oninvalid="this.setCustomValidity('warning')">
+              </el-input>
             </el-col>
           </el-form-item>
           <el-form-item label="验证码" :label-width="loginLabelWidth">
             <el-col :span="18">
-              <el-input v-model="loform.usercode" auto-complete="off" clearable></el-input>
+              <el-input
+                v-model="loForm.usercode"
+                auto-complete="off"
+                clearable>
+              </el-input>
             </el-col>
           </el-form-item>
         </el-form>
-        <el-button type="text" class="getcheck" @click="getVerification">获取验证码</el-button>
+        <el-button
+          type="text"
+          class="get-check"
+          @click="getVerification">
+          获取验证码
+        </el-button>
         <div slot="footer" class="login-footer">
           <el-button @click="loginFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="loginFunction">确 定</el-button>
+          <el-button type="primary" @click="loginFunction">
+            确 定
+          </el-button>
         </div>
       </el-dialog>
     </div>
@@ -64,7 +117,7 @@
         </el-col>
         <el-col :span="4" :offset="11">
           <router-link to="/freelistpage">
-            <el-button class="morelist" type="text">更多
+            <el-button class="more-list" type="text">更多
               <i class="el-icon-more el-icon--right"></i>
             </el-button>
           </router-link>
@@ -76,7 +129,7 @@
         </el-col>
         <el-col :span="4" :offset="11">
           <router-link to="/freelistpage">
-            <el-button class="phonemorelist" type="text">更多
+            <el-button class="phone-more-list" type="text">更多
               <i class="el-icon-more el-icon--right"></i>
             </el-button>
           </router-link>
@@ -85,14 +138,25 @@
       <el-row>
       <br/>
       </el-row>
-      <el-row :gutter="30" class="hidden-md-and-down" type="flex" justify="center" id="free1">
-        <el-col :span="6" v-for="item in freeList_1" :key="item.id" :offset="item.id > 0 ? 2 : 0">
+      <el-row
+        :gutter="30"
+        class="hidden-md-and-down"
+        type="flex"
+        justify="center"
+        id="free1">
+        <el-col
+          :span="6"
+          v-for="item in freeList1"
+          :key="item.id"
+          :offset="item.id > 0 ? 2 : 0">
           <el-card :body-style="{ padding: '0px' }" class="card-one">
-            <img :src="item.profile_url" class="recomimg">
-            <div style="padding: 14px;">
+            <img :src="item.profileUrl" class="recomimg">
+            <div class="only-div">
               <span>{{ item.name }}</span>
               <div class="bottom clearfix">
-                <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                <router-link
+                  id="logo"
+                  :to="{name:'intro',params:{courseid: item.id, user: user}}">
                   <el-button type="text" class="button">点击观看</el-button>
                 </router-link>
               </div>
@@ -103,14 +167,14 @@
       <div class="hidden-lg-and-up">
         <div class="video-list">
           <ul class="vd-list">
-            <li v-for="item in freeList_1" :key="item.id" class="list-one">
+            <li v-for="item in freeList1" :key="item.id" class="list-one">
               <el-container class="list-one-outer">
                 <el-aside class="aside">
                   <router-link
                     id="logo"
                     :to="{name:'intro',params:{courseid: item.id}}">
                     <img
-                      :src="item.profile_url"
+                      :src="item.profileUrl"
                       :alt="item.name"
                       class="img-list">
                   </router-link>
@@ -134,14 +198,25 @@
         </div>
       </div>
 
-      <el-row :gutter="30" class="hidden-md-and-down" type="flex" justify="center" id="free2">
-        <el-col :span="6" v-for="item in freeList_2" :key="item.id" :offset="item.id > 3 ? 2 : 0">
+      <el-row
+        :gutter="30"
+        class="hidden-md-and-down"
+        type="flex"
+        justify="center"
+        id="free2">
+        <el-col
+          :span="6"
+          v-for="item in freeList2"
+          :key="item.id"
+          :offset="item.id > 3 ? 2 : 0">
           <el-card :body-style="{ padding: '0px' }" class="card-one">
-            <img :src="item.profile_url" class="recomimg">
-            <div style="padding: 14px;">
+            <img :src="item.profileUrl" class="recomimg">
+            <div class="only-div">
               <span>{{ item.name }}</span>
               <div class="bottom clearfix">
-                <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                <router-link
+                  id="logo"
+                  :to="{name:'intro',params:{courseid: item.id, user: user}}">
                   <el-button type="text" class="button">点击观看</el-button>
                 </router-link>
               </div>
@@ -163,7 +238,7 @@
         </el-col>
         <el-col :span="4" :offset="11">
           <router-link to="/costlistpage">
-            <el-button class="morelist" type="text">更多
+            <el-button class="more-list" type="text">更多
               <i class="el-icon-more el-icon--right"></i>
             </el-button>
           </router-link>
@@ -175,7 +250,7 @@
         </el-col>
         <el-col :span="4" :offset="11">
           <router-link to="/costlistpage">
-            <el-button class="phonemorelist" type="text">更多
+            <el-button class="phone-more-list" type="text">更多
               <i class="el-icon-more el-icon--right"></i>
             </el-button>
           </router-link>
@@ -184,14 +259,25 @@
       <el-row>
       <br>
       </el-row>
-      <el-row :gutter="30" class="hidden-md-and-down" type="flex" justify="center" id="cost1">
-        <el-col :span="6" v-for="item in costList_1" :key="item.id" :offset="item.id > 6 ? 2 : 0">
+      <el-row
+        :gutter="30"
+        class="hidden-md-and-down"
+        type="flex"
+        justify="center"
+        id="cost1">
+        <el-col
+          :span="6"
+          v-for="item in costList1"
+          :key="item.id"
+          :offset="item.id > 6 ? 2 : 0">
           <el-card :body-style="{ padding: '0px' }" class="card-one">
-            <img :src="item.profile_url" class="recomimg">
-            <div style="padding: 14px;">
+            <img :src="item.profileUrl" class="recomimg">
+            <div class="only-div">
               <span>{{ item.name }}</span>
               <div class="bottom clearfix">
-                <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                <router-link
+                  id="logo"
+                  :to="{name:'intro',params:{courseid: item.id, user: user}}">
                   <el-button type="text" class="button">点击观看</el-button>
                 </router-link>
               </div>
@@ -203,14 +289,14 @@
       <div class="hidden-lg-and-up">
         <div class="video-list">
           <ul class="vd-list">
-            <li v-for="item in costList_1" :key="item.id" class="list-one">
+            <li v-for="item in costList1" :key="item.id" class="list-one">
               <el-container class="list-one-outer">
                 <el-aside class="aside">
                   <router-link
                     id="logo"
                     :to="{name:'intro',params:{courseid: item.id}}">
                     <img
-                      :src="item.profile_url"
+                      :src="item.profileUrl"
                       :alt="item.name"
                       class="img-list">
                   </router-link>
@@ -234,14 +320,25 @@
         </div>
       </div>
 
-      <el-row :gutter="30" class="hidden-md-and-down" type="flex" justify="center" id="cost2">
-        <el-col :span="6" v-for="item in costList_2" :key="item.id" :offset="item.id > 9 ? 2 : 0">
+      <el-row
+        :gutter="30"
+        class="hidden-md-and-down"
+        type="flex"
+        justify="center"
+        id="cost2">
+        <el-col
+          :span="6"
+          v-for="item in costList2"
+          :key="item.id"
+          :offset="item.id > 9 ? 2 : 0">
           <el-card :body-style="{ padding: '0px' }" class="card-one">
-            <img :src="item.profile_url" class="recomimg">
-            <div style="padding: 14px;">
+            <img :src="item.profileUrl" class="recomimg">
+            <div class="only-div">
               <span>{{ item.name }}</span>
               <div class="bottom clearfix">
-                <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                <router-link
+                  id="logo"
+                  :to="{name:'intro',params:{courseid: item.id, user: user}}">
                   <el-button type="text" class="button">点击观看</el-button>
                 </router-link>
               </div>
@@ -267,11 +364,11 @@ export default {
   data: function () {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
     var validateloPhone = (rule, value, callback) => {
-      if (!this.loform.phonenumber) {
+      if (!this.loForm.phoneNumber) {
         return callback(new Error('号码不能为空'))
       }
       setTimeout(() => {
-        if (!phoneReg.test(this.loform.phonenumber)) {
+        if (!phoneReg.test(this.loForm.phoneNumber)) {
           callback(new Error('格式有误'))
         } else {
           callback()
@@ -281,61 +378,124 @@ export default {
     return {
       user: '0',
       imgList: [
-        {id: 0, profile_url: require('../../assets/images/banner1.jpg')},
-        {id: 1, profile_url: require('../../assets/images/banner1.jpg')},
-        {id: 2, profile_url: require('../../assets/images/banner1.jpg')}
+        {
+          id: 0,
+          profileUrl: require('../../assets/images/banner1.jpg')
+        },
+        {
+          id: 1,
+          profileUrl: require('../../assets/images/banner1.jpg')
+        },
+        {
+          id: 2,
+          profileUrl: require('../../assets/images/banner1.jpg')
+        }
       ],
-      freeList_1: [
-        {id: 0, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {id: 1, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'},
-        {id: 2, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'}
+      freeList1: [
+        {
+          id: 0,
+          profileUrl: require('../../assets/images/free.jpg'),
+          name: '啊啊啊啊啊'
+        },
+        {
+          id: 1,
+          profileUrl: require('../../assets/images/free.jpg'),
+          name: '啊啊啊啊啊'
+        },
+        {
+          id: 2,
+          profileUrl: require('../../assets/images/free.jpg'),
+          name: '啊啊啊啊啊'
+        }
       ],
-      freeList_2: [
-        {id: 3, profile_url: require('../../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'},
-        {id: 4, profile_url: require('../../assets/images/free.jpg'), name: '呜呜呜呜呜呜呜呜'},
-        {id: 5, profile_url: require('../../assets/images/free.jpg'), name: '啊啊啊啊啊'}
+      freeList2: [
+        {
+          id: 3,
+          profileUrl: require('../../assets/images/free.jpg'),
+          name: '呜呜呜呜呜呜呜呜'
+        },
+        {
+          id: 4,
+          profileUrl: require('../../assets/images/free.jpg'),
+          name: '呜呜呜呜呜呜呜呜'
+        },
+        {
+          id: 5,
+          profileUrl: require('../../assets/images/free.jpg'),
+          name: '啊啊啊啊啊'
+        }
       ],
-      costList_1: [
-        {id: 6, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
-        {id: 7, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
-        {id: 8, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
+      costList1: [
+        {
+          id: 6,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '喵喵喵喵喵'
+        },
+        {
+          id: 7,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '喵喵喵喵喵'
+        },
+        {
+          id: 8,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '喵喵喵喵喵'
+        }
       ],
-      costList_2: [
-        {id: 9, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
-        {id: 10, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'},
-        {id: 11, profile_url: require('../../assets/images/paid.jpg'), name: '喵喵喵喵喵'}
+      costList2: [
+        {
+          id: 9,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '喵喵喵喵喵'
+        },
+        {
+          id: 10,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '喵喵喵喵喵'
+        },
+        {
+          id: 11,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '喵喵喵喵喵'
+        }
       ],
       login: false,
       loginFormVisible: false,
       loginLabelWidth: '100px',
-      loform: {
-        phonenumber: '',
+      loForm: {
+        phoneNumber: '',
         password: '',
         delivery: false,
         usercode: ''
       },
       rules: {
-        lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }]
+        loPhone: [
+          {
+            required: true,
+            validator: validateloPhone,
+            trigger: 'blur'
+          }
+        ]
       }
     }
   },
   methods: {
     createRandom: function() {
       var code = Math.floor(Math.random() * (99999 - 0) + 100000)
-      this.loform.password = code.toString()
+      this.loForm.password = code.toString()
     },
     loginFunction: function() {
-      if (this.loform.delivery === false) {
+      if (this.loForm.delivery === false) {
         alert('请输入正确的手机号和对应的验证码！')
         return
       }
-      if (this.loform.usercode !== this.loform.password) {
+      if (this.loForm.usercode !== this.loForm.password) {
         alert('请输入正确的验证码！')
         return
       }
       this.loginFormVisible = false
       axios.post(utils.getURL() + 'api/authenticate/', qs.stringify({
-        phone_number: this.loform.phonenumber,
+        phone_number: this.loForm.phoneNumber,
         verification_code: 0
       })).then(
         response => {
@@ -346,17 +506,17 @@ export default {
       )
     },
     getVerification: function() {
-      if (this.loform.phonenumber === '') {
+      if (this.loForm.phoneNumber === '') {
         alert('请输入正确的手机号！')
         return
       }
       this.createRandom()
       axios.post(utils.getURL() + 'api/getcode/', qs.stringify({
-        phone_number: this.loform.phonenumber,
-        password: this.loform.password
+        phone_number: this.loForm.phoneNumber,
+        password: this.loForm.password
       })).then(
         response => {
-          this.loform.delivery = true
+          this.loForm.delivery = true
         }
       )
     },
@@ -374,7 +534,7 @@ export default {
       let length = response.data.courses.length
       for (let i = 0; i < length; i++) {
         this.imgList[i].id = response.data.courses[i].id
-        this.imgList[i].profile_url = utils.getURL() + 'media/' +
+        this.imgList[i].profileUrl = utils.getURL() + 'media/' +
           response.data.courses[i].profile_url
       }
     })
@@ -383,33 +543,33 @@ export default {
       let length = list.length
       let course = {
         id: '',
-        profile_url: '',
+        profileUrl: '',
         name: ''
       }
-      this.freeList_1 = []
-      this.freeList_2 = []
+      this.freeList1 = []
+      this.freeList2 = []
       if (length > 3) {
         for (let i = 0; i < 3; i++) {
           course.id = list[i].pk
-          course.profile_url = utils.getURL() + 'media/' +
+          course.profileUrl = utils.getURL() + 'media/' +
             list[i].fields.profile_url
           course.name = list[i].fields.course_name
-          this.freeList_1.push(course)
+          this.freeList1.push(course)
         }
         for (let i = 3; i < length; i++) {
           course.id = list[i].pk
-          course.profile_url = utils.getURL() + 'media/' +
+          course.profileUrl = utils.getURL() + 'media/' +
             list[i].fields.profile_url
           course.name = list[i].fields.course_name
-          this.freeList_2.push(course)
+          this.freeList2.push(course)
         }
       } else {
         for (let i = 0; i < length; i++) {
           course.id = list[i].pk
-          course.profile_url = utils.getURL() + 'media/' +
+          course.profileUrl = utils.getURL() + 'media/' +
             list[i].fields.profile_url
           course.name = list[i].fields.course_name
-          this.freeList_1.push(course)
+          this.freeList1.push(course)
         }
       }
     })
@@ -418,33 +578,33 @@ export default {
       let length = list.length
       let course = {
         id: '',
-        profile_url: '',
+        profileUrl: '',
         name: ''
       }
-      this.costList_1 = []
-      this.costList_2 = []
+      this.costList1 = []
+      this.costList2 = []
       if (length > 3) {
         for (let i = 0; i < 3; i++) {
           course.id = list[i].pk
-          course.profile_url = utils.getURL() + 'media/' +
+          course.profileUrl = utils.getURL() + 'media/' +
             list[i].fields.profile_url
           course.name = list[i].fields.course_name
-          this.costList_1.push(course)
+          this.costList1.push(course)
         }
         for (let i = 3; i < length; i++) {
           course.id = list[i].pk
-          course.profile_url = utils.getURL() + 'media/' +
+          course.profileUrl = utils.getURL() + 'media/' +
             list[i].fields.profile_url
           course.name = list[i].fields.course_name
-          this.costList_2.push(course)
+          this.costList2.push(course)
         }
       } else {
         for (let i = 0; i < length; i++) {
           course.id = list[i].pk
-          course.profile_url = utils.getURL() + 'media/' +
+          course.profileUrl = utils.getURL() + 'media/' +
             list[i].fields.profile_url
           course.name = list[i].fields.course_name
-          this.costList_1.push(course)
+          this.costList1.push(course)
         }
       }
     })
@@ -453,10 +613,13 @@ export default {
 </script>
 
 <style scoped>
+  .only-div {
+    padding: 14px;
+  }
   .index {
     background-color: rgb(240, 240, 240);
   }
-  .toolbar {
+  .tool-bar {
     width: 100%;
     min-height: 45px;
     max-height: 70px;
@@ -496,17 +659,17 @@ export default {
     max-width:1200px;
     margin:20px auto 20px auto;
   }
-  .getcheck {
+  .get-check {
     margin-left: 100px !important;
   }
-  .morelist {
+  .more-list {
     width: 100%;
     height: 100%;
     border-radius: 5px;
     font-size: 25px;
     color: grey;
   }
-  .phonemorelist {
+  .phone-more-list {
     width: 100%;
     height: 100%;
     border-radius: 5px;
@@ -572,7 +735,7 @@ export default {
       font-size:15px;
       margin-right: 10px;
     }
-    .toolbar {
+    .tool-bar {
       min-height: 42px;
     }
     .logo {
