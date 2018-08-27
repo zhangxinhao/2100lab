@@ -50,6 +50,10 @@
 
     <div class="main-container">
 
+      <div v-for="pic in coursePic" :key="pic.id">
+        <link rel="preload" :href="pic.position" as="image">
+      </div>
+
       <div class="img-container">
         <img :src="nowPic.position" class="coursePic">
       </div>
