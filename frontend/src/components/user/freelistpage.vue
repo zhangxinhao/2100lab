@@ -1,9 +1,11 @@
 <template>
   <div class="free-list">
     <div class="tool-bar">
-      <div class="logo">
-        <img src="../../assets/logo3.png" width="200%" height="80%">
-      </div>
+      <router-link to="/">
+        <div class="logo">
+          <img src="../../assets/logo3.png" width="200%" height="80%">
+        </div>
+      </router-link>
       <table align="right">
         <tr>
           <td>
