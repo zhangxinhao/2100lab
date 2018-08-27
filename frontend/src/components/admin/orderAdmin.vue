@@ -61,7 +61,8 @@
           label="操作">
           <template slot-scope="scope">
             <el-button  type="text"
-              v-if="userOrderList[scope.$index].status == '已支付'">
+              v-if="userOrderList[scope.$index].status == '已支付'"
+              @click="refund(scope.$index)">
               退费
             </el-button>
             <el-button type="text" v-else>—</el-button>
@@ -145,6 +146,14 @@ export default {
     }
   },
   methods: {
+    refund: function(index) {
+      let orderNo = this.userOrderList[index].orderNo
+      axios.post(utils.getURL() + 'api/refund/', qs.stringify({
+        orderNo: orderNo
+      })).then(response => {
+        alert(response.data.result)
+      })
+    },
     search: function() {
       axios.post(utils.getURL() + 'api/manageorder/', qs.stringify({
         orderNo: this.inputWord

@@ -1,9 +1,18 @@
+import os
 import time
+import pingpp
 from django.http import JsonResponse
 from backend.models import Order, OrderStatus, VisitRecord
 
 
 TOTALSECONDS = 86400
+
+pingpp.api_key = "sk_test_y5qHaPH8i9e1yHGqXLeXXPS0"
+
+pingpp.private_key_path = os.path.join(os.path.dirname(
+    os.path.realpath(__file__)), "../static/rsa_private.pem")
+
+APP_ID = "app_nfzXTOiPq5G4u9ib"
 
 
 def list_order(request):
@@ -39,7 +48,7 @@ def list_order(request):
     return JsonResponse({"status": status, "orders": orders})
 
 
-def __timestamps__(days):
+def _timestamps_(days):
     now_time = int(time.time())
     today = now_time - now_time % TOTALSECONDS + time.timezone
     time_list = []
@@ -51,7 +60,7 @@ def __timestamps__(days):
     return time_list, time_str
 
 
-def __get_pv__(time_list):
+def _get_pv_(time_list):
     pv_list = []
     for i in range(len(time_list) - 1):
         p_v = VisitRecord.objects.filter(last_visit__gte=time_list[i]).filter(
@@ -62,7 +71,7 @@ def __get_pv__(time_list):
     return pv_list
 
 
-def __get_vol__(time_list):
+def _get_vol_(time_list):
     vol_list = []
     for i in range(len(time_list) - 1):
         vol = Order.objects.filter(time__gte=time_list[i], status=1).filter(
@@ -84,8 +93,8 @@ def get_pv(request):
     time_str = []
     pv_list = []
     if isinstance(days, int):
-        time_list, time_str = __timestamps__(days)
-        pv_list = __get_pv__(time_list)
+        time_list, time_str = _timestamps_(days)
+        pv_list = _get_pv_(time_list)
     else:
         status = 1
     return JsonResponse({"status": status, "PV_list": pv_list, "time": time_str})
@@ -102,8 +111,27 @@ def get_vol(request):
     time_str = []
     vol_list = []
     if isinstance(days, int):
-        time_list, time_str = __timestamps__(days)
-        vol_list = __get_vol__(time_list)
+        time_list, time_str = _timestamps_(days)
+        vol_list = _get_vol_(time_list)
     else:
         status = 1
     return JsonResponse({"status": status, "VOL_list": vol_list, "time": time_str})
+
+
+def refund(request):
+    status = 0
+    order_no = request.POST.get("orderNo")
+    result = "正在退款"
+    try:
+        order = Order.objects.get(order_id=order_no)
+        course = order.course
+        user = order.user
+        record = VisitRecord.objects.filter(course=course, user=user)
+        if record:
+            raise Exception("已访问过课程，无法退款")
+        charge = pingpp.Charge.retrieve("order.charge_id")
+        refund = charge.refunds.create(description="2100实验室课程退款")
+    except Exception as e:
+        status = 1
+        result = str(e)
+    return JsonResponse({"status": status, "result": result})
