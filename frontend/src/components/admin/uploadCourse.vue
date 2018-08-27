@@ -15,13 +15,18 @@
         <el-form-item label="课程简介：" label-width="120px">
           <el-col :span="18">
             <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}"
-              auto-complete="true" placeholder="请输入内容" v-model="updateForm.courseDescription"
+              auto-complete="true"
+              placeholder="请输入内容"
+              v-model="updateForm.courseDescription"
               clearable required="required">
             </el-input>
           </el-col>
         </el-form-item>
 
-        <el-form-item label="上传音频：" label-width="120px" class="update-form-item">
+        <el-form-item
+          label="上传音频："
+          label-width="120px"
+          class="update-form-item">
           <el-col :span="18">
             <el-upload
               class="upload-demo"
@@ -37,7 +42,10 @@
           </el-col>
         </el-form-item>
 
-        <el-form-item label="上传图片：" label-width="120px" class="update-form-item">
+        <el-form-item
+          label="上传图片："
+          label-width="120px"
+          class="update-form-item">
           <el-col :span="18">
             <el-upload
               :action="upload_pic_URL()"
@@ -54,66 +62,130 @@
           </el-col>
         </el-form-item>
 
-        <el-form-item label="图片显示时间：" label-width="120px" class="update-form-item">
+        <el-form-item
+          label="图片显示时间："
+          label-width="120px"
+          class="update-form-item">
           <el-col :span="3">
             <el-dropdown @command="handleCommand">
               <span class="el-dropdown-link">
-                {{ dropdownMessage }}<i class="el-icon-arrow-down el-icon--right"></i>
+                {{ dropdownMessage }}
+                <i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item v-for="(item, index) in updateForm.imgInfo" :key="item.id" :command="index + 1">
+                <el-dropdown-item
+                  v-for="(item, index) in updateForm.imgInfo"
+                  :key="item.id"
+                  :command="index + 1">
                   图片{{ index + 1 }}
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-col>
           <el-col :span="3">
-            <el-input auto-complete="true" :placeholder="miniteTemp" class="time-input" v-model="miniteTemp"></el-input>
+            <el-input
+              auto-complete="true"
+              :placeholder="miniteTemp"
+              class="time-input"
+              v-model="miniteTemp">
+            </el-input>
             <span class="time">分</span>
           </el-col>
           <el-col :span="3">
-            <el-input auto-complete="true" :placeholder="secondeTemp" class="time-input" v-model="secondeTemp"></el-input>
+            <el-input
+              auto-complete="true"
+              :placeholder="secondeTemp"
+              class="time-input"
+              v-model="secondeTemp">
+            </el-input>
             <span class="time">秒</span>
           </el-col>
           <el-col :span="3" :offset="1">
-            <el-button type="primary" @click="getTime">确定</el-button>
+            <el-button type="primary" @click="getTime">
+              确定
+            </el-button>
           </el-col>
         </el-form-item>
 
         <el-form-item label="课程内容：" label-width="120px">
           <el-col :span="18">
-            <el-input type="textarea" :autosize="{ minRows: 5, maxRows: 10}" auto-complete="true" placeholder="请输入内容" v-model="updateForm.courseContain" clearable required="required"></el-input>
+            <el-input type="textarea"
+              :autosize="{ minRows: 5, maxRows: 10}"
+              auto-complete="true"
+              placeholder="请输入内容"
+              v-model="updateForm.courseContain"
+              clearable
+              required="required">
+            </el-input>
           </el-col>
         </el-form-item>
 
-        <el-form-item label="" label-width="120px" class="update-form-item">
+        <el-form-item
+          label=""
+          label-width="120px"
+          class="update-form-item">
           <el-col :span="18">
-            <el-checkbox v-model="updateForm.messageOn">开放留言区</el-checkbox>
+            <el-checkbox v-model="updateForm.messageOn">
+              开放留言区
+            </el-checkbox>
           </el-col>
         </el-form-item>
 
-        <el-form-item label="价格：" label-width="120px"  class="update-form-input">
+        <el-form-item
+          label="价格："
+          label-width="120px"
+          class="update-form-input">
           <el-row width="300px">
-            <el-input v-model="updateForm.price" auto-complete="true" required="required" width="100px"></el-input>
+            <el-input
+              v-model="updateForm.price"
+              auto-complete="true"
+              required="required"
+              width="100px">
+            </el-input>
           </el-row>
         </el-form-item>
 
-        <el-form-item label="赏金比例(0~1)：" label-width="120px" class="update-form-input" v-if="updateForm.price!=0">
+        <el-form-item label="赏金比例(0~1)："
+          label-width="120px"
+          class="update-form-input"
+          v-if="updateForm.price!=0">
           <el-row width="300px">
-            <el-input v-model="updateForm.balance" auto-complete="true" width="100px"></el-input>
+            <el-input
+              v-model="updateForm.balance"
+              auto-complete="true"
+              width="100px">
+            </el-input>
           </el-row>
         </el-form-item>
 
-        <el-form-item label="焚毁时间(小时)：" label-width="120px" class="update-form-input">
+        <el-form-item
+          label="焚毁时间(小时)："
+          label-width="120px"
+          class="update-form-input">
           <el-row width="300px">
-            <el-input v-model="updateForm.destroyTime" auto-complete="true" required="required" width="100px"></el-input>
+            <el-input
+              v-model="updateForm.destroyTime"
+              auto-complete="true"
+              required="required"
+              width="100px">
+            </el-input>
           </el-row>
         </el-form-item>
 
         <el-form-item class="update-btn">
           <br />
-          <el-button type="primary" @click="uploadcourse" icon="el-icon-upload">上传课程</el-button>
-          <el-button icon="el-icon-delete" @click="clearpage" class="clear">清空</el-button>
+          <el-button
+            type="primary"
+            @click="uploadcourse"
+            icon="el-icon-upload">
+            上传课程
+          </el-button>
+          <el-button
+            icon="el-icon-delete"
+            @click="clearpage"
+            class="clear">
+            清空
+          </el-button>
           <br />
         </el-form-item>
       </el-form>
