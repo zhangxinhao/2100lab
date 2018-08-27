@@ -163,16 +163,6 @@
     </div>
     <br />
     <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
     <el-footer height="50px" class="hidden-lg-and-down">
       2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长
     </el-footer>

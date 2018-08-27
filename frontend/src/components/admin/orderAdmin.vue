@@ -155,15 +155,15 @@ export default {
     margin-bottom: 30px;
   }
   .order-table {
-    margin-left: 50px;
-    width: 950px;
+    margin-left: 3%;
+    width: 100%;
     margin-bottom: 50px;
   }
   .really-table {
     margin-bottom: 50px;
   }
   .first-div {
-    width: 1200px;
+    width: 80%;
     margin: 50px auto;
     text-align: center;
   }

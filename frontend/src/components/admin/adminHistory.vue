@@ -63,15 +63,15 @@ export default {
 
 <style scoped>
 .admin-history {
-  width: 1000px;
-  margin: 20px auto;
+  width: 80%;
+  margin: 20px 5%;
 }
 #search-user {
-  width: 900px;
+  width: 100%;
 }
 #history-list {
-  width: 900px;
-  height: 1000px;
+  width: 100%;
+  min-height: 1000px;
   margin: 50px auto;
   text-align: center;
 }

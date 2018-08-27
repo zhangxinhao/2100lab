@@ -117,7 +117,7 @@ export default {
 </script>
 <style scoped>
   .el-aside {
-    width: 250px !important;
+    width: 15% !important;
     margin-left: 0px;
   }
    .toolbar {
@@ -142,7 +142,7 @@ export default {
     margin-right: 60px;
   }
   .admin-first {
-    width: 1600px;
+    /* width: 1600px; */
     margin: 0px auto 0px auto;
     text-align: center;
     color: white;

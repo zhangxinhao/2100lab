@@ -9,14 +9,14 @@
   </div>
 
   <div id="admin-list">
-    <el-table :data="adminData" border width=100%>
+    <el-table :data="adminData" border>
       <el-table-column type="index" :index="indexMethod" header-align=center></el-table-column>
-      <el-table-column prop="adminId" label="管理员编号" width="150" header-align=center></el-table-column>
-      <el-table-column prop="courseManage" label="课程管理" width="150" header-align=center :formatter="courseRightCal" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="userManage" label="用户管理" width="150" header-align=center :formatter="userRightCal" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="operationHistory" label="操作历史" width="150" header-align=center :formatter="historyRightCal" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="orderManage" label="订单管理" width="150" header-align=center :formatter="orderRightCal" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="adminManage" label="添加管理员" width="150" header-align=center :formatter="adminRightCal" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="adminId" label="管理员编号" width=150% header-align=center></el-table-column>
+      <el-table-column prop="courseManage" label="课程管理" width=100% header-align=center :formatter="courseRightCal" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="userManage" label="用户管理" width=100% header-align=center :formatter="userRightCal" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="operationHistory" label="操作历史" width=100% header-align=center :formatter="historyRightCal" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="orderManage" label="订单管理" width=100% header-align=center :formatter="orderRightCal" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="adminManage" label="添加管理员" width=100% header-align=center :formatter="adminRightCal" show-overflow-tooltip></el-table-column>
       <el-table-column label="操作" header-align=center>
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="editFunction(scope.$index)">编辑</el-button>
@@ -199,15 +199,15 @@ export default {
 
 <style scoped>
 .admin-manage {
-  width: 1300px;
-  margin: 20px auto;
+  width: 70%;
+  margin: 20px 5%;
 }
 #search-admin {
-  width: 1280px;
+  width: 100%;
 }
 #admin-list {
-  width: 1100px;
-  height: 1000px;
+  width: 100%;
+  min-height: 1000px;
   margin: 50px auto;
   text-align: center;
 }

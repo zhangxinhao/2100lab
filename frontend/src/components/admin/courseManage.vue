@@ -80,11 +80,12 @@ export default {
 
 <style scoped>
 .course-manage {
-  width: 1020px;
-  margin: 20px auto;
+  width: 80%;
+  margin: 20px 5%;
 }
 #search-course {
-  width: 1000px;
+  width: 100%;
+  margin: 0 auto;
 }
 #course-list {
   width: 950px;
