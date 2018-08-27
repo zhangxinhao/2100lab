@@ -65,6 +65,15 @@ def ban_client(request):
             status = 1
     except User.DoesNotExist:
         status = 1
+
+    log_user_id = request.user.id
+    log_object_id = client_id
+    log = AdminOperationRecord.objects.create(
+        admin_id = log_user_id,
+        operation = Operation.objects.get(pk=4),
+        object = log_object_id
+    )
+    log.save()
     return JsonResponse({"status": status})
 
 
@@ -94,6 +103,15 @@ def create_admin(request):
         manage_right=right
     )
     user.save()
+
+    log_user_id = request.user.id
+    log_object_id = user_name
+    log = AdminOperationRecord.objects.create(
+        admin_id = log_user_id,
+        operation = Operation.objects.get(pk=8),
+        object = log_object_id
+    )
+    log.save()
     return JsonResponse({"status": status})
 
 
@@ -158,6 +176,15 @@ def edit_admin(request):
         admin.save()
     else:
         status = 1
+
+    log_user_id = request.user.id
+    log_object_id = admin_id
+    log = AdminOperationRecord.objects.create(
+        admin_id = log_user_id,
+        operation = Operation.objects.get(pk=9),
+        object = log_object_id
+    )
+    log.save()
     return JsonResponse({"status": status})
 
 
@@ -169,6 +196,15 @@ def delete_admin(request):
         admin.set_active()
     else:
         status = 1
+
+    log_user_id = request.user.id
+    log_object_id = admin_id
+    log = AdminOperationRecord.objects.create(
+        admin_id = log_user_id,
+        operation = Operation.objects.get(pk=10),
+        object = log_object_id
+    )
+    log.save()
     return JsonResponse({"status": status})
 
 
@@ -190,9 +226,9 @@ def record_list(request):
         try:
             history.append({
                 "adminId": data.admin_id,
-                "operation": Operation.objects.get(operation_code=data.operation_code).operation,
+                "operation": data.operation.operation,
                 "objectId": data.object,
-                "time": time.strptime(data.time.timestamp(), "%Y-%m-%d %H:%M:%S")
+                "time": data.time.strftime('%Y-%m-%d %H:%M:%S')
             })
         except Operation.DoesNotExist:
             status = 1

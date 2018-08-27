@@ -75,6 +75,15 @@ def delete(request):
         user.save()
     except User.DoesNotExist:
         status = 1
+
+    log_user_id = request.user.id
+    log_object_id = user_id
+    log = AdminOperationRecord.objects.create(
+        admin_id = log_user_id,
+        operation = Operation.objects.get(pk=3),
+        object = log_object_id
+    )
+    log.save()
     return JsonResponse({"status": status})
 
 
@@ -87,6 +96,15 @@ def ban(request):
         user.save()
     except User.DoesNotExist:
         status = 1
+
+    log_user_id = request.user.id
+    log_object_id = user_id
+    log = AdminOperationRecord.objects.create(
+        admin_id = log_user_id,
+        operation = Operation.objects.get(pk=4),
+        object = log_object_id
+    )
+    log.save()
     return JsonResponse({"status": status})
 
 
@@ -100,4 +118,13 @@ def authorize(request):
         user.save()
     except User.DoesNotExist:
         status = 1
+
+    log_user_id = request.user.id
+    log_object_id = user_id
+    log = AdminOperationRecord.objects.create(
+        admin_id = log_user_id,
+        operation = Operation.objects.get(pk=5),
+        object = log_object_id
+    )
+    log.save()
     return JsonResponse({"status": status})

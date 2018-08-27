@@ -100,7 +100,7 @@ class Operation(models.Model):
 class AdminOperationRecord(models.Model):
     admin_id = models.CharField(max_length=11)
     operation = models.ForeignKey('Operation', on_delete=models.CASCADE)
-    object = models.CharField(max_length=11)
+    object = models.CharField(max_length=50)
     time = models.DateTimeField(default=timezone.now)
 
 
