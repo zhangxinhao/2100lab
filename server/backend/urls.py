@@ -23,7 +23,6 @@ urlpatterns = [  # pragma pylint: disable=C0103
     path('getcode/', user_views.get_code),
     path('coursepage/', course_views.load_course),
     path('admin_userhistory/', client.client_history),
-    path('paywithqr/', pay.pay_qr),
     path('clientinfor/', client.client_information),
     path('deleteclient/', client.delete),
     path('banclient/', client.ban),
@@ -52,5 +51,9 @@ urlpatterns = [  # pragma pylint: disable=C0103
     path('chargewebhooks/', pay.webhooks_charge),
     path('feedbackrecord/', course_views.feedback_course_record),
     path('checkrecord/', course_views.check_course_record),
+    path('alipaypc/', pay.alipay_pc),
+    path('alipayphone/', pay.alipay_phone),
+    path('wxpc/', pay.wx_pc),
+    path('wxphone/', pay.wx_phone),
 
 ]

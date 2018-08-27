@@ -111,8 +111,8 @@
           </div>
           <div class="hint">现金支付</div>
           <div class="pay-frame">
-            <el-radio v-model="channel" label="alipay_qr">支付宝支付</el-radio>
-            <el-radio v-model="channel" label="wx_pub_qr">微信支付</el-radio>
+            <el-radio v-model="channel" label="alipay">支付宝支付</el-radio>
+            <el-radio v-model="channel" label="wx">微信支付</el-radio>
           </div>
           <el-button
             class="pay"
@@ -164,7 +164,7 @@ export default {
     }
     return {
       user: '0',
-      courseid: '',
+      courseId: '',
       sharePerson: '',
       title: '我们爱科学',
       buttonShow: '观看',
@@ -172,7 +172,7 @@ export default {
       burnedFlag: false,
       // money表示当前课程的价钱，moneyFlag表示该课是否免费（true为付费 false为免费）
       moneyFlag: true,
-      money: '25',
+      money: 25,
       // paidFlag表示当前用户是否已支付该课程(true 表示已支付)
       paidFlag: true,
       classIntro: '这就是未来的桥，一个桥上的创举。',
@@ -204,48 +204,108 @@ export default {
       channel: '',
       config: {
         url: '', // 网址，默认使用 window.location.href
-        // source: '', // 来源（QQ空间会用到）, 默认读取head标签
-        // title: '', // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
-        // description: '', // 描述, 默认读取head标签
-        // image: '', // 图片, 默认取网页中第一个img标签
         sites: ['qzone', 'qq', 'weibo', 'wechat'] // 启用的站点
-        // wechatQrcodeTitle: '微信扫一扫：分享', // 微信二维码提示文字
-        // wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>'
-        // disabled: ['google', 'facebook', 'twitter'], // 禁用的站点
       }
     }
   },
   methods: {
     toCourse: function() {
       this.$router.push({path: '/coursepage/' +
-        this.courseid + '/' + this.user})
+        this.courseId + '/' + this.user})
     },
-    payWithCash: function() {
-      axios.post(utils.getURL() + 'api/paywithqr/', qs.stringify({
-        channel: this.channel,
-        amount: this.money,
-        course_name: this.title,
-        sharer: this.shareperson
+    isPC: function() {
+      let userAgentInfo = navigator.userAgent
+      let agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod']
+      let flag = true
+      for (let v = 0; v < agents.length; v++) {
+        if (userAgentInfo.indexOf(agents[v]) > 0) {
+          flag = false
+          break
+        }
+      }
+      return flag
+    },
+    payInfo: function() {
+      let info = {}
+      info.amount = this.price
+      info.courseId = this.courseId
+      info.sharer = this.sharePerson
+      info.successUrl = window.location.href
+      return info
+    },
+    alipayPC: function() {
+      let pingpp = require('pingpp-js')
+      axios.post(utils.getURL() + 'api/alipaypc/', qs.stringify({
+        info: JSON.stringify(this.payInfo())
       })).then(response => {
-        let status = response.data.status
-        if (status === 0) {
-          window.open(response.data.result)
+        pingpp.setUrlReturnCallback(function (err, url) {
+          if (err) {
+            alert(err)
+          }
+          window.open(url)
+        }, ['alipay_pc_direct'])
+        pingpp.createPayment(response.data.pingppObject, function (result, err) {
+          alert(err)
+        })
+      })
+    },
+    alipayPhone: function() {
+      let pingpp = require('pingpp-js')
+      axios.post(utils.getURL() + 'api/alipayphone/', qs.stringify({
+        info: JSON.stringify(this.payInfo())
+      })).then(response => {
+        pingpp.createPayment(response.data.pingppObject, function (result, err) {
+          alert(err)
+        })
+      })
+    },
+    wxPC: function() {
+      axios.post(utils.getURL() + 'api/wxpc/', qs.stringify({
+        info: JSON.stringify(this.payInfo())
+      })).then(response => {
+        if (response.data.status === 0) {
+          window.open(response.data.qr)
         }
       })
+    },
+    wxPhone: function() {
+      let pingpp = require('pingpp-js')
+      axios.post(utils.getURL() + 'api/wxphone/', qs.stringify({
+        info: JSON.stringify(this.payInfo())
+      })).then(response => {
+        pingpp.createPayment(response.data.pingppObject, function (result, err) {
+          alert(err)
+        })
+      })
+    },
+    payWithCash: function() {
+      if (this.isPC()) {
+        if (this.channel === 'alipay') {
+          this.alipayPC()
+        } else {
+          this.wxPC()
+        }
+      } else {
+        if (this.channel === 'alipay') {
+          this.alipayPhone()
+        } else {
+          this.wxPhone()
+        }
+      }
     },
     fire: function() {
       this.$router.push({ path: '/destroied' })
     }
   },
   created: function() {
-    this.courseid = this.$route.params.courseid
+    this.courseId = this.$route.params.courseid
     this.sharePerson = this.$route.params.user
     this.user = this.$route.params.user
     // 以下一行放到登录函数里
     this.config.url = utils.getURL() +
-      '#/intro/' + this.courseid + '/' + this.user
+      '#/intro/' + this.courseId + '/' + this.user
     axios.post(utils.getURL() + 'api/getcourseinfo/', qs.stringify({
-      course_id: this.courseid
+      courseId: this.courseId
     })).then(response => {
       let data = response.data
       this.title = data.title
