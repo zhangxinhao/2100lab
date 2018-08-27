@@ -21,23 +21,23 @@ SUBJECT = "2100实验室课程支付"
 
 
 def alipay_pc(request):
-    user = request.user
-    order_no = _create_order_no_(user.id)
-    amount, course, extra = _get_info_(request)
-    sharer = extra[0]
-    url = extra[1]
+    # user = request.user
+    # order_no = _create_order_no_(user.id)
+    # amount, course, extra = _get_info_(request)
+    # sharer = extra[0]
+    # url = extra[1]
     charge = pingpp.Charge.create(
-        order_no=order_no,
-        amount=amount,
+        order_no="124141432551",
+        amount=100,
         app=dict(id=APP_ID),
         channel='alipay_pc_direct',
         currency='cny',
         client_ip=URL,
         subject=SUBJECT,
-        body="欢迎购买\"" + course.course_name + "\"课程",
-        extra=dict(success_url=url)
+        body="欢迎购买\" + course.course_name + \"课程",
+        extra=dict(success_url=URL)
     )
-    _create_order_(user, course, amount, sharer, charge)
+    # _create_order_(user, course, amount, sharer, charge)
     return JsonResponse({"status": 0, "pingppObject": charge})
 
 def alipay_phone(request):
@@ -125,7 +125,7 @@ def _create_order_(user, course, price, sharer, charge):
     )
 
 def webhooks_charge(request):
-    body = json.loads(request.body)
+    body = json.loads(request.body.decode('utf-8'))
     charge = body["data"]["object"]
     try:
         order = Order.objects.get(charge_id=charge["id"])
@@ -135,4 +135,15 @@ def webhooks_charge(request):
         order.save()
         return HttpResponse(status=200)
     except Order.DoesNotExist:
+        return HttpResponse(status=500)
+
+def webhooks_refund(request):
+    body = json.loads(request.body.decode("utf-8"))
+    charge_id = body["data"]["object"]["id"]
+    try:
+        order = Order.objects.get(charge_id=charge_id)
+        order.status = 2
+        order.save()
+        return HttpResponse(status=200)
+    except Exception:
         return HttpResponse(status=500)
