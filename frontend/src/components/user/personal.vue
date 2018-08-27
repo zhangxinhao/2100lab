@@ -3,7 +3,7 @@
   <div id="person">
     <div class="tool-bar">
       <div class="logo">
-        <img src="../../assets/logo1.png" width="200%" height="100%">
+        <img src="../../assets/logo3.png" width="200%" height="80%">
       </div>
       <table align="right">
         <tr>
@@ -105,11 +105,10 @@ export default {
 <style scoped>
   .tool-bar {
     width: 100%;
-    max-height: 50px;
-    margin: 0;
+    min-height: 45px;
+    max-height: 70px;
     padding: 0;
-    background-color:lightskyblue;
-    opacity: 0.7;
+    background-color:#409EFF;
   }
 
   .logo {

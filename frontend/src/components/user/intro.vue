@@ -1,141 +1,144 @@
 <template>
-  <div id="body">
-    <div class="toolbar">
-      <div class="logo">
-      <img src="../../assets/logo1.png" width="200%" height="100%">
+  <div class="intro">
+    <div id="body">
+      <div class="toolbar">
+        <div class="logo">
+        <img src="../../assets/logo3.png" width="200%" height="80%">
+        </div>
+        <table align="right">
+          <tr>
+            <td>
+              <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true">登录</el-button>
+            </td>
+            <td>
+              <router-link to="/personal">
+                <el-button class="user-ope" type="text" v-if="login">个人中心</el-button>
+              </router-link>
+            </td>
+            <td>
+              <el-button class="user-ope" type="text" v-if="login" @click="logout">登出</el-button>
+            </td>
+          </tr>
+        </table>
       </div>
-      <table align="right">
-        <tr>
-          <td>
-            <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true">登录/注册</el-button>
-          </td>
-          <td>
-            <router-link to="/personal">
-              <el-button class="user-ope" type="text" v-if="login">个人中心</el-button>
-            </router-link>
-          </td>
-          <td>
-            <el-button class="user-ope" type="text" v-if="login" @click="logout">登出</el-button>
-          </td>
-        </tr>
-      </table>
-    </div>
 
-    <div class="logindialog">
-      <el-dialog title="登录" :visible.sync="loginFormVisible" width="400px" height="700px">
-        <el-form :model="loform" :rules="rules">
-          <el-form-item label="手机号" label-width="100px" prop="lophone">
-            <el-col :span="18">
-              <el-input v-model="loform.phonenumber" auto-complete="true" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/" oninvalid="this.setCustomValidity('warning')"></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="验证码" label-width=100px>
-            <el-col :span="18">
-              <el-input v-model="loform.password" auto-complete="off" clearable></el-input>
-            </el-col>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="login-footer">
-          <el-button type="primary" @click="loginFormVisible = false">获取验证码</el-button>
-          <el-button @click="loginFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="loginFormVisible = false">确 定</el-button>
-        </div>
-      </el-dialog>
-    </div>
+      <div class="logindialog">
+        <el-dialog title="登录" :visible.sync="loginFormVisible" width="400px" height="700px">
+          <el-form :model="loform" :rules="rules">
+            <el-form-item label="手机号" label-width="100px" prop="lophone">
+              <el-col :span="18">
+                <el-input v-model="loform.phonenumber" auto-complete="true" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/" oninvalid="this.setCustomValidity('warning')"></el-input>
+              </el-col>
+            </el-form-item>
+            <el-form-item label="验证码" label-width=100px>
+              <el-col :span="18">
+                <el-input v-model="loform.password" auto-complete="off" clearable></el-input>
+              </el-col>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="login-footer">
+            <el-button type="primary" @click="loginFormVisible = false">获取验证码</el-button>
+            <el-button @click="loginFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="loginFormVisible = false">确 定</el-button>
+          </div>
+        </el-dialog>
+      </div>
 
-    <div >
-      <el-card class="box-card" shadow="always">
-        <div slot="header" class="clear-fix">
-          <img alt="" :src="picture" width="100%" height="250px"/>
-        </div>
-        <div class="title-div">
-          <el-container>
-            <el-aside>
-              <div id="class">
-                课程:{{ title }}
-              </div>
-            </el-aside>
-            <el-main>
-              <div class="operate">
-                <el-button
-                  class="judge-button"
-                  type="primary"
-                  v-if = "!login"
-                  @click="loginFormVisible = true">立即观看
-                </el-button>
-                <el-button
-                  class="judge-button"
-                  type="danger"
-                  plain v-else-if = "burnedFlag"
-                  @click="fire">已焚毁
-                </el-button>
-                <el-button
-                  class="judge-button"
-                  type="primary"
-                  size="small"
-                  round
-                  v-else-if = "paidFlag || !moneyFlag"
-                  @click="toCourse">立即观看
-                </el-button>
-                <el-button
-                  class="judge-button"
-                  type="primary"
-                  v-else-if = "paidFlag==0"
-                  @click="payDialogVisible = true"
-                  width="120px"
-                  height="50px">￥{{ money }}购买
-                </el-button>
-              </div>
-            </el-main>
-          </el-container>
-        </div>
-        <div>
-          <p class="class-content" align="justify">{{ classIntro }}</p>
-        </div>
-        <div class="share-div">
-          <i class="el-icon-share"></i>
-          <share :config="config" class="share"></share>
-        </div>
-      </el-card>
+      <div class="card-contain">
+        <el-card class="box-card" shadow="always">
+          <div slot="header" class="clear-fix">
+            <img alt="" :src="picture" width="100%" height="250px"/>
+          </div>
+          <div class="title-div">
+            <el-container>
+              <el-aside>
+                <div id="class">
+                  课程:{{ title }}
+                </div>
+              </el-aside>
+              <el-main>
+                <div class="operate">
+                  <el-button
+                    class="judge-button"
+                    type="primary"
+                    v-if = "!login"
+                    @click="loginFormVisible = true">立即观看
+                  </el-button>
+                  <el-button
+                    class="judge-button"
+                    type="danger"
+                    plain v-else-if = "burnedFlag"
+                    @click="fire">已焚毁
+                  </el-button>
+                  <el-button
+                    class="judge-button"
+                    type="primary"
+                    size="small"
+                    round
+                    v-else-if = "paidFlag || !moneyFlag"
+                    @click="toCourse">立即观看
+                  </el-button>
+                  <el-button
+                    class="judge-button"
+                    type="primary"
+                    v-else-if = "paidFlag==0"
+                    @click="payDialogVisible = true"
+                    width="120px"
+                    height="50px">￥{{ money }}购买
+                  </el-button>
+                </div>
+              </el-main>
+            </el-container>
+          </div>
+          <div>
+            <p class="class-content" align="justify">{{ classIntro }}</p>
+          </div>
+          <div class="share-div">
+            <i class="el-icon-share"></i>
+            <share :config="config" class="share"></share>
+          </div>
+        </el-card>
+      </div>
+      <div class = "pay-dialog">
+        <el-dialog
+          title="支付"
+          :visible.sync="payDialogVisible"
+          width="500px"
+          height="400px">
+          <div class="pay-head">
+            <div id="pay-money">课程:{{ title }}</div>
+            <div id="pay-dialog-money">￥{{ money }}</div>
+          </div>
+          <div class="hint">现金支付</div>
+          <div class="pay-frame">
+            <el-radio v-model="channel" label="alipay_qr">支付宝支付</el-radio>
+            <el-radio v-model="channel" label="wx_pub_qr">微信支付</el-radio>
+          </div>
+          <el-button
+            class="pay"
+            type="primary"
+            @click="payWithCash">立即支付
+          </el-button>
+          <div class="hint">赏金支付</div>
+          <el-button
+            class="pay"
+            type="primary"
+            v-if ="bountyFlag">赏金支付
+          </el-button>
+          <el-button
+            class="pay"
+            type="primary"
+            plain v-else disabled>赏金不足
+          </el-button>
+          <span id="account">当前赏金:{{ bounty }}</span>
+        </el-dialog>
+      </div>
+      <br />
+      <br />
+      <div class="hidden-md-and-down" id="footer">
+        <img src="../../assets/footer1.png" width=100%>
+      </div>
     </div>
-    <div class = "pay-dialog">
-      <el-dialog
-        title="支付"
-        :visible.sync="payDialogVisible"
-        width="500px"
-        height="400px">
-        <div class="pay-head">
-          <div id="pay-money">课程:{{ title }}</div>
-          <div id="pay-dialog-money">￥{{ money }}</div>
-        </div>
-        <div class="hint">现金支付</div>
-        <div class="pay-frame">
-          <el-radio v-model="channel" label="alipay_qr">支付宝支付</el-radio>
-          <el-radio v-model="channel" label="wx_pub_qr">微信支付</el-radio>
-        </div>
-        <el-button
-          class="pay"
-          type="primary"
-          @click="payWithCash">立即支付
-        </el-button>
-        <div class="hint">赏金支付</div>
-        <el-button
-          class="pay"
-          type="primary"
-          v-if ="bountyFlag">赏金支付
-        </el-button>
-        <el-button
-          class="pay"
-          type="primary"
-          plain v-else disabled>赏金不足
-        </el-button>
-        <span id="account">当前赏金:{{ bounty }}</span>
-      </el-dialog>
-    </div>
-
-    <br />
-    <el-footer height="50px" class="hidden-lg-and-down"></el-footer>
-
   </div>
 </template>
 
@@ -258,6 +261,10 @@ export default {
 }
 </script>
 <style scoped>
+  .intro {
+    height: 100%;
+    background-color: rgb(240, 240, 240);
+  }
   .el-main {
     padding: 0px;
   }
@@ -269,11 +276,10 @@ export default {
   }
   .toolbar {
     width: 100%;
-    max-height: 50px;
-    margin: 0;
+    min-height: 45px;
+    max-height: 70px;
     padding: 0;
-    background-color:lightskyblue;
-    opacity: 0.7;
+    background-color:#409EFF;
   }
 
   .logo {
@@ -284,7 +290,7 @@ export default {
   }
 
   .user-ope {
-    color: black;
+    color: white;
     font-size:18px;
     margin-right: 60px;
   }
@@ -337,16 +343,16 @@ export default {
     height:30px;
   }
 
-  .el-footer {
-    background-color: #B3C0D1;
+  #footer {
     color: #333;
     text-align: center;
     line-height: 55px;
-    background-color:lightskyblue;
-    background: linear-gradient(white, lightskyblue);
-    opacity: 0.7;
+    /* position: absolute;
+    bottom: 0; */
   }
-
+  .card-contain {
+    min-height: 500px;
+  }
   .pay {
     margin:20px;
     margin-left: 50px;

@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="course-page">
 
     <div class="toolbar">
       <div class="logo">
-      <img src="../../assets/logo1.png" width="200%" height="100%">
+      <img src="../../assets/logo3.png" width="200%" height="80%">
       </div>
       <table align="right">
         <tr>
@@ -16,7 +16,7 @@
             <el-button class="user-ope"
               type="text"
               v-if="!login"
-              @click="loginFormVisible = true">登录/注册<br><br>
+              @click="loginFormVisible = true">登录<br><br>
             </el-button>
           </td>
           <td>
@@ -214,7 +214,9 @@
         </el-pagination>
       </div>
     </div>
-
+    <div class="hidden-md-and-down" id="footer">
+      <img src="../../assets/footer1.png" width=100%>
+    </div>
   </div>
 </template>
 
@@ -533,14 +535,15 @@ export default {
 </script>
 
 <style scoped>
+  .course-page {
+    background-color: rgb(240, 240, 240);
+  }
   .toolbar {
     width: 100%;
-    min-height: 55px;
+    min-height: 45px;
     max-height: 70px;
-    margin: 0;
     padding: 0;
-    background-color:lightskyblue;
-    opacity: 0.7;
+    background-color:#409EFF;
   }
 
   .logo {
@@ -551,21 +554,17 @@ export default {
   }
 
   .user-ope {
-    color: black;
+    color: white;
     font-size:18px;
     margin-right: 60px;
   }
   .el-main {
     padding-bottom: 0 !important;
   }
-  .el-footer {
-    background-color: #B3C0D1;
+  #footer {
     color: #333;
     text-align: center;
     line-height: 55px;
-    background-color:lightskyblue;
-    background: linear-gradient(white, lightskyblue);
-    opacity: 0.7;
   }
   hr {
     height: 2px;

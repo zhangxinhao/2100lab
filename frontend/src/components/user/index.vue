@@ -54,9 +54,9 @@
       </el-dialog>
     </div>
 
-    <div class="hidden-md-and-down"><br></div>
+    <div class="hidden-md-and-down"><br /></div>
     <hr />
-    <div class="hidden-md-and-down"><br></div>
+    <div class="hidden-md-and-down"><br /></div>
     <div class="free-list">
       <el-row :gutter="30" class="hidden-md-and-down">
         <el-col :span="8">
@@ -162,7 +162,7 @@
           <h1>付费区</h1>
         </el-col>
         <el-col :span="4" :offset="11">
-          <router-link to="/freelistpage">
+          <router-link to="/costlistpage">
             <el-button class="morelist" type="text">更多
               <i class="el-icon-more el-icon--right"></i>
             </el-button>
@@ -555,7 +555,7 @@ export default {
   #cost1 {
     margin-bottom: 30px;
   }
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 800px) {
     .el-carousel {
       max-width: 1200px;
       max-height: 160px;
@@ -583,6 +583,7 @@ export default {
     }
     .video-list {
       zoom: 1;
+      height: 400px;
       margin-bottom: 20px;
       text-align: center;
     }
@@ -625,5 +626,44 @@ export default {
   }
   .el-carousel__item {
     max-height: 350px;
+  }
+  @media screen and (min-width: 800px) and (max-width: 1100px){
+    .video-list {
+      zoom: 1;
+      height:300px;
+      margin-bottom: 30px;
+    }
+    .list-one-outer {
+      max-width: 500px;
+    }
+    .list-one-inner {
+      max-width: 300px;
+    }
+    .list-one {
+      display: block;
+      float: left;
+      max-width: 500px;
+      margin: 5px 0px;
+    }
+    .aside {
+      max-width: 200px !important;
+    }
+    .img-list {
+      max-width: 200px;
+      height: 150px;
+    }
+    .header {
+      max-width: 300px;
+      height: 100px !important;
+    }
+    .main {
+      max-width: 300px;
+      height: 50px;
+      padding: 10px;
+      text-align: right;
+    }
+    .read {
+      padding: 5px;
+    }
   }
 </style>
