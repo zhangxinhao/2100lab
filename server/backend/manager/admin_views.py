@@ -24,7 +24,7 @@ def logout(request):
     return JsonResponse({"status": 0})
 
 
-def __to_binary__(code):
+def _to_binary_(code):
     my_str = bin(code)
     my_str = my_str[2:]
     size = len(my_str)
@@ -34,12 +34,12 @@ def __to_binary__(code):
 
 def authorization_check(request):
     user = request.user
-    my_list = __to_binary__(user.manage_right)
+    my_list = _to_binary_(user.manage_right)
     rights = {}
-    for i in range(len(my_list)): # pragma pylint: disable=C0200
+    for i in range(len(my_list)):
         try:
             right = RightsList.objects.get(id=i).right
-            if my_list[i] == '1': # pragma pylint: disable=R1703
+            if my_list[i] == '1':
                 rights[right] = True
             else:
                 rights[right] = False
@@ -98,7 +98,7 @@ def create_admin(request):
     return JsonResponse({"status": status})
 
 
-def get_admin(request): # pragma pylint: disable=R0912
+def get_admin(request):
     admin_id = request.POST.get("adminId")
     user_list = None
     admins = []
@@ -107,14 +107,14 @@ def get_admin(request): # pragma pylint: disable=R0912
         try:
             user_list = User.objects.get(id=admin_id, is_staff=True)
             if user_list:
-                right = __to_binary__(user_list.manage_right)
+                right = _to_binary_(user_list.manage_right)
                 admin = {
                     "adminId": admin_id,
                     "password": ''
                 }
-                for i in range(len(right)): # pragma pylint: disable=C0200
+                for i in range(len(right)):
                     rght = RightsList.objects.get(id=i).right
-                    if right[i] == '1': # pragma pylint: disable=R1703
+                    if right[i] == '1':
                         admin[rght] = True
                     else:
                         admin[rght] = False
@@ -126,11 +126,11 @@ def get_admin(request): # pragma pylint: disable=R0912
     else:
         user_list = User.objects.filter(is_staff=True).order_by("id").values()
         for admin in user_list:
-            right = __to_binary__(admin["manage_right"])
+            right = _to_binary_(admin["manage_right"])
             try:
-                for i in range(len(right)): # pragma pylint: disable=C0200
+                for i in range(len(right)):
                     rght = RightsList.objects.get(id=i).right
-                    if right[i] == '1': # pragma pylint: disable=R1703
+                    if right[i] == '1':
                         admin[rght] = True
                     else:
                         admin[rght] = False
