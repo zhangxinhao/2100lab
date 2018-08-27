@@ -1,4 +1,6 @@
+import json
 from django.http import JsonResponse
+from django.core.serializers import serialize
 from .models import Course
 
 # Create your views here.
@@ -41,12 +43,12 @@ def brief_priced_courses(request):
 def list_courses(request, free=None, number=None):
     course_list = []
     if free is None:
-        course_list = Course.objects.filter().order_by("-create_time").values()
+        course_list = Course.objects.filter().order_by("-create_time")
     elif free is True:
-        course_list = Course.objects.filter(price=0).order_by("-create_time").values()
+        course_list = Course.objects.filter(price=0).order_by("-create_time")
     else:
         course_list = Course.objects.filter(
-            price__gt=0).order_by("-create_time").values()
+            price__gt=0).order_by("-create_time")
     courses = []
     end = 0
     _end_ = len(course_list)
@@ -57,21 +59,7 @@ def list_courses(request, free=None, number=None):
             end = number
     else:
         end = len(course_list)
-
     for i in range(end):
-        course = {}
-        my_course = course_list[i]
-        course['id'] = my_course.course_id
-        course['name'] = my_course.course_name
-        course['profile_url'] = my_course.profile_url
-        course['description'] = my_course.description
-        course['price'] = my_course.price
-        courses.append(course)
-    courses.append({
-        "id": 11,
-        "name": "test",
-        "profile_url": "/static/img/banner1.8f478db.jpg",
-        "description": "Realy test",
-        "price": 10
-    })
+        courses.append(course_list[i])
+    courses = json.loads(serialize("json", course_list))
     return JsonResponse({"courses": courses})
