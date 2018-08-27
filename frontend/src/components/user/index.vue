@@ -107,11 +107,11 @@
       </el-dialog>
     </div>
 
-    <div class="hidden-md-and-down"><br /></div>
+    <div class="hidden-sm-and-down"><br /></div>
     <hr />
-    <div class="hidden-md-and-down"><br /></div>
+    <div class="hidden-sm-and-down"><br /></div>
     <div class="free-list">
-      <el-row :gutter="30" class="hidden-md-and-down">
+      <el-row :gutter="30" class="hidden-sm-and-down">
         <el-col :span="8">
           <h1>免费区</h1>
         </el-col>
@@ -123,7 +123,7 @@
           </router-link>
         </el-col>
       </el-row>
-      <el-row class="hidden-lg-and-up">
+      <el-row class="hidden-md-and-up">
         <el-col :span="8">
           <h3>免费区</h3>
         </el-col>
@@ -140,7 +140,7 @@
       </el-row>
       <el-row
         :gutter="30"
-        class="hidden-md-and-down"
+        class="hidden-sm-and-down"
         type="flex"
         justify="center"
         id="free1">
@@ -164,7 +164,7 @@
           </el-card>
         </el-col>
       </el-row>
-      <div class="hidden-lg-and-up">
+      <div class="hidden-md-and-up">
         <div class="video-list">
           <ul class="vd-list">
             <li v-for="item in freeList1" :key="item.id" class="list-one">
@@ -200,7 +200,7 @@
 
       <el-row
         :gutter="30"
-        class="hidden-md-and-down"
+        class="hidden-sm-and-down"
         type="flex"
         justify="center"
         id="free2">
@@ -227,12 +227,12 @@
 
     </div>
 
-    <div class="hidden-md-and-down"><br></div>
-    <hr class="hidden-md-and-down" />
-    <div class="hidden-md-and-down"><br></div>
+    <div class="hidden-sm-and-down"><br></div>
+    <hr class="hidden-sm-and-down" />
+    <div class="hidden-sm-and-down"><br></div>
 
     <div class="cost-list">
-      <el-row :gutter="20" class="hidden-md-and-down">
+      <el-row :gutter="20" class="hidden-sm-and-down">
         <el-col :span="8">
           <h1>付费区</h1>
         </el-col>
@@ -244,7 +244,7 @@
           </router-link>
         </el-col>
       </el-row>
-      <el-row class="hidden-lg-and-up">
+      <el-row class="hidden-md-and-up">
         <el-col :span="8">
           <h3>付费区</h3>
         </el-col>
@@ -261,7 +261,7 @@
       </el-row>
       <el-row
         :gutter="30"
-        class="hidden-md-and-down"
+        class="hidden-sm-and-down"
         type="flex"
         justify="center"
         id="cost1">
@@ -286,7 +286,7 @@
         </el-col>
       </el-row>
 
-      <div class="hidden-lg-and-up">
+      <div class="hidden-md-and-up">
         <div class="video-list">
           <ul class="vd-list">
             <li v-for="item in costList1" :key="item.id" class="list-one">
@@ -322,7 +322,7 @@
 
       <el-row
         :gutter="30"
-        class="hidden-md-and-down"
+        class="hidden-sm-and-down"
         type="flex"
         justify="center"
         id="cost2">
@@ -349,7 +349,7 @@
     </div>
     <br />
     <br />
-    <div class="hidden-md-and-down" id="footer">
+    <div class="hidden-sm-and-down" id="footer">
       <img src="../../assets/footer1.png" width=100%>
     </div>
   </div>
@@ -790,7 +790,7 @@ export default {
   .el-carousel__item {
     max-height: 350px;
   }
-  @media screen and (min-width: 800px) and (max-width: 1100px){
+  @media screen and (min-width: 800px) and (max-width: 1200px){
     .video-list {
       zoom: 1;
       height:300px;
