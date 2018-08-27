@@ -1,151 +1,145 @@
 <template>
-<div class="free-list">
-  <div class="tool-bar">
-    <div class="logo">
-      <img src="../../assets/logo1.png" width="200%" height="100%">
-    </div>
-    <table align="right">
-      <tr>
-        <td>
-          <el-button
-            class="user-ope"
-            type="text"
-            v-if="!login"
-            @click="loginFormVisible = true">登录/注册
-          </el-button>
-        </td>
-        <td>
-          <router-link to="/personal">
+  <div class="free-list">
+    <div class="tool-bar">
+      <div class="logo">
+        <img src="../../assets/logo3.png" width="200%" height="80%">
+      </div>
+      <table align="right">
+        <tr>
+          <td>
             <el-button
               class="user-ope"
               type="text"
-              v-if="login">个人中心
+              v-if="!login"
+              @click="loginFormVisible = true">登录
             </el-button>
-          </router-link>
-        </td>
-        <td>
+          </td>
+          <td>
+            <router-link to="/personal">
+              <el-button
+                class="user-ope"
+                type="text"
+                v-if="login">个人中心
+              </el-button>
+            </router-link>
+          </td>
+          <td>
+            <el-button
+              class="user-ope"
+              type="text"
+              v-if="login"
+              @click="logout">登出
+            </el-button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="login-dialog">
+      <el-dialog
+        title="登录"
+        :visible.sync="loginFormVisible"
+        width="330px"
+        height="500px">
+        <el-form :model="loform" :rules="rules">
+          <el-form-item
+            label="手机号"
+            :label-width="loginLabelWidth"
+            prop="lophone">
+            <el-col :span="18">
+              <el-input
+                v-model="loform.phonenumber"
+                auto-complete="true"
+                clearable required="required"
+                pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"
+                oninvalid="this.setCustomValidity('warning')">
+              </el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="验证码" :label-width="loginLabelWidth">
+            <el-col :span="18">
+              <el-input
+                v-model="loform.password"
+                auto-complete="off"
+                clearable>
+              </el-input>
+            </el-col>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="login-footer">
           <el-button
-            class="user-ope"
-            type="text"
-            v-if="login"
-            @click="logout">登出
+            type="primary"
+            @click="loginFormVisible = false">获取验证码
           </el-button>
-        </td>
-      </tr>
-    </table>
-  </div>
+          <el-button @click="loginFormVisible = false">取 消</el-button>
+          <el-button
+            type="primary"
+            @click="loginFormVisible = false">确 定
+          </el-button>
+        </div>
+      </el-dialog>
+    </div>
 
-  <div class="login-dialog">
-    <el-dialog
-      title="登录"
-      :visible.sync="loginFormVisible"
-      width="330px"
-      height="500px">
-      <el-form :model="loform" :rules="rules">
-        <el-form-item
-          label="手机号"
-          :label-width="loginLabelWidth"
-          prop="lophone">
-          <el-col :span="18">
-            <el-input
-              v-model="loform.phonenumber"
-              auto-complete="true"
-              clearable required="required"
-              pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"
-              oninvalid="this.setCustomValidity('warning')">
-            </el-input>
-          </el-col>
-        </el-form-item>
-        <el-form-item label="验证码" :label-width="loginLabelWidth">
-          <el-col :span="18">
-            <el-input
-              v-model="loform.password"
-              auto-complete="off"
-              clearable>
-            </el-input>
-          </el-col>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="login-footer">
-        <el-button
-          type="primary"
-          @click="loginFormVisible = false">获取验证码
-        </el-button>
-        <el-button @click="loginFormVisible = false">取 消</el-button>
-        <el-button
-          type="primary"
-          @click="loginFormVisible = false">确 定
-        </el-button>
-      </div>
-    </el-dialog>
-  </div>
+    <div class="dump-button">
+      <el-button type="primary" disabled>免费区</el-button>
+      <router-link to="/costlistpage">
+        <el-button>付费区</el-button>
+      </router-link>
+    </div>
 
-   <div class="dump-button">
-    <el-button type="primary" disabled>免费区</el-button>
-    <router-link to="/costlistpage">
-      <el-button>付费区</el-button>
-    </router-link>
-  </div>
-
-  <div class="main-inner">
-    <div class="container-body">
-      <div class="video-list">
-        <ul class="vd-list">
-          <li v-for="item in freeList" :key="item.id" class="list-one">
-            <el-container class="list-one-outer">
-              <el-aside class="aside">
-                <router-link
-                  id="logo"
-                  :to="{name:'intro',params:{courseid: item.id}}">
-                  <img
-                    :src="item.profileUrl"
-                    :alt="item.name"
-                    class="img-list">
-                </router-link>
-              </el-aside>
-              <el-container class="list-one-inner">
-                <el-header class="header">
-                  <div>{{item.name}}</div>
-                </el-header>
-                <el-main class="main">
-                  <el-button
-                    icon="el-icon-caret-right"
-                    type="primary"
-                    class="read">点击阅读
-                  </el-button>
-                </el-main>
+    <div class="main-inner">
+      <div class="container-body">
+        <div class="video-list">
+          <ul class="vd-list">
+            <li v-for="item in freeList" :key="item.id" class="list-one">
+              <el-container class="list-one-outer">
+                <el-aside class="aside">
+                  <router-link
+                    id="logo"
+                    :to="{name:'intro',params:{courseid: item.id}}">
+                    <img
+                      :src="item.profileUrl"
+                      :alt="item.name"
+                      class="img-list">
+                  </router-link>
+                </el-aside>
+                <el-container class="list-one-inner">
+                  <el-header class="header">
+                    <div>{{item.name}}</div>
+                  </el-header>
+                  <el-main class="main">
+                    <el-button
+                      icon="el-icon-caret-right"
+                      type="primary"
+                      class="read">点击阅读
+                    </el-button>
+                  </el-main>
+                </el-container>
               </el-container>
-            </el-container>
-            <hr />
-          </li>
-        </ul>
+              <hr />
+            </li>
+          </ul>
+        </div>
       </div>
+      <el-footer>
+      <div class="pager">
+        <el-pagination
+          background
+          small
+          layout="prev, pager, next"
+          :page-size="pageSize"
+          :total="totalNumber"
+          :current-page.sync="pageNo"
+          :pager-count="7"
+          @current-change="flipeOver">
+        </el-pagination>
+      </div>
+      </el-footer>
     </div>
-    <el-footer>
-    <div class="pager">
-      <el-pagination
-        background
-        small
-        layout="prev, pager, next"
-        :page-size="pageSize"
-        :total="totalNumber"
-        :current-page.sync="pageNo"
-        :pager-count="7"
-        @current-change="flipeOver">
-      </el-pagination>
+    <div class="hidden-md-and-down" id="footer">
+      <img src="../../assets/footer1.png" width=100%>
     </div>
-    </el-footer>
   </div>
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-</div>
 </template>
 
 <script>
@@ -302,6 +296,9 @@ export default {
 </script>
 
 <style scoped>
+  .free-list {
+    background-color: rgb(240, 240, 240);
+  }
   .dump-button {
     margin-top: 50px;
     margin-left: 50px;
@@ -309,14 +306,16 @@ export default {
   }
   .tool-bar {
     width: 100%;
-    min-height: 55px;
+    min-height: 45px;
     max-height: 70px;
-    margin: 0;
     padding: 0;
-    background-color:lightskyblue;
-    opacity: 0.7;
+    background-color:#409EFF;
   }
-
+  #footer {
+    color: #333;
+    text-align: center;
+    line-height: 55px;
+  }
   .logo {
     margin-left: 50px;
     display: inline-block;
@@ -324,7 +323,7 @@ export default {
     height: 55px;
   }
   .user-ope {
-    color: black;
+    color: white;
     font-size:18px;
     margin-right: 60px;
   }
