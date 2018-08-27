@@ -3,12 +3,12 @@
   <div class="index">
     <div class="toolbar">
       <div class="logo">
-        <img src="../../assets/logo1.png" width="200%" height="100%">
+        <img src="../../assets/logo3.png" width="200%" height="80%">
       </div>
       <table align="right">
         <tr>
           <td>
-            <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true">登录/注册</el-button>
+            <el-button class="user-ope" v-if="!login" @click="loginFormVisible = true" type="text">登录</el-button>
           </td>
           <td>
             <router-link to="/personal">
@@ -83,33 +83,77 @@
         </el-col>
       </el-row>
       <el-row>
-      <br>
+      <br/>
       </el-row>
-      <el-row :gutter="30" class="list-onerow">
-        <el-col v-for="item in freeList_1" :key="item.id" :span="8" class="list-one">
-          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
-            <img :src="item.profile_url" class="recomimg" >
-            <br />
-            <br />
-          </router-link>
-          <div class="course-name">{{item.name}}</div>
-        </el-col>
-      </el-row>
-      <el-row :gutter="30" class="list-onerow">
-        <el-col v-for="item in freeList_2" :key="item.id" :span="8" class="list-one">
-          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
+      <el-row :gutter="30" class="hidden-md-and-down" type="flex" justify="center" id="free1">
+        <el-col :span="6" v-for="item in freeList_1" :key="item.id" :offset="item.id > 0 ? 2 : 0">
+          <el-card :body-style="{ padding: '0px' }" class="card-one">
             <img :src="item.profile_url" class="recomimg">
-            <br />
-            <br />
-          </router-link>
-            <div class="course-name">{{item.name}}</div>
+            <div style="padding: 14px;">
+              <span>{{ item.name }}</span>
+              <div class="bottom clearfix">
+                <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                  <el-button type="text" class="button">点击观看</el-button>
+                </router-link>
+              </div>
+            </div>
+          </el-card>
         </el-col>
-
       </el-row>
+      <div class="hidden-lg-and-up">
+        <div class="video-list">
+          <ul class="vd-list">
+            <li v-for="item in freeList_1" :key="item.id" class="list-one">
+              <el-container class="list-one-outer">
+                <el-aside class="aside">
+                  <router-link
+                    id="logo"
+                    :to="{name:'intro',params:{courseid: item.id}}">
+                    <img
+                      :src="item.profile_url"
+                      :alt="item.name"
+                      class="img-list">
+                  </router-link>
+                </el-aside>
+                <el-container class="list-one-inner">
+                  <el-header class="header">
+                    <div>{{item.name}}</div>
+                  </el-header>
+                  <el-main class="main">
+                    <el-button
+                      icon="el-icon-caret-right"
+                      type="primary"
+                      class="read">点击阅读
+                    </el-button>
+                  </el-main>
+                </el-container>
+              </el-container>
+              <hr />
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <el-row :gutter="30" class="hidden-md-and-down" type="flex" justify="center" id="free2">
+        <el-col :span="6" v-for="item in freeList_2" :key="item.id" :offset="item.id > 3 ? 2 : 0">
+          <el-card :body-style="{ padding: '0px' }" class="card-one">
+            <img :src="item.profile_url" class="recomimg">
+            <div style="padding: 14px;">
+              <span>{{ item.name }}</span>
+              <div class="bottom clearfix">
+                <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                  <el-button type="text" class="button">点击观看</el-button>
+                </router-link>
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
+
     </div>
 
     <div class="hidden-md-and-down"><br></div>
-    <hr />
+    <hr class="hidden-md-and-down" />
     <div class="hidden-md-and-down"><br></div>
 
     <div class="cost-list">
@@ -140,33 +184,77 @@
       <el-row>
       <br>
       </el-row>
-      <el-row :gutter="20" class="list-onerow">
-        <el-col v-for="item in costList_1" :key="item.id" :span="8" class="list-one">
-          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
+      <el-row :gutter="30" class="hidden-md-and-down" type="flex" justify="center" id="cost1">
+        <el-col :span="6" v-for="item in costList_1" :key="item.id" :offset="item.id > 6 ? 2 : 0">
+          <el-card :body-style="{ padding: '0px' }" class="card-one">
             <img :src="item.profile_url" class="recomimg">
-            <br />
-            <br />
-          </router-link>
-          <div class="course-name">{{item.name}}</div>
+            <div style="padding: 14px;">
+              <span>{{ item.name }}</span>
+              <div class="bottom clearfix">
+                <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                  <el-button type="text" class="button">点击观看</el-button>
+                </router-link>
+              </div>
+            </div>
+          </el-card>
         </el-col>
       </el-row>
-      <el-row :gutter="20" class="list-onerow">
-        <el-col v-for="item in costList_2" :key="item.id" :span="8" class="list-one">
-          <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
+
+      <div class="hidden-lg-and-up">
+        <div class="video-list">
+          <ul class="vd-list">
+            <li v-for="item in costList_1" :key="item.id" class="list-one">
+              <el-container class="list-one-outer">
+                <el-aside class="aside">
+                  <router-link
+                    id="logo"
+                    :to="{name:'intro',params:{courseid: item.id}}">
+                    <img
+                      :src="item.profile_url"
+                      :alt="item.name"
+                      class="img-list">
+                  </router-link>
+                </el-aside>
+                <el-container class="list-one-inner">
+                  <el-header class="header">
+                    <div>{{item.name}}</div>
+                  </el-header>
+                  <el-main class="main">
+                    <el-button
+                      icon="el-icon-caret-right"
+                      type="primary"
+                      class="read">点击阅读
+                    </el-button>
+                  </el-main>
+                </el-container>
+              </el-container>
+              <hr />
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <el-row :gutter="30" class="hidden-md-and-down" type="flex" justify="center" id="cost2">
+        <el-col :span="6" v-for="item in costList_2" :key="item.id" :offset="item.id > 9 ? 2 : 0">
+          <el-card :body-style="{ padding: '0px' }" class="card-one">
             <img :src="item.profile_url" class="recomimg">
-            <br />
-            <br />
-          </router-link>
-            <div class="course-name">{{item.name}}</div>
+            <div style="padding: 14px;">
+              <span>{{ item.name }}</span>
+              <div class="bottom clearfix">
+                <router-link id="logo" :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                  <el-button type="text" class="button">点击观看</el-button>
+                </router-link>
+              </div>
+            </div>
+          </el-card>
         </el-col>
       </el-row>
     </div>
     <br />
     <br />
-    <el-footer height="50px" class="hidden-lg-and-down">
-      2100实验室 联系电话：010-86398756 关注我们：微信服务号：科学队长
-    </el-footer>
-
+    <div class="hidden-md-and-down" id="footer">
+      <img src="../../assets/footer1.png" width=100%>
+    </div>
   </div>
 </template>
 
@@ -345,14 +433,15 @@ export default {
 </script>
 
 <style scoped>
+  .index {
+    background-color: rgb(240, 240, 240);
+  }
   .toolbar {
     width: 100%;
-    min-height: 55px;
+    min-height: 45px;
     max-height: 70px;
-    margin: 0;
     padding: 0;
-    background-color:lightskyblue;
-    opacity: 0.7;
+    background-color:#409EFF;
   }
 
   .logo {
@@ -362,7 +451,7 @@ export default {
     height: 55px;
   }
   .user-ope {
-    color: black;
+    color: white;
     font-size:18px;
     margin-right: 60px;
   }
@@ -374,14 +463,10 @@ export default {
   .banner_img {
     height: 100%;
   }
-  .el-footer {
-    background-color: #B3C0D1;
+  #footer {
     color: #333;
     text-align: center;
     line-height: 55px;
-    background-color:lightskyblue;
-    background: linear-gradient(white, lightskyblue);
-    opacity: 0.7;
   }
   .free-list {
     max-width:1200px;
@@ -398,7 +483,7 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 5px;
-    font-size: 30px;
+    font-size: 25px;
     color: grey;
   }
   .phonemorelist {
@@ -412,11 +497,8 @@ export default {
     max-width: 1200px;
   }
   .recomimg {
-    width: 80%;
-    height: 70%
-  }
-  .list-onerow {
-    margin-bottom: 50px;
+    width: 100%;
+    height: 200px;
   }
   h1, h3 {
     text-align: left;
@@ -426,6 +508,32 @@ export default {
     word-break: break-all;
     word-wrap: break-word;
     font-size: 20px;
+  }
+  .button {
+    padding: 0;
+    float: right;
+  }
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
+  }
+  .phone-recomimg {
+    width: 80%;
+  }
+  #free1 {
+    margin-bottom: 30px;
+  }
+  #cost1 {
+    margin-bottom: 30px;
   }
   @media screen and (max-width: 500px) {
     .el-carousel {
@@ -452,6 +560,43 @@ export default {
       display: inline-block;
       width: 42px;
       height: 42px;
+    }
+    .video-list {
+      zoom: 1;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .list-one-outer {
+      max-width: 350px;
+    }
+    .list-one-inner {
+      max-width: 200px;
+    }
+    .list-one {
+      display: block;
+      float: left;
+      max-width: 350px;
+      margin: 5px 0px;
+    }
+    .aside {
+      max-width: 150px !important;
+    }
+    .img-list {
+      max-width: 150px;
+      height: 100px;
+    }
+    .header {
+      max-width: 200px;
+      height: 50px !important;
+    }
+    .main {
+      max-width: 200px;
+      height: 50px;
+      padding: 10px;
+      text-align: right;
+    }
+    .read {
+      padding: 5px;
     }
   }
   .el-carousel__container {
