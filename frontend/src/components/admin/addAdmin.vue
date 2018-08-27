@@ -72,10 +72,10 @@ export default {
       axios.post(utils.getURL() + 'api/createadmin/', qs.stringify({
         adminName: this.newAdmin.adminName,
         password: hash.getHash(this.newAdmin.password),
-        course_manage: this.newAdmin.courseManage,
-        user_manage: this.newAdmin.userManage,
-        operation_history: this.newAdmin.operationHistory,
-        order_manage: this.newAdmin.orderManage
+        courseManage: this.newAdmin.courseManage,
+        userManage: this.newAdmin.userManage,
+        operationHistory: this.newAdmin.operationHistory,
+        orderManage: this.newAdmin.orderManage
       })).then(response => {
         if (response.data.status === 0) {
           alert('创建成功！')
