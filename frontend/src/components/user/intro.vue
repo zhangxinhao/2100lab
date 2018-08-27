@@ -189,6 +189,7 @@ export default {
   created: function() {
     this.courseid = this.$route.params.courseid
     this.sharePerson = this.$route.params.user
+    this.user = this.$route.params.user
     // 以下一行放到登录函数里
     this.config.url = utils.getURL() + '#/intro/' + this.courseid + '/' + this.user
     axios.post(utils.getURL() + 'api/getcourseinfo/', qs.stringify({
