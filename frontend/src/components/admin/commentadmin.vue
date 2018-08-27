@@ -1,6 +1,12 @@
 <template>
   <div class="first-div">
-    <el-form  class="first-form" :label-position="labelPosition" :inline="true" label-width="100px" :model="commentMsg" :rules="rules" ref="commentMsg">
+    <el-form  class="first-form"
+      :label-position="labelPosition"
+      :inline="true"
+      label-width="100px"
+      :model="commentMsg"
+      :rules="rules"
+      ref="commentMsg">
       <el-form-item label="课程编号" class="info-text" prop="courseId">
         <el-input v-model="commentMsg.courseId" class="info"></el-input>
       </el-form-item>
@@ -8,7 +14,9 @@
         <el-input v-model="commentMsg.phoneNumber" class="info"></el-input>
       </el-form-item>
       <el-form-item class="info-text">
-        <el-button type="primary" @click="onSubmitConfirm('commentMsg')">搜索</el-button>
+        <el-button type="primary" @click="onSubmitConfirm('commentMsg')">
+          搜索
+        </el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -106,7 +114,7 @@ export default {
           phoneNumber: '13600000000',
           userName: 'UJoe',
           userId: 89088,
-          msgContent: 'just a test. 在十九课里，我们学到了赵州桥是多么的雄伟、壮观。'
+          msgContent: '在十九课里，我们学到了赵州桥是多么的雄伟、壮观。'
         }
       ],
       rules: {

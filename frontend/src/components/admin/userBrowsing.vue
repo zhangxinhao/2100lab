@@ -3,10 +3,20 @@
     <div class="search-order">
       <el-row>
         <el-col :span="18">
-          <el-input class="search-box" v-model="input" placeholder="请输入查询课程编号"></el-input>
+          <el-input
+            class="search-box"
+            v-model="input"
+            placeholder="请输入查询课程编号">
+          </el-input>
         </el-col>
         <el-col :span="6">
-          <el-button class="btn" type="primary" icon="el-icon-search" @click="search(input)">搜索</el-button>
+          <el-button
+            class="btn"
+            type="primary"
+            icon="el-icon-search"
+            @click="search(input)">
+            搜索
+          </el-button>
         </el-col>
       </el-row>
     </div>
@@ -69,13 +79,48 @@ export default {
       input: '',
       list: [],
       userBrowsList: [
-        {courseId: '123', userId: '1', userName: 'dyf', lastTime: '2018-3-6'},
-        {courseId: '124', userId: '5', userName: 'dyf', lastTime: '2018-8-4'},
-        {courseId: '128', userId: '1', userName: 'dyf', lastTime: '2018-5-12'},
-        {courseId: '121', userId: '3', userName: 'dyf', lastTime: '2018-5-23'},
-        {courseId: '125', userId: '1', userName: 'dyf', lastTime: '2018-3-6'},
-        {courseId: '123', userId: '2', userName: 'dyf', lastTime: '2018-3-6'},
-        {courseId: '123', userId: '1', userName: 'dyf', lastTime: '2018-3-6'}
+        {
+          courseId: '123',
+          userId: '1',
+          userName: 'dyf',
+          lastTime: '2018-3-6'
+        },
+        {
+          courseId: '124',
+          userId: '5',
+          userName: 'dyf',
+          lastTime: '2018-8-4'
+        },
+        {
+          courseId: '128',
+          userId: '1',
+          userName: 'dyf',
+          lastTime: '2018-5-12'
+        },
+        {
+          courseId: '121',
+          userId: '3',
+          userName: 'dyf',
+          lastTime: '2018-5-23'
+        },
+        {
+          courseId: '125',
+          userId: '1',
+          userName: 'dyf',
+          lastTime: '2018-3-6'
+        },
+        {
+          courseId: '123',
+          userId: '2',
+          userName: 'dyf',
+          lastTime: '2018-3-6'
+        },
+        {
+          courseId: '123',
+          userId: '1',
+          userName: 'dyf',
+          lastTime: '2018-3-6'
+        }
       ],
       nowPage: 1,
       pageSize: 10,
@@ -93,12 +138,14 @@ export default {
           courseId: this.list[i].course_id,
           userId: this.list[i].user_id,
           userName: this.list[i].alias,
-          lastTime: new Date(this.list[i].last_visit * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ')
+          lastTime: new Date(this.list[i].last_visit * 1000)
+            .toLocaleString().replace(/:\d{1,2}$/, ' ')
         })
       }
     },
     search: function(id) {
-      axios.post(utils.getURL() + 'api/admin_userhistory/', qs.stringify({
+      axios.post(utils.getURL() +
+        'api/admin_userhistory/', qs.stringify({
         course_id: id
       })).then(response => {
         this.userBrowsList = []
@@ -115,32 +162,35 @@ export default {
             courseId: this.list[i].course_id,
             userId: this.list[i].user_id,
             userName: this.list[i].alias,
-            lastTime: new Date(this.list[i].last_visit * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ')
+            lastTime: new Date(this.list[i].last_visit * 1000)
+              .toLocaleString().replace(/:\d{1,2}$/, ' ')
           })
         }
       })
     }
   },
   created: function() {
-    axios.post(utils.getURL() + 'api/admin_userhistory/').then(response => {
-      this.list = response.data.history
-      this.totalNumber = this.list.length
-      this.userBrowsList = []
-      let end
-      if (this.pageSize > this.totalNumber) {
-        end = this.totalNumber
-      } else {
-        end = this.pageSize
-      }
-      for (let i = 0; i < end; i++) {
-        this.userBrowsList.push({
-          courseId: this.list[i].course_id,
-          userId: this.list[i].user_id,
-          userName: this.list[i].alias,
-          lastTime: new Date(this.list[i].last_visit * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ')
-        })
-      }
-    })
+    axios.post(utils.getURL() + 'api/admin_userhistory/')
+      .then(response => {
+        this.list = response.data.history
+        this.totalNumber = this.list.length
+        this.userBrowsList = []
+        let end
+        if (this.pageSize > this.totalNumber) {
+          end = this.totalNumber
+        } else {
+          end = this.pageSize
+        }
+        for (let i = 0; i < end; i++) {
+          this.userBrowsList.push({
+            courseId: this.list[i].course_id,
+            userId: this.list[i].user_id,
+            userName: this.list[i].alias,
+            lastTime: new Date(this.list[i].last_visit * 1000)
+              .toLocaleString().replace(/:\d{1,2}$/, ' ')
+          })
+        }
+      })
   }
 }
 </script>

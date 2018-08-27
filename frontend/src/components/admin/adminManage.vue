@@ -3,54 +3,131 @@
 
   <div id="search-admin">
     <el-row :gutter="20">
-      <el-col :span="6" :offset="14"><el-input v-model="searchAdminId" placeholder="请输入管理员ID"></el-input></el-col>
-      <el-col :span="2"><el-button type="primary" icon="el-icon-search">搜索</el-button></el-col>
+      <el-col :span="6" :offset="14">
+        <el-input v-model="searchAdminId" placeholder="请输入管理员ID">
+        </el-input>
+      </el-col>
+      <el-col :span="2">
+        <el-button type="primary" icon="el-icon-search">
+          搜索
+        </el-button>
+      </el-col>
     </el-row>
   </div>
 
   <div id="admin-list">
     <el-table :data="adminData" border>
-      <el-table-column type="index" :index="indexMethod" header-align=center></el-table-column>
-      <el-table-column prop="adminId" label="管理员编号" width=120% header-align=center></el-table-column>
-      <el-table-column prop="courseManage" label="课程管理" width=100% header-align=center :formatter="courseRightCal" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="userManage" label="用户管理" width=100% header-align=center :formatter="userRightCal" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="operationHistory" label="操作历史" width=100% header-align=center :formatter="historyRightCal" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="orderManage" label="订单管理" width=100% header-align=center :formatter="orderRightCal" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="adminManage" label="添加管理员" width=100% header-align=center :formatter="adminRightCal" show-overflow-tooltip></el-table-column>
+      <el-table-column
+        type="index"
+        :index="indexMethod"
+        header-align=center>
+      </el-table-column>
+      <el-table-column
+        prop="adminId"
+        label="管理员编号"
+        width=120%
+        header-align=center>
+      </el-table-column>
+      <el-table-column
+        prop="courseManage"
+        label="课程管理"
+        width=100%
+        header-align=center
+        :formatter="courseRightCal"
+        show-overflow-tooltip>
+      </el-table-column>
+      <el-table-column
+        prop="userManage"
+        label="用户管理"
+        width=100%
+        header-align=center
+        :formatter="userRightCal"
+        show-overflow-tooltip>
+      </el-table-column>
+      <el-table-column
+        prop="operationHistory"
+        label="操作历史"
+        width=100%
+        header-align=center
+        :formatter="historyRightCal"
+        show-overflow-tooltip>
+      </el-table-column>
+      <el-table-column
+        prop="orderManage"
+        label="订单管理"
+        width=100%
+        header-align=center
+        :formatter="orderRightCal"
+        show-overflow-tooltip>
+      </el-table-column>
+      <el-table-column
+        prop="adminManage"
+        label="添加管理员"
+        width=100%
+        header-align=center
+        :formatter="adminRightCal"
+        show-overflow-tooltip>
+      </el-table-column>
       <el-table-column label="操作" header-align=center>
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="editFunction(scope.$index)">编辑</el-button>
-          <el-button type="text" size="small" @click="deleteFunction(scope.$index)">删除</el-button>
+          <el-button
+            type="text"
+            size="small"
+            @click="editFunction(scope.$index)">
+            编辑
+          </el-button>
+          <el-button
+            type="text"
+            size="small"
+            @click="deleteFunction(scope.$index)">
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
   </div>
 
   <div class="edit-dialog">
-    <el-dialog title="编辑管理员" :visible.sync="editVisible" width="400px">
+    <el-dialog
+      title="编辑管理员"
+      :visible.sync="editVisible"
+      width="400px">
       <el-form>
         <el-form-item label="管理员编号">
-          <el-input v-model="adminData[editIndex].adminId" class="inp" readonly></el-input>
+          <el-input
+            v-model="adminData[editIndex].adminId"
+            class="inp"
+            readonly>
+          </el-input>
         </el-form-item>
 
         <el-form-item label="管理员密码">
-          <el-input v-model="adminData[editIndex].password" class="inp" placeholder="为空默认为原密码"></el-input>
+          <el-input
+            v-model="adminData[editIndex].password"
+            class="inp"
+            placeholder="为空默认为原密码">
+          </el-input>
         </el-form-item>
 
         <el-form-item label="课程管理权限">
-          <el-switch v-model="adminData[editIndex].courseManage"></el-switch>
+          <el-switch
+            v-model="adminData[editIndex].courseManage">
+          </el-switch>
         </el-form-item>
 
         <el-form-item label="用户管理权限">
-          <el-switch v-model="adminData[editIndex].userManage"></el-switch>
+          <el-switch v-model="adminData[editIndex].userManage">
+          </el-switch>
         </el-form-item>
 
         <el-form-item label="操作历史权限">
-          <el-switch v-model="adminData[editIndex].operationHistory"></el-switch>
+          <el-switch v-model="adminData[editIndex].operationHistory">
+          </el-switch>
         </el-form-item>
 
         <el-form-item label="订单管理权限">
-          <el-switch v-model="adminData[editIndex].orderManage"></el-switch>
+          <el-switch v-model="adminData[editIndex].orderManage">
+          </el-switch>
         </el-form-item>
 
       </el-form>
@@ -62,7 +139,10 @@
   </div>
 
   <div class="delete-dialog">
-    <el-dialog title="删除管理员" :visible.sync="deleteVisible" width="400px" height="700px">
+    <el-dialog title="删除管理员"
+      :visible.sync="deleteVisible"
+      width="400px"
+      height="700px">
       <div>确认要删除编号为：{{adminData[editIndex].adminId}} 的用户？</div>
       <div slot="footer" class="edit-footer">
         <el-button type="primary" @click="deleteCancel">取 消</el-button>
@@ -90,11 +170,30 @@ export default {
       deleteIndex: 0,
       deleteVisible: false,
       adminData: [
-        {adminId: '001', password: '123456', courseManage: true, userManage: true, operationHistory: true, orderManage: true, adminManage: true},
-        {adminId: '122', password: '111111', courseManage: false, userManage: true, operationHistory: true, orderManage: false, adminManage: false}
+        {
+          adminId: '001',
+          password: '123456',
+          courseManage: true,
+          userManage: true,
+          operationHistory: true,
+          orderManage: true,
+          adminManage: true
+        },
+        {
+          adminId: '122',
+          password: '111111',
+          courseManage: false,
+          userManage: true,
+          operationHistory: true,
+          orderManage: false,
+          adminManage: false
+        }
       ],
       backup: {
-        courseManage: true, userManage: true, operationHistory: true, orderManage: true
+        courseManage: true,
+        userManage: true,
+        operationHistory: true,
+        orderManage: true
       }
     }
   },
@@ -167,7 +266,8 @@ export default {
       this.editVisible = false
       this.adminData[this.editIndex].courseManage = this.backup.courseManage
       this.adminData[this.editIndex].userManage = this.backup.userManage
-      this.adminData[this.editIndex].operationHistory = this.backup.operationHistory
+      this.adminData[this.editIndex].operationHistory =
+        this.backup.operationHistory
       this.adminData[this.editIndex].orderManage = this.backup.orderManage
     },
     deleteCancel() {

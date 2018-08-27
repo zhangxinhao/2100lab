@@ -14,23 +14,51 @@
       </el-form-item>
 
       <el-form-item label="课程管理权限">
-        <el-switch v-model="newAdmin.courseManage" active-value="true" inactive-value="false" @change="changeC" class="change-c"></el-switch>
+        <el-switch
+          v-model="newAdmin.courseManage"
+          active-value="true"
+          inactive-value="false"
+          @change="changeC"
+          class="change-c">
+        </el-switch>
       </el-form-item>
 
       <el-form-item label="管理用户权限" >
-        <el-switch v-model="newAdmin.userManage" active-value="true" inactive-value="false"  @change="changeU" class="change-u"></el-switch>
+        <el-switch
+          v-model="newAdmin.userManage"
+          active-value="true"
+          inactive-value="false"
+          @change="changeU"
+          class="change-u">
+        </el-switch>
       </el-form-item>
 
       <el-form-item label="操作历史权限">
-        <el-switch v-model="newAdmin.operationHistory" active-value="true" inactive-value="false" @change="changeH" class="change-h"></el-switch>
+        <el-switch
+          v-model="newAdmin.operationHistory"
+          active-value="true"
+          inactive-value="false"
+          @change="changeH"
+          class="change-h">
+        </el-switch>
       </el-form-item>
 
       <el-form-item label="订单管理权限">
-        <el-switch v-model="newAdmin.orderManage" active-value="true" inactive-value="false"  @change="changeO" class="change-o"></el-switch>
+        <el-switch
+          v-model="newAdmin.orderManage"
+          active-value="true"
+          inactive-value="false"
+          @change="changeO"
+          class="change-o">
+        </el-switch>
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="onSubmit" class="end">立即创建</el-button>
+        <el-button type="primary"
+          @click="onSubmit"
+          class="end">
+        立即创建
+        </el-button>
       </el-form-item>
     </el-form>
   </div>

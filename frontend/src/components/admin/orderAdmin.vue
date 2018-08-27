@@ -3,10 +3,19 @@
     <div class="search-order">
       <el-row>
         <el-col :span="18">
-          <el-input class="search-box" v-model="inputWord" placeholder="请输入查询订单号"></el-input>
+          <el-input
+            class="search-box"
+            v-model="inputWord"
+            placeholder="请输入查询订单号">
+          </el-input>
         </el-col>
         <el-col :span="6">
-          <el-button class="btn" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+          <el-button class="btn"
+            type="primary"
+            icon="el-icon-search"
+            @click="search">
+            搜索
+          </el-button>
         </el-col>
       </el-row>
     </div>
@@ -51,8 +60,11 @@
           header-align=center
           label="操作">
           <template slot-scope="scope">
-            <el-button  type="text" v-if="userOrderList[scope.$index].status == '已支付'">退费</el-button>
-            <el-button  type="text" v-else>&mdash;</el-button>
+            <el-button  type="text"
+              v-if="userOrderList[scope.$index].status == '已支付'">
+              退费
+            </el-button>
+            <el-button type="text" v-else>—</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -84,12 +96,48 @@ export default {
       inputWord: '',
       list: [],
       userOrderList: [
-        {orderNo: '110', userId: '12', courseId: '1', status: '已支付', time: '2018-3-5'},
-        {orderNo: '110', userId: '12', courseId: '1', status: '已退费', time: '2018-3-5'},
-        {orderNo: '110', userId: '12', courseId: '1', status: '已支付', time: '2018-3-5'},
-        {orderNo: '110', userId: '12', courseId: '1', status: '未支付', time: '2018-3-5'},
-        {orderNo: '110', userId: '12', courseId: '1', status: '已支付', time: '2018-3-5'},
-        {orderNo: '110', userId: '12', courseId: '1', status: '已支付', time: '2018-3-5'}
+        {
+          orderNo: '110',
+          userId: '12',
+          courseId: '1',
+          status: '已支付',
+          time: '2018-3-5'
+        },
+        {
+          orderNo: '110',
+          userId: '12',
+          courseId: '1',
+          status: '已退费',
+          time: '2018-3-5'
+        },
+        {
+          orderNo: '110',
+          userId: '12',
+          courseId: '1',
+          status: '已支付',
+          time: '2018-3-5'
+        },
+        {
+          orderNo: '110',
+          userId: '12',
+          courseId: '1',
+          status: '未支付',
+          time: '2018-3-5'
+        },
+        {
+          orderNo: '110',
+          userId: '12',
+          courseId: '1',
+          status: '已支付',
+          time: '2018-3-5'
+        },
+        {
+          orderNo: '110',
+          userId: '12',
+          courseId: '1',
+          status: '已支付',
+          time: '2018-3-5'
+        }
       ],
       pageSize: 12,
       totalNumber: 100,

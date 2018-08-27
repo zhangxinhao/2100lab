@@ -3,8 +3,12 @@
   <div class="data-block">
     <h1>近期浏览</h1>
     <div class="confirm-div">
-      近&nbsp;<el-input class="browse-check" v-model="dayBrowse" placeholder="7"></el-input>
-      &nbsp;天&nbsp;&nbsp;&nbsp;&nbsp;
+      近
+      <el-input class="browse-check"
+        v-model="dayBrowse"
+        placeholder="7">
+      </el-input>
+      天
       <el-button type="primary" @click="browseClick">确定</el-button>
     </div>
     <div id="browse-chart"></div>
@@ -12,8 +16,12 @@
   <div class="data-block">
     <h1>近期支付</h1>
     <div class="confirm-div">
-      近&nbsp;<el-input class="browse-check" v-model="dayPay" placeholder="8"></el-input>
-      &nbsp;天&nbsp;&nbsp;&nbsp;&nbsp;
+      近
+      <el-input class="browse-check"
+        v-model="dayPay"
+        placeholder="8">
+      </el-input>
+      天
       <el-button type="primary" @click="payClick">确定</el-button>
     </div>
     <div id="pay-chart"></div>

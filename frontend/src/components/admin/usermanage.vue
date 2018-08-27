@@ -3,24 +3,74 @@
 
   <div id="search-user">
     <el-row :gutter="20">
-      <el-col :span="6" :offset="8"><el-input v-model="searchUserId" placeholder="请输入用户ID"></el-input></el-col>
-      <el-col :span="6" :offset="1"><el-input v-model="searchUserAlias" placeholder="请输入昵称"></el-input></el-col>
-      <el-col :span="2"><el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button></el-col>
+      <el-col :span="6" :offset="8">
+        <el-input v-model="searchUserId" placeholder="请输入用户ID">
+        </el-input>
+      </el-col>
+      <el-col :span="6" :offset="1">
+        <el-input v-model="searchUserAlias" placeholder="请输入昵称">
+        </el-input>
+      </el-col>
+      <el-col :span="2">
+        <el-button type="primary" icon="el-icon-search" @click="search">
+          搜索
+        </el-button>
+      </el-col>
     </el-row>
   </div>
 
   <div id="user-list">
     <el-table :data="userData" border width=100%>
-      <el-table-column type="index" :index="indexMethod" header-align=center></el-table-column>
-      <el-table-column prop="userId" label="用户ID" width="180px" header-align=center></el-table-column>
-      <el-table-column prop="userAlias" label="用户昵称" width="180px" header-align=center></el-table-column>
-      <el-table-column prop="is_V" label="用户认证" width="100px" header-align=center :formatter="vCall"></el-table-column>
-      <el-table-column prop="bonus" label="用户赏金" width="220px" header-align=center></el-table-column>
+      <el-table-column
+        type="index"
+        :index="indexMethod"
+        header-align=center>
+      </el-table-column>
+      <el-table-column
+        prop="userId"
+        label="用户ID"
+        width="180px"
+        header-align=center>
+      </el-table-column>
+      <el-table-column
+        prop="userAlias"
+        label="用户昵称"
+        width="180px"
+        header-align=center>
+      </el-table-column>
+      <el-table-column
+        prop="is_V"
+        label="用户认证"
+        width="100px"
+        header-align=center
+        :formatter="vCall">
+      </el-table-column>
+      <el-table-column
+        prop="bonus"
+        label="用户赏金"
+        width="220px"
+        header-align=center>
+      </el-table-column>
       <el-table-column label="操作" header-align=center>
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="deleteFunction(scope.$index)">删除</el-button>
-          <el-button type="text" size="small" @click="forbideFunction(scope.$index)">禁言</el-button>
-          <el-button type="text" size="small" @click="authorizeFunction(scope.$index)">认证</el-button>
+          <el-button
+            type="text"
+            size="small"
+            @click="deleteFunction(scope.$index)">
+            删除
+          </el-button>
+          <el-button
+            type="text"
+            size="small"
+            @click="forbideFunction(scope.$index)">
+            禁言
+          </el-button>
+          <el-button
+            type="text"
+            size="small"
+            @click="authorizeFunction(scope.$index)">
+            认证
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -40,8 +90,14 @@
   </div>
 
   <div class="delete-dialog">
-    <el-dialog title="删除用户" :visible.sync="deleteVisible" width="400px" height="700px">
-      <div>确认要删除ID为：{{userData[deleteIndex].userId}} 的用户？</div>
+    <el-dialog
+      title="删除用户"
+      :visible.sync="deleteVisible"
+      width="400px"
+      height="700px">
+      <div>
+        确认要删除ID为：{{userData[deleteIndex].userId}} 的用户?
+      </div>
       <div slot="footer" class="delete-footer">
         <el-button @click="deleteVisible = false">取 消</el-button>
         <el-button type="primary" @click="deleteUser">确 定</el-button>
@@ -49,8 +105,13 @@
     </el-dialog>
   </div>
   <div class="forbidedialog">
-    <el-dialog title="删除用户" :visible.sync="forbideVisible" width="400px" height="700px">
-      <div>确认要禁言ID为：{{userData[forbideIndex].userId}} 的用户？</div>
+    <el-dialog title="删除用户"
+      :visible.sync="forbideVisible"
+      width="400px"
+      height="700px">
+      <div>
+        确认要禁言ID为：{{userData[forbideIndex].userId}} 的用户?
+      </div>
       <div slot="footer" class="forbide-footer">
         <el-button @click="forbideVisible = false">取 消</el-button>
         <el-button type="primary" @click="forbideUser">确 定</el-button>
@@ -78,8 +139,18 @@ export default {
       forbideVisible: false,
       list: [],
       userData: [
-        {userId: '15222681355', userAlias: 'zzgyy', is_V: false, bonus: 250},
-        {userId: '15222681356', userAlias: 'gyysz', is_V: true, bonus: 250}
+        {
+          userId: '15222681355',
+          userAlias: 'zzgyy',
+          is_V: false,
+          bonus: 250
+        },
+        {
+          userId: '15222681356',
+          userAlias: 'gyysz',
+          is_V: true,
+          bonus: 250
+        }
       ],
       pageSize: 20,
       totalNumber: 100,
@@ -121,7 +192,8 @@ export default {
         auth: !this.userData[authorizeIndex].is_V
       })).then(response => {
         if (response.data.status === 0) {
-          this.userData[authorizeIndex].is_V = !this.userData[authorizeIndex].is_V
+          this.userData[authorizeIndex].is_V =
+            !this.userData[authorizeIndex].is_V
         }
       })
     },

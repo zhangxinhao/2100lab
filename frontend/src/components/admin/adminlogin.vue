@@ -3,14 +3,31 @@
   <div class="login-form">
     <el-form :model="loForm" :rules="rules" class="form-thing">
       <h1>欢迎你，科学队长管理者</h1>
-      <el-form-item label="用户名" :label-width="loginLabelWidth" prop="adminId">
+      <el-form-item label="用户名"
+        :label-width="loginLabelWidth"
+        prop="adminId">
         <el-col :span="18">
-          <el-input v-model="loForm.adminId" auto-complete="true" clearable required="required" oninvalid="this.setCustomValidity('warning')"></el-input>
+          <el-input
+            v-model="loForm.adminId"
+            auto-complete="true"
+            clearable
+            required="required"
+            oninvalid="this.setCustomValidity('warning')">
+          </el-input>
         </el-col>
       </el-form-item>
-      <el-form-item label="密  码" :label-width="loginLabelWidth" prop="password">
+      <el-form-item label="密  码"
+        :label-width="loginLabelWidth"
+        prop="password">
         <el-col :span="18">
-          <el-input v-model="loForm.password" type="password" auto-complete="off" clearable required="required" oninvalid="this.setCustomValidity('warning')"></el-input>
+          <el-input
+            v-model="loForm.password"
+            type="password"
+            auto-complete="off"
+            clearable
+            required="required"
+            oninvalid="this.setCustomValidity('warning')">
+          </el-input>
         </el-col>
       </el-form-item>
     </el-form>
@@ -46,8 +63,20 @@ export default {
         password: ''
       },
       rules: {
-        adminId: [{ required: true, validator: validateAdminId, trigger: 'blur' }],
-        password: [{ required: true, validator: validatePassword, trigger: 'blur' }]
+        adminId: [
+          {
+            required: true,
+            validator: validateAdminId,
+            trigger: 'blur'
+          }
+        ],
+        password: [
+          {
+            required: true,
+            validator: validatePassword,
+            trigger: 'blur'
+          }
+        ]
       }
     }
   },
