@@ -11,7 +11,7 @@
   <div id="admin-list">
     <el-table :data="adminData" border>
       <el-table-column type="index" :index="indexMethod" header-align=center></el-table-column>
-      <el-table-column prop="adminId" label="管理员编号" width=150% header-align=center></el-table-column>
+      <el-table-column prop="adminId" label="管理员编号" width=120% header-align=center></el-table-column>
       <el-table-column prop="courseManage" label="课程管理" width=100% header-align=center :formatter="courseRightCal" show-overflow-tooltip></el-table-column>
       <el-table-column prop="userManage" label="用户管理" width=100% header-align=center :formatter="userRightCal" show-overflow-tooltip></el-table-column>
       <el-table-column prop="operationHistory" label="操作历史" width=100% header-align=center :formatter="historyRightCal" show-overflow-tooltip></el-table-column>

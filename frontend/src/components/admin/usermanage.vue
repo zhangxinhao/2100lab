@@ -12,8 +12,8 @@
   <div id="user-list">
     <el-table :data="userData" border width=100%>
       <el-table-column type="index" :index="indexMethod" header-align=center></el-table-column>
-      <el-table-column prop="userId" label="用户ID" width="250px" header-align=center></el-table-column>
-      <el-table-column prop="userAlias" label="用户昵称" width="220px" header-align=center></el-table-column>
+      <el-table-column prop="userId" label="用户ID" width="180px" header-align=center></el-table-column>
+      <el-table-column prop="userAlias" label="用户昵称" width="180px" header-align=center></el-table-column>
       <el-table-column prop="is_V" label="用户认证" width="100px" header-align=center :formatter="vCall"></el-table-column>
       <el-table-column prop="bonus" label="用户赏金" width="220px" header-align=center></el-table-column>
       <el-table-column label="操作" header-align=center>
