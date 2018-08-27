@@ -39,7 +39,7 @@
           header-align=center
           prop="status"
           label="订单状态"
-          width="150">
+          width="100">
         </el-table-column>
         <el-table-column
           header-align=center

@@ -30,13 +30,13 @@
         header-align=center
         prop="phoneNumber"
         label="用户账号"
-        width="150">
+        width="120">
       </el-table-column>
       <el-table-column
         header-align=center
         prop="msgContent"
         label="留言内容"
-        width="300">
+        width="250">
       </el-table-column>
       <el-table-column
         header-align=center
