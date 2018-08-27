@@ -1,11 +1,11 @@
+import json
 import os
-from django.http import JsonResponse
 import pingpp
-
+from django.http import JsonResponse, HttpResponse
+from .models import Order
+from .distribute import distribute
 
 pingpp.api_key = "sk_test_y5qHaPH8i9e1yHGqXLeXXPS0"
-
-# pingpp.private_key_path = "../static/rsa_private.pem"
 
 pingpp.private_key_path = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), "static/rsa_private.pem")
@@ -14,6 +14,7 @@ APP_ID = "app_nfzXTOiPq5G4u9ib"
 
 CHANNELS_QR = ["alipay_qr", "wx_pub_qr"]
 
+URL = "123.206.19.149"
 
 def pay_qr(request):
     """
@@ -43,7 +44,7 @@ def pay_qr(request):
                     app=dict(id=APP_ID),
                     channel=channel,
                     currency="cny",
-                    client_ip="192.168.55.33",
+                    client_ip=URL,
                     subject="2100实验室课程支付",
                     body=course,
                     extra=dict(product_id='course')
@@ -59,7 +60,7 @@ def pay_qr(request):
                     app=dict(id=APP_ID),
                     channel=channel,
                     currency="cny",
-                    client_ip="192.168.55.33",
+                    client_ip=URL,
                     subject="2100实验室课程支付",
                     body=course
                 )
@@ -69,3 +70,16 @@ def pay_qr(request):
         return JsonResponse({"status": status, "result": result})
     else:
         return JsonResponse({"status": 1, "result": "Channle wrong"})
+
+def webhooks_charge(request):
+    body = json.loads(request.body)
+    charge = body["data"]["object"]
+    try:
+        order = Order.objects.get(charge_id=charge["id"])
+        order.status = 0
+        sharer = order.sharer
+        distribute(sharer, order.course_id, order.price)
+        order.save()
+        return HttpResponse(status=200)
+    except Order.DoesNotExist:
+        return HttpResponse(status=500)
