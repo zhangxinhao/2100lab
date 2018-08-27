@@ -125,7 +125,7 @@ export default {
     width: 15% !important;
     margin-left: 0px;
   }
-   .toolbar {
+  .toolbar {
     width: 100%;
     min-height: 50px;
     margin: 0;
