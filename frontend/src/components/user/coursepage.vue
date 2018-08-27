@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="course-page">
     <div class="toolbar">
       <div class="logo">
-      <img src="../../assets/logo1.png" width="200%" height="100%">
+      <img src="../../assets/logo3.png" width="200%" height="80%">
       </div>
       <table align="right">
         <tr>
@@ -20,7 +20,7 @@
             <el-button class="user-ope"
               type="text"
               v-if="!login"
-              @click="loginFormVisible = true">登录/注册<br><br>
+              @click="loginFormVisible = true">登录<br><br>
             </el-button>
           </td>
           <td>
@@ -93,7 +93,7 @@
         <el-row class="hidden-md-and-down">
           <el-col :span="2">
             <el-button id="play-btn" type="primary" circle @click="play">
-              <i class="el-icon-caret-right" v-if="!music.isPlay"></i>
+              <i class="iconfont icon-bofang" v-if="!music.isPlay"></i>
               <i class="iconfont icon-zanting" v-else></i>
             </el-button>
           </el-col>
@@ -127,7 +127,7 @@
         <el-row class="hidden-lg-and-up">
           <el-col :span="2">
             <el-button id="play-btn" type="primary" circle @click="play">
-              <i class="el-icon-caret-right" v-if="!music.isPlay"></i>
+              <i class="iconfont icon-bofang" v-if="!music.isPlay"></i>
               <i class="iconfont icon-zanting" v-else></i>
             </el-button>
           </el-col>
@@ -189,8 +189,10 @@
                 <img :src="item.userImg" class="userImg">
               </el-row>
               <el-row class="reply-user">
-                <div>{{ item.userName }}</div>
-                <div v-if="item.userType">V</div>
+                <div>
+                  {{ item.userName }}
+                  <i v-if="item.userType" class="iconfont icon-myvip"></i>
+                </div>
               </el-row>
             </el-aside>
             <el-container>
@@ -248,7 +250,7 @@
                     <div
                       class="re-reply-type"
                       v-if="initem.userType">
-                      &nbsp;&nbsp;V
+                      <i class="iconfont icon-myvip"></i>
                     </div>
                   </el-col>
                   <el-col>
@@ -302,7 +304,9 @@
         </el-pagination>
       </div>
     </div>
-
+    <div class="hidden-md-and-down" id="footer">
+      <img src="../../assets/footer1.png" width=100%>
+    </div>
   </div>
 </template>
 
@@ -623,14 +627,15 @@ export default {
 </script>
 
 <style scoped>
+  .course-page {
+    background-color: rgb(240, 240, 240);
+  }
   .toolbar {
     width: 100%;
-    min-height: 55px;
+    min-height: 45px;
     max-height: 70px;
-    margin: 0;
     padding: 0;
-    background-color:lightskyblue;
-    opacity: 0.7;
+    background-color:#409EFF;
   }
 
   .logo {
@@ -639,9 +644,13 @@ export default {
     width: 55px;
     height: 55px;
   }
-
+  #footer {
+    color: #333;
+    text-align: center;
+    line-height: 55px;
+  }
   .user-ope {
-    color: black;
+    color: white;
     font-size:18px;
     margin-right: 60px;
   }
@@ -688,11 +697,15 @@ export default {
     text-align: center;
     vertical-align: middle;
   }
-  .el-icon-caret-right::before {
+  .icon-bofang:before {
     font-size: 25px;
   }
   .icon-zanting:before {
     font-size: 25px;
+  }
+  .icon-myvip:before {
+    font-size: 20px;
+    color: #409EFF;
   }
   .word-in {
     margin-top: 16px;
@@ -780,7 +793,7 @@ export default {
   }
 
   @media screen and (max-width: 500px) {
-    .el-icon-caret-right::before {
+    .icon-bofang:before {
       font-size: 16px;
     }
     .icon-zanting:before {
