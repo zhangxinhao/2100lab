@@ -307,10 +307,11 @@ export default {
     axios.post(utils.getURL() + 'api/getcourseinfo/', qs.stringify({
       courseId: this.courseId
     })).then(response => {
-      let data = response.data
-      this.title = data.title
-      this.classIntro = data.description
-      this.money = parseFloat(data.price)
+      this.picture = utils.getURL() + 'media/' +
+        response.data.list[0].fields.profile_url
+      this.title = response.data.list[0].fields.course_name
+      this.classIntro = response.data.list[0].fields.description
+      this.money = response.data.list[0].fields.price
       if (this.money > 0) {
         this.moneyFlag = true
       } else {
