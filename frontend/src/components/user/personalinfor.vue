@@ -80,27 +80,26 @@ export default {
     }
   },
   methods: {
-    uploadURL() {
+    uploadURL: function() {
       return utils.getURL() + 'api/seticon/'
     },
-    onSubmitConfirm() {
+    onSubmitConfirm: function() {
       axios.post(utils.getURL() + 'api/setalias/', qs.stringify({
         newAlias: this.userMsg.name,
         phonenumber: this.userMsg.phoneNumber
       })).then(
         response => {
-
         }
       )
     },
-    clickToChangeIcon() {
+    clickToChangeIcon: function() {
       this.dialogVisible = false
       this.header = this.imageUrl
     },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)
     },
-    beforeAvatarUpload(file) {
+    beforeAvatarUpload: function(file) {
       const isJPG = file.type === 'image/jpeg'
       const isLt2M = file.size / 1024 / 1024 < 2
 

@@ -74,8 +74,8 @@ export default {
       let start = totalEnd - this.pageSize
       for (let i = start; i < end; i++) {
         this.userOrderList.push({
-          'order_id': this.list[i].orderId,
-          'course_id': this.list[i].courseId,
+          'orderId': this.list[i].orderId,
+          'courseId': this.list[i].courseId,
           'status': this.list[i].status,
           'time': new Date(this.list[i].time * 1000)
             .toLocaleString().replace(/:\d{1,2}$/, ' ')
@@ -97,8 +97,8 @@ export default {
       }
       for (let i = 0; i < end; i++) {
         this.userOrderList.push({
-          'order_id': this.list[i].orderId,
-          'course_id': this.list[i].courseId,
+          'orderId': this.list[i].orderId,
+          'courseId': this.list[i].courseId,
           'status': this.list[i].status,
           'time': new Date(this.list[i].time * 1000)
             .toLocaleString().replace(/:\d{1,2}$/, ' ')

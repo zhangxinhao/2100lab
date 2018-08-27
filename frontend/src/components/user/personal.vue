@@ -1,23 +1,32 @@
 <template>
 <div>
   <div id="person">
-    <div class="toolbar">
+    <div class="tool-bar">
       <div class="logo">
         <img src="../../assets/logo1.png" width="200%" height="100%">
       </div>
       <table align="right">
         <tr>
           <td>
-            <el-button class="user-ope" type="text" @click="logout">登出</el-button>
+            <el-button
+              class="user-ope"
+              type="text"
+              @click="logout">登出
+            </el-button>
           </td>
         </tr>
       </table>
     </div>
   </div>
   <div id="person" class="hidden-sm-and-down">
-    <el-container class="firstcontainer">
+    <el-container class="first-container">
       <el-aside>
-        <el-menu :default-openeds="['5']" default-active="1" class="el-menu-vertical-demo" @select="handleSelect" :collapse="false">
+        <el-menu
+          :default-openeds="['5']"
+          default-active="1"
+          class="el-menu-vertical-demo"
+          @select="handleSelect"
+          :collapse="false">
           <el-submenu index="5">
             <template class="head" slot="title">
               <i class="el-icon-message"></i>
@@ -36,10 +45,15 @@
     </el-container>
   </div>
 
-  <div id="personmini" class="hidden-md-and-up">
-    <el-container class="firstcontainer">
+  <div id="person-mini" class="hidden-md-and-up">
+    <el-container class="first-container">
       <el-aside>
-        <el-menu :default-openeds="['5']" default-active="1" class="el-menu-vertical-demo" @select="handleSelect" :collapse="true">
+        <el-menu
+          :default-openeds="['5']"
+          default-active="1"
+          class="el-menu-vertical-demo"
+          @select="handleSelect"
+          :collapse="true">
           <el-submenu index="5">
             <template class="head" slot="title">
               <i class="el-icon-message"></i>
@@ -64,13 +78,12 @@
 export default {
   data() {
     return {
-
     }
   },
   methods: {
     logout: function() {
     },
-    handleSelect(key, keyPath) {
+    handleSelect: function(key, keyPath) {
       switch (key) {
         case '1':
           this.$router.push('/brows')
@@ -90,7 +103,7 @@ export default {
 }
 </script>
 <style scoped>
-  .toolbar {
+  .tool-bar {
     width: 100%;
     max-height: 50px;
     margin: 0;
@@ -132,7 +145,7 @@ export default {
     font-weight: bold;
   }
 
-  .firstcontainer {
+  .first-container {
     text-align: center;
     margin: 0px auto;
     width: 100%;
@@ -144,7 +157,7 @@ export default {
       font-size: 15px;
       margin-right: 10px;
     }
-    .toolbar {
+    .tool-bar {
       min-height: 42px;
     }
     .logo {
@@ -157,7 +170,7 @@ export default {
       width: 65px !important;
       margin-left: 0px;
     }
-    .firstcontainer {
+    .first-container {
       text-align: center;
       margin: 0px auto;
       width: 100%;

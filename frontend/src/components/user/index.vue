@@ -332,12 +332,6 @@ export default {
 </script>
 
 <style scoped>
-  .index {
-    background-image: url('../../assets/class.jpg');
-    filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";
-    -moz-background-size:100% 100%;
-    background-size:100% 100%;
-  }
   .toolbar {
     width: 100%;
     min-height: 55px;

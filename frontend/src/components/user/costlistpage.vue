@@ -1,107 +1,142 @@
 <template>
-<div class="costlist">
-
-  <div class="toolbar">
-    <div class="logo">
-      <img src="../../assets/logo1.png" width="200%" height="100%">
+  <div class="cost-list">
+    <div class="tool-bar">
+      <div class="logo">
+        <img src="../../assets/logo1.png" width="200%" height="100%">
+      </div>
+      <table align="right">
+        <tr>
+          <td>
+            <el-button class="user-ope"
+              type="text"
+              v-if="!login"
+              @click="loginFormVisible = true">登录/注册
+            </el-button>
+          </td>
+          <td>
+            <router-link to="/personal">
+              <el-button
+                class="user-ope"
+                type="text"
+                v-if="login">个人中心
+              </el-button>
+            </router-link>
+          </td>
+          <td>
+            <el-button
+              class="user-ope"
+              type="text"
+              v-if="login"
+              @click="logout">登出
+            </el-button>
+          </td>
+        </tr>
+      </table>
     </div>
-    <table align="right">
-      <tr>
-        <td>
-          <el-button class="user-ope"
-            type="text"
-            v-if="!login"
-            @click="loginFormVisible = true">登录/注册
+
+    <div class="login-dialog">
+      <el-dialog
+        title="登录"
+        :visible.sync="loginFormVisible"
+        width="330px"
+        height="500px">
+        <el-form :model="loForm" :rules="rules">
+          <el-form-item
+            label="手机号"
+            :label-width="loginLabelWidth"
+            prop="loPhone">
+            <el-col :span="18">
+              <el-input
+                v-model="loForm.phoneNumber"
+                auto-complete="true"
+                clearable
+                required="required"
+                pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"
+                oninvalid="this.setCustomValidity('warning')">
+              </el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="验证码" :label-width="loginLabelWidth">
+            <el-col :span="18">
+              <el-input
+                v-model="loForm.password"
+                auto-complete="off"
+                clearable>
+              </el-input>
+            </el-col>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="login-footer">
+          <el-button
+            type="primary"
+            @click="loginFormVisible = false">获取验证码
           </el-button>
-        </td>
-        <td>
-          <router-link to="/personal">
-            <el-button class="user-ope" type="text" v-if="login">个人中心</el-button>
-          </router-link>
-        </td>
-        <td>
-          <el-button class="user-ope" type="text" v-if="login" @click="logout">登出</el-button>
-        </td>
-      </tr>
-    </table>
-  </div>
-
-  <div class="logindialog">
-    <el-dialog title="登录" :visible.sync="loginFormVisible" width="330px" height="500px">
-      <el-form :model="loform" :rules="rules">
-        <el-form-item label="手机号" :label-width="loginLabelWidth" prop="lophone">
-          <el-col :span="18">
-            <el-input v-model="loform.phonenumber"
-              auto-complete="true"
-              clearable
-              required="required"
-              pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"
-              oninvalid="this.setCustomValidity('warning')">
-            </el-input>
-          </el-col>
-        </el-form-item>
-        <el-form-item label="验证码" :label-width="loginLabelWidth">
-          <el-col :span="18">
-            <el-input v-model="loform.password" auto-complete="off" clearable></el-input>
-          </el-col>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="login-footer">
-        <el-button type="primary" @click="loginFormVisible = false">获取验证码</el-button>
-        <el-button @click="loginFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="loginFormVisible = false">确 定</el-button>
-      </div>
-    </el-dialog>
-  </div>
-
- <div class="dumpbutton">
-    <router-link to="/freelistpage">
-      <el-button  type="primary">免费区</el-button>
-    </router-link>
-    <el-button type="primary" disabled>付费区</el-button>
-  </div>
-
-  <div class="main-inner">
-    <div class="container-body">
-      <div class="video-list">
-        <ul class="vd-list">
-          <li v-for="item in costList" :key="item.id" class="listone">
-            <el-container class="listone-outer">
-              <el-aside class="aside">
-                <router-link id="logo" :to="{name:'intro',params:{courseid: item.id}}">
-                  <img :src="item.profile_url" :alt="item.name" class="imgList">
-                </router-link>
-              </el-aside>
-              <el-container class="listone-inner">
-                <el-header class="header"><div>{{item.name}}</div></el-header>
-                <el-main class="main">
-                  <el-button icon="el-icon-caret-right" type="primary" class="read">点击阅读</el-button>
-                </el-main>
-              </el-container>
-            </el-container>
-            <hr />
-          </li>
-        </ul>
-      </div>
+          <el-button @click="loginFormVisible = false">取 消</el-button>
+          <el-button
+            type="primary"
+            @click="loginFormVisible = false">确 定
+          </el-button>
+        </div>
+      </el-dialog>
     </div>
-    <el-footer>
-    <div class="pager">
-      <el-pagination
-        background
-        small
+
+  <div class="dump-button">
+      <router-link to="/freelistpage">
+        <el-button  type="primary">免费区</el-button>
+      </router-link>
+      <el-button type="primary" disabled>付费区</el-button>
+    </div>
+
+    <div class="main-inner">
+      <div class="container-body">
+        <div class="video-list">
+          <ul class="vd-list">
+            <li v-for="item in costList" :key="item.id" class="list-one">
+              <el-container class="list-one-outer">
+                <el-aside class="aside">
+                  <router-link id="logo"
+                    :to="{name:'intro', params:{courseid: item.id}}">
+                    <img
+                      :src="item.profileUrl"
+                      :alt="item.name"
+                      class="img-list">
+                  </router-link>
+                </el-aside>
+                <el-container class="list-one-inner">
+                  <el-header class="header">
+                    <div>{{item.name}}</div>
+                  </el-header>
+                  <el-main class="main">
+                    <el-button
+                      icon="el-icon-caret-right"
+                      type="primary"
+                      class="read">点击阅读
+                    </el-button>
+                  </el-main>
+                </el-container>
+              </el-container>
+              <hr />
+            </li>
+          </ul>
+        </div>
+      </div>
+      <el-footer>
+      <div class="pager">
+        <el-pagination
+          background
+          small
           layout="prev, pager, next"
           :page-size="pageSize"
-          :total="totalnumber"
+          :total="totalNumber"
           :current-page.sync="pageNo"
           :pager-count="7"
-          @current-change="flipeOver"
-        >
-      </el-pagination>
+          @current-change="flipeOver">
+        </el-pagination>
+      </div>
+      </el-footer>
     </div>
-    </el-footer>
-  </div>
 
-</div>
+  </div>
 </template>
 
 <script>
@@ -112,25 +147,23 @@ export default {
   data() {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
     var validateloPhone = (rule, value, callback) => {
-      if (!this.loform.phonenumber) {
+      if (!this.loForm.phoneNumber) {
         return callback(new Error('号码不能为空'))
       }
       setTimeout(() => {
-        if (!phoneReg.test(this.loform.phonenumber)) {
+        if (!phoneReg.test(this.loForm.phoneNumber)) {
           callback(new Error('格式有误'))
         } else {
           callback()
         }
       }, 100)
     }
-
     return {
       login: true,
-      not_login: false,
       loginFormVisible: false,
       loginLabelWidth: '100px',
-      loform: {
-        phonenumber: '',
+      loForm: {
+        phoneNumber: '',
         password: '',
         delivery: false,
         type: [],
@@ -138,32 +171,86 @@ export default {
         desc: ''
       },
       rules: {
-        lophone: [{ required: true, validator: validateloPhone, trigger: 'blur' }]
+        loPhone: [
+          {
+            required: true,
+            validator: validateloPhone,
+            trigger: 'blur'
+          }
+        ]
       },
       courses: [],
       costList: [
-        {id: 10, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 11, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 12, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 13, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 14, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 15, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 16, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 17, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 18, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 19, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 20, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'},
-        {id: 21, profile_url: require('../../assets/images/paid.jpg'), name: '啊啊啊啊啊'}
+        {
+          id: 10,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '啊啊啊啊啊'
+        },
+        {
+          id: 11,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '啊啊啊啊啊'
+        },
+        {
+          id: 12,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '啊啊啊啊啊'
+        },
+        {
+          id: 13,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '啊啊啊啊啊'
+        },
+        {
+          id: 14,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '啊啊啊啊啊'
+        },
+        {
+          id: 15,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '啊啊啊啊啊'
+        },
+        {
+          id: 16,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '啊啊啊啊啊'
+        },
+        {
+          id: 17,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '啊啊啊啊啊'
+        },
+        {
+          id: 18,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '啊啊啊啊啊'
+        },
+        {
+          id: 19,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '啊啊啊啊啊'
+        },
+        {
+          id: 20,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '啊啊啊啊啊'
+        },
+        {
+          id: 21,
+          profileUrl: require('../../assets/images/paid.jpg'),
+          name: '啊啊啊啊啊'
+        }
       ],
       pageSize: 12,
-      totalnumber: 100,
+      totalNumber: 100,
       pageNo: 1
     }
   },
   methods: {
     flipeOver: function (page) {
-      let _end = this.pageSize * page
-      let end = this.totalnumber < (_end) ? this.totalnumber : _end
+      let totalEnd = this.pageSize * page
+      let end = this.totalNumber < (totalEnd) ? this.totalNumber : totalEnd
       this.costList = []
       let start = this.pageSize * (page - 1)
       for (let i = start; i < end; i++) {
@@ -174,11 +261,11 @@ export default {
   created: function () {
     axios.post(utils.getURL() + 'api/listpricedcourses/').then(response => {
       this.courses = response.data.courses
-      this.totalnumber = this.courses.length
-      let totalnumber = this.totalnumber
+      this.totalNumber = this.courses.length
+      let totalNumber = this.totalNumber
       this.costList = []
       let size = this.pageSize
-      if (totalnumber < size) {
+      if (totalNumber < size) {
         this.costList = this.courses
       } else {
         for (let i = 0; i < size; i++) {
@@ -191,7 +278,7 @@ export default {
 </script>
 
 <style scoped>
-  .toolbar {
+  .tool-bar {
     width: 100%;
     min-height: 55px;
     max-height: 70px;
@@ -200,7 +287,7 @@ export default {
     background-color:lightskyblue;
     opacity: 0.7;
   }
-  .dumpbutton {
+  .dump-button {
     margin-top: 50px;
     margin-left: 50px;
     margin-bottom: 50px;
@@ -225,7 +312,7 @@ export default {
     padding: 0;
   }
 
-  .costlist {
+  .cost-list {
     margin: 0;
     padding: 0;
   }
@@ -255,13 +342,13 @@ export default {
     height:1150px;
     margin-bottom: 30px;
   }
-  .listone-outer {
+  .list-one-outer {
     width: 550px;
   }
-  .listone-inner {
+  .list-one-inner {
     width: 350px;
   }
-  .listone {
+  .list-one {
     display: block;
     float: left;
     width: 550px;
@@ -270,7 +357,7 @@ export default {
   .aside {
     width: 200px !important;
   }
-  .imgList {
+  .img-list {
     width: 200px;
     height: 150px;
   }
@@ -309,13 +396,13 @@ export default {
       height:1580px;
       margin-bottom: 30px;
     }
-    .listone-outer {
+    .list-one-outer {
       max-width: 350px;
     }
-    .listone-inner {
+    .list-one-inner {
       max-width: 200px;
     }
-    .listone {
+    .list-one {
       display: block;
       float: left;
       max-width: 350px;
@@ -324,7 +411,7 @@ export default {
     .aside {
       max-width: 150px !important;
     }
-    .imgList {
+    .img-list {
       max-width: 150px;
       height: 100px;
     }
@@ -346,7 +433,7 @@ export default {
       font-size:15px;
       margin-right: 10px;
     }
-    .toolbar {
+    .tool-bar {
       min-height: 42px;
     }
     .logo {
@@ -378,13 +465,13 @@ export default {
       height:1080px;
       margin-bottom: 30px;
     }
-    .listone-outer {
+    .list-one-outer {
       max-width: 500px;
     }
-    .listone-inner {
+    .list-one-inner {
       max-width: 300px;
     }
-    .listone {
+    .list-one {
       display: block;
       float: left;
       max-width: 500px;
@@ -393,7 +480,7 @@ export default {
     .aside {
       max-width: 200px !important;
     }
-    .imgList {
+    .img-list {
       max-width: 200px;
       height: 150px;
     }
