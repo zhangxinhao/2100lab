@@ -72,6 +72,11 @@ export default {
   },
   methods: {
     logout: function() {
+      axios.post(utils.getURL() + 'api/logout/').then(response => {
+        if (response.data.status === 0) {
+          this.$router.push('/adminlogin')
+        }
+      })
     },
     handleSelect(key, keyPath) {
       switch (key) {

@@ -60,7 +60,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return JsonResponse({"result": 1})
+    return JsonResponse({"status": 0})
 
 
 def delete(request):
