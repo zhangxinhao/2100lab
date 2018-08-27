@@ -70,4 +70,13 @@ def delete_msg(request):
             status = 1
     except Message.DoesNotExist:
         status = 1
+
+    log_user_id = request.user.id
+    log_object_id = msg_id
+    log = AdminOperationRecord.objects.create(
+        admin_id = log_user_id,
+        operation = Operation.objects.get(pk=6),
+        object = log_object_id
+    )
+    log.save()
     return JsonResponse({"status": status})

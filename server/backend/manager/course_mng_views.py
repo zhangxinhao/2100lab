@@ -1,7 +1,7 @@
 import json
 from django.core.files import File
 from django.http import JsonResponse
-from backend.models import Course, Picture, AudioTemp, PictureTemp
+from backend.models import Course, Picture, AudioTemp, PictureTemp, Operation, AdminOperationRecord
 
 
 def show_courses(request):
@@ -79,6 +79,15 @@ def upload_course(request):
     profile.close()
     course.save()
     status = _insert_pictrue_(img_info, course)
+
+    log_user_id = request.user.id
+    log_object_id = course.course_id
+    log = AdminOperationRecord.objects.create(
+        admin_id = log_user_id,
+        operation = Operation.objects.get(pk=1),
+        object = log_object_id
+    )
+    log.save()
     return JsonResponse({"status": status})
 
 def _insert_pictrue_(image_list, course):
