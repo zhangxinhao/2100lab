@@ -14,10 +14,4 @@ describe('uploadCourse', () => {
   it('correct before upload', () => {
     expect(vm.beforeUpload('1.mp4')).toBe(false)
   })
-  it('correct handleCommand', () => {
-    vm.handleCommand('5')
-    vm.$nextTick(() => {
-      expect(vm.dropdownMessage).toBe('图片5')
-    })
-  })
 })
