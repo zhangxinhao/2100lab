@@ -242,10 +242,11 @@ export default {
   .upload-page {
     text-align: center;
     position: absolute;
-    margin: auto 100px;
+    margin: auto 5%;
+    width: 70%;
   }
   .upload-inner {
-    width:1000px;
+    width: 100%;
     /* text-align: center; */
     margin: 0 auto;
   }

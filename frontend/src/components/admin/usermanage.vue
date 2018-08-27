@@ -175,15 +175,15 @@ export default {
 
 <style scoped>
 .user-manage {
-  width: 1020px;
+  width: 80%;
   margin: 20px auto;
 }
 #search-user {
-  width: 1000px;
+  width: 100%;
 }
 #user-list {
-  width: 1000px;
-  height: 1000px;
+  width: 100%;
+  min-height: 1000px;
   margin: 50px auto;
   text-align: center;
 }

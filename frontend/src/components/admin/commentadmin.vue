@@ -167,7 +167,7 @@ export default {
 </script>
 <style scoped>
   .first-div {
-    width: 1000px;
+    width: 80%;
     margin: 50px auto;
     text-align: center;
   }

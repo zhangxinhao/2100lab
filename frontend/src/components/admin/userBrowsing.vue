@@ -42,7 +42,7 @@
         </el-table-column>
       </el-table>
       </div>
-      <div>
+      <div class="pager">
         <el-pagination
           background
           layout="prev, pager, next"
@@ -146,8 +146,7 @@ export default {
 </script>
 <style scoped>
   .search-order {
-    width: 300px;
-    margin-left: 50px;
+    width: 25%;
     margin-bottom: 60px;
   }
   .search-box {
@@ -160,19 +159,22 @@ export default {
     margin-bottom: 30px;
   }
   .order-table {
-    margin-left: 50px;
-    width: 1000px;
+    margin-left: 3%;
+    width: 100%;
     margin-bottom: 50px;
   }
   .really-table {
     margin-bottom: 50px;
   }
   .first-div {
-    width: 1200px;
+    width: 80%;
     margin: 50px auto;
     text-align: center;
   }
   .mytable {
     width: 100%
+  }
+  .pager {
+    text-align: right;
   }
 </style>
