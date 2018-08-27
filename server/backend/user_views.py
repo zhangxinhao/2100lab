@@ -39,7 +39,7 @@ def authenticate(request):
                 password="Captain Science",
                 id=phone_number,
                 alias="Captain Science",
-                icon="captain/science")
+                icon="usericon/icon.jpg")
             user.save()
         auth.login(request, user)
         usr = {}
@@ -104,6 +104,7 @@ def get_visit_history(request):
 
 def get_user_infor(request):
     user = request.user
+    user = [user]
     response = {}
     response['list'] = json.loads(serialize("json", user))
     return JsonResponse(response)
@@ -120,7 +121,7 @@ def set_alias(request):
 
 def set_icon(request):
     new_icon = request.FILES.get("file")
-    user_id = request.POST.get("phonenumber")
+    user_id = request.POST.get("phoneNumber")
     user = User.objects.get(pk=user_id)
     user.set_icon(new_icon)
     user.save()
