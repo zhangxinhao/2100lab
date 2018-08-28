@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from backend.models import Message, Comment, AdminOperationRecord, Operation
 
 
-def __querysort__(message, comment):
+def _querysort_(message, comment):
     return message.extend(comment)
 
 
@@ -45,16 +45,7 @@ def show_msg(request):
                 "msgContent": comment.content,
                 "createdAt": str(comment.time)
             })
-    query = __querysort__(message_query, comment_query)
-    query = [{
-        "id": "comment.id",
-        "courseId": "c_id",
-        "userId": "comment.author_id",
-        "userName": "comment.author.alias",
-        "phoneNumber": "comment.author.id",
-        "msgContent": "comment.content",
-        "createdAt": "str(comment.time)"
-    }]
+    query = _querysort_(message_query, comment_query)
     return JsonResponse({"query": query})
 
 

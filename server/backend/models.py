@@ -50,6 +50,7 @@ class Course(models.Model):
     profile_url = models.ImageField(
         upload_to='course_picture', blank=True, null=True)
     create_time = models.PositiveIntegerField(default=int(time.time()))
+    perpercentage = models.PositiveIntegerField(default=0)
 
 
 class AudioTemp(models.Model):

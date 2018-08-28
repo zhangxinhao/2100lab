@@ -57,5 +57,7 @@ urlpatterns = [  # pragma pylint: disable=C0103
     path('wxpc/', pay.wx_pc),
     path('wxphone/', pay.wx_phone),
     path('refund/', orders_views.refund),
+    path('preload/', course_mng_views.preload_course),
+    path('editcourse/', course_mng_views.edit_course),
 
 ]
