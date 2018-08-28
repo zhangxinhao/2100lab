@@ -47,11 +47,11 @@
           :visible.sync="loginFormVisible"
           width="400px"
           height="700px">
-          <el-form :model="loform" :rules="rules">
+          <el-form :model="loForm" :rules="rules">
             <el-form-item label="手机号" label-width="100px" prop="lophone">
               <el-col :span="18">
                 <el-input
-                  v-model="loform.phonenumber"
+                  v-model="loForm.phoneNumber"
                   auto-complete="true"
                   clearable
                   required="required"
@@ -63,7 +63,7 @@
             <el-form-item label="验证码" label-width=100px>
               <el-col :span="18">
                 <el-input
-                  v-model="loform.password"
+                  v-model="loForm.usercode"
                   auto-complete="off"
                   clearable>
                 </el-input>
@@ -73,7 +73,7 @@
           <div slot="footer" class="login-footer">
             <el-button
               type="primary"
-              @click="loginFormVisible = false">
+              @click="getVerification">
               获取验证码
             </el-button>
             <el-button @click="loginFormVisible = false">
@@ -81,7 +81,7 @@
             </el-button>
             <el-button
               type="primary"
-              @click="loginFormVisible = false">
+              @click="loginFunction">
               确 定
             </el-button>
           </div>
@@ -206,11 +206,11 @@ export default {
   data() {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
     var validateloPhone = (rule, value, callback) => {
-      if (!this.loform.phonenumber) {
+      if (!this.loForm.phoneNumber) {
         return callback(new Error('号码不能为空'))
       }
       setTimeout(() => {
-        if (!phoneReg.test(this.loform.phonenumber)) {
+        if (!phoneReg.test(this.loForm.phoneNumber)) {
           callback(new Error('格式有误'))
         } else {
           callback()
@@ -236,16 +236,14 @@ export default {
       bounty: 15,
       bountyFlag: false,
       shareDialogVisible: false,
-      login: true,
+      login: false,
       loginLabelWidth: '100px',
       loginFormVisible: false,
-      loform: {
-        phonenumber: '',
+      loForm: {
+        phoneNumber: '',
         password: '',
         delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        usercode: ''
       },
       rules: {
         lophone: [
@@ -370,12 +368,67 @@ export default {
           this.$message.error('课程不存在')
         }
       })
+    },
+    createRandom: function() {
+      var code = Math.floor(Math.random() * (99999 - 0) + 100000)
+      this.loForm.password = code.toString()
+    },
+    loginFunction: function() {
+      if (this.loForm.delivery === false) {
+        this.$message({
+          message: '请输入正确的手机号和对应的验证码！',
+          type: 'warning'
+        })
+        return
+      }
+      if (this.loForm.usercode !== this.loForm.password) {
+        this.$message({
+          message: '请输入正确的验证码！',
+          type: 'warning'
+        })
+        return
+      }
+      this.loginFormVisible = false
+      axios.post(utils.getURL() + 'api/authenticate/', qs.stringify({
+        phone_number: this.loForm.phoneNumber,
+        verification_code: 0
+      })).then(response => {
+        this.login = true
+        this.$store.commit('setUserId', this.loForm.phoneNumber)
+        this.user = this.$store.state.userId
+      })
+    },
+    getVerification: function() {
+      if (this.loForm.phoneNumber === '') {
+        this.$message({
+          message: '请输入正确的手机号！',
+          type: 'warning'
+        })
+        return
+      }
+      this.createRandom()
+      axios.post(utils.getURL() + 'api/getcode/', qs.stringify({
+        phone_number: this.loForm.phoneNumber,
+        password: this.loForm.password
+      })).then(response => {
+        this.loForm.delivery = true
+      })
+    },
+    logout: function() {
+      axios.post(utils.getURL() + 'api/logout/').then(response => {
+        this.login = false
+        this.$store.commit('setUserId', '0')
+      })
     }
   },
   created: function() {
     this.courseId = this.$route.params.courseid
     this.$store.commit('setCourseId', this.courseId)
     this.sharePerson = this.$route.params.user
+    this.user = this.$store.state.userId
+    if (this.user !== '0') {
+      this.login = true
+    }
     axios.post(utils.getURL() + 'api/getcourseinfo/', qs.stringify({
       courseId: this.courseId
     })).then(response => {
