@@ -110,6 +110,14 @@
                   </el-button>
                   <el-button
                     class="judge-button"
+                    type="primary"
+                    size="small"
+                    round
+                    v-else-if = "isStaff"
+                    @click="toCourse">立即观看
+                  </el-button>
+                  <el-button
+                    class="judge-button"
                     type="danger"
                     plain v-else-if = "burnedFlag"
                     @click="fire">已焚毁
@@ -119,7 +127,7 @@
                     type="primary"
                     size="small"
                     round
-                    v-else-if = "paidFlag || !moneyFlag"
+                    v-else-if = "paidFlag || money == 0"
                     @click="toCourse">立即观看
                   </el-button>
                   <el-button
@@ -173,7 +181,7 @@
           <el-button
             class="pay"
             type="primary"
-            v-if ="bountyFlag">赏金支付
+            v-if ="bounty >= money" @click="payWithBonus">赏金支付
           </el-button>
           <el-button
             class="pay"
@@ -218,10 +226,10 @@ export default {
       // burnedFlag表示当前是否焚毁（true为已焚毁）
       burnedFlag: false,
       // money表示当前课程的价钱，moneyFlag表示该课是否免费
-      moneyFlag: true,
       money: 25,
       // paidFlag表示当前用户是否已支付该课程(true 表示已支付)
       paidFlag: true,
+      isStaff: false,
       classIntro: '这就是未来的桥，一个桥上的创举。',
       picture: require('../../assets/class3.jpg'),
       payDialogVisible: false,
@@ -347,29 +355,43 @@ export default {
     },
     fire: function() {
       this.$router.push({ path: '/destroied' })
+    },
+    payWithBonus: function() {
+      axios.post(utils.getURL() + 'api/bonuspay/', qs.stringify({
+        courseId: this.courseId
+      })).then(response => {
+        if (response.data.status === 0) {
+          this.$message({
+            type: 'success',
+            text: '支付成功'
+          })
+          location.reload()
+        } else {
+          this.$message.error('课程不存在')
+        }
+      })
     }
   },
   created: function() {
     this.courseId = this.$route.params.courseid
     this.$store.commit('setCourseId', this.courseId)
     this.sharePerson = this.$route.params.user
-    this.user = this.$route.params.user
-    // 以下一行放到登录函数里
-    this.config.url = utils.getURL() +
-      '#/intro/' + this.courseId + '/' + this.user
     axios.post(utils.getURL() + 'api/getcourseinfo/', qs.stringify({
       courseId: this.courseId
     })).then(response => {
+      this.user = response.data.userId
+      this.config.url = utils.getURL() +
+        '#/intro/' + this.courseId + '/' + this.user
       this.picture = utils.getURL() + 'media/' +
         response.data.list[0].fields.profile_url
       this.title = response.data.list[0].fields.course_name
       this.classIntro = response.data.list[0].fields.description
       this.money = response.data.list[0].fields.price
-      if (this.money > 0) {
-        this.moneyFlag = true
-      } else {
-        this.moneyFlag = false
-      }
+      let flags = response.data.flags
+      this.paidFlag = flags.paidFlag
+      this.burnedFlag = flags.burnedFlag
+      this.bounty = parseFloat(response.data.bonus)
+      this.isStaff = flags.isStaff
     })
   }
 }

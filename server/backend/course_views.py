@@ -2,7 +2,7 @@ import json
 import time
 from django.http import JsonResponse
 from django.core.serializers import serialize
-from .models import Course, Picture, VisitRecord
+from .models import Course, Order, Picture, VisitRecord
 from .message_views import message_board_dic
 
 
@@ -37,7 +37,27 @@ def get_course_info(request):
         course = [course]
     response = {}
     response['list'] = json.loads(serialize('json', course))
+    response['flags'] = _get_flags_(course, request.user)
+    response['userId'] = request.user.id
+    response['bonus'] = str(request.user.balance)
     return JsonResponse(response)
+
+
+def _get_flags_(course, user):
+    flags = {"isStaff": user.is_staff, "paidFlag": True, "burnedFlag": False}
+    if user.is_staff:
+        return flags
+    if course.price > 0:
+        try:
+            Order.objects.get(user=user, course=course, status=0)
+            record = VisitRecord.objects.get(course=course, user=user)
+            if record.deal_visit_time <= int(time.time()):
+                flags["burnedFlag"] = True
+        except Order.DoesNotExist:
+            flags["paidFlag"] = False
+        except VisitRecord.DoesNotExist:
+            flags["burnedFlag"] = False
+    return flags
 
 
 def check_course_record(request):

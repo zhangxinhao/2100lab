@@ -1,9 +1,10 @@
 from django.urls import path
-from .manager import client, admin_views, msg_mng, orders_views, course_mng_views
+from .manager import admin_views, client, course_mng_views, msg_mng
+from .manager import orders_views
 from . import views, user_views, order_views, course_views, message_views, pay
 
 
-urlpatterns = [  # pragma pylint: disable=C0103
+urlpatterns = [
     path('', views.index),
     path('login/', user_views.login),
     path('authenticate/', user_views.authenticate),
@@ -60,5 +61,7 @@ urlpatterns = [  # pragma pylint: disable=C0103
     path('preload/', course_mng_views.preload_course),
     path('editcourse/', course_mng_views.edit_course),
     path('accesscheck/', admin_views.access_check),
+    path('bonuspay/', pay.bonus_pay),
+
 
 ]
