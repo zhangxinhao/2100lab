@@ -9,7 +9,8 @@
       <table align="right">
         <tr>
           <td>
-            <el-button class="user-ope"
+            <el-button
+              class="user-ope"
               type="text"
               v-if="!login"
               @click="loginFormVisible = true">登录
