@@ -35,8 +35,6 @@ def client_history(request):
 
 def client_information(request):
     user_id = request.POST.get("user_id")
-    print(type(user_id))
-    print(user_id)
     user_alias = request.POST.get("user_alias")
     user_list = None
     if user_id:

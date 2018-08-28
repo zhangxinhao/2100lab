@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store.js'
 import 'es6-promise/auto'
+import axios from 'axios'
+import * as utils from '@/components/utils/utils.js'
 
 import index from '@/components/user/index'
 import intro from '@/components/user/intro'
@@ -195,24 +197,39 @@ export default new Router({
       ],
       beforeEnter: (to, from, next) => {
         const nextRoute = [
-          'baseadmin', 'addAdmin', 'orderAdmin',
-          'uploadCourse', 'editCourse', 'courseManage',
-          'commentadmin', 'userBrowsing', 'usermanage',
-          'adminManage', 'adminHistory', 'dataAnalize'
-        ]
-        const list = [
-          ['addAdmin', 'adminManage'],
+          'baseadmin', 'addAdmin', 'orderAdmin', 'uploadCourse',
+          'editCourse', 'courseManage', 'commentadmin', 'userBrowsing',
+          'usermanage', 'adminManage', 'adminHistory', 'dataAnalize']
+        const list = [['addAdmin', 'adminManage'],
           ['uploadCourse', 'editCourse', 'courseManage'],
           ['usermanage', 'userBrowsing', 'commentadmin'],
-          ['adminHistory'],
-          ['orderAdmin']
-        ]
+          ['adminHistory'], ['orderAdmin']]
         if (nextRoute.indexOf(to.name) >= 0) {
-          if (store.state.userId !== '0') {
-            list[5] = []
-            next()
-          } else {
+          if (store.state.userId === '0') {
             next('/adminlogin')
+          } else {
+            axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
+              let status = response.data.status
+              let code = response.data.code
+              if (status === 1) {
+                next('/adminlogin')
+              } else {
+                let i = 0
+                let mark = 5
+                for (; i < 5; i++) {
+                  for (let j = 0; j < list[i].length; j++) {
+                    if (list[i][j] === to.name) {
+                      mark = i
+                    }
+                  }
+                }
+                if (code[mark] === 1 || mark === 5) {
+                  next()
+                } else {
+                  next(false)
+                }
+              }
+            })
           }
         } else {
           next('/adminlogin')
