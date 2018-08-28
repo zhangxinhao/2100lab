@@ -459,7 +459,7 @@ export default {
   },
   beforeDestroy: function() {
     clearInterval(this.interValId)
-    axios.post(utils.getURL() + 'api/feedbackrecord', qs.stringify({
+    axios.post(utils.getURL() + 'api/feedbackrecord/', qs.stringify({
       courseId: this.courseId,
       last_time: this.music.currentTime
     })).then(response => {})

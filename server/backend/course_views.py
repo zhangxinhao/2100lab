@@ -62,7 +62,7 @@ def _get_flags_(course, user):
 
 def check_course_record(request):
     user = request.user
-    course_id = request.POST("courseId")
+    course_id = request.POST.get("courseId")
     status = 0
     try:
         course = Course.objects.get(pk=course_id)
@@ -88,8 +88,9 @@ def check_course_record(request):
 
 def feedback_course_record(request):
     user = request.user
-    course_id = request.POST("courseId")
-    last_time = request.POST("currentTime")
+    course_id = request.POST.get("courseId")
+    last_time = request.POST.get("last_time")
+    last_time = float(last_time)
     status = 0
     try:
         course = Course.objects.get(pk=course_id)
