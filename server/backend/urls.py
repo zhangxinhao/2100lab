@@ -9,7 +9,7 @@ urlpatterns = [
     path('login/', user_views.login),
     path('authenticate/', user_views.authenticate),
     path('logout/', user_views.logout),
-    path('listrecentvisit/', user_views.list_recent_visit),
+    path('listrecentvisit/', user_views.get_visit_history),
     path('getuserinfo/', user_views.get_user_infor),
     path('getcourseinfo/', course_views.get_course_info),
     path('setalias/', user_views.set_alias),

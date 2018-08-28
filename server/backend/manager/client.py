@@ -20,7 +20,7 @@ def client_history(request):
     record = VisitRecord.objects.filter()
     if course_id:
         record = record.filter(course_id=course_id)
-    record = record.order_by("-last_time").values()
+    record = record.order_by("-last_time")
     history = []
     for rcd in record:
         user = User.objects.get(pk=rcd.user_id)
@@ -38,14 +38,14 @@ def client_information(request):
     user_alias = request.POST.get("user_alias")
     user_list = None
     if user_id:
-        user_list = User.objects.filter(id=user_id)
+        user_list = User.objects.filter(id=user_id, is_active=True)
         if user_alias:
             user_list = user_list.filter(alias=user_alias)
     else:
         if user_alias:
-            user_list = User.objects.filter(alias=user_alias)
+            user_list = User.objects.filter(alias=user_alias, is_active=True)
     if user_list is None:
-        user_list = User.objects.filter()
+        user_list = User.objects.filter(is_active=True)
     user_list = user_list.values()
     query = []
     for client in user_list:
@@ -69,19 +69,18 @@ def delete(request):
     user_id = request.POST.get("user_id")
     try:
         user = User.objects.get(id=user_id)
-        user.is_acitve = False
+        user.is_active = False
         user.save()
+        log_user_id = request.user.id
+        log_object_id = user_id
+        log = AdminOperationRecord.objects.create(
+            admin_id=log_user_id,
+            operation=Operation.objects.get(pk=3),
+            object=log_object_id
+        )
+        log.save()
     except User.DoesNotExist:
         status = 1
-
-    log_user_id = request.user.id
-    log_object_id = user_id
-    log = AdminOperationRecord.objects.create(
-        admin_id=log_user_id,
-        operation=Operation.objects.get(pk=3),
-        object=log_object_id
-    )
-    log.save()
     return JsonResponse({"status": status})
 
 
@@ -111,8 +110,7 @@ def authorize(request):
     user_id = request.POST.get("user_id")
     try:
         user = User.objects.get(id=user_id)
-        auth = json.loads(request.POST.get("auth"))
-        user.is_V = auth
+        user.is_V = True
         user.save()
     except User.DoesNotExist:
         status = 1

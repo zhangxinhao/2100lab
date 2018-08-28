@@ -194,6 +194,17 @@ export default {
         if (response.data.status === 0) {
           this.userData[authorizeIndex].is_V =
             !this.userData[authorizeIndex].is_V
+          if (this.userData[authorizeIndex].is_V) {
+            this.$message({
+              message: '认证成功！',
+              type: 'success'
+            })
+          } else {
+            this.$message({
+              message: '取消认证成功！',
+              type: 'success'
+            })
+          }
         }
       })
     },

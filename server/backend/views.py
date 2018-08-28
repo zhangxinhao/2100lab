@@ -11,7 +11,6 @@ def index(request):
 
 
 def recommend_course(request):
-    print("in")
     course_list = Course.objects.filter().order_by('-create_time').values()
     courses = []
     size = 5 if len(course_list) > 5 else len(course_list)

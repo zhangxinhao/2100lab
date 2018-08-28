@@ -124,7 +124,7 @@ export default {
       this.userMsg.name = response.data.list[0].fields.alias
       this.userMsg.phoneNumber = response.data.list[0].fields.username
       this.userMsg.balance = response.data.list[0].fields.balance
-      this.userMsg.isV = response.data.list[0].fields.is_v
+      this.userMsg.isV = response.data.list[0].fields.is_V
     })
   }
 }

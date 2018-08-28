@@ -67,20 +67,24 @@ def wx_pc(request):
     order_no = _create_order_no_(user.id)
     amount, course, extra = _get_info_(request)
     sharer = extra[0]
-    charge = pingpp.Charge.create(
-        order_no=order_no,
-        amount=amount,
-        app=dict(id=APP_ID),
-        channel="wx_wap",
-        currency="cny",
-        client_ip=URL,
-        subject="2100实验室课程支付",
-        body="欢迎购买\"" + course.course_name + "\"课程",
-        extra=dict(product_id=order_no)
-    )
-    wx_qr = charge["credential"]["wx_pub_qr"]
-    _create_order_(user, course, amount, sharer, charge)
-    return JsonResponse({"status": 0, "qr": wx_qr})
+    try:
+        charge = pingpp.Charge.create(
+            order_no=order_no,
+            amount=int(amount),
+            app=dict(id=APP_ID),
+            channel="wx_wap",
+            currency="cny",
+            client_ip=URL,
+            subject="2100实验室课程支付",
+            body="欢迎购买\"" + course.course_name + "\"课程"
+        )
+        wx_qr = charge["credential"]["wx_wap"]["wx_wap"]
+        _create_order_(user, course, amount, sharer, charge)
+        return JsonResponse({"status": 0, "qr": wx_qr})
+    except Exception as e:
+        print(e)
+        return JsonResponse({"status": 1})
+
 
 def wx_phone(request):
     user = request.user
@@ -89,7 +93,7 @@ def wx_phone(request):
     sharer = extra[0]
     charge = pingpp.Charge.create(
         order_no=order_no,
-        amount=amount,
+        amount=int(amount),
         app=dict(id=APP_ID),
         channel='wx_wap',
         currency='cny',
@@ -101,13 +105,13 @@ def wx_phone(request):
     return JsonResponse({"status": 0, "pingppObject": charge})
 
 def _create_order_no_(user_id):
-    return int(time.time()) + user_id
+    return str(int(time.time())) + user_id
 
 def _get_info_(request):
     info = json.loads(request.POST.get("info"))
-    amount = info["amount"] * 100
     course_id = info["courseId"]
     course = Course.objects.get(pk=course_id)
+    amount = course.price * 100
     url = info["successUrl"]
     sharer = info["sharer"]
     return amount, course, [sharer, url]

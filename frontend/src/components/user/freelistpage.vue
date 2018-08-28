@@ -98,7 +98,8 @@
                 <el-aside class="aside">
                   <router-link
                     id="logo"
-                    :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                    :to="{name:'intro',
+                      params:{courseid: item.id, user: user}}">
                     <img
                       :src="item.profileUrl"
                       :alt="item.name"
@@ -112,7 +113,8 @@
                   <el-main class="main">
                     <router-link
                       id="logo"
-                      :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                      :to="{name:'intro',
+                        params:{courseid: item.id, user: user}}">
                       <el-button
                         icon="el-icon-caret-right"
                         type="primary"

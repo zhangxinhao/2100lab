@@ -186,7 +186,8 @@
                   <el-main class="main">
                     <router-link
                       id="logo"
-                      :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                      :to="{name:'intro',
+                        params:{courseid: item.id, user: user}}">
                       <el-button
                         icon="el-icon-caret-right"
                         type="primary"
@@ -312,7 +313,8 @@
                   <el-main class="main">
                     <router-link
                       id="logo"
-                      :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                      :to="{name:'intro',
+                        params:{courseid: item.id, user: user}}">
                       <el-button
                         icon="el-icon-caret-right"
                         type="primary"

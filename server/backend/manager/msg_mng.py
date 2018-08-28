@@ -3,7 +3,8 @@ from backend.models import Message, Comment, AdminOperationRecord, Operation
 
 
 def _querysort_(message, comment):
-    return message.extend(comment)
+    message.extend(comment)
+    return message
 
 
 def show_msg(request):
@@ -25,12 +26,10 @@ def show_msg(request):
         course = message.course
         c_id = course.course_id
         message_query.append({
-            "id": message_id, "courseId": c_id,
-            "userId": message.author_id,
+            "id": message_id, "courseId": c_id, "userId": message.author_id,
+            "msgContent": message.content, "createdAt": str(message.time),
             "userName": message.author.alias,
-            "phoneNumber": message.author.id,
-            "msgContent": message.content,
-            "createdAt": str(message.time)
+            "phoneNumber": message.author.id
         })
         comment_list = Comment.objects.filter(
             message=message).order_by("-time")

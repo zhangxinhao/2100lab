@@ -99,7 +99,7 @@ export default {
     axios.post(utils.getURL() + 'api/listrecentvisit/', qs.stringify({
       id: this.$route.params.userid
     })).then(response => {
-      this.courses = response.data.courses
+      this.courses = response.data.history
       this.totalNumber = this.courses.length
       let totalNumber = this.totalNumber
       this.browList = []
