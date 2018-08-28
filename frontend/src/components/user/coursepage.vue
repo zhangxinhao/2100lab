@@ -567,7 +567,8 @@ export default {
     },
     leaveAttitude: function(msg, attitude) {
       axios.post(utils.getURL() + 'api/attitude/', qs.stringify({
-        message_id: msg.message_id,
+        course_id: this.$route.params.courseid,
+        message_id: msg.messageId,
         attitude: attitude
       })).then(response => {
         this.discussionList = []
@@ -641,6 +642,8 @@ export default {
       course_id: this.$route.params.courseid
     })).then(response => {
       this.discussionList = []
+      this.onePageDiscussion = []
+      this.coursePic = []
       this.tempCourse = response.data.course[0].fields
       this.tempPictures = response.data.pictures
       let tempMessage = response.data.message
