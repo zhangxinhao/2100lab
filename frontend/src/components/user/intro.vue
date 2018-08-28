@@ -354,6 +354,7 @@ export default {
   },
   created: function() {
     this.courseId = this.$route.params.courseid
+    this.$store.commit('setCourseId', this.courseId)
     this.sharePerson = this.$route.params.user
     this.user = this.$route.params.user
     // 以下一行放到登录函数里

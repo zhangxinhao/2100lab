@@ -41,7 +41,13 @@ export default new Router({
     {
       path: '/intro/:courseid/:user',
       name: 'intro',
-      component: intro
+      component: intro,
+      beforeRouteLeave(to, from, next) {
+        if (to.name !== 'coursepage') {
+          store.commit('setCourseId', '0')
+        }
+        next()
+      }
     },
     {
       path: '/coursepage/:courseid/:user',
@@ -53,6 +59,12 @@ export default new Router({
         } else {
           next(false)
         }
+      },
+      beforeRouteLeave(to, from, next) {
+        if (to.name !== 'intro') {
+          store.commit('setCourseId', '0')
+        }
+        next()
       }
     },
     {
