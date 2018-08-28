@@ -3,7 +3,7 @@
   <div class="index">
     <div class="tool-bar">
       <div class="logo">
-        <route-link to="/index">
+        <route-link to="/">
           <img src="../../assets/logo3.png" width="200%" height="80%">
         </route-link>
       </div>

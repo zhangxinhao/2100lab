@@ -1,9 +1,11 @@
 <template>
   <div class="course-page">
-    <div class="toolbar">
-      <div class="logo">
-      <img src="../../assets/logo3.png" width="200%" height="80%">
-      </div>
+    <div class="tool-bar">
+      <router-link to="/">
+        <div class="logo">
+          <img src="../../assets/logo3.png" width="200%" height="80%">
+        </div>
+      </router-link>
       <table align="right">
         <tr>
           <td>
@@ -59,7 +61,9 @@
               </el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="验证码" :label-width="loginLabelWidth">
+          <el-form-item
+            label="验证码"
+            :label-width="loginLabelWidth">
             <el-col :span="18">
               <el-input
                 v-model="loForm.usercode"
@@ -90,7 +94,7 @@
       </div>
 
       <div class="img-container">
-        <img :src="nowPic.position" class="coursePic">
+        <img :src="nowPic.position" class="course-pic">
       </div>
 
       <div class="audio-container">
@@ -303,8 +307,7 @@
           :total="totalNumber"
           :current-page.sync="pageNo"
           :pager-count="7"
-          @current-change="flipeOver"
-        >
+          @current-change="flipeOver">
         </el-pagination>
       </div>
     </div>
@@ -656,7 +659,7 @@ export default {
   .course-page {
     background-color: rgb(240, 240, 240);
   }
-  .toolbar {
+  .tool-bar {
     width: 100%;
     min-height: 45px;
     max-height: 70px;
@@ -708,7 +711,7 @@ export default {
     text-align:center;
     vertical-align: middle;
   }
-  .coursePic {
+  .course-pic {
     width: 90%;
     height: 90%;
     object-fit: contain;
@@ -830,7 +833,7 @@ export default {
       font-size:15px;
       margin-right: 10px;
     }
-    .toolbar {
+    .tool-bar {
       min-height: 42px;
     }
     .logo {
@@ -925,7 +928,7 @@ export default {
       font-size:15px;
       margin-right: 10px;
     }
-    .toolbar {
+    .tool-bar {
       min-height: 42px;
     }
     .logo {
