@@ -503,13 +503,12 @@ export default {
       axios.post(utils.getURL() + 'api/authenticate/', qs.stringify({
         phone_number: this.loForm.phoneNumber,
         verification_code: 0
-      })).then(
-        response => {
-          this.login = true
-          //  = response.data.user.alias
-          //  = response.data.user.icon
-        }
-      )
+      })).then(response => {
+        this.login = true
+        //  = response.data.user.alias
+        //  = response.data.user.icon
+        this.$store.commit('setUserId', this.loForm.phoneNumber)
+      })
     },
     getVerification: function() {
       if (this.loForm.phoneNumber === '') {
@@ -532,13 +531,37 @@ export default {
     logout: function() {
       axios.post(utils.getURL() + 'api/logout/').then(response => {
         this.login = false
+        this.$store.commit('setUserId', '0')
       })
+    },
+    addList: function(list, list1, list2, length) {
+      let course = {
+        id: '',
+        profileUrl: '',
+        name: ''
+      }
+      let tempLen = length > 3 ? 3 : length
+      for (let i = 0; i < tempLen; i++) {
+        course.id = list[i].pk
+        course.profileUrl = utils.getURL() + 'media/' +
+          list[i].fields.profile_url
+        course.name = list[i].fields.course_name
+        list1.push(course)
+      }
+      for (let i = 3; i < length; i++) {
+        course.id = list[i].pk
+        course.profileUrl = utils.getURL() + 'media/' +
+          list[i].fields.profile_url
+        course.name = list[i].fields.course_name
+        list2.push(course)
+      }
     }
   },
   created: function () {
-    axios.post(utils.getURL() + 'api/login/').then(response => {
-      this.login = response.data.status
-    })
+    this.user = this.$store.state.userId
+    if (this.user !== '0') {
+      this.login = true
+    }
     axios.post(utils.getURL() + 'api/listrecommend/').then(response => {
       let length = response.data.courses.length
       for (let i = 0; i < length; i++) {
@@ -550,72 +573,16 @@ export default {
     axios.post(utils.getURL() + 'api/listfreeindex/').then(response => {
       let list = response.data.courses
       let length = list.length
-      let course = {
-        id: '',
-        profileUrl: '',
-        name: ''
-      }
       this.freeList1 = []
       this.freeList2 = []
-      if (length > 3) {
-        for (let i = 0; i < 3; i++) {
-          course.id = list[i].pk
-          course.profileUrl = utils.getURL() + 'media/' +
-            list[i].fields.profile_url
-          course.name = list[i].fields.course_name
-          this.freeList1.push(course)
-        }
-        for (let i = 3; i < length; i++) {
-          course.id = list[i].pk
-          course.profileUrl = utils.getURL() + 'media/' +
-            list[i].fields.profile_url
-          course.name = list[i].fields.course_name
-          this.freeList2.push(course)
-        }
-      } else {
-        for (let i = 0; i < length; i++) {
-          course.id = list[i].pk
-          course.profileUrl = utils.getURL() + 'media/' +
-            list[i].fields.profile_url
-          course.name = list[i].fields.course_name
-          this.freeList1.push(course)
-        }
-      }
+      this.addList(list, this.freeList1, this.freeList2, length)
     })
     axios.post(utils.getURL() + 'api/listpricedindex/').then(response => {
       let list = response.data.courses
       let length = list.length
-      let course = {
-        id: '',
-        profileUrl: '',
-        name: ''
-      }
       this.costList1 = []
       this.costList2 = []
-      if (length > 3) {
-        for (let i = 0; i < 3; i++) {
-          course.id = list[i].pk
-          course.profileUrl = utils.getURL() + 'media/' +
-            list[i].fields.profile_url
-          course.name = list[i].fields.course_name
-          this.costList1.push(course)
-        }
-        for (let i = 3; i < length; i++) {
-          course.id = list[i].pk
-          course.profileUrl = utils.getURL() + 'media/' +
-            list[i].fields.profile_url
-          course.name = list[i].fields.course_name
-          this.costList2.push(course)
-        }
-      } else {
-        for (let i = 0; i < length; i++) {
-          course.id = list[i].pk
-          course.profileUrl = utils.getURL() + 'media/' +
-            list[i].fields.profile_url
-          course.name = list[i].fields.course_name
-          this.costList1.push(course)
-        }
-      }
+      this.addList(list, this.costList1, this.costList2, length)
     })
   }
 }

@@ -90,7 +90,7 @@
       </div>
 
       <div>
-        <link rel="preload" href="courseAudio" as="audio">
+        <link rel="preload" :href="courseAudio" as="audio">
       </div>
 
       <div class="img-container">
