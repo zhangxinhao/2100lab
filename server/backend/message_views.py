@@ -55,7 +55,7 @@ def leave_message(request):
     A method to leave message. Course id and the message itself are needed.
 
     """
-    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    # time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     user = request.user
     if not user.talking_allowed:
         status = 1
@@ -64,8 +64,12 @@ def leave_message(request):
     content = request.POST.get("content")
     course = Course.objects.get(pk=course_id)
     Message.objects.create(course=course, author=user,
-                           content=content, time=time)
-    return message_board(request)
+                           content=content)
+    response = {}
+    message_board = message_board_dic(request)
+    if message_board:
+        response["message"] = message_board
+    return JsonResponse(response)
 
 
 def comment(request):
@@ -82,7 +86,11 @@ def comment(request):
     content = request.POST.get("content")
     message = Message.objects.get(pk=message_id)
     Comment.objects.create(author=user, message=message, content=content)
-    return message_board(request)
+    response = {}
+    message_board = message_board_dic(request)
+    if message_board:
+        response["message"] = message_board
+    return JsonResponse(response)
 
 
 def express(request):
