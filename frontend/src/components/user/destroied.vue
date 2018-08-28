@@ -60,7 +60,7 @@ export default {
     color: black;
   }
   #return-index {
-    font-size:20px;
+    font-size: 20px;
     color: #409EFF;
   }
   img {
@@ -86,7 +86,7 @@ export default {
     margin: 0px;
   }
   #return-index {
-    font-size:15px;
+    font-size: 15px;
     color: #409EFF;
   }
   .element-style {

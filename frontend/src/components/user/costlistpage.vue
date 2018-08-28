@@ -98,7 +98,7 @@
               <el-container class="list-one-outer">
                 <el-aside class="aside">
                   <router-link id="logo"
-                    :to="{name:'intro', params:{courseid: item.id}}">
+                    :to="{name:'intro', params:{courseid: item.id, user: user}}">
                     <img
                       :src="item.profileUrl"
                       :alt="item.name"
@@ -107,14 +107,17 @@
                 </el-aside>
                 <el-container class="list-one-inner">
                   <el-header class="header">
-                    <div>{{item.name}}</div>
+                    <div>{{ item.name }}</div>
                   </el-header>
                   <el-main class="main">
-                    <el-button
-                      icon="el-icon-caret-right"
-                      type="primary"
-                      class="read">点击阅读
-                    </el-button>
+                    <router-link id="logo"
+                      :to="{name:'intro', params:{courseid: item.id, user: user}}">
+                      <el-button
+                        icon="el-icon-caret-right"
+                        type="primary"
+                        class="read">点击阅读
+                      </el-button>
+                    </router-link>
                   </el-main>
                 </el-container>
               </el-container>
@@ -164,6 +167,7 @@ export default {
       }, 100)
     }
     return {
+      user: '0',
       login: true,
       loginFormVisible: false,
       loginLabelWidth: '100px',
@@ -296,6 +300,9 @@ export default {
 </script>
 
 <style scoped>
+  .el-pagination {
+    text-align: center;
+  }
   .cost-list {
     background-color: rgb(240, 240, 240);
   }
@@ -304,7 +311,7 @@ export default {
     min-height: 45px;
     max-height: 70px;
     padding: 0;
-    background-color:#409EFF;
+    background-color: #409EFF;
   }
   #footer {
     color: #333;
@@ -324,7 +331,7 @@ export default {
   }
   .user-ope {
     color: white;
-    font-size:18px;
+    font-size: 18px;
     margin-right: 60px;
   }
   body {
@@ -363,7 +370,7 @@ export default {
   }
   .video-list {
     zoom: 1;
-    height:1150px;
+    height: 1150px;
     margin-bottom: 30px;
   }
   .list-one-outer {
@@ -406,7 +413,7 @@ export default {
     }
     .user-ope {
       color: white;
-      font-size:15px;
+      font-size: 15px;
     }
     .main-inner {
       max-width: 1250px;
@@ -417,7 +424,7 @@ export default {
     }
     .video-list {
       zoom: 1;
-      height:1580px;
+      height: 1580px;
       margin-bottom: 30px;
     }
     .list-one-outer {
@@ -475,7 +482,7 @@ export default {
     }
     .user-ope {
       color: white;
-      font-size:15px;
+      font-size: 15px;
     }
     .main-inner {
       max-width: 1250px;
@@ -486,7 +493,7 @@ export default {
     }
     .video-list {
       zoom: 1;
-      height:1080px;
+      height: 1080px;
       margin-bottom: 30px;
     }
     .list-one-outer {
@@ -532,7 +539,7 @@ export default {
     }
     .video-list {
       zoom: 1;
-      height:780px;
+      height: 780px;
       margin-bottom: 30px;
     }
   }
