@@ -353,6 +353,7 @@ export default {
         ]
       },
       tempCourse: [],
+      tempPictures: [],
       coursePic: [
         {
           position: require('../../assets/images/1-1.001.png'),
@@ -575,11 +576,23 @@ export default {
         this.freeList.push(this.courses[i])
       }
     },
-    initialize: function(course) {
-      this.coursePic = course.pictures
-      this.courseAudio = course.audio
-      this.courseArtical = course.course_description
-      this.refresh(course.message)
+    initialize(course, pictures) {
+      let length = pictures.length
+      let tempPicture = {
+        position: '',
+        start: ''
+      }
+      this.coursePic = []
+      for (let i = 0; i < length; i++) {
+        tempPicture.position = utils.getURL() + 'media/' +
+          pictures[i].fields.postion
+        tempPicture.start = pictures[i].fields.start
+        this.coursePic.push(tempPicture)
+      }
+      this.courseAudio = utils.getURL() + 'media/' +
+        course.audio_url
+      this.courseArtical = course.content
+      // this.refresh(course.message)
     },
     refresh: function(message) {
       for (let i = 0; i < message.lenth; i++) {
@@ -619,8 +632,9 @@ export default {
       course_id: this.$route.params.courseid
     })).then(response => {
       this.discussionList = []
-      this.tempCourse = response.data.course
-      this.initialize(this.tempCourse)
+      this.tempCourse = response.data.course[0].fields
+      this.tempPictures = response.data.pictures
+      this.initialize(this.tempCourse, this.tempPictures)
     })
     axios.post(utils.getURL() + 'api/checkrecord/', qs.stringify({
       courseId: this.$route.params.courseid
