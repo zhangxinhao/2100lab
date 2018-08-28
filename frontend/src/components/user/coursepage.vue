@@ -765,7 +765,7 @@ export default {
   }
   .discuss-container {
     width: 1200px;
-    max-height: 2500px;
+    min-height: 1000px;
     margin: 20px auto;
   }
   .discuss-header {
