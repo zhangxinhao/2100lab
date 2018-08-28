@@ -31,6 +31,17 @@ def _to_binary_(code):
     return delta + my_str
 
 
+def access_check(request):
+    status = 0
+    user = request.user
+    code = ""
+    if user.is_authenticated and user.is_staff:
+        code = _to_binary_(user.manage_right)
+    else:
+        status = 1
+    return JsonResponse({"status": status, "code": code})
+
+
 def authorization_check(request):
     user = request.user
     my_list = _to_binary_(user.manage_right)

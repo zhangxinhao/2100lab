@@ -43,7 +43,7 @@ export default new Router({
       name: 'intro',
       component: intro,
       beforeRouteLeave(to, from, next) {
-        if (to.name !== 'coursepage') {
+        if (to.name !== 'coursepage' && to.name !== 'intro') {
           store.commit('setCourseId', '0')
         }
         next()
@@ -61,7 +61,7 @@ export default new Router({
         }
       },
       beforeRouteLeave(to, from, next) {
-        if (to.name !== 'intro') {
+        if (to.name !== 'coursepage' && to.name !== 'intro') {
           store.commit('setCourseId', '0')
         }
         next()
@@ -195,21 +195,21 @@ export default new Router({
       ],
       beforeEnter: (to, from, next) => {
         const nextRoute = [
-          'baseadmin',
-          'addAdmin',
-          'orderAdmin',
-          'uploadCourse',
-          'editCourse',
-          'courseManage',
-          'commentadmin',
-          'userBrowsing',
-          'usermanage',
-          'adminManage',
-          'adminHistory',
-          'dataAnalize'
+          'baseadmin', 'addAdmin', 'orderAdmin',
+          'uploadCourse', 'editCourse', 'courseManage',
+          'commentadmin', 'userBrowsing', 'usermanage',
+          'adminManage', 'adminHistory', 'dataAnalize'
+        ]
+        const list = [
+          ['addAdmin', 'adminManage'],
+          ['uploadCourse', 'editCourse', 'courseManage'],
+          ['usermanage', 'userBrowsing', 'commentadmin'],
+          ['adminHistory'],
+          ['orderAdmin']
         ]
         if (nextRoute.indexOf(to.name) >= 0) {
           if (store.state.userId !== '0') {
+            list[5] = []
             next()
           } else {
             next('/adminlogin')
