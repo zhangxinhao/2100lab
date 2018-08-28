@@ -185,9 +185,9 @@
       </div>
       <br />
       <br />
-      <div class="hidden-md-and-down" id="footer">
+      <!-- <div class="hidden-md-and-down" id="footer">
         <img src="../../assets/footer1.png" width=100%>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -380,6 +380,11 @@ export default {
   .intro {
     height: 100%;
     background-color: rgb(240, 240, 240);
+    min-height: 100vh;
+    background-image: url(/static/img/footer1.2f07561.png);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: contain;
   }
   .el-main {
     padding: 0px;
