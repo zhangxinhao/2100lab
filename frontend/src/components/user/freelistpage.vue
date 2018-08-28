@@ -407,7 +407,7 @@ export default {
       padding: 0px;
     }
     .user-ope {
-      color:#085078;
+      color: white;
       font-size:15px;
     }
     .main-inner {
@@ -455,7 +455,7 @@ export default {
       padding: 5px;
     }
     .user-ope {
-      color:#085078;
+      color: white;
       font-size:15px;
       margin-right: 10px;
     }
@@ -476,7 +476,7 @@ export default {
       padding: 0px;
     }
     .user-ope {
-      color:#085078;
+      color: white;
       font-size:15px;
     }
     .main-inner {

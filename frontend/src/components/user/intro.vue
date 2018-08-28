@@ -1,45 +1,89 @@
 <template>
   <div class="intro">
     <div id="body">
-      <div class="toolbar">
-        <div class="logo">
-        <img src="../../assets/logo3.png" width="200%" height="80%">
-        </div>
+      <div class="tool-bar">
+        <router-link to="/">
+          <div class="logo">
+            <img src="../../assets/logo3.png" width="200%" height="80%">
+          </div>
+        </router-link>
         <table align="right">
           <tr>
             <td>
-              <el-button class="user-ope" type="text" v-if="!login" @click="loginFormVisible = true">登录</el-button>
+              <el-button
+                class="user-ope"
+                type="text"
+                v-if="!login"
+                @click="loginFormVisible = true">
+                登录
+              </el-button>
             </td>
             <td>
               <router-link to="/personal">
-                <el-button class="user-ope" type="text" v-if="login">个人中心</el-button>
+                <el-button
+                  class="user-ope"
+                  type="text"
+                  v-if="login">
+                  个人中心
+                </el-button>
               </router-link>
             </td>
             <td>
-              <el-button class="user-ope" type="text" v-if="login" @click="logout">登出</el-button>
+              <el-button
+                class="user-ope"
+                type="text"
+                v-if="login"
+                @click="logout">
+                登出
+              </el-button>
             </td>
           </tr>
         </table>
       </div>
 
-      <div class="logindialog">
-        <el-dialog title="登录" :visible.sync="loginFormVisible" width="400px" height="700px">
+      <div class="login-dialog">
+        <el-dialog
+          title="登录"
+          :visible.sync="loginFormVisible"
+          width="400px"
+          height="700px">
           <el-form :model="loform" :rules="rules">
             <el-form-item label="手机号" label-width="100px" prop="lophone">
               <el-col :span="18">
-                <el-input v-model="loform.phonenumber" auto-complete="true" clearable required="required" pattern="/^1[3|4|5|7|8][0-9]\d{8}$/" oninvalid="this.setCustomValidity('warning')"></el-input>
+                <el-input
+                  v-model="loform.phonenumber"
+                  auto-complete="true"
+                  clearable
+                  required="required"
+                  pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"
+                  oninvalid="this.setCustomValidity('warning')">
+                </el-input>
               </el-col>
             </el-form-item>
             <el-form-item label="验证码" label-width=100px>
               <el-col :span="18">
-                <el-input v-model="loform.password" auto-complete="off" clearable></el-input>
+                <el-input
+                  v-model="loform.password"
+                  auto-complete="off"
+                  clearable>
+                </el-input>
               </el-col>
             </el-form-item>
           </el-form>
           <div slot="footer" class="login-footer">
-            <el-button type="primary" @click="loginFormVisible = false">获取验证码</el-button>
-            <el-button @click="loginFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="loginFormVisible = false">确 定</el-button>
+            <el-button
+              type="primary"
+              @click="loginFormVisible = false">
+              获取验证码
+            </el-button>
+            <el-button @click="loginFormVisible = false">
+              取 消
+            </el-button>
+            <el-button
+              type="primary"
+              @click="loginFormVisible = false">
+              确 定
+            </el-button>
           </div>
         </el-dialog>
       </div>
@@ -91,7 +135,9 @@
             </el-container>
           </div>
           <div>
-            <p class="class-content" align="justify">{{ classIntro }}</p>
+            <p class="class-content" align="justify">
+              {{ classIntro }}
+            </p>
           </div>
           <div class="share-div">
             <i class="el-icon-share"></i>
@@ -111,8 +157,12 @@
           </div>
           <div class="hint">现金支付</div>
           <div class="pay-frame">
-            <el-radio v-model="channel" label="alipay">支付宝支付</el-radio>
-            <el-radio v-model="channel" label="wx">微信支付</el-radio>
+            <el-radio v-model="channel" label="alipay">
+              支付宝支付
+            </el-radio>
+            <el-radio v-model="channel" label="wx">
+              微信支付
+            </el-radio>
           </div>
           <el-button
             class="pay"
@@ -170,7 +220,7 @@ export default {
       buttonShow: '观看',
       // burnedFlag表示当前是否焚毁（true为已焚毁）
       burnedFlag: false,
-      // money表示当前课程的价钱，moneyFlag表示该课是否免费（true为付费 false为免费）
+      // money表示当前课程的价钱，moneyFlag表示该课是否免费
       moneyFlag: true,
       money: 25,
       // paidFlag表示当前用户是否已支付该课程(true 表示已支付)
@@ -215,7 +265,8 @@ export default {
     },
     isPC: function() {
       let userAgentInfo = navigator.userAgent
-      let agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod']
+      let agents = ['Android', 'iPhone', 'SymbianOS',
+        'Windows Phone', 'iPad', 'iPod']
       let flag = true
       for (let v = 0; v < agents.length; v++) {
         if (userAgentInfo.indexOf(agents[v]) > 0) {
@@ -244,9 +295,11 @@ export default {
           }
           window.open(url)
         }, ['alipay_pc_direct'])
-        pingpp.createPayment(response.data.pingppObject, function (result, err) {
-          this.$message.error(err)
-        })
+
+        pingpp.createPayment(response.data.pingppObject,
+          function (result, err) {
+            this.$message.error(err)
+          })
       })
     },
     alipayPhone: function() {
@@ -254,9 +307,10 @@ export default {
       axios.post(utils.getURL() + 'api/alipayphone/', qs.stringify({
         info: JSON.stringify(this.payInfo())
       })).then(response => {
-        pingpp.createPayment(response.data.pingppObject, function (result, err) {
-          this.$message.error(err)
-        })
+        pingpp.createPayment(response.data.pingppObject,
+          function (result, err) {
+            this.$message.error(err)
+          })
       })
     },
     wxPC: function() {
@@ -273,9 +327,10 @@ export default {
       axios.post(utils.getURL() + 'api/wxphone/', qs.stringify({
         info: JSON.stringify(this.payInfo())
       })).then(response => {
-        pingpp.createPayment(response.data.pingppObject, function (result, err) {
-          this.$message.error(err)
-        })
+        pingpp.createPayment(response.data.pingppObject,
+          function (result, err) {
+            this.$message.error(err)
+          })
       })
     },
     payWithCash: function() {
@@ -335,7 +390,7 @@ export default {
     margin: 20px auto;
     text-align: center;
   }
-  .toolbar {
+  .tool-bar {
     width: 100%;
     min-height: 45px;
     max-height: 70px;
@@ -357,7 +412,7 @@ export default {
   }
 
   #class {
-    font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+    font-family: "Arial","Microsoft YaHei","黑体";
     font-size: 24px;
     font-weight: bold;
     text-align: left;
@@ -370,11 +425,6 @@ export default {
     text-align: left;
     letter-spacing: 0;
     padding-bottom: 20px;
-  }
-
-  .picturebox {
-    width: 600px;
-    height: 400px;
   }
 
   #page {
@@ -408,8 +458,6 @@ export default {
     color: #333;
     text-align: center;
     line-height: 55px;
-    /* position: absolute;
-    bottom: 0; */
   }
   .card-contain {
     min-height: 500px;
@@ -465,12 +513,6 @@ export default {
     color:#409EFF;
   }
 
-  #sharetext {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 20px;
-  }
-
   .share {
     margin: 20px;
     width: 150px;
@@ -489,14 +531,14 @@ export default {
   }
   @media screen and (max-width: 500px) {
     .user-ope {
-      color: black;
+      color: white;
       font-size:15px;
       margin-right: 10px;
     }
     .el-aside {
       width: 50% !important;
     }
-    .toolbar {
+    .tool-bar {
       min-height: 42px;
     }
     .logo {
@@ -505,12 +547,9 @@ export default {
       width: 42px;
       height: 42px;
     }
-    .picturebox {
-      width: 100%;
-      height: 10%;
-    }
+
     #class {
-      font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+      font-family: "Arial","Microsoft YaHei","黑体";
       font-size: 18px;
       font-weight: bold;
       padding-bottom: 10px;

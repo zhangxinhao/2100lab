@@ -444,12 +444,12 @@ export default {
       interValId: 0
     }
   },
-  mounted() {
+  mounted: function() {
     this.$nextTick(() => {
       this.interValId = setInterval(this.imgplay, 500)
     })
   },
-  beforeDestroy() {
+  beforeDestroy: function() {
     clearInterval(this.interValId)
     axios.post(utils.getURL() + 'api/feedbackrecord', qs.stringify({
       courseId: this.courseId,
@@ -457,7 +457,7 @@ export default {
     })).then(response => {})
   },
   methods: {
-    imgplay() {
+    imgplay: function() {
       let time = new Date().getTime()
       if (this.burntTime < time / 1000) {
         this.$router.push({path: '/intro/' +
@@ -472,7 +472,7 @@ export default {
       this.nowPic = this.coursePic[i - 1]
       this.listenMusic()
     },
-    listenMusic() {
+    listenMusic: function() {
       if (!this.$refs.music) {
         return
       }
@@ -482,7 +482,7 @@ export default {
       this.music.isPlay = !this.$refs.music.paused
       this.music.currentTime = this.$refs.music.currentTime
     },
-    play() {
+    play: function() {
       if (this.$refs.music.paused) {
         this.$refs.music.play()
       } else {
@@ -490,27 +490,27 @@ export default {
       }
       this.music.isPlay = !this.$refs.music.paused
     },
-    changeTime(time) {
+    changeTime: function(time) {
       this.$refs.music.currentTime = time
     },
-    formatTime(time) {
+    formatTime: function(time) {
       let it = parseInt(time)
       let m = parseInt(it / 60)
       let s = parseInt(it % 60)
       return (m < 10 ? '0' : '') + parseInt(it / 60) +
         ':' + (s < 10 ? '0' : '') + parseInt(it % 60)
     },
-    logout() {
+    logout: function() {
       this.login = false
     },
-    formatVoice(val) {
+    formatVoice: function(val) {
       return this.music.volume
     },
-    changeVoice(val) {
+    changeVoice: function(val) {
       this.music.volume = val
       this.$refs.music.volume = this.music.volume / 100
     },
-    leaveDiscussion() {
+    leaveDiscussion: function() {
       let msgReg = /^[\s\t\n]*$/
       if (msgReg.test(this.discussWord)) {
         this.$message({
@@ -533,7 +533,7 @@ export default {
         })
       }
     },
-    leaveComment(msg) {
+    leaveComment: function(msg) {
       let msgReg = /^[\s\t\n]*$/
       if (msgReg.test(msg.replyMsg)) {
         this.$message({
@@ -556,7 +556,7 @@ export default {
         })
       }
     },
-    leaveAttitude(msg, attitude) {
+    leaveAttitude: function(msg, attitude) {
       axios.post(utils.getURL() + 'api/attitude/', qs.stringify({
         message_id: msg.message_id,
         attitude: attitude
@@ -575,13 +575,13 @@ export default {
         this.freeList.push(this.courses[i])
       }
     },
-    initialize(course) {
+    initialize: function(course) {
       this.coursePic = course.pictures
       this.courseAudio = course.audio
       this.courseArtical = course.course_description
       this.refresh(course.message)
     },
-    refresh(message) {
+    refresh: function(message) {
       for (let i = 0; i < message.lenth; i++) {
         this.discussionList.push({
           'userImg': message[i].icon,
@@ -806,7 +806,7 @@ export default {
       font-size: 16px;
     }
     .user-ope {
-      color: black;
+      color: white;
       font-size:15px;
       margin-right: 10px;
     }
@@ -901,7 +901,7 @@ export default {
 
   @media screen and (min-width: 500px) and (max-width: 1100px) {
     .user-ope {
-      color: black;
+      color: white;
       font-size:15px;
       margin-right: 10px;
     }

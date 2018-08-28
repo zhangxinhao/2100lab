@@ -54,12 +54,42 @@ export default {
     return {
       list: [],
       userOrderList: [
-        {orderId: '110', courseId: '1', status: '已支付', time: '2018-3-5'},
-        {orderId: '110', courseId: '1', status: '已支付', time: '2018-3-5'},
-        {orderId: '110', courseId: '1', status: '已支付', time: '2018-3-5'},
-        {orderId: '110', courseId: '1', status: '已支付', time: '2018-3-5'},
-        {orderId: '110', courseId: '1', status: '已支付', time: '2018-3-5'},
-        {orderId: '110', courseId: '1', status: '已支付', time: '2018-3-5'}
+        {
+          orderId: '110',
+          courseId: '1',
+          status: '已支付',
+          time: '2018-3-5'
+        },
+        {
+          orderId: '110',
+          courseId: '1',
+          status: '已支付',
+          time: '2018-3-5'
+        },
+        {
+          orderId: '110',
+          courseId: '1',
+          status: '已支付',
+          time: '2018-3-5'
+        },
+        {
+          orderId: '110',
+          courseId: '1',
+          status: '已支付',
+          time: '2018-3-5'
+        },
+        {
+          orderId: '110',
+          courseId: '1',
+          status: '已支付',
+          time: '2018-3-5'
+        },
+        {
+          orderId: '110',
+          courseId: '1',
+          status: '已支付',
+          time: '2018-3-5'
+        }
       ],
       nowPage: 1,
       pageSize: 2,
