@@ -181,7 +181,7 @@
                 </el-aside>
                 <el-container class="list-one-inner">
                   <el-header class="header">
-                    <div>{{item.name}}</div>
+                    <div>{{ item.name }}</div>
                   </el-header>
                   <el-main class="main">
                     <router-link

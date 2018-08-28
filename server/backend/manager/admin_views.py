@@ -116,41 +116,40 @@ def create_admin(request):
 
 def get_admin(request):
     admin_id = request.POST.get("adminId")
+    print(admin_id)
     user_list = None
     admins = []
     status = 0
     if admin_id:
+        print('+++++++++')
         try:
-            user_list = User.objects.get(id=admin_id, is_staff=True)
-            if user_list:
-                right = _to_binary_(user_list.manage_right)
-                admin = {
-                    "adminId": admin_id,
-                    "password": ''
-                }
-                for i in range(len(right)):
-                    rght = RightsList.objects.get(id=i).right
-                    if right[i] == '1':
-                        admin[rght] = True
-                    else:
-                        admin[rght] = False
-                    admins.append(admin[rght])
-            else:
-                status = 1
+            user = User.objects.get(pk=admin_id)
+            print('------------')
+            right = _to_binary_(user.manage_right)
+            admin = {"adminId": admin_id, "password": ''}
+            for i in range(len(right)):
+                rght = RightsList.objects.get(id=i).right
+                if right[i] == '1':
+                    admin[rght] = True
+                else:
+                    admin[rght] = False
+            admins.append(admin)
         except User.DoesNotExist:
             status = 1
     else:
         user_list = User.objects.filter(is_staff=True).order_by("id").values()
         for admin in user_list:
+            the_one = {
+                "adminId": admin["id"], "password": ''}
             right = _to_binary_(admin["manage_right"])
             try:
                 for i in range(len(right)):
                     rght = RightsList.objects.get(id=i).right
                     if right[i] == '1':
-                        admin[rght] = True
+                        the_one[rght] = True
                     else:
-                        admin[rght] = False
-                    admins.append(admin[rght])
+                        the_one[rght] = False
+                admins.append(the_one)
             except RightsList.DoesNotExist:
                 status = 1
     return JsonResponse({"status": status, "admins": admins})
