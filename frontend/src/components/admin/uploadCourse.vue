@@ -310,11 +310,11 @@ export default {
     },
     beforeUpload: function(file) {
       if (['audio/mp3', 'audio/wav'].indexOf(file.type) === -1) {
-        alert('请上传正确的音频格式')
+        this.$message.error('请上传正确的音频格式')
         return false
       }
       if (this.updateForm.audioInfo) {
-        alert('只能上传一个音频')
+        this.$message.error('只能上传一个音频')
         return false
       }
     },
@@ -417,7 +417,7 @@ export default {
           }
           this.updateForm.imgInfo = imgInfo
         } else {
-          alert('fds')
+          this.$message.error('课程不存在！')
         }
       })
     }
