@@ -8,7 +8,7 @@
         </el-input>
       </el-col>
       <el-col :span="2">
-        <el-button type="primary" icon="el-icon-search">
+        <el-button type="primary" icon="el-icon-search" @click="search">
           搜索
         </el-button>
       </el-col>
@@ -169,26 +169,15 @@ export default {
       editVisible: false,
       deleteIndex: 0,
       deleteVisible: false,
-      adminData: [
-        {
-          adminId: '001',
-          password: '123456',
-          courseManage: true,
-          userManage: true,
-          operationHistory: true,
-          orderManage: true,
-          adminManage: true
-        },
-        {
-          adminId: '122',
-          password: '111111',
-          courseManage: false,
-          userManage: true,
-          operationHistory: true,
-          orderManage: false,
-          adminManage: false
-        }
-      ],
+      adminData: [{
+        adminId: '无',
+        password: '',
+        courseManage: false,
+        userManage: false,
+        operationHistory: false,
+        orderManage: false,
+        adminManage: false
+      }],
       backup: {
         courseManage: true,
         userManage: true,
@@ -202,46 +191,59 @@ export default {
       return index + 1
     },
     editFunction: function(editIndex) {
-      this.editVisible = true
-      this.editIndex = editIndex
-      this.backup.courseManage = this.adminData[editIndex].courseManage
-      this.backup.userManage = this.adminData[editIndex].userManage
-      this.backup.operationHistory = this.adminData[editIndex].operationHistory
-      this.backup.adminManage = this.adminData[editIndex].courseManage
+      let admin = this.adminData[editIndex]
+      if (admin.adminId !== '无') {
+        this.editVisible = true
+        this.editIndex = editIndex
+        this.backup.courseManage = this.adminData[editIndex].courseManage
+        this.backup.userManage = this.adminData[editIndex].userManage
+        this.backup.operationHistory = this.adminData[editIndex].operationHistory
+        this.backup.adminManage = this.adminData[editIndex].courseManage
+      }
     },
     edit: function() {
       this.editVisible = false
       let admin = this.adminData[this.editIndex]
-      let password
-      if (admin.password !== '') {
-        password = hash.getHash(admin.password)
-      }
-      axios.post(utils.getURL() + 'api/editadmin/', qs.stringify({
-        adminId: admin.adminId,
-        password: password,
-        course_manage: admin.courseManage,
-        user_manage: admin.userManage,
-        operation_history: admin.operationHistory,
-        order_manage: admin.orderManage
-      })).then(response => {
-        if (response.data.status === 0) {
-          this.$message({
-            message: '编辑成功',
-            type: 'success'
-          })
-        } else {
-          this.$message.error('编辑失败')
+      if (admin.adminId !== '无') {
+        let password
+        if (admin.password !== '') {
+          password = hash.getHash(admin.password)
         }
-      })
+        axios.post(utils.getURL() + 'api/editadmin/', qs.stringify({
+          adminId: admin.adminId,
+          password: password,
+          course_manage: admin.courseManage,
+          user_manage: admin.userManage,
+          operation_history: admin.operationHistory,
+          order_manage: admin.orderManage
+        })).then(response => {
+          if (response.data.status === 0) {
+            this.$message({
+              message: '编辑成功',
+              type: 'success'
+            })
+          } else {
+            this.$message.error('编辑失败')
+          }
+        })
+      }
     },
     deleteFunction: function(deleteIndex) {
+      let admin = this.adminData[deleteIndex]
+      if (admin.adminId === '无') {
+        return
+      }
       this.deleteVisible = true
       this.deleteIndex = deleteIndex
     },
     deleteIt: function() {
       this.deleteVisible = false
+      let admin = this.adminData[this.editIndex]
+      if (admin.adminId === '无') {
+        return
+      }
       axios.post(utils.getURL() + 'api/deleteadmin/', qs.stringify({
-        adminId: this.adminData[this.editIndex].adminId
+        adminId: admin.adminId
       })).then(response => {
         if (response.data.status === 0) {
           this.$message({
@@ -286,6 +288,15 @@ export default {
         if (response.data.status === 0) {
           this.adminData = response.data.admins
         } else {
+          this.adminData = [{
+            adminId: '无',
+            password: '',
+            courseManage: false,
+            userManage: false,
+            operationHistory: false,
+            orderManage: false,
+            adminManage: false
+          }]
           this.$message.error('查询错误！')
         }
       })
