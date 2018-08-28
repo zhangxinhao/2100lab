@@ -240,12 +240,12 @@ export default {
       })).then(response => {
         pingpp.setUrlReturnCallback(function (err, url) {
           if (err) {
-            alert(err)
+            this.$message.error(err)
           }
           window.open(url)
         }, ['alipay_pc_direct'])
         pingpp.createPayment(response.data.pingppObject, function (result, err) {
-          alert(err)
+          this.$message.error(err)
         })
       })
     },
@@ -255,7 +255,7 @@ export default {
         info: JSON.stringify(this.payInfo())
       })).then(response => {
         pingpp.createPayment(response.data.pingppObject, function (result, err) {
-          alert(err)
+          this.$message.error(err)
         })
       })
     },
@@ -274,7 +274,7 @@ export default {
         info: JSON.stringify(this.payInfo())
       })).then(response => {
         pingpp.createPayment(response.data.pingppObject, function (result, err) {
-          alert(err)
+          this.$message.error(err)
         })
       })
     },

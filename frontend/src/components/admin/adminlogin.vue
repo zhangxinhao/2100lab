@@ -90,7 +90,7 @@ export default {
         if (status === 0) {
           this.$router.push({ path: '/baseAdmin' })
         } else {
-          return alert('登录失败')
+          return this.$message.error('登录失败')
         }
       })
     }

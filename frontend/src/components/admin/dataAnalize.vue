@@ -60,7 +60,7 @@ export default {
           this.dayOfBrowse = response.data.time
           this.drawBrowseChart()
         } else {
-          alert('内部错误')
+          this.$message.error('内部错误')
         }
       })
     },
@@ -73,7 +73,7 @@ export default {
           this.dayOfPay = response.data.time
           this.drawPayChart()
         } else {
-          alert('内部错误')
+          this.$message.error('内部错误')
         }
       })
     },

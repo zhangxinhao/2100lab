@@ -145,23 +145,22 @@ export default {
       })).then(response => {
         let status = response.data.status
         if (status === 0) {
-          alert('已禁言')
+          this.$message.error('已禁言')
         } else {
-          alert('信息有误！')
+          this.$message.error('信息有误！')
         }
       })
     },
     forbidUser(index) {
       let userId = this.post[index].userId
-      alert(userId)
       axios.post('http://192.168.55.33:8000/api/shutup/', qs.stringify({
         userId: userId
       })).then(response => {
         let status = response.data.status
         if (status === 0) {
-          alert('已禁言')
+          this.$message.error('已禁言')
         } else {
-          alert('用户信息有误！')
+          this.$message.error('用户信息有误！')
         }
       })
     }

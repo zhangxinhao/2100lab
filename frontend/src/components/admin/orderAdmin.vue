@@ -151,7 +151,7 @@ export default {
       axios.post(utils.getURL() + 'api/refund/', qs.stringify({
         orderNo: orderNo
       })).then(response => {
-        alert(response.data.result)
+        this.$message(response.data.result)
       })
     },
     search: function() {
@@ -161,7 +161,7 @@ export default {
         if (response.data.status === 0) {
           this.userOrderList = response.data.orders
         } else {
-          alert('订单号错误')
+          this.$message.error('订单号错误')
           this.userOrderList = []
         }
       })

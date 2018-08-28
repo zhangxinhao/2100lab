@@ -513,7 +513,10 @@ export default {
     leaveDiscussion() {
       let msgReg = /^[\s\t\n]*$/
       if (msgReg.test(this.discussWord)) {
-        alert('发表内容不能为空！')
+        this.$message({
+          message: '发表内容不能为空！',
+          type: 'warning'
+        })
         this.discussWord = ''
       } else {
         axios.post(utils.getURL() + 'api/leaveMessage/', qs.stringify({
@@ -521,7 +524,7 @@ export default {
           content: this.discussWord
         })).then(response => {
           if (response.data.status === 1) {
-            alert('无法发表评论！您已被系统禁言！')
+            this.$message.error('无法发表评论！您已被系统禁言！')
             return
           }
           this.discussionList = []
@@ -533,7 +536,10 @@ export default {
     leaveComment(msg) {
       let msgReg = /^[\s\t\n]*$/
       if (msgReg.test(msg.replyMsg)) {
-        alert('回复内容不能为空！')
+        this.$message({
+          message: '回复内容不能为空！',
+          type: 'warning'
+        })
         msg.replyMsg = ''
       } else {
         axios.post(utils.getURL() + 'api/comment/', qs.stringify({
@@ -541,7 +547,7 @@ export default {
           content: msg.replyMsg
         })).then(response => {
           if (response.data.status === 1) {
-            alert('无法发表回复！您已被系统禁言！')
+            this.$message.error('无法发表回复！您已被系统禁言！')
             return
           }
           this.discussionList = []

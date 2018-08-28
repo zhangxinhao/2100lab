@@ -225,9 +225,12 @@ export default {
         order_manage: admin.orderManage
       })).then(response => {
         if (response.data.status === 0) {
-          alert('编辑成功')
+          this.$message({
+            message: '编辑成功',
+            type: 'success'
+          })
         } else {
-          alert('编辑失败')
+          this.$message.error('编辑失败')
         }
       })
     },
@@ -241,9 +244,12 @@ export default {
         adminId: this.adminData[this.editIndex].adminId
       })).then(response => {
         if (response.data.status === 0) {
-          alert('已删除')
+          this.$message({
+            message: '已删除',
+            type: 'success'
+          })
         } else {
-          alert('删除失败')
+          this.$message.error('删除失败')
         }
       })
     },
@@ -280,7 +286,7 @@ export default {
         if (response.data.status === 0) {
           this.adminData = response.data.admins
         } else {
-          alert('查询错误！')
+          this.$message.error('查询错误！')
         }
       })
     }
@@ -290,7 +296,7 @@ export default {
       if (response.data.status === 0) {
         this.adminData = response.data.admins
       } else {
-        alert('查询错误！')
+        this.$message.error('查询错误！')
       }
     })
   }
