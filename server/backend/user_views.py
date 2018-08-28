@@ -1,11 +1,9 @@
-# user_views.py
 import json
 import requests
 from django.contrib import auth
 from django.core.serializers import serialize
 from django.http import JsonResponse, HttpResponse
-from django.forms.models import model_to_dict
-from .models import User, VisitRecord, Course
+from .models import User, VisitRecord
 
 
 def get_code(request):
@@ -13,10 +11,11 @@ def get_code(request):
     phone_number = request.POST.get('phone_number')
     api_key = "264fb31e3ba88e5c55572dd977b2f372"
     single_send_url = "https://sms.yunpian.com/v2/sms/single_send.json"
+    text = "【王康王康】您的验证码是{code}。如非本人操作，请忽略本短信"
     parmas = {
         "apikey": api_key,
         "mobile": phone_number,
-        "text": "【王康王康】您的验证码是{code}。如非本人操作，请忽略本短信".format(code=password),
+        "text": text.format(code=password),
     }
     response = requests.post(single_send_url, data=parmas)
     re_dict = json.loads(response.text)
@@ -76,8 +75,8 @@ def list_recent_visit(request):
         user=user).order_by('-last_visit')
     courses = []
     for record in record_list:
-        course = Course.objects.get(pk=record.course_id)
-        course = model_to_dict(course)
+        course = record.course
+
         courses.append(course)
     return JsonResponse({"courses": courses})
 
@@ -91,11 +90,10 @@ def get_visit_history(request):
         infor = {}
         infor["course_id"] = course.course_id
         infor["course_name"] = course.course_name
-        infor["audio_url"] = course.audio_url
-        infor["profile_url"] = course.profile_url
+        infor["audio_url"] = course.audio_url.name
+        infor["profile_url"] = course.profile_url.name
         infor["last_visit"] = record.last_visit
         history.append(infor)
-        history = json.loads(serialize('json', history))
     return JsonResponse({"history": history})
 
 

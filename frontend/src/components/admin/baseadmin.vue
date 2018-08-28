@@ -173,7 +173,7 @@ export default {
   }
   .el-submenu__title {
     height: 60px !important;
-    line-height:60px !important;
+    line-height: 60px !important;
     background-color: white;
     font-size: 18px;
     vertical-align: middle;

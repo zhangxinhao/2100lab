@@ -47,10 +47,11 @@ def _get_flags_(course, user):
     flags = {"isStaff": user.is_staff, "paidFlag": True, "burnedFlag": False}
     if user.is_staff:
         return flags
-    if course.price > 0:
+    print(course[0].price)
+    if course[0].price > 0:
         try:
-            Order.objects.get(user=user, course=course, status=0)
-            record = VisitRecord.objects.get(course=course, user=user)
+            Order.objects.get(user=user, course=course[0], status=0)
+            record = VisitRecord.objects.get(course=course[0], user=user)
             if record.deal_visit_time <= int(time.time()):
                 flags["burnedFlag"] = True
         except Order.DoesNotExist:

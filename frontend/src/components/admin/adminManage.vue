@@ -197,7 +197,8 @@ export default {
         this.editIndex = editIndex
         this.backup.courseManage = this.adminData[editIndex].courseManage
         this.backup.userManage = this.adminData[editIndex].userManage
-        this.backup.operationHistory = this.adminData[editIndex].operationHistory
+        this.backup.operationHistory =
+          this.adminData[editIndex].operationHistory
         this.backup.adminManage = this.adminData[editIndex].courseManage
       }
     },

@@ -24,11 +24,15 @@ def list_order(request):
         try:
             order_list = Order.objects.get(order_id=order_no)
             if order_list:
+                time_stamp = time.localtime(order_list.time)
                 orders.append({
                     "orderNo": order_list.order_id,
                     "userId": order_list.user_id,
                     "courseId": order_list.course_id,
-                    "status": OrderStatus.objects.get(status_code=order_list.status).status
+                    "status": OrderStatus.objects.get(
+                        status_code=order_list.status).status,
+                    "time": time.strftime(
+                        '%Y-%m-%d %H:%M:%S', time_stamp)
                 })
             else:
                 status = 1
@@ -39,11 +43,16 @@ def list_order(request):
     else:
         order_list = Order.objects.filter().order_by("-time")
         for order in order_list:
+            print(order.time)
+            time_stamp = time.localtime(order.time)
             orders.append({
                 "orderNo": order.order_id,
                 "userId": order.user_id,
                 "courseId": order.course_id,
-                "status": OrderStatus.objects.get(status_code=order.status).status
+                "status": OrderStatus.objects.get(
+                    status_code=order.status).status,
+                "time": time.strftime(
+                        '%Y-%m-%d %H:%M:%S', time_stamp)
             })
     return JsonResponse({"status": status, "orders": orders})
 

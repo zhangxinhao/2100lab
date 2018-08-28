@@ -83,7 +83,7 @@ class Order(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE)
     price = models.PositiveIntegerField(default=0)
     status = models.PositiveIntegerField(default=1)
-    time = models.PositiveIntegerField(int(time.time()))
+    time = models.PositiveIntegerField(default=int(time.time()))
     sharer = models.CharField(max_length=11)
     charge_id = models.CharField(max_length=30)
 
