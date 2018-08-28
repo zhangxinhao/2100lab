@@ -1,7 +1,5 @@
 import datetime
-import json
 from django.http import JsonResponse
-from django.core.serializers import serialize
 from .models import User, Course, Message, Comment, Attitude
 
 
@@ -15,12 +13,12 @@ def message_board_dic(request):
     It contains all information of a message board that you may use.
 
     """
-    course = Course.objects.get(request.POST.get("course_id"))
-    message = Message.objects.filter(course_id=course).order_by("-time")
+    course = Course.objects.get(pk=request.POST.get("course_id"))
+    message = Message.objects.filter(course=course).order_by("-time")
     messages = []
     for msg in message:
         user = msg.author
-        comments = Comment.objects.filter(message_id=msg.id)
+        comments = Comment.objects.filter(message=msg)
         reply = []
         for cmt in comments:
             reply.append({
@@ -31,16 +29,15 @@ def message_board_dic(request):
         messages.append({
             "message_id": msg.id,
             "author": user.alias,
-            "icon": user.icon,
+            "icon": user.icon.name,
             "content": msg.content,
-            "time": msg.time,
+            "time": msg.time.strftime('%Y-%m-%d %H:%M:%S'),
             "likes": msg.likes,
             "dislikes": msg.dislikes,
             "reply": reply,
             "usertype": user.is_V
         })
-        messages = json.loads(serialize('json', messages))
-    return {"message": messages}
+    return messages
 
 
 def message_board(request):

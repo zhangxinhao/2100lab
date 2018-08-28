@@ -16,27 +16,21 @@ def load_course(request):
     """
     course_id = request.POST.get("course_id")
     course = Course.objects.get(pk=course_id)
-    course_pic = []
     pictures = Picture.objects.filter(course=course).order_by("start")
-    for pic in pictures:
-        course_pic.append({
-            "position": pic.postion,
-            "start": pic.start
-        })
-    course_pic = json.loads(serialize('json', course_pic))
-    audio = course.audio_url
-    course_description = course.description
+    response = {}
+    response["pictures"] = json.loads(serialize('json', pictures))
+    course = [course]
+    response["course"] = json.loads(serialize('json', course))
     message_board = message_board_dic(request)
-    course = {"pictures": course_pic, "audio": audio,
-              "message": message_board, "course_description": course_description}
-    course = json.loads(serialize('json', course))
-    return JsonResponse({"course": course})
+    if message_board:
+        response["message"] = message_board
+    return JsonResponse(response)
 
 
 def get_course_info(request):
-    course_id = request.POST.get("course_id")
+    course_id = request.POST.get("courseId")
     try:
-        course = Course.objects.get(course_id=int(course_id))
+        course = Course.objects.get(course_id=course_id)
     except Course.DoesNotExist:
         course = None
     if course:

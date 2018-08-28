@@ -130,8 +130,8 @@ def refund(request):
         if record:
             raise Exception("已访问过课程，无法退款")
         charge = pingpp.Charge.retrieve("order.charge_id")
-        refund = charge.refunds.create(description="2100实验室课程退款")
-    except Exception as e:
+        charge.refunds.create(description="2100实验室课程退款")
+    except Exception as my_e:
         status = 1
-        result = str(e)
+        result = str(my_e)
     return JsonResponse({"status": status, "result": result})

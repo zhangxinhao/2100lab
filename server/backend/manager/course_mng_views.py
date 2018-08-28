@@ -72,8 +72,8 @@ def upload_course(request):
         description=form["courseDescription"],
         content=form["courseContain"], price=form["price"],
         message_on=form["messageOn"], burnt_time=form["destroyTime"],
-        audio_url = File(audio, audio.name.split("/")[-1]),
-        profile_url = File(profile, profile.name.split("/")[-1])
+        audio_url=File(audio, audio.name.split("/")[-1]),
+        profile_url=File(profile, profile.name.split("/")[-1])
     )
     audio.close()
     profile.close()
@@ -83,9 +83,9 @@ def upload_course(request):
     log_user_id = request.user.id
     log_object_id = course.course_id
     log = AdminOperationRecord.objects.create(
-        admin_id = log_user_id,
-        operation = Operation.objects.get(pk=1),
-        object = log_object_id
+        admin_id=log_user_id,
+        operation=Operation.objects.get(pk=1),
+        object=log_object_id
     )
     log.save()
     return JsonResponse({"status": status})
