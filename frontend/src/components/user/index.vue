@@ -486,11 +486,17 @@ export default {
     },
     loginFunction: function() {
       if (this.loForm.delivery === false) {
-        alert('请输入正确的手机号和对应的验证码！')
+        this.$message({
+          message: '请输入正确的手机号和对应的验证码！',
+          type: 'warning'
+        })
         return
       }
       if (this.loForm.usercode !== this.loForm.password) {
-        alert('请输入正确的验证码！')
+        this.$message({
+          message: '请输入正确的验证码！',
+          type: 'warning'
+        })
         return
       }
       this.loginFormVisible = false
@@ -507,7 +513,10 @@ export default {
     },
     getVerification: function() {
       if (this.loForm.phoneNumber === '') {
-        alert('请输入正确的手机号！')
+        this.$message({
+          message: '请输入正确的手机号！',
+          type: 'warning'
+        })
         return
       }
       this.createRandom()

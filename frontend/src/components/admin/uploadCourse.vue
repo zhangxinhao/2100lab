@@ -232,7 +232,10 @@ export default {
       let seconde = 0
       let secondes
       if (typeof this.pictureIndex === 'undefined') {
-        alert('请选择图片')
+        this.$message({
+          message: '请选择图片',
+          type: 'warning'
+        })
         return
       }
       try {
@@ -245,7 +248,10 @@ export default {
         secondes = minite * 60 + seconde
         this.updateForm.imgInfo[this.pictureIndex].start = secondes
       } catch (err) {
-        alert('请输入正确时间')
+        this.$message({
+          message: '请输入正确时间',
+          type: 'warning'
+        })
       }
     },
     audioResponse(response) {
@@ -297,10 +303,13 @@ export default {
         updateForm: JSON.stringify(this.updateForm)
       })).then(response => {
         if (response.data.status === 0) {
-          alert('创建成功')
+          this.$message({
+            message: '创建成功',
+            type: 'success'
+          })
           location.replace()
         } else {
-          alert('ERROR!')
+          this.$message.error('ERROR!')
         }
       })
     }

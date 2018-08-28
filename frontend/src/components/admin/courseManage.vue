@@ -118,7 +118,7 @@ export default {
         if (response.data.status === 0) {
           this.courseData = response.data.courseData
         } else {
-          alert('搜索错误')
+          this.$message.error('搜索错误')
         }
       })
     },

@@ -106,10 +106,16 @@ export default {
         orderManage: this.newAdmin.orderManage
       })).then(response => {
         if (response.data.status === 0) {
-          alert('创建成功！')
+          this.$message({
+            message: '创建成功！',
+            type: 'success'
+          })
           window.location.reload()
         } else {
-          alert('编号已存在')
+          this.$message({
+            message: '编号已存在',
+            type: 'warning'
+          })
         }
       })
     }

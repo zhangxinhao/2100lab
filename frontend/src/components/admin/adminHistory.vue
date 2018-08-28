@@ -95,7 +95,7 @@ export default {
         if (response.data.status === 0) {
           this.historyData = response.data.history
         } else {
-          alert('内部错误')
+          this.$message.error('内部错误')
         }
       })
     }
