@@ -1,13 +1,16 @@
 import json
 from django.core.files import File
 from django.http import JsonResponse
-from backend.models import Course, Picture, AudioTemp, PictureTemp, Operation, AdminOperationRecord
+from backend.models import AudioTemp, AdminOperationRecord
+from backend.models import Course, Operation, Picture, PictureTemp
+
+
+HOUR = 3600
 
 
 def show_courses(request):
     status = 0
     course_id = request.POST.get("searchId")
-    print(course_id)
     course_list = None
     course_data = []
     if course_id:
@@ -40,17 +43,18 @@ def show_courses(request):
 
 def upload_audio(request):
     audio = request.FILES.get("file")
-    print(type(audio))
     audio_temp = AudioTemp(position=audio)
     audio_temp.save()
-    return JsonResponse({"status": 0, "id": audio_temp.id})
+    return JsonResponse({
+        "status": 0, "id": audio_temp.id, "url": audio_temp.position.name})
 
 
 def upload_course_picture(request):
     upload_picture = request.FILES.get("file")
     picture = PictureTemp(position=upload_picture)
     picture.save()
-    return JsonResponse({"status": 0, "id": picture.id})
+    return JsonResponse({
+        "status": 0, "id": picture.id, "url": picture.position.name})
 
 
 def upload_course(request):
@@ -63,7 +67,7 @@ def upload_course(request):
             break
     try:
         profile = PictureTemp.objects.get(pk=profile).position
-        audio = AudioTemp.objects.get(pk=form["audioId"]).position
+        audio = AudioTemp.objects.get(pk=form["audioInfo"]["id"]).position
     except (PictureTemp.DoesNotExist, AudioTemp.DoesNotExist):
         status = 1
         return JsonResponse({"status": status})
@@ -71,9 +75,10 @@ def upload_course(request):
         course_name=form["courseTitle"],
         description=form["courseDescription"],
         content=form["courseContain"], price=form["price"],
-        message_on=form["messageOn"], burnt_time=form["destroyTime"],
-        audio_url=File(audio, audio.name.split("/")[-1]),
-        profile_url=File(profile, profile.name.split("/")[-1])
+        message_on=form["messageOn"], burnt_time=form["destroyTime"] * HOUR,
+        audio_url = File(audio, audio.name.split("/")[-1]),
+        profile_url = File(profile, profile.name.split("/")[-1]),
+        perpercentage = int(form["percentage"] * 10000)
     )
     audio.close()
     profile.close()
@@ -90,6 +95,64 @@ def upload_course(request):
     log.save()
     return JsonResponse({"status": status})
 
+
+def edit_course(request):
+    status = 0
+    result = ""
+    form = json.loads(request.POST.get("updateForm"))
+    course_id = form["courseId"]
+    img_info = form["imgInfo"]
+    img_remove_list = form["imgRemoveList"]
+    try:
+        _update_pictures_(course_id, img_info, img_remove_list)
+        _update_audio_(course_id, form["audioInfo"])
+        course = Course.objects.get(course_id=course_id)
+        course.course_name = form["courseTitle"]
+        course.description = form["courseDescription"]
+        course.content = form["courseContain"]
+        course.price = form["price"]
+        course.message_on = form["messageOn"]
+        course.burnt_time = form["destroyTime"] * HOUR
+        course.save()
+    except Exception as e:
+        status = 1
+        result = str(e)
+    return JsonResponse({"status": status, "result": result})
+
+
+def _update_pictures_(course_id, img_info, remove_list):
+    course = Course.objects.get(course_id=course_id)
+    for img in remove_list:
+        dir = img["url"].split("/")[-2]
+        if dir == "course_picture":
+            try:
+                Picture.objects.get(pk=dir["id"]).delete()
+            except Picture.DoesNotExist:
+                pass
+    for img in img_info:
+        dir = img["url"].split("/")
+        if dir[-2] == "picture_temp":
+            picture = PictureTemp.objects.get(pk=img["id"]).position
+            pic = Picture()
+            pic.postion = File(picture, dir[-1])
+            pic.course = course
+            pic.start = img["start"]
+            picture.close()
+            pic.save()
+            if pic.start == 0:
+                course.profile_url = pic.postion
+
+
+def _update_audio_(course_id, audio_info):
+    course = Course.objects.get(course_id=course_id)
+    dir = audio_info["url"].split("/")
+    if dir[-2] == "audio_temp":
+        audio = AudioTemp.objects.get(pk=audio_info["id"]).position
+        course.audio_url = File(audio, dir[-1])
+        audio.close()
+        course.save()
+
+
 def _insert_pictrue_(image_list, course):
     for img in image_list:
         try:
@@ -105,3 +168,48 @@ def _insert_pictrue_(image_list, course):
         except Picture.DoesNotExist:
             return 1
     return 0
+
+
+def preload_course(request):
+    status = 0
+    course_info = None
+    img_list = None
+    img_info = None
+    try:
+        course_id = json.loads(request.POST.get("courseId"))
+        course = Course.objects.get(course_id=course_id)
+        course_info = _get_course_info_(course)
+        img_list, img_info = _get_picture_list_(course)
+    except Course.DoesNotExist:
+        status = 1
+    return JsonResponse({
+        "status": status, "courseInfo": course_info,
+        "imgList": img_list, "imgInfo": img_info})
+
+
+def _get_picture_list_(course):
+    picture_list = Picture.objects.filter(course=course).order_by("-start")
+    img_list = []
+    img_info = []
+    for img in picture_list:
+        url = img.postion.name
+        img_info.append({
+            "id": img.pk, "start": img.start, "url": url})
+        img_list.append({
+            "name": img.pk,
+            "url": url})
+    return img_list, img_info
+
+
+def _get_course_info_(course):
+    course_info = {
+        "courseTitle": course.course_name,
+        "courseDescription": course.description,
+        "courseContain": course.content,
+        "messageOn": course.message_on,
+        "price": course.price,
+        "destroyTime": course.burnt_time / HOUR,
+        "percentage": str(course.perpercentage / 10000),
+        "audioUrl": course.audio_url.name
+    }
+    return course_info

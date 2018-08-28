@@ -32,8 +32,8 @@
               class="upload-demo"
               :action="upload_audio_URL()"
               :on-success="audioResponse"
+              :on-remove="handleAudioRemove"
               :data="updateForm"
-              :on-change="handleChange"
               :before-upload="beforeUpload"
               :file-list="updateForm.audioList">
               <el-button size="small" type="primary">点击上传</el-button>
@@ -53,7 +53,8 @@
               :data="updateForm"
               list-type="picture-card"
               :file-list="updateForm.imgList"
-              :on-preview="handlePictureCardPreview">
+              :on-preview="handlePictureCardPreview"
+              :on-remove="handlePictureRemove">
               <i class="el-icon-plus"></i>
             </el-upload>
             <el-dialog :visible.sync="dialogVisible">
@@ -168,7 +169,7 @@
           v-if="updateForm.price!=0">
           <el-row width="300px">
             <el-input
-              v-model="updateForm.balance"
+              v-model="updateForm.percentage"
               auto-complete="true"
               width="100px">
             </el-input>
@@ -193,8 +194,16 @@
           <br />
           <el-button
             type="primary"
+            @click="editCourse"
+            icon="el-icon-upload"
+            v-if="edit">
+            保存修改
+          </el-button>
+          <el-button
+            type="primary"
             @click="uploadcourse"
-            icon="el-icon-upload">
+            icon="el-icon-upload"
+            v-else>
             上传课程
           </el-button>
           <el-button
@@ -227,17 +236,19 @@ export default {
         messageOn: true,
         price: 0,
         destroyTime: 0,
-        audioId: NaN,
+        audioInfo: {},
         audioList: [],
         imgList: [],
-        imgInfo: [
-          {
-            id: '',
-            start: '61'
-          }
-        ],
-        percentage: 0
+        imgInfo: [{
+          id: '',
+          start: 61
+        }],
+        percentage: 0,
+        imgRemoveList: [],
+        audioRemoveList: [],
+        editedImgInfo: []
       },
+      edit: false,
       pictureIndex: -1,
       // uploadURL 为上传动作的后端接口
       dialogImageUrl: '',
@@ -285,10 +296,11 @@ export default {
       }
     },
     audioResponse: function(response) {
-      this.updateForm.audioId = response.id
+      this.updateForm.audioInfo = {id: response.id, url: response.url}
     },
     pictureResponse: function(response) {
-      this.updateForm.imgInfo.push({id: response.id, start: 0})
+      this.updateForm.imgInfo.push({
+        id: response.id, start: 0, url: response.url})
     },
     upload_audio_URL: function() {
       return utils.getURL() + 'api/uploadaudio/'
@@ -298,14 +310,29 @@ export default {
     },
     beforeUpload: function(file) {
       if (['audio/mp3', 'audio/wav'].indexOf(file.type) === -1) {
-        this.$message.error('请上传正确的音频格式')
+        alert('请上传正确的音频格式')
+        return false
+      }
+      if (this.updateForm.audioInfo) {
+        alert('只能上传一个音频')
         return false
       }
     },
-    handleChange: function(file, audioList) {
-      this.audioList = audioList.slice(-1)
+    handleAudioRemove: function(file, audioList) {
+      this.updateForm.audioInfo = {}
     },
-    handleRemove: function(file, fileList) {
+    handlePictureRemove: function(file, fileList) {
+      let index = file.name
+      let imgInfo = this.updateForm.imgInfo
+      for (let i = 0; i < imgInfo.length; i++) {
+        if (imgInfo[i] === index) {
+          index = i
+          break
+        }
+      }
+      this.updateForm.imgRemoveList.push({
+        id: index, fileUrl: file.url})
+      this.updateForm.imgInfo.splice(index, 1)
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
@@ -342,9 +369,58 @@ export default {
           this.$message.error('ERROR!')
         }
       })
+    },
+    editCourse: function() {
+      axios.post(utils.getURL() + 'api/editcourse/', qs.stringify({
+        updateForm: JSON.stringify(this.updateForm)
+      })).then(response => {
+        if (response.data.status === 0) {
+          this.$message.error('修改成功')
+          location.replace()
+        } else {
+          this.$message.error(response.data.result)
+        }
+      })
     }
   },
   created: function() {
+    this.updateForm.courseId = this.$route.params.courseId
+    if (this.updateForm.courseId !== undefined) {
+      axios.post(utils.getURL() + 'api/preload/', qs.stringify({
+        courseId: this.updateForm.courseId
+      })).then(response => {
+        if (response.data.status === 0) {
+          this.edit = true
+          let courseInfo = response.data.courseInfo
+          let imgList = response.data.imgList
+          let imgInfo = response.data.imgInfo
+          this.updateForm.courseTitle = courseInfo.courseTitle
+          this.updateForm.courseDescription = courseInfo.courseDescription
+          this.updateForm.courseContain = courseInfo.courseContain
+          this.updateForm.messageOn = courseInfo.messageOn
+          this.updateForm.price = courseInfo.price
+          this.updateForm.destroyTime = courseInfo.destroyTime
+          this.updateForm.percentage = parseFloat(courseInfo.percentage)
+          this.updateForm.audioList = [{
+            name: courseInfo.audioUrl.split('/')[1],
+            url: utils.getURL() + 'media/' + courseInfo.audioUrl}]
+          this.updateForm.audioInfo = {
+            id: -1,
+            url: utils.getURL() + 'media/' + courseInfo.audioList
+          }
+          this.updateForm.imgList = []
+          for (let i = 0; i < imgList.length; i++) {
+            this.updateForm.imgList.push({
+              name: imgList[i].name,
+              url: utils.getURL() + 'media/' + imgList[i].url
+            })
+          }
+          this.updateForm.imgInfo = imgInfo
+        } else {
+          alert('fds')
+        }
+      })
+    }
   }
 }
 </script>
