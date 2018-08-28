@@ -46,24 +46,6 @@ class LogoutTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class ListrecentvisitTestCase(TestCase):
-    def setUp(self):
-        User.objects.create_user(
-            username=13230037688,
-            password="Captain Science2",
-            id=13230037688,
-            alias="Captain Science2",
-            icon="captain/science2"
-        )
-        self.client = Client()
-
-    def test_yes(self):
-        response = self.client.post('/api/listrecentvisit/', {
-            'id': '13230037688'
-        })
-        self.assertEqual(response.status_code, 200)
-
-
 class SetaliasTestCase(TestCase):
     def setUp(self):
         User.objects.create_user(

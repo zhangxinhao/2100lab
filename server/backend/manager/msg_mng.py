@@ -25,8 +25,7 @@ def show_msg(request):
         course = message.course
         c_id = course.course_id
         message_query.append({
-            "id": message_id,
-            "courseId": c_id,
+            "id": message_id, "courseId": c_id,
             "userId": message.author_id,
             "userName": message.author.alias,
             "phoneNumber": message.author.id,
@@ -37,8 +36,7 @@ def show_msg(request):
             message=message).order_by("-time")
         for comment in comment_list:
             course_query.append({
-                "id": comment.id,
-                "courseId": c_id,
+                "id": comment.id, "courseId": c_id,
                 "userId": comment.author_id,
                 "userName": comment.author.alias,
                 "phoneNumber": comment.author.id,
