@@ -85,6 +85,10 @@
         <link rel="preload" :href="pic.position" as="image">
       </div>
 
+      <div>
+        <link rel="preload" href="courseAudio" as="audio">
+      </div>
+
       <div class="img-container">
         <img :src="nowPic.position" class="coursePic">
       </div>
@@ -331,7 +335,7 @@ export default {
       }, 100)
     }
     return {
-      user: '',
+      user: '999',
       sharePerson: '',
       burntTime: 999999999999,
       login: true,
@@ -576,7 +580,7 @@ export default {
         this.freeList.push(this.courses[i])
       }
     },
-    initialize(course, pictures) {
+    initialize(course, pictures, message) {
       let length = pictures.length
       let tempPicture = {
         position: '',
@@ -592,12 +596,13 @@ export default {
       this.courseAudio = utils.getURL() + 'media/' +
         course.audio_url
       this.courseArtical = course.content
-      // this.refresh(course.message)
+      this.refresh(message)
     },
-    refresh: function(message) {
-      for (let i = 0; i < message.lenth; i++) {
+    refresh(message) {
+      for (let i = 0; i < message.length; i++) {
         this.discussionList.push({
-          'userImg': message[i].icon,
+          'userImg': utils.getURL() + 'media/' +
+            message[i].icon,
           'discussTime': message[i].time,
           'userName': message[i].author,
           'discussMessage': message[i].content,
@@ -634,7 +639,8 @@ export default {
       this.discussionList = []
       this.tempCourse = response.data.course[0].fields
       this.tempPictures = response.data.pictures
-      this.initialize(this.tempCourse, this.tempPictures)
+      let tempMessage = response.data.message
+      this.initialize(this.tempCourse, this.tempPictures, tempMessage)
     })
     axios.post(utils.getURL() + 'api/checkrecord/', qs.stringify({
       courseId: this.$route.params.courseid

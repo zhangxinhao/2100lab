@@ -1,6 +1,6 @@
 import json
 from django.http import JsonResponse
-from backend.models import VisitRecord, User
+from backend.models import VisitRecord, User, AdminOperationRecord, Operation
 
 
 def client_history(request):
@@ -79,9 +79,9 @@ def delete(request):
     log_user_id = request.user.id
     log_object_id = user_id
     log = AdminOperationRecord.objects.create(
-        admin_id = log_user_id,
-        operation = Operation.objects.get(pk=3),
-        object = log_object_id
+        admin_id=log_user_id,
+        operation=Operation.objects.get(pk=3),
+        object=log_object_id
     )
     log.save()
     return JsonResponse({"status": status})
@@ -100,9 +100,9 @@ def ban(request):
     log_user_id = request.user.id
     log_object_id = user_id
     log = AdminOperationRecord.objects.create(
-        admin_id = log_user_id,
-        operation = Operation.objects.get(pk=4),
-        object = log_object_id
+        admin_id=log_user_id,
+        operation=Operation.objects.get(pk=4),
+        object=log_object_id
     )
     log.save()
     return JsonResponse({"status": status})
@@ -122,9 +122,9 @@ def authorize(request):
     log_user_id = request.user.id
     log_object_id = user_id
     log = AdminOperationRecord.objects.create(
-        admin_id = log_user_id,
-        operation = Operation.objects.get(pk=5),
-        object = log_object_id
+        admin_id=log_user_id,
+        operation=Operation.objects.get(pk=5),
+        object=log_object_id
     )
     log.save()
     return JsonResponse({"status": status})

@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from backend.models import Message, Comment
+from backend.models import Message, Comment, AdminOperationRecord, Operation
 
 
 def __querysort__(message, comment):
@@ -74,9 +74,9 @@ def delete_msg(request):
     log_user_id = request.user.id
     log_object_id = msg_id
     log = AdminOperationRecord.objects.create(
-        admin_id = log_user_id,
-        operation = Operation.objects.get(pk=6),
-        object = log_object_id
+        admin_id=log_user_id,
+        operation=Operation.objects.get(pk=6),
+        object=log_object_id
     )
     log.save()
     return JsonResponse({"status": status})
