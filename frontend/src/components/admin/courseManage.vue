@@ -105,13 +105,13 @@ export default {
     }
   },
   methods: {
-    indexMethod(index) {
+    indexMethod: function(index) {
       return index + 1
     },
-    messageRightCal(data) {
+    messageRightCal: function(data) {
       return data.messageRight ? '开放' : '关闭'
     },
-    getList() {
+    getList: function() {
       axios.post(utils.getURL() + 'api/showcourse/', qs.stringify({
         searchId: this.searchId
       })).then(response => {
@@ -122,7 +122,7 @@ export default {
         }
       })
     },
-    search() {
+    search: function() {
       this.getList()
     }
   },

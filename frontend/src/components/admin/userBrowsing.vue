@@ -60,8 +60,7 @@
           :page-size="pageSize"
           :current-page.sync="nowPage"
           :pager-count="5"
-          @current-change="flipOver"
-          >
+          @current-change="flipOver">
         </el-pagination>
       </div>
     </div>
@@ -222,7 +221,7 @@ export default {
     text-align: center;
   }
   .mytable {
-    width: 100%
+    width: 100%;
   }
   .pager {
     text-align: right;

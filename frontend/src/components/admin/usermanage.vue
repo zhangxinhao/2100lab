@@ -158,35 +158,35 @@ export default {
     }
   },
   methods: {
-    vCall(data) {
+    vCall: function(data) {
       return data.is_V ? '是' : '否'
     },
-    indexMethod(index) {
+    indexMethod: function(index) {
       return index + 1
     },
-    deleteFunction(deleteIndex) {
+    deleteFunction: function(deleteIndex) {
       this.deleteVisible = true
       this.deleteIndex = deleteIndex
     },
-    deleteUser() {
+    deleteUser: function() {
       axios.post(utils.getURL() + 'api/deleteclient/', qs.stringify({
         user_id: this.userData[this.deleteIndex].userId
       })).then(response => {
       })
       this.deleteVisible = false
     },
-    forbideFunction(forbideIndex) {
+    forbideFunction: function(forbideIndex) {
       this.forbideVisible = true
       this.forbideIndex = forbideIndex
     },
-    forbideUser() {
+    forbideUser: function() {
       axios.post(utils.getURL() + 'api/banclient/', qs.stringify({
         user_id: this.userData[this.forbideIndex].userId
       })).then(response => {
       })
       this.forbideVisible = false
     },
-    authorizeFunction(authorizeIndex) {
+    authorizeFunction: function(authorizeIndex) {
       axios.post(utils.getURL() + 'api/authorize/', qs.stringify({
         user_id: this.userData[authorizeIndex].userId,
         auth: !this.userData[authorizeIndex].is_V
@@ -197,7 +197,7 @@ export default {
         }
       })
     },
-    search() {
+    search: function() {
       axios.post(utils.getURL() + 'api/clientinfor/', qs.stringify({
         user_id: this.searchUserId,
         user_alias: this.searchUserAlias
@@ -216,7 +216,7 @@ export default {
         }
       })
     },
-    flipOver(page) {
+    flipOver: function(page) {
       let _end = this.pageSize * page
       let end = this.totalNumber < _end ? this.totalNumber : _end
       this.userData = []

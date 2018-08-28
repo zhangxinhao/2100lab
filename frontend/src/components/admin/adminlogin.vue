@@ -81,7 +81,7 @@ export default {
     }
   },
   methods: {
-    login() {
+    login: function() {
       axios.post(utils.getURL() + 'api/adminlogin/', qs.stringify({
         username: this.loForm.adminId,
         password: hash.getHash(this.loForm.password)
