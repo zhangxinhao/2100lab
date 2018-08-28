@@ -223,7 +223,7 @@ export default new Router({
                     }
                   }
                 }
-                if (code[mark] === 1 || mark === 5) {
+                if (code[mark] === '1' || mark === 5) {
                   next()
                 } else {
                   next(false)
