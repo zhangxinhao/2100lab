@@ -51,7 +51,7 @@ export default {
     this.getOrders()
   },
   methods: {
-    getBrows() {
+    getBrows: function() {
       axios.post(utils.getURL() + 'api/getpv/', qs.stringify({
         days: this.dayBrowse
       })).then(response => {
@@ -64,7 +64,7 @@ export default {
         }
       })
     },
-    getOrders() {
+    getOrders: function() {
       axios.post(utils.getURL() + 'api/getvol/', qs.stringify({
         days: this.dayPay
       })).then(response => {
@@ -77,7 +77,7 @@ export default {
         }
       })
     },
-    drawBrowseChart() {
+    drawBrowseChart: function() {
       let browseChart = echarts.init(document.getElementById('browse-chart'))
       browseChart.setOption({
         title: { text: '近' + this.dayBrowse + '天浏览情况' },
@@ -94,7 +94,7 @@ export default {
         }]
       })
     },
-    drawPayChart() {
+    drawPayChart: function() {
       let payChart = echarts.init(document.getElementById('pay-chart'))
       payChart.setOption({
         title: { text: '近' + this.dayPay + '天支付情况' },
@@ -103,21 +103,23 @@ export default {
           data: this.dayOfPay
         },
         yAxis: {},
-        series: [{
-          name: '人数/人',
-          type: 'bar',
-          data: this.payData,
-          itemStyle: {color: 'skyblue'}
-        }]
+        series: [
+          {
+            name: '人数/人',
+            type: 'bar',
+            data: this.payData,
+            itemStyle: {color: 'skyblue'}
+          }
+        ]
       })
     },
-    browseClick() {
+    browseClick: function() {
       if (this.dayBrowse === '') {
         this.dayBrowse = 7
       }
       this.getBrows()
     },
-    payClick() {
+    payClick: function() {
       if (this.dayPay === '') {
         this.dayPay = 8
       }

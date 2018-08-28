@@ -98,7 +98,7 @@ export default {
         }
       })
     },
-    handleSelect(key, keyPath) {
+    handleSelect: function(key, keyPath) {
       switch (key) {
         case '1-1':
           this.$router.push('/uploadCourse')

@@ -225,7 +225,7 @@ export default {
     text-align: center;
   }
   .pager {
-    text-align: center
+    text-align: center;
   }
   .list-table {
     width: 100%;

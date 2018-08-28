@@ -84,10 +84,10 @@ export default {
     }
   },
   methods: {
-    indexMethod(index) {
+    indexMethod: function(index) {
       return index + 1
     },
-    getList() {
+    getList: function() {
       axios.post(utils.getURL() + 'api/recordlist/', qs.stringify({
         adminId: this.searchAdminId,
         objectId: this.searchObjectId

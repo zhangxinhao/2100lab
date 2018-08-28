@@ -227,7 +227,7 @@ export default {
     }
   },
   methods: {
-    getTime() {
+    getTime: function() {
       let minite = 0
       let seconde = 0
       let secondes
@@ -254,34 +254,34 @@ export default {
         })
       }
     },
-    audioResponse(response) {
+    audioResponse: function(response) {
       this.updateForm.audioId = response.id
     },
-    pictureResponse(response) {
+    pictureResponse: function(response) {
       this.updateForm.imgInfo.push({id: response.id, start: 0})
     },
-    upload_audio_URL() {
+    upload_audio_URL: function() {
       return utils.getURL() + 'api/uploadaudio/'
     },
-    upload_pic_URL() {
+    upload_pic_URL: function() {
       return utils.getURL() + 'api/uploadcoursepicture/'
     },
-    beforeUpload(file) {
+    beforeUpload: function(file) {
       if (['audio/mp3', 'audio/wav'].indexOf(file.type) === -1) {
         this.$message.error('请上传正确的音频格式')
         return false
       }
     },
-    handleChange(file, audioList) {
+    handleChange: function(file, audioList) {
       this.audioList = audioList.slice(-1)
     },
-    handleRemove(file, fileList) {
+    handleRemove: function(file, fileList) {
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
-    clearpage() {
+    clearpage: function() {
       this.updateForm.courseTitle = ''
       this.updateForm.courseDescription = ''
       this.updateForm.timeList = ''
@@ -291,14 +291,14 @@ export default {
       this.updateForm.destroyTime = 0
       this.updateForm.audioList = []
     },
-    handleCommand(command) {
+    handleCommand: function(command) {
       this.pictureIndex = command - 1
       let time = this.updateForm.imgInfo[this.pictureIndex].start
       this.dropdownMessage = '图片' + command
       this.miniteTemp = Math.floor(time / 60)
       this.secondeTemp = time % 60
     },
-    uploadcourse() {
+    uploadcourse: function() {
       axios.post(utils.getURL() + 'api/uploadcourse/', qs.stringify({
         updateForm: JSON.stringify(this.updateForm)
       })).then(response => {
@@ -328,7 +328,6 @@ export default {
   }
   .upload-inner {
     width: 100%;
-    /* text-align: center; */
     margin: 0 auto;
   }
   .el-form-item__content {

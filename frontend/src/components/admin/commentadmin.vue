@@ -26,31 +26,31 @@
         header-align=center
         prop="courseId"
         label="课程编号"
-        width="100">
+        width="100px">
       </el-table-column>
       <el-table-column
         header-align=center
         prop="userName"
         label="用户昵称"
-        width="150">
+        width="150px">
       </el-table-column>
       <el-table-column
         header-align=center
         prop="phoneNumber"
         label="用户账号"
-        width="120">
+        width="120px">
       </el-table-column>
       <el-table-column
         header-align=center
         prop="msgContent"
         label="留言内容"
-        width="250">
+        width="250px">
       </el-table-column>
       <el-table-column
         header-align=center
         prop="createdAt"
         label="留言时间"
-        width="150">
+        width="150px">
       </el-table-column>
       <el-table-column
         header-align=center
@@ -124,7 +124,7 @@ export default {
     }
   },
   methods: {
-    onSubmitConfirm(commentMsg) {
+    onSubmitConfirm: function(commentMsg) {
       this.$refs[commentMsg].validate(valid => {
         if (valid) {
         } else {
@@ -132,13 +132,13 @@ export default {
         }
       })
     },
-    onSubmitClearCourse() {
+    onSubmitClearCourse: function() {
       this.commentMsg.courseId = ''
     },
-    onSubmitClearPhone() {
+    onSubmitClearPhone: function() {
       this.commentMsg.phoneNumber = ''
     },
-    deleteMsg(index) {
+    deleteMsg: function(index) {
       let msgId = this.post[index].id
       axios.post('http://192.168.55.33:8000/api/deletemsg/', qs.stringify({
         msgId: msgId
@@ -151,7 +151,7 @@ export default {
         }
       })
     },
-    forbidUser(index) {
+    forbidUser: function(index) {
       let userId = this.post[index].userId
       axios.post('http://192.168.55.33:8000/api/shutup/', qs.stringify({
         userId: userId

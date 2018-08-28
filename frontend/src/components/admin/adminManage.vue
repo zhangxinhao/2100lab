@@ -143,7 +143,7 @@
       :visible.sync="deleteVisible"
       width="400px"
       height="700px">
-      <div>确认要删除编号为：{{adminData[editIndex].adminId}} 的用户？</div>
+      <div>确认要删除编号为：{{ adminData[editIndex].adminId }} 的用户？</div>
       <div slot="footer" class="edit-footer">
         <el-button type="primary" @click="deleteCancel">取 消</el-button>
         <el-button @click="deleteIt">确 定</el-button>
@@ -198,10 +198,10 @@ export default {
     }
   },
   methods: {
-    indexMethod(index) {
+    indexMethod: function(index) {
       return index + 1
     },
-    editFunction(editIndex) {
+    editFunction: function(editIndex) {
       this.editVisible = true
       this.editIndex = editIndex
       this.backup.courseManage = this.adminData[editIndex].courseManage
@@ -209,7 +209,7 @@ export default {
       this.backup.operationHistory = this.adminData[editIndex].operationHistory
       this.backup.adminManage = this.adminData[editIndex].courseManage
     },
-    edit() {
+    edit: function() {
       this.editVisible = false
       let admin = this.adminData[this.editIndex]
       let password
@@ -234,11 +234,11 @@ export default {
         }
       })
     },
-    deleteFunction(deleteIndex) {
+    deleteFunction: function(deleteIndex) {
       this.deleteVisible = true
       this.deleteIndex = deleteIndex
     },
-    deleteIt() {
+    deleteIt: function() {
       this.deleteVisible = false
       axios.post(utils.getURL() + 'api/deleteadmin/', qs.stringify({
         adminId: this.adminData[this.editIndex].adminId
@@ -253,22 +253,22 @@ export default {
         }
       })
     },
-    courseRightCal(data) {
+    courseRightCal: function(data) {
       return data.courseManage ? '开放' : '关闭'
     },
-    userRightCal(data) {
+    userRightCal: function(data) {
       return data.userManage ? '开放' : '关闭'
     },
-    historyRightCal(data) {
+    historyRightCal: function(data) {
       return data.operationHistory ? '开放' : '关闭'
     },
-    orderRightCal(data) {
+    orderRightCal: function(data) {
       return data.orderManage ? '开放' : '关闭'
     },
-    adminRightCal(data) {
+    adminRightCal: function(data) {
       return data.adminManage ? '开放' : '关闭'
     },
-    editCancel() {
+    editCancel: function() {
       this.editVisible = false
       this.adminData[this.editIndex].courseManage = this.backup.courseManage
       this.adminData[this.editIndex].userManage = this.backup.userManage
@@ -276,10 +276,10 @@ export default {
         this.backup.operationHistory
       this.adminData[this.editIndex].orderManage = this.backup.orderManage
     },
-    deleteCancel() {
+    deleteCancel: function() {
       this.deleteVisible = false
     },
-    search() {
+    search: function() {
       axios.post(utils.getURL() + 'api/getadmin/', qs.stringify({
         adminId: this.searchAdminId
       })).then(response => {
