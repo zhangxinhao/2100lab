@@ -107,6 +107,23 @@
           </el-col>
         </el-form-item>
 
+        <el-form-item class="time-list">
+          <el-table :data="updateForm.imgInfo" border>
+            <el-table-column type="index"
+              :index="indexMethod"
+              header-align=center>
+            </el-table-column>
+            <el-table-column
+              prop="start"
+              label="开始时间"
+              width="150px"
+              header-align=center
+              :formatter="startCal"
+              show-overflow-tooltip>
+            </el-table-column>
+          </el-table>
+        </el-form-item>
+
         <el-form-item label="课程内容：" label-width="120px">
           <el-col :span="18">
             <el-input type="textarea"
@@ -213,7 +230,12 @@ export default {
         audioId: NaN,
         audioList: [],
         imgList: [],
-        imgInfo: [],
+        imgInfo: [
+          {
+            id: '',
+            start: '61'
+          }
+        ],
         percentage: 0
       },
       pictureIndex: -1,
@@ -227,6 +249,14 @@ export default {
     }
   },
   methods: {
+    indexMethod: function(index) {
+      return index + 1
+    },
+    startCal: function(data) {
+      let minute = Math.floor(data.start / 60)
+      let second = data.start - minute * 60
+      return minute + '分' + second + '秒'
+    },
     getTime: function() {
       let minite = 0
       let seconde = 0
@@ -325,6 +355,10 @@ export default {
     position: absolute;
     margin: auto 5%;
     width: 70%;
+  }
+  .time-list {
+    width: 200px;
+    margin: 20px 120px;
   }
   .upload-inner {
     width: 100%;
