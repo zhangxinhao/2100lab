@@ -1,6 +1,5 @@
-import datetime
 from django.http import JsonResponse
-from .models import User, Course, Message, Comment, Attitude
+from .models import Course, Message, Comment, Attitude
 
 
 
@@ -55,7 +54,6 @@ def leave_message(request):
     A method to leave message. Course id and the message itself are needed.
 
     """
-    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     user = request.user
     if not user.talking_allowed:
         status = 1
@@ -64,8 +62,12 @@ def leave_message(request):
     content = request.POST.get("content")
     course = Course.objects.get(pk=course_id)
     Message.objects.create(course=course, author=user,
-                           content=content, time=time)
-    return message_board(request)
+                           content=content)
+    response = {}
+    my_message_board = message_board_dic(request)
+    if my_message_board:
+        response["message"] = my_message_board
+    return JsonResponse(response)
 
 
 def comment(request):
@@ -82,7 +84,11 @@ def comment(request):
     content = request.POST.get("content")
     message = Message.objects.get(pk=message_id)
     Comment.objects.create(author=user, message=message, content=content)
-    return message_board(request)
+    response = {}
+    my_message_board = message_board_dic(request)
+    if my_message_board:
+        response["message"] = my_message_board
+    return JsonResponse(response)
 
 
 def express(request):
@@ -93,12 +99,11 @@ def express(request):
     "like" means like and same to dislike.
 
     """
+    user = request.user
     choice = False
     if request.POST.get("attitude") == "like":
         choice = True
     message_id = request.POST.get("message_id")
-    user_id = request.POST.get("id")
-    user = User.objects.get(pk=user_id)
     delta = 0
     message = Message.objects.get(pk=message_id)
     done = Attitude.objects.filter(user=user, message=message, like=choice)
@@ -118,4 +123,8 @@ def express(request):
         number = number + delta
         message.dislikes = number
     message.save()
-    return message_board(request)
+    response = {}
+    my_message_board = message_board_dic(request)
+    if my_message_board:
+        response["message"] = my_message_board
+    return JsonResponse(response)

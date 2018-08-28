@@ -76,9 +76,9 @@ def upload_course(request):
         description=form["courseDescription"],
         content=form["courseContain"], price=form["price"],
         message_on=form["messageOn"], burnt_time=form["destroyTime"] * HOUR,
-        audio_url = File(audio, audio.name.split("/")[-1]),
-        profile_url = File(profile, profile.name.split("/")[-1]),
-        perpercentage = int(form["percentage"] * 10000)
+        audio_url=File(audio, audio.name.split("/")[-1]),
+        profile_url=File(profile, profile.name.split("/")[-1]),
+        perpercentage=int(form["percentage"] * 10000)
     )
     audio.close()
     profile.close()
@@ -114,9 +114,9 @@ def edit_course(request):
         course.message_on = form["messageOn"]
         course.burnt_time = form["destroyTime"] * HOUR
         course.save()
-    except Exception as e:
+    except Exception as my_e:
         status = 1
-        result = str(e)
+        result = str(my_e)
     return JsonResponse({"status": status, "result": result})
 
 
