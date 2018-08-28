@@ -14,7 +14,7 @@
         <el-input v-model="commentMsg.phoneNumber" class="info"></el-input>
       </el-form-item>
       <el-form-item class="info-text">
-        <el-button type="primary" @click="onSubmitConfirm('commentMsg')">
+        <el-button type="primary" @click="onSubmitConfirm">
           搜索
         </el-button>
       </el-form-item>
@@ -74,6 +74,7 @@
   </div>
 </template>
 <script>
+import * as utils from '../utils/utils.js'
 import axios from 'axios'
 import qs from 'qs'
 
@@ -124,12 +125,12 @@ export default {
     }
   },
   methods: {
-    onSubmitConfirm: function(commentMsg) {
-      this.$refs[commentMsg].validate(valid => {
-        if (valid) {
-        } else {
-          return false
-        }
+    onSubmitConfirm: function() {
+      axios.post(utils.getURL() + 'api/showmessage/', qs.stringify({
+        courseId: this.commentMsg.courseId,
+        clientId: this.commentMsg.phoneNumber
+      })).then(response => {
+        this.post = response.data.query
       })
     },
     onSubmitClearCourse: function() {
@@ -140,7 +141,7 @@ export default {
     },
     deleteMsg: function(index) {
       let msgId = this.post[index].id
-      axios.post('http://192.168.55.33:8000/api/deletemsg/', qs.stringify({
+      axios.post(utils.getURL() + 'api/deletemsg/', qs.stringify({
         msgId: msgId
       })).then(response => {
         let status = response.data.status
@@ -153,7 +154,7 @@ export default {
     },
     forbidUser: function(index) {
       let userId = this.post[index].userId
-      axios.post('http://192.168.55.33:8000/api/shutup/', qs.stringify({
+      axios.post(utils.getURL() + 'api/shutup/', qs.stringify({
         userId: userId
       })).then(response => {
         let status = response.data.status
@@ -166,7 +167,7 @@ export default {
     }
   },
   created: function() {
-    axios.post('http://192.168.55.33:8000/api/showmessage/').then(response => {
+    axios.post(utils.getURL() + 'api/showmessage/').then(response => {
       this.post = response.data.query
     })
   }

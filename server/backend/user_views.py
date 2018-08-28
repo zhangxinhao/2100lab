@@ -3,7 +3,7 @@ import json
 import requests
 from django.contrib import auth
 from django.core.serializers import serialize
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
 from .models import User, VisitRecord, Course
 
@@ -64,16 +64,14 @@ def logout(request):
 
 
 def delete(request):
-    user_id = request.POST.get("id")
-    user = User.objects.get(pk=user_id)
+    user = request.user
     user.set_active(False)
     user.save()
     return JsonResponse({"result": 0})
 
 
 def list_recent_visit(request):
-    user_id = request.POST.get("id")
-    user = User.objects.get(pk=user_id)
+    user = request.user
     record_list = VisitRecord.objects.filter(
         user=user).order_by('-last_visit')
     courses = []
@@ -85,8 +83,7 @@ def list_recent_visit(request):
 
 
 def get_visit_history(request):
-    user_id = request.POST.get("id")
-    user = User.objects.get(pk=user_id)
+    user = request.user
     records = VisitRecord.objects.filter(user=user).order_by("-last_visit")
     history = []
     for record in records:
@@ -112,20 +109,18 @@ def get_user_infor(request):
 
 def set_alias(request):
     new_alias = request.POST.get("newAlias")
-    user_id = request.POST.get("phonenumber")
-    user = User.objects.get(pk=user_id)
+    user = request.user
     user.set_alias(new_alias)
     user.save()
-    return JsonResponse({"phone_number": user_id})
+    return HttpResponse()
 
 
 def set_icon(request):
     new_icon = request.FILES.get("file")
-    user_id = request.POST.get("phoneNumber")
-    user = User.objects.get(pk=user_id)
+    user = request.user
     user.set_icon(new_icon)
     user.save()
-    return JsonResponse({"phone_number": user_id})
+    return HttpResponse()
 
 
 def set_user_data(request):
