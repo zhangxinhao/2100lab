@@ -740,7 +740,7 @@ export default {
       max-height: 120px
     }
     .user-ope {
-      color:#085078;
+      color: white;
       font-size:15px;
       margin-right: 10px;
     }

@@ -27,7 +27,9 @@
       </el-upload>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="clickToChangeIcon">确 定</el-button>
+        <el-button type="primary" @click="clickToChangeIcon">
+          确 定
+        </el-button>
       </span>
     </el-dialog>
     <el-form :label-position="labelPosition"
@@ -53,7 +55,9 @@
         </el-input>
       </el-form-item>
       <el-form-item class="infor-text">
-        <el-button type="primary" @click="onSubmitConfirm">确认修改</el-button>
+        <el-button type="primary" @click="onSubmitConfirm">
+          确认修改
+        </el-button>
       </el-form-item>
     </el-form>
   </el-form>
@@ -96,7 +100,7 @@ export default {
       this.dialogVisible = false
       this.header = this.imageUrl
     },
-    handleAvatarSuccess(res, file) {
+    handleAvatarSuccess: function(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)
     },
     beforeAvatarUpload: function(file) {

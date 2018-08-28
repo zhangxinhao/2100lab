@@ -154,7 +154,7 @@ export default {
 
   @media screen and (max-width: 800px) {
     .user-ope {
-      color: black;
+      color: white;
       font-size: 15px;
       margin-right: 10px;
     }
