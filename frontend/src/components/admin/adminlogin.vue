@@ -88,6 +88,7 @@ export default {
       })).then(response => {
         let status = response.data.status
         if (status === 0) {
+          this.$store.commit('setUserId', this.loForm.adminId)
           this.$router.push({ path: '/baseAdmin' })
         } else {
           return this.$message.error('登录失败')

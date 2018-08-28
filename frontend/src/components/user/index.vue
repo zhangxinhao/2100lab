@@ -514,6 +514,7 @@ export default {
       })).then(response => {
         this.login = true
         this.$store.commit('setUserId', this.loForm.phoneNumber)
+        this.user = this.$store.state.userId
       })
     },
     getVerification: function() {
@@ -528,11 +529,9 @@ export default {
       axios.post(utils.getURL() + 'api/getcode/', qs.stringify({
         phone_number: this.loForm.phoneNumber,
         password: this.loForm.password
-      })).then(
-        response => {
-          this.loForm.delivery = true
-        }
-      )
+      })).then(response => {
+        this.loForm.delivery = true
+      })
     },
     logout: function() {
       axios.post(utils.getURL() + 'api/logout/').then(response => {

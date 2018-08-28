@@ -634,7 +634,7 @@ export default {
   created: function() {
     this.courseId = this.$route.params.courseid
     this.sharePerson = this.$route.params.user
-    this.user = this.$route.params.user
+    this.user = this.$store.state.userId
     this.config.url = utils.getURL() + '#/intro/' +
       this.courseId + '/' + this.user
     this.nowPic = this.coursePic[0]

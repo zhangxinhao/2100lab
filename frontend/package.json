@@ -16,13 +16,14 @@
     "chai": "^4.1.2",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.6",
-    "pingpp-js": "^2.2.6",
     "es6-promise": "^4.2.4",
+    "pingpp-js": "^2.2.6",
     "qs": "^6.5.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue-social-share": "0.0.3",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-along": "^1.1.4"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.24",
