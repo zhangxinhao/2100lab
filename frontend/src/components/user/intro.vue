@@ -185,9 +185,6 @@
       </div>
       <br />
       <br />
-      <!-- <div class="hidden-md-and-down" id="footer">
-        <img src="../../assets/footer1.png" width=100%>
-      </div> -->
     </div>
   </div>
 </template>
@@ -413,7 +410,7 @@ export default {
 
   .user-ope {
     color: white;
-    font-size:18px;
+    font-size: 18px;
     margin-right: 60px;
   }
 
@@ -435,8 +432,8 @@ export default {
 
   #page {
     max-width: 600px;
-    margin:0px auto 0px auto;
-    padding:40px;
+    margin: 0px auto 0px auto;
+    padding: 40px;
     border-left-style: solid;
     border-left-width: 1px;
     border-right-style: solid;
@@ -457,7 +454,7 @@ export default {
 
   .el-icon-share {
     width: 20px;
-    height:30px;
+    height: 30px;
   }
 
   #footer {
@@ -469,7 +466,7 @@ export default {
     min-height: 500px;
   }
   .pay {
-    margin:20px;
+    margin: 20px;
     margin-left: 50px;
     margin-top: 0px;
     margin-bottom: 60px;
@@ -538,7 +535,7 @@ export default {
   @media screen and (max-width: 500px) {
     .user-ope {
       color: white;
-      font-size:15px;
+      font-size: 15px;
       margin-right: 10px;
     }
     .el-aside {

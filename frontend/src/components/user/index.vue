@@ -172,7 +172,7 @@
                 <el-aside class="aside">
                   <router-link
                     id="logo"
-                    :to="{name:'intro',params:{courseid: item.id}}">
+                    :to="{name:'intro',params:{courseid: item.id, user: user}}">
                     <img
                       :src="item.profileUrl"
                       :alt="item.name"
@@ -184,11 +184,15 @@
                     <div>{{item.name}}</div>
                   </el-header>
                   <el-main class="main">
-                    <el-button
-                      icon="el-icon-caret-right"
-                      type="primary"
-                      class="read">点击阅读
-                    </el-button>
+                    <router-link
+                      id="logo"
+                      :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                      <el-button
+                        icon="el-icon-caret-right"
+                        type="primary"
+                        class="read">点击观看
+                      </el-button>
+                    </router-link>
                   </el-main>
                 </el-container>
               </el-container>
@@ -294,7 +298,7 @@
                 <el-aside class="aside">
                   <router-link
                     id="logo"
-                    :to="{name:'intro',params:{courseid: item.id}}">
+                    :to="{name:'intro',params:{courseid: item.id, user: user}}">
                     <img
                       :src="item.profileUrl"
                       :alt="item.name"
@@ -303,14 +307,18 @@
                 </el-aside>
                 <el-container class="list-one-inner">
                   <el-header class="header">
-                    <div>{{item.name}}</div>
+                    <div>{{ item.name }}</div>
                   </el-header>
                   <el-main class="main">
-                    <el-button
-                      icon="el-icon-caret-right"
-                      type="primary"
-                      class="read">点击阅读
-                    </el-button>
+                    <router-link
+                      id="logo"
+                      :to="{name:'intro',params:{courseid: item.id, user: user}}">
+                      <el-button
+                        icon="el-icon-caret-right"
+                        type="primary"
+                        class="read">点击观看
+                      </el-button>
+                    </router-link>
                   </el-main>
                 </el-container>
               </el-container>
@@ -395,7 +403,7 @@ export default {
         {
           id: 0,
           profileUrl: require('../../assets/images/free.jpg'),
-          name: '啊啊啊啊啊'
+          name: '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'
         },
         {
           id: 1,
@@ -505,8 +513,6 @@ export default {
         verification_code: 0
       })).then(response => {
         this.login = true
-        //  = response.data.user.alias
-        //  = response.data.user.icon
         this.$store.commit('setUserId', this.loForm.phoneNumber)
       })
     },
@@ -611,7 +617,7 @@ export default {
   }
   .user-ope {
     color: white;
-    font-size:18px;
+    font-size: 18px;
     margin-right: 60px;
   }
   .carousel {
@@ -628,12 +634,12 @@ export default {
     line-height: 55px;
   }
   .free-list {
-    max-width:1200px;
-    margin:20px auto 20px auto;
+    max-width: 1200px;
+    margin: 20px auto 20px auto;
   }
   .cost-list {
-    max-width:1200px;
-    margin:20px auto 20px auto;
+    max-width: 1200px;
+    margin: 20px auto 20px auto;
   }
   .get-check {
     margin-left: 100px !important;
@@ -708,7 +714,7 @@ export default {
     }
     .user-ope {
       color: white;
-      font-size:15px;
+      font-size: 15px;
       margin-right: 10px;
     }
     .tool-bar {
@@ -724,7 +730,6 @@ export default {
       zoom: 1;
       height: 400px;
       margin-bottom: 20px;
-      text-align: center;
     }
     .list-one-outer {
       max-width: 350px;
@@ -734,7 +739,6 @@ export default {
     }
     .list-one {
       display: block;
-      float: left;
       max-width: 350px;
       margin: 5px 0px;
     }

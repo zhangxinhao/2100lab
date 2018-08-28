@@ -122,7 +122,7 @@ export default {
 
   .user-ope {
     color: white;
-    font-size:18px;
+    font-size: 18px;
     margin-right: 60px;
   }
 
@@ -135,14 +135,14 @@ export default {
   }
   .col {
     height: 60px !important;
-    background-color:white;
+    background-color: white;
   }
   .el-submenu__title {
     height: 60px !important;
     line-height:60px !important;
     background-color: rgb(238, 243, 247);
     font-size: 18px;
-    vertical-align:middle;
+    vertical-align: middle;
     font-weight: bold;
   }
 

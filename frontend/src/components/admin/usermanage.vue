@@ -96,7 +96,7 @@
       width="400px"
       height="700px">
       <div>
-        确认要删除ID为：{{userData[deleteIndex].userId}} 的用户?
+        确认要删除ID为：{{ userData[deleteIndex].userId }} 的用户?
       </div>
       <div slot="footer" class="delete-footer">
         <el-button @click="deleteVisible = false">取 消</el-button>
@@ -110,7 +110,7 @@
       width="400px"
       height="700px">
       <div>
-        确认要禁言ID为：{{userData[forbideIndex].userId}} 的用户?
+        确认要禁言ID为：{{ userData[forbideIndex].userId }} 的用户?
       </div>
       <div slot="footer" class="forbide-footer">
         <el-button @click="forbideVisible = false">取 消</el-button>
