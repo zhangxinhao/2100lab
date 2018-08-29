@@ -109,12 +109,10 @@ export default {
     margin-left: 33%;
     background-color: rgb(236, 242, 243);
   }
-
   h1 {
     font-size: 100%;
     margin-bottom: 8%;
   }
-
   .background {
     width: 100%;
     height: 100px;

@@ -2,8 +2,6 @@ from django.http import JsonResponse
 from .models import Course, Message, Comment, Attitude
 
 
-
-
 def message_board_dic(request):
     """
 

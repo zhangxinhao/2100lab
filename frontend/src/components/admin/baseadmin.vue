@@ -146,7 +146,6 @@ export default {
     width: 15% !important;
     margin-left: 0px;
   }
-
   .toolbar {
     width: 100%;
     min-height: 50px;
@@ -155,26 +154,22 @@ export default {
     background-color: #606266;
     opacity: 0.7;
   }
-
   .logo {
     margin-left: 50px;
     display: inline-block;
     width: 50px;
     height: 50px;
   }
-
   .user-ope {
     color: black;
     font-size:18px;
     margin-right: 60px;
   }
-
   .admin-first {
     margin: 0px auto 0px auto;
     text-align: center;
     color: white;
   }
-
   .el-submenu__title {
     height: 60px !important;
     line-height: 60px !important;
@@ -183,20 +178,16 @@ export default {
     vertical-align: middle;
     font-weight: bold;
   }
-
   .col {
     height: 60px;
     min-width: 100px !important;
   }
-
   li {
     background-color: rgb(248, 248, 247);
   }
-
   li:hover {
     background-color: white !important;
   }
-
   .col {
     min-width: 100px !important;
   }

@@ -3,8 +3,6 @@ from django.http import JsonResponse
 from django.core.serializers import serialize
 from .models import Course
 
-# Create your views here.
-
 
 def index(request):
     return JsonResponse({"result": 0})

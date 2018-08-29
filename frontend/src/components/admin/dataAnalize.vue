@@ -144,27 +144,22 @@ export default {
     margin-left: 5%;
     margin-bottom: 10%;
   }
-
   h1 {
     color: black;
   }
-
   .confirm-div {
     color: black;
     margin-left: 1%;
   }
-
   .browse-check {
     width: 60px;
     margin-bottom: 3%;
     position: relative;
   }
-
   #browse-chart {
     width: 60%;
     height: 100%;
   }
-
   #pay-chart {
     width: 60%;
     height: 100%;

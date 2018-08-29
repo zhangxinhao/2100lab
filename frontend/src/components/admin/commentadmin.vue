@@ -179,7 +179,6 @@ export default {
     margin: 50px auto;
     text-align: center;
   }
-
   .first-form {
     margin-bottom: 50px !important;
   }

@@ -133,20 +133,20 @@ export default {
 </script>
 
 <style scoped>
-.course-manage {
-  width: 80%;
-  margin: 20px 5%;
-}
-#search-course {
-  width: 100%;
-  margin: 0 auto;
-}
-#course-list {
-  width: 950px;
-  height: 1000px;
-  margin: 50px auto;
-}
-.course-table {
-  width: 100%;
-}
+  .course-manage {
+    width: 80%;
+    margin: 20px 5%;
+  }
+  #search-course {
+    width: 100%;
+    margin: 0 auto;
+  }
+  #course-list {
+    width: 950px;
+    height: 1000px;
+    margin: 50px auto;
+  }
+  .course-table {
+    width: 100%;
+  }
 </style>

@@ -116,6 +116,7 @@ export default {
     font-weight: bold;
     margin-bottom: 30px;
   }
+
   @media screen and (max-width: 500px) {
     .brows-title {
       width: 260px;

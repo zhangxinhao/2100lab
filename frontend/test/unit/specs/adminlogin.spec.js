@@ -1,12 +1,12 @@
-import adminlogin from '@/components/admin/adminlogin'
+import adminLogin from '@/components/admin/adminlogin'
 import ElementUI from 'element-ui'
 import Vue from 'vue'
 Vue.use(ElementUI)
 
-describe('adminlogin', () => {
-  const vm = new Vue(adminlogin).$mount()
+describe('adminLogin', () => {
+  const vm = new Vue(adminLogin).$mount()
   it('have correct data', () => {
-    const defaultData = adminlogin.data()
+    const defaultData = adminLogin.data()
     expect(defaultData.loForm.adminId).toBe('')
   })
   it('correctly login', () => {

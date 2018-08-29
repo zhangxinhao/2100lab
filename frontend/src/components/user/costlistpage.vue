@@ -389,17 +389,14 @@ export default {
   body {
     margin: 0;
   }
-
   #app {
     margin: 0;
     padding: 0;
   }
-
   .cost-list {
     margin: 0;
     padding: 0;
   }
-
   li, ul {
     list-style: none;
     margin: 10px 10px;

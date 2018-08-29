@@ -529,6 +529,7 @@ export default {
       height: 42px;
     }
   }
+
   @media screen and (min-width: 800px) and (max-width: 1100px){
     li, ul {
       list-style: none;
@@ -584,6 +585,7 @@ export default {
       padding: 5px;
     }
   }
+
   @media screen and (min-width: 500px) and (max-width: 800px) {
     .main-inner {
       max-width: 1250px;

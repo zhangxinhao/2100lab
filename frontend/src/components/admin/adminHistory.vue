@@ -107,14 +107,14 @@ export default {
 </script>
 
 <style scoped>
-.admin-history {
-  width: 80%;
-  margin: 20px 5%;
-}
-#history-list {
-  width: 100%;
-  min-height: 1000px;
-  margin: 50px auto;
-  text-align: center;
-}
+  .admin-history {
+    width: 80%;
+    margin: 20px 5%;
+  }
+  #history-list {
+    width: 100%;
+    min-height: 1000px;
+    margin: 50px auto;
+    text-align: center;
+  }
 </style>

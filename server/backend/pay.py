@@ -40,6 +40,7 @@ def alipay_pc(request):
     _create_order_(user, course, amount, sharer, charge)
     return JsonResponse({"status": 0, "pingppObject": charge})
 
+
 def alipay_phone(request):
     user = request.user
     order_no = _create_order_no_(user.id)
@@ -61,6 +62,7 @@ def alipay_phone(request):
     )
     _create_order_(user, course, amount, sharer, charge)
     return JsonResponse({"status": 0, "pingppObject": charge})
+
 
 def wx_pc(request):
     user = request.user
@@ -104,8 +106,10 @@ def wx_phone(request):
     _create_order_(user, course, amount, sharer, charge)
     return JsonResponse({"status": 0, "pingppObject": charge})
 
+
 def _create_order_no_(user_id):
     return str(int(time.time())) + user_id
+
 
 def _get_info_(request):
     info = json.loads(request.POST.get("info"))
@@ -115,6 +119,7 @@ def _get_info_(request):
     url = info["successUrl"]
     sharer = info["sharer"]
     return amount, course, [sharer, url]
+
 
 def _create_order_(user, course, price, sharer, charge):
     if sharer == int(user.id):
@@ -127,6 +132,7 @@ def _create_order_(user, course, price, sharer, charge):
         sharer=sharer,
         charge_id=charge["id"]
     )
+
 
 def webhooks_charge(request):
     body = json.loads(request.body.decode('utf-8'))
@@ -144,6 +150,7 @@ def webhooks_charge(request):
     else:
         return HttpResponse(status=500)
 
+
 def webhooks_refund(request):
     body = json.loads(request.body.decode("utf-8"))
     charge_id = body["data"]["object"]["id"]
@@ -157,6 +164,7 @@ def webhooks_refund(request):
             return HttpResponse(status=500)
     else:
         return HttpResponse(status=500)
+
 
 def bonus_pay(request):
     course_id = request.POST.get("courseId")

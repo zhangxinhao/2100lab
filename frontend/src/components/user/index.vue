@@ -1,4 +1,3 @@
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <template>
   <div class="index">
     <div class="tool-bar">
@@ -549,6 +548,7 @@ export default {
       }
       let tempLen = length > 3 ? 3 : length
       for (let i = 0; i < tempLen; i++) {
+        course = {id: '', profileUrl: '', name: ''}
         course.id = list[i].pk
         course.profileUrl = utils.getURL() + 'media/' +
           list[i].fields.profile_url
@@ -556,6 +556,7 @@ export default {
         list1.push(course)
       }
       for (let i = 3; i < length; i++) {
+        course = {id: '', profileUrl: '', name: ''}
         course.id = list[i].pk
         course.profileUrl = utils.getURL() + 'media/' +
           list[i].fields.profile_url
@@ -579,17 +580,15 @@ export default {
     })
     axios.post(utils.getURL() + 'api/listfreeindex/').then(response => {
       let list = response.data.courses
-      let length = list.length
       this.freeList1 = []
       this.freeList2 = []
-      this.addList(list, this.freeList1, this.freeList2, length)
+      this.addList(list, this.freeList1, this.freeList2, 5)
     })
     axios.post(utils.getURL() + 'api/listpricedindex/').then(response => {
       let list = response.data.courses
-      let length = list.length
       this.costList1 = []
       this.costList2 = []
-      this.addList(list, this.costList1, this.costList2, length)
+      this.addList(list, this.costList1, this.costList2, 5)
     })
   }
 }
@@ -609,7 +608,6 @@ export default {
     padding: 0;
     background-color:#409EFF;
   }
-
   .logo {
     margin-left: 50px;
     display: inline-block;
@@ -688,7 +686,6 @@ export default {
     display: table;
     content: "";
   }
-
   .clearfix:after {
     clear: both
   }
@@ -701,6 +698,7 @@ export default {
   #cost1 {
     margin-bottom: 30px;
   }
+
   @media screen and (max-width: 800px) {
     .el-carousel {
       max-width: 1200px;
@@ -771,6 +769,7 @@ export default {
   .el-carousel__item {
     max-height: 350px;
   }
+
   @media screen and (min-width: 800px) and (max-width: 1200px){
     .video-list {
       zoom: 1;

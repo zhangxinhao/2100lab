@@ -1,10 +1,10 @@
-import commentadmin from '@/components/admin/commentadmin'
+import commentAdmin from '@/components/admin/commentadmin'
 import ElementUI from 'element-ui'
 import Vue from 'vue'
 Vue.use(ElementUI)
 
-describe('commentadmin', () => {
-  const vm = new Vue(commentadmin).$mount()
+describe('commentAdmin', () => {
+  const vm = new Vue(commentAdmin).$mount()
   it('correctly ClearCourse', () => {
     vm.onSubmitClearCourse()
     vm.$nextTick(() => {

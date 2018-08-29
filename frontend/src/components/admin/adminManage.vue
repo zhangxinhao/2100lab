@@ -316,17 +316,17 @@ export default {
 </script>
 
 <style scoped>
-.admin-manage {
-  width: 70%;
-  margin: 20px 5%;
-}
-#search-admin {
-  width: 100%;
-}
-#admin-list {
-  width: 100%;
-  min-height: 1000px;
-  margin: 50px auto;
-  text-align: center;
-}
+  .admin-manage {
+    width: 70%;
+    margin: 20px 5%;
+  }
+  #search-admin {
+    width: 100%;
+  }
+  #admin-list {
+    width: 100%;
+    min-height: 1000px;
+    margin: 50px auto;
+    text-align: center;
+  }
 </style>
