@@ -9,4 +9,14 @@ describe('personal', () => {
     expect(inputs.length).toBe(2)
     expect(wrapper.contains('el-dialog')).toBe(false)
   })
+  it('数目显示', () => {
+    const wrapper = mount(personal)
+    let inputs = wrapper.findAll('div')
+    expect(inputs.length).toBe(6)
+  })
+  it('数目显示', () => {
+    const wrapper = mount(personal)
+    let inputs = wrapper.findAll('table')
+    expect(inputs.length).toBe(1)
+  })
 })
