@@ -39,7 +39,7 @@
         header-align=center>
       </el-table-column>
       <el-table-column
-        prop="is_V"
+        prop="isV"
         label="用户认证"
         width="100px"
         header-align=center
@@ -104,7 +104,7 @@
       </div>
     </el-dialog>
   </div>
-  <div class="forbidedialog">
+  <div class="forbide-dialog">
     <el-dialog title="删除用户"
       :visible.sync="forbideVisible"
       width="400px"
@@ -142,13 +142,13 @@ export default {
         {
           userId: '15222681355',
           userAlias: 'zzgyy',
-          is_V: false,
+          isV: false,
           bonus: 250
         },
         {
           userId: '15222681356',
           userAlias: 'gyysz',
-          is_V: true,
+          isV: true,
           bonus: 250
         }
       ],
@@ -159,7 +159,7 @@ export default {
   },
   methods: {
     vCall: function(data) {
-      return data.is_V ? '是' : '否'
+      return data.isV ? '是' : '否'
     },
     indexMethod: function(index) {
       return index + 1
@@ -189,12 +189,12 @@ export default {
     authorizeFunction: function(authorizeIndex) {
       axios.post(utils.getURL() + 'api/authorize/', qs.stringify({
         user_id: this.userData[authorizeIndex].userId,
-        auth: !this.userData[authorizeIndex].is_V
+        auth: !this.userData[authorizeIndex].isV
       })).then(response => {
         if (response.data.status === 0) {
-          this.userData[authorizeIndex].is_V =
-            !this.userData[authorizeIndex].is_V
-          if (this.userData[authorizeIndex].is_V) {
+          this.userData[authorizeIndex].isV =
+            !this.userData[authorizeIndex].isV
+          if (this.userData[authorizeIndex].isV) {
             this.$message({
               message: '认证成功！',
               type: 'success'

@@ -3,9 +3,9 @@
   <div class="index">
     <div class="tool-bar">
       <div class="logo">
-        <route-link to="/">
+        <router-link to="/">
           <img src="../../assets/logo3.png" width="200%" height="80%">
-        </route-link>
+        </router-link>
       </div>
       <table align="right">
         <tr>

@@ -341,7 +341,6 @@ export default {
         if (this.channel === 'alipay') {
           this.alipayPC()
         } else {
-          alert('fdsfs')
           this.wxPC()
         }
       } else {
