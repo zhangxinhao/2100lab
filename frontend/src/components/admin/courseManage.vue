@@ -58,7 +58,7 @@
         <template slot-scope="scope">
           <router-link :to="{
             name:'coursepage',
-            params:{courseid: courseData[scope.$index].courseId}}">
+            params:{courseId: courseData[scope.$index].courseId}}">
             <el-button type="text" size="small">查看</el-button>
           </router-link>
           <router-link :to="{

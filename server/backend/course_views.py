@@ -14,7 +14,7 @@ def load_course(request):
     content and message board will be returned as dict.
 
     """
-    course_id = request.POST.get("course_id")
+    course_id = request.POST.get("courseId")
     course = Course.objects.get(pk=course_id)
     pictures = Picture.objects.filter(course=course).order_by("start")
     response = {}

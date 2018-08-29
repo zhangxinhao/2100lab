@@ -106,7 +106,8 @@ def get_pv(request):
         pv_list = _get_pv_(time_list)
     else:
         status = 1
-    return JsonResponse({"status": status, "PV_list": pv_list, "time": time_str})
+    return JsonResponse({
+        "status": status, "PV_list": pv_list, "time": time_str})
 
 
 def get_vol(request):

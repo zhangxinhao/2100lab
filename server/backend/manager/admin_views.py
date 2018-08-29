@@ -132,10 +132,8 @@ def get_admin(request):
     admins = []
     status = 0
     if admin_id:
-        print('+++++++++')
         try:
             user = User.objects.get(pk=admin_id)
-            print('------------')
             right = _to_binary_(user.manage_right)
             admin = {"adminId": admin_id, "password": ''}
             for i in range(len(right)):
