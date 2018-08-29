@@ -127,13 +127,13 @@
                     type="primary"
                     size="small"
                     round
-                    v-else-if = "paidFlag || money == 0"
+                    v-else-if = "paidFlag || money === 0"
                     @click="toCourse">立即观看
                   </el-button>
                   <el-button
                     class="judge-button"
                     type="primary"
-                    v-else-if = "paidFlag==0"
+                    v-else-if = "paidFlag === 0"
                     @click="payDialogVisible = true"
                     width="120px"
                     height="50px">￥{{ money }}购买
@@ -475,27 +475,23 @@ export default {
     padding: 0;
     background-color:#409EFF;
   }
-
   .logo {
     margin-left: 50px;
     display: inline-block;
     width: 55px;
     height: 55px;
   }
-
   .user-ope {
     color: white;
     font-size: 18px;
     margin-right: 60px;
   }
-
   #class {
     font-family: "Arial","Microsoft YaHei","黑体";
     font-size: 24px;
     font-weight: bold;
     text-align: left;
   }
-
   .money {
     color: red ;
     font-size: 20px;
@@ -504,7 +500,6 @@ export default {
     letter-spacing: 0;
     padding-bottom: 20px;
   }
-
   #page {
     max-width: 600px;
     margin: 0px auto 0px auto;
@@ -518,7 +513,6 @@ export default {
     border-top-style: solid;
     border-top-width: 1px;
   }
-
   .class-content {
     text-indent: 2em;
     margin-bottom: 20px;
@@ -526,12 +520,10 @@ export default {
     letter-spacing: 0.2em;
     font-size: 14px;
   }
-
   .el-icon-share {
     width: 20px;
     height: 30px;
   }
-
   #footer {
     color: #333;
     text-align: center;
@@ -547,11 +539,9 @@ export default {
     margin-bottom: 60px;
     width: 100px;
   }
-
   .el-dialog__body {
     padding-top: 20px;
   }
-
   #pay-money {
     font-size: 22px;
     margin-bottom: 20px;
@@ -559,7 +549,6 @@ export default {
     margin-top: 0px;
     font-weight: bold;
   }
-
   #pay-dialog-money {
     font-size: 22px;
     margin-bottom: 20px;
@@ -568,45 +557,39 @@ export default {
     font-weight: bold;
     color: red;
   }
-
   .hint {
     margin-left: 50px;
     margin-bottom: 40px;
     font-size: 18px;
     font-weight: bolder;
   }
-
   .pay-head {
     margin-bottom: 60px;
   }
-
   .pay-frame {
     margin-left: 50px;
     margin-bottom: 30px;
   }
-
   #account {
     margin-left: 0px;
     font-size: 15px;
     color:#409EFF;
   }
-
   .share {
     margin: 20px;
     width: 150px;
     height: 45px;
   }
-
   .operate {
     text-align: right;
   }
-
   .share-div {
     text-align: right;
   }
   .share {
     display: inline;
   }
+
   @media screen and (max-width: 500px) {
     .user-ope {
       color: white;
@@ -625,7 +608,6 @@ export default {
       width: 42px;
       height: 42px;
     }
-
     #class {
       font-family: "Arial","Microsoft YaHei","黑体";
       font-size: 18px;

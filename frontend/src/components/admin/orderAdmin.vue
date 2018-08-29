@@ -61,7 +61,7 @@
           label="操作">
           <template slot-scope="scope">
             <el-button  type="text"
-              v-if="userOrderList[scope.$index].status == '已支付'"
+              v-if="userOrderList[scope.$index].status === '已支付'"
               @click="refund(scope.$index)">
               退费
             </el-button>

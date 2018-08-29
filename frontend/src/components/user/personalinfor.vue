@@ -137,26 +137,21 @@ export default {
     margin-left: 30%;
     border: 3px solid skyblue;
   }
-
   .main-form {
     text-align: left;
     margin-left: 10%;
   }
-
   .header-img {
     width: 100%;
     height: 100%;
     object-fit: fill;
   }
-
   .change-header {
     margin-left: 32%;
   }
-
   .dialog-msg {
     margin-left: 5%;
   }
-
   .avatar-uploader {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
@@ -167,7 +162,6 @@ export default {
     height: 120px;
     margin-left: 32%;
   }
-
   .avatar-uploader:hover {
     border-color: #409EFF;
   }
@@ -183,30 +177,26 @@ export default {
     height: 120px;
     display: block;
   }
-
   .V {
     margin-left: 30%;
   }
-
   .infor {
     width: 33%;
   }
-
   .infor-text {
     margin-left: 16%;
   }
   .el-dialog {
     width: 25%;
   }
+
   @media screen and (max-width: 500px) {
   .V {
     margin-left: 30%;
   }
-
   .infor {
     width: 70%;
   }
-
   .infor-text {
     margin-left: 0px;
   }

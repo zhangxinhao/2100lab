@@ -119,20 +119,17 @@ export default {
     padding: 0;
     background-color:#409EFF;
   }
-
   .logo {
     margin-left: 50px;
     display: inline-block;
     width: 50px;
     height: 50px;
   }
-
   .user-ope {
     color: white;
     font-size: 18px;
     margin-right: 60px;
   }
-
   .el-aside {
     width: 250px !important;
     margin-left: 0px;
@@ -152,7 +149,6 @@ export default {
     vertical-align: middle;
     font-weight: bold;
   }
-
   .first-container {
     text-align: center;
     margin: 0px auto;

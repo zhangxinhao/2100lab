@@ -1,8 +1,7 @@
 from django.contrib import admin
-from .models import User, Course, Picture, VisitRecord, Order, Operation, AdminOperationRecord
-from .models import Message, Comment, Attitude, BlackList
+from .models import User, Course, Picture, VisitRecord, Order, Operation
+from .models import Message, Comment, Attitude, BlackList, AdminOperationRecord
 
-# Register your models here.
 
 admin.site.register(User)
 admin.site.register(Course)

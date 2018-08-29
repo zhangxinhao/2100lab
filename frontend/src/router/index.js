@@ -17,15 +17,15 @@ import payeds from '@/components/user/payeds'
 import userorder from '@/components/user/userorder'
 import personalinfor from '@/components/user/personalinfor'
 
-import adminlogin from '@/components/admin/adminlogin'
-import baseadmin from '@/components/admin/baseadmin'
+import adminLogin from '@/components/admin/adminLogin'
+import baseAdmin from '@/components/admin/baseAdmin'
 import addAdmin from '@/components/admin/addAdmin'
 import orderAdmin from '@/components/admin/orderAdmin'
 import uploadCourse from '@/components/admin/uploadCourse'
 import courseManage from '@/components/admin/courseManage'
-import commentadmin from '@/components/admin/commentadmin'
+import commentAdmin from '@/components/admin/commentAdmin'
 import userBrowsing from '@/components/admin/userBrowsing'
-import usermanage from '@/components/admin/usermanage'
+import userManage from '@/components/admin/userManage'
 import adminManage from '@/components/admin/adminManage'
 import adminHistory from '@/components/admin/adminHistory'
 import dataAnalize from '@/components/admin/dataAnalize'
@@ -130,14 +130,14 @@ export default new Router({
       component: destroied
     },
     {
-      path: '/adminlogin',
-      name: 'adminlogin',
-      component: adminlogin
+      path: '/adminLogin',
+      name: 'adminLogin',
+      component: adminLogin
     },
     {
-      path: '/baseadmin',
-      name: 'baseadmin',
-      component: baseadmin,
+      path: '/baseAdmin',
+      name: 'baseAdmin',
+      component: baseAdmin,
       children: [
         {
           path: '/addAdmin',
@@ -165,9 +165,9 @@ export default new Router({
           component: courseManage
         },
         {
-          path: '/commentadmin',
-          name: 'commentadmin',
-          component: commentadmin
+          path: '/commentAdmin',
+          name: 'commentAdmin',
+          component: commentAdmin
         },
         {
           path: '/userBrowsing',
@@ -175,9 +175,9 @@ export default new Router({
           component: userBrowsing
         },
         {
-          path: '/usermanage',
-          name: 'usermanage',
-          component: usermanage
+          path: '/userManage',
+          name: 'userManage',
+          component: userManage
         },
         {
           path: '/adminManage',
@@ -197,22 +197,22 @@ export default new Router({
       ],
       beforeEnter: (to, from, next) => {
         const nextRoute = [
-          'baseadmin', 'addAdmin', 'orderAdmin', 'uploadCourse',
-          'editCourse', 'courseManage', 'commentadmin', 'userBrowsing',
-          'usermanage', 'adminManage', 'adminHistory', 'dataAnalize']
+          'baseAdmin', 'addAdmin', 'orderAdmin', 'uploadCourse',
+          'editCourse', 'courseManage', 'commentAdmin', 'userBrowsing',
+          'userManage', 'adminManage', 'adminHistory', 'dataAnalize']
         const list = [['addAdmin', 'adminManage'],
           ['uploadCourse', 'editCourse', 'courseManage'],
-          ['usermanage', 'userBrowsing', 'commentadmin'],
+          ['userManage', 'userBrowsing', 'commentAdmin'],
           ['adminHistory'], ['orderAdmin']]
         if (nextRoute.indexOf(to.name) >= 0) {
           if (store.state.userId === '0') {
-            next('/adminlogin')
+            next('/adminLogin')
           } else {
             axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
               let status = response.data.status
               let code = response.data.code
               if (status === 1) {
-                next('/adminlogin')
+                next('/adminLogin')
               } else {
                 let i = 0
                 let mark = 5
@@ -232,7 +232,7 @@ export default new Router({
             })
           }
         } else {
-          next('/adminlogin')
+          next('/adminLogin')
         }
       }
     }

@@ -541,8 +541,8 @@ export default {
             return
           }
           this.discussionList = []
-          let tempmessage = response.data.message
-          this.refresh(tempmessage)
+          let tempMessage = response.data.message
+          this.refresh(tempMessage)
         })
       }
     },
@@ -565,8 +565,8 @@ export default {
             return
           }
           this.discussionList = []
-          let tempmessage = response.data.message
-          this.refresh(tempmessage)
+          let tempMessage = response.data.message
+          this.refresh(tempMessage)
         })
       }
     },
@@ -577,8 +577,8 @@ export default {
         attitude: attitude
       })).then(response => {
         this.discussionList = []
-        let tempmessage = response.data.message
-        this.refresh(tempmessage)
+        let tempMessage = response.data.message
+        this.refresh(tempMessage)
       })
     },
     flipeOver: function (page) {
@@ -675,7 +675,6 @@ export default {
     padding: 0;
     background-color:#409EFF;
   }
-
   .logo {
     margin-left: 50px;
     display: inline-block;

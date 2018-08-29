@@ -1,4 +1,3 @@
-import json
 from django.http import JsonResponse
 from backend.models import VisitRecord, User, AdminOperationRecord, Operation
 

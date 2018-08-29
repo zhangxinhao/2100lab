@@ -105,7 +105,7 @@
     </el-dialog>
   </div>
   <div class="forbide-dialog">
-    <el-dialog title="删除用户"
+    <el-dialog title="禁言用户"
       :visible.sync="forbideVisible"
       width="400px"
       height="700px">
@@ -257,20 +257,20 @@ export default {
 </script>
 
 <style scoped>
-.user-manage {
-  width: 80%;
-  margin: 20px auto;
-}
-#search-user {
-  width: 100%;
-}
-#user-list {
-  width: 100%;
-  min-height: 1000px;
-  margin: 50px auto;
-  text-align: center;
-}
-.pager {
-   text-align: right;
-}
+  .user-manage {
+    width: 80%;
+    margin: 20px auto;
+  }
+  #search-user {
+    width: 100%;
+  }
+  #user-list {
+    width: 100%;
+    min-height: 1000px;
+    margin: 50px auto;
+    text-align: center;
+  }
+  .pager {
+    text-align: right;
+  }
 </style>

@@ -1,10 +1,10 @@
-import usermanage from '@/components/admin/usermanage'
+import userManage from '@/components/admin/usermanage'
 import ElementUI from 'element-ui'
 import Vue from 'vue'
 Vue.use(ElementUI)
 
-describe('usermanage', () => {
-  const vm = new Vue(usermanage).$mount()
+describe('userManage', () => {
+  const vm = new Vue(userManage).$mount()
   it('correctly sets the index', () => {
     expect(vm.indexMethod(4)).toBe(5)
   })

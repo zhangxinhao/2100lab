@@ -3,9 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
 # 本数据库中时间均为时间戳，操作记录中除外
-
 
 class User(AbstractUser):
     id = models.CharField(max_length=11, primary_key=True)
