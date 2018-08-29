@@ -30,7 +30,7 @@
           <el-col :span="18">
             <el-upload
               class="upload-demo"
-              :action="upload_audio_URL()"
+              :action="uploadAudioURL()"
               :on-success="audioResponse"
               :on-remove="handleAudioRemove"
               :data="updateForm"
@@ -48,7 +48,7 @@
           class="update-form-item">
           <el-col :span="18">
             <el-upload
-              :action="upload_pic_URL()"
+              :action="uploadPicURL()"
               :on-success="pictureResponse"
               :data="updateForm"
               list-type="picture-card"
@@ -256,7 +256,8 @@ export default {
       input: '',
       dropdownMessage: '选择图片',
       miniteTemp: 0,
-      secondeTemp: 0
+      secondeTemp: 0,
+      hasAudio: false
     }
   },
   methods: {
@@ -302,10 +303,10 @@ export default {
       this.updateForm.imgInfo.push({
         id: response.id, start: 0, url: response.url})
     },
-    upload_audio_URL: function() {
+    uploadAudioURL: function() {
       return utils.getURL() + 'api/uploadaudio/'
     },
-    upload_pic_URL: function() {
+    uploadPicURL: function() {
       return utils.getURL() + 'api/uploadcoursepicture/'
     },
     beforeUpload: function(file) {
@@ -313,13 +314,14 @@ export default {
         this.$message.error('请上传正确的音频格式')
         return false
       }
-      if (this.updateForm.audioInfo) {
+      if (this.hasAudio) {
         this.$message.error('只能上传一个音频')
         return false
       }
     },
     handleAudioRemove: function(file, audioList) {
       this.updateForm.audioInfo = {}
+      this.hasAudio = false
     },
     handlePictureRemove: function(file, fileList) {
       let index = file.name
@@ -384,6 +386,9 @@ export default {
     }
   },
   created: function() {
+    this.updateForm.audioInfo = {
+      id: -1
+    }
     this.updateForm.courseId = this.$route.params.courseId
     if (this.updateForm.courseId !== undefined) {
       axios.post(utils.getURL() + 'api/preload/', qs.stringify({
@@ -408,6 +413,7 @@ export default {
             id: -1,
             url: utils.getURL() + 'media/' + courseInfo.audioList
           }
+          this.hasAudio = true
           this.updateForm.imgList = []
           for (let i = 0; i < imgList.length; i++) {
             this.updateForm.imgList.push({
