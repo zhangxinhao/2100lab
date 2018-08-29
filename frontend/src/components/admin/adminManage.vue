@@ -105,6 +105,7 @@
           <el-input
             v-model="adminData[editIndex].password"
             class="inp"
+            type="password"
             placeholder="为空默认为原密码">
           </el-input>
         </el-form-item>

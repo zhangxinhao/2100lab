@@ -10,7 +10,11 @@
       </el-form-item>
 
       <el-form-item label="管理员密码" >
-        <el-input v-model="newAdmin.password" class="inp"></el-input>
+        <el-input
+          v-model="newAdmin.password"
+          type="password"
+          class="inp">
+        </el-input>
       </el-form-item>
 
       <el-form-item label="课程管理权限">
