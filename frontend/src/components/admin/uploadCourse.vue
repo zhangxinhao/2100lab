@@ -201,14 +201,14 @@
           </el-button>
           <el-button
             type="primary"
-            @click="uploadcourse"
+            @click="uploadCourse"
             icon="el-icon-upload"
             v-else>
             上传课程
           </el-button>
           <el-button
             icon="el-icon-delete"
-            @click="clearpage"
+            @click="clearPage"
             class="clear">
             清空
           </el-button>
@@ -250,7 +250,6 @@ export default {
       },
       edit: false,
       pictureIndex: -1,
-      // uploadURL 为上传动作的后端接口
       dialogImageUrl: '',
       dialogVisible: false,
       input: '',
@@ -340,7 +339,7 @@ export default {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
-    clearpage: function() {
+    clearPage: function() {
       this.updateForm.courseTitle = ''
       this.updateForm.courseDescription = ''
       this.updateForm.timeList = ''
@@ -357,7 +356,7 @@ export default {
       this.miniteTemp = Math.floor(time / 60)
       this.secondeTemp = time % 60
     },
-    uploadcourse: function() {
+    uploadCourse: function() {
       axios.post(utils.getURL() + 'api/uploadcourse/', qs.stringify({
         updateForm: JSON.stringify(this.updateForm)
       })).then(response => {
@@ -452,9 +451,6 @@ export default {
   .time {
     color: black;
     font-size: 16px;
-  }
-  .upload-form {
-    text-align: center;
   }
   .update-form-item {
     text-align: left;

@@ -25,7 +25,7 @@
       <div class="really-table">
       <el-table
         border
-        class="mytable"
+        class="my-table"
         :data="userBrowsList">
         <el-table-column
           header-align=center
@@ -220,7 +220,7 @@ export default {
     margin: 50px auto;
     text-align: center;
   }
-  .mytable {
+  .my-table {
     width: 100%;
   }
   .pager {

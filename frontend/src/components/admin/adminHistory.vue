@@ -111,9 +111,6 @@ export default {
   width: 80%;
   margin: 20px 5%;
 }
-#search-user {
-  width: 100%;
-}
 #history-list {
   width: 100%;
   min-height: 1000px;

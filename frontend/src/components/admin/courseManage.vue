@@ -64,7 +64,7 @@
           <router-link :to="{
             name:'editCourse',
             params:{courseId: courseData[scope.$index].courseId}}">
-          <el-button type="text" size="small" >编辑</el-button>
+            <el-button type="text" size="small" >编辑</el-button>
           </router-link>
         </template>
       </el-table-column>
