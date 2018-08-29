@@ -582,13 +582,13 @@ export default {
       let list = response.data.courses
       this.freeList1 = []
       this.freeList2 = []
-      this.addList(list, this.freeList1, this.freeList2, 5)
+      this.addList(list, this.freeList1, this.freeList2, 6)
     })
     axios.post(utils.getURL() + 'api/listpricedindex/').then(response => {
       let list = response.data.courses
       this.costList1 = []
       this.costList2 = []
-      this.addList(list, this.costList1, this.costList2, 5)
+      this.addList(list, this.costList1, this.costList2, 6)
     })
   }
 }
