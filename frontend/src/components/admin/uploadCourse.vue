@@ -286,7 +286,7 @@ export default {
         if (this.secondeTemp) {
           seconde = this.secondeTemp
         }
-        secondes = minite * 60 + seconde
+        secondes = parseInt(minite * 60) + parseInt(seconde)
         this.updateForm.imgInfo[this.pictureIndex].start = secondes
       } catch (err) {
         this.$message({
@@ -318,7 +318,7 @@ export default {
         return false
       }
     },
-    handleAudioRemove: function(file, audioList) {
+    handleAudioRemove: function() {
       this.updateForm.audioInfo = {}
       this.hasAudio = false
     },
@@ -388,6 +388,7 @@ export default {
     this.updateForm.audioInfo = {
       id: -1
     }
+    this.updateForm.imgInfo = []
     this.updateForm.courseId = this.$route.params.courseId
     if (this.updateForm.courseId !== undefined) {
       axios.post(utils.getURL() + 'api/preload/', qs.stringify({
