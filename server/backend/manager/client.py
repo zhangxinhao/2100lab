@@ -52,13 +52,7 @@ def client_information(request):
             "userId": client["id"],
             "userAlias": client["alias"],
             "bonus": str(client["balance"]),
-            "is_V": client["is_V"]
-        })
-    if not query:
-        query.append({
-            "usreId": " ",
-            "userAlias": " ",
-            "bonus": " ",
+            "isV": client["is_V"]
         })
     return JsonResponse({"query": query})
 
