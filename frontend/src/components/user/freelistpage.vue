@@ -43,14 +43,14 @@
         :visible.sync="loginFormVisible"
         width="330px"
         height="500px">
-        <el-form :model="loform" :rules="rules">
+        <el-form :model="loForm" :rules="rules">
           <el-form-item
             label="手机号"
             :label-width="loginLabelWidth"
             prop="lophone">
             <el-col :span="18">
               <el-input
-                v-model="loform.phonenumber"
+                v-model="loForm.phoneNumber"
                 auto-complete="true"
                 clearable required="required"
                 pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"
@@ -61,7 +61,7 @@
           <el-form-item label="验证码" :label-width="loginLabelWidth">
             <el-col :span="18">
               <el-input
-                v-model="loform.password"
+                v-model="loForm.password"
                 auto-complete="off"
                 clearable>
               </el-input>
@@ -71,12 +71,12 @@
         <div slot="footer" class="login-footer">
           <el-button
             type="primary"
-            @click="loginFormVisible = false">获取验证码
+            @click="getVerification">获取验证码
           </el-button>
           <el-button @click="loginFormVisible = false">取 消</el-button>
           <el-button
             type="primary"
-            @click="loginFormVisible = false">确 定
+            @click="loginFunction">确 定
           </el-button>
         </div>
       </el-dialog>
@@ -152,17 +152,18 @@
 
 <script>
 import axios from 'axios'
+import qs from 'qs'
 import * as utils from '../utils/utils.js'
 
 export default {
   data() {
     var phoneReg = /^1[3|4|5|7|8][0-9]\d{8}$/
     var validateloPhone = (rule, value, callback) => {
-      if (!this.loform.phonenumber) {
+      if (!this.loForm.phoneNumber) {
         return callback(new Error('号码不能为空'))
       }
       setTimeout(() => {
-        if (!phoneReg.test(this.loform.phonenumber)) {
+        if (!phoneReg.test(this.loForm.phoneNumber)) {
           callback(new Error('格式有误'))
         } else {
           callback()
@@ -172,17 +173,15 @@ export default {
 
     return {
       user: '0',
-      login: true,
+      login: false,
       not_login: false,
       loginFormVisible: false,
       loginLabelWidth: '100px',
-      loform: {
-        phonenumber: '',
+      loForm: {
+        phoneNumber: '',
         password: '',
         delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        usercode: ''
       },
       rules: {
         lophone: [
@@ -262,6 +261,57 @@ export default {
     }
   },
   methods: {
+    createRandom: function() {
+      var code = Math.floor(Math.random() * (99999 - 0) + 100000)
+      this.loForm.password = code.toString()
+    },
+    loginFunction: function() {
+      if (this.loForm.delivery === false) {
+        this.$message({
+          message: '请输入正确的手机号和对应的验证码！',
+          type: 'warning'
+        })
+        return
+      }
+      if (this.loForm.usercode !== this.loForm.password) {
+        this.$message({
+          message: '请输入正确的验证码！',
+          type: 'warning'
+        })
+        return
+      }
+      this.loginFormVisible = false
+      axios.post(utils.getURL() + 'api/authenticate/', qs.stringify({
+        phone_number: this.loForm.phoneNumber,
+        verification_code: 0
+      })).then(response => {
+        this.login = true
+        this.$store.commit('setUserId', this.loForm.phoneNumber)
+        this.user = this.$store.state.userId
+      })
+    },
+    getVerification: function() {
+      if (this.loForm.phoneNumber === '') {
+        this.$message({
+          message: '请输入正确的手机号！',
+          type: 'warning'
+        })
+        return
+      }
+      this.createRandom()
+      axios.post(utils.getURL() + 'api/getcode/', qs.stringify({
+        phone_number: this.loForm.phoneNumber,
+        password: this.loForm.password
+      })).then(response => {
+        this.loForm.delivery = true
+      })
+    },
+    logout: function() {
+      axios.post(utils.getURL() + 'api/logout/').then(response => {
+        this.login = false
+        this.$store.commit('setUserId', '0')
+      })
+    },
     flipeOver: function (page) {
       let totalEnd = this.pageSize * page
       let end = this.totalNumber < (totalEnd) ? this.totalNumber : totalEnd

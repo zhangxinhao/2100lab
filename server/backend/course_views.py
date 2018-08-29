@@ -79,7 +79,10 @@ def check_course_record(request):
     except VisitRecord.DoesNotExist:
         burnt_time = course.burnt_time
         current_time = int(time.time())
-        deal_visit_time = burnt_time + current_time
+        if burnt_time:
+            deal_visit_time = burnt_time + current_time
+        else:
+            deal_visit_time = 2000000000
         VisitRecord.objects.create(
             course=course, user=user, last_visit=current_time, last_time=0,
             deal_visit_time=deal_visit_time)
@@ -90,7 +93,7 @@ def check_course_record(request):
 def feedback_course_record(request):
     user = request.user
     course_id = request.POST.get("courseId")
-    last_time = request.POST.get("last_time")
+    last_time = request.POST.get("lastTime")
     last_time = float(last_time)
     status = 0
     try:

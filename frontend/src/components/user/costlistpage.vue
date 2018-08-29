@@ -72,12 +72,12 @@
         <div slot="footer" class="login-footer">
           <el-button
             type="primary"
-            @click="loginFormVisible = false">获取验证码
+            @click="getVerification">获取验证码
           </el-button>
           <el-button @click="loginFormVisible = false">取 消</el-button>
           <el-button
             type="primary"
-            @click="loginFormVisible = false">确 定
+            @click="loginFunction">确 定
           </el-button>
         </div>
       </el-dialog>
@@ -151,6 +151,7 @@
 
 <script>
 import axios from 'axios'
+import qs from 'qs'
 import * as utils from '../utils/utils.js'
 
 export default {
@@ -170,16 +171,14 @@ export default {
     }
     return {
       user: '0',
-      login: true,
+      login: false,
       loginFormVisible: false,
       loginLabelWidth: '100px',
       loForm: {
         phoneNumber: '',
         password: '',
         delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        usercode: ''
       },
       rules: {
         loPhone: [
@@ -259,6 +258,57 @@ export default {
     }
   },
   methods: {
+    createRandom: function() {
+      var code = Math.floor(Math.random() * (99999 - 0) + 100000)
+      this.loForm.password = code.toString()
+    },
+    loginFunction: function() {
+      if (this.loForm.delivery === false) {
+        this.$message({
+          message: '请输入正确的手机号和对应的验证码！',
+          type: 'warning'
+        })
+        return
+      }
+      if (this.loForm.usercode !== this.loForm.password) {
+        this.$message({
+          message: '请输入正确的验证码！',
+          type: 'warning'
+        })
+        return
+      }
+      this.loginFormVisible = false
+      axios.post(utils.getURL() + 'api/authenticate/', qs.stringify({
+        phone_number: this.loForm.phoneNumber,
+        verification_code: 0
+      })).then(response => {
+        this.login = true
+        this.$store.commit('setUserId', this.loForm.phoneNumber)
+        this.user = this.$store.state.userId
+      })
+    },
+    getVerification: function() {
+      if (this.loForm.phoneNumber === '') {
+        this.$message({
+          message: '请输入正确的手机号！',
+          type: 'warning'
+        })
+        return
+      }
+      this.createRandom()
+      axios.post(utils.getURL() + 'api/getcode/', qs.stringify({
+        phone_number: this.loForm.phoneNumber,
+        password: this.loForm.password
+      })).then(response => {
+        this.loForm.delivery = true
+      })
+    },
+    logout: function() {
+      axios.post(utils.getURL() + 'api/logout/').then(response => {
+        this.login = false
+        this.$store.commit('setUserId', '0')
+      })
+    },
     flipeOver: function (page) {
       let totalEnd = this.pageSize * page
       let end = this.totalNumber < (totalEnd) ? this.totalNumber : totalEnd
@@ -357,7 +407,7 @@ export default {
   .menu {
     position: relative;
     height: 50px;
-    margin: 0, auto;
+    margin: 0 auto;
     padding: 8px 0 0;
     margin-top: 10px;
     margin-bottom: 30px;

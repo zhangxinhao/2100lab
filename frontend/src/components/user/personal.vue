@@ -77,6 +77,9 @@
 </div>
 </template>
 <script>
+import axios from 'axios'
+import * as utils from '../utils/utils.js'
+
 export default {
   data() {
     return {
@@ -84,6 +87,10 @@ export default {
   },
   methods: {
     logout: function() {
+      axios.post(utils.getURL() + 'api/logout/').then(response => {
+        this.$store.commit('setUserId', '0')
+        this.$router.push('/')
+      })
     },
     handleSelect: function(key, keyPath) {
       switch (key) {

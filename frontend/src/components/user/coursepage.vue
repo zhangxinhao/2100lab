@@ -461,8 +461,10 @@ export default {
     clearInterval(this.interValId)
     axios.post(utils.getURL() + 'api/feedbackrecord/', qs.stringify({
       courseId: this.courseId,
-      last_time: this.music.currentTime
-    })).then(response => {})
+      lastTime: this.music.currentTime
+    })).then(response => {
+      this.$store.commit('setUserId', '0')
+    })
   },
   methods: {
     imgplay: function() {
@@ -509,7 +511,10 @@ export default {
         ':' + (s < 10 ? '0' : '') + parseInt(it % 60)
     },
     logout: function() {
-      this.login = false
+      axios.post(utils.getURL() + 'api/logout/').then(response => {
+        this.login = false
+        this.$router.push('/')
+      })
     },
     formatVoice: function(val) {
       return this.music.volume
