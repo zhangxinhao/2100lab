@@ -6,10 +6,12 @@ Vue.use(ElementUI)
 describe('uploadCourse', () => {
   const vm = new Vue(uploadCourse).$mount()
   it('have correct audio url', () => {
-    expect(vm.uploadAudioURL()).toBe('http://192.168.55.33:8000/api/uploadaudio/')
+    expect(vm.uploadAudioURL()).toBe(
+      'http://192.168.55.33:8000/api/uploadaudio/')
   })
   it('have correct pic url', () => {
-    expect(vm.uploadPicURL()).toBe('http://192.168.55.33:8000/api/uploadcoursepicture/')
+    expect(vm.uploadPicURL()).toBe(
+      'http://192.168.55.33:8000/api/uploadcoursepicture/')
   })
   it('correct before upload', () => {
     expect(vm.beforeUpload('1.mp4')).toBe(false)

@@ -9,7 +9,12 @@ describe('courseManage', () => {
     expect(vm.indexMethod(2)).toBe(3)
   })
   it('correctly messageRightCal', () => {
-    let data = {courseId: 15222, courseTitle: '我们爱科学', destroyTime: 8, messageRight: true, coursePrice: 25}
+    let data = {
+      courseId: 15222,
+      courseTitle: '我们爱科学',
+      destroyTime: 8,
+      messageRight: true,
+      coursePrice: 25}
     expect(vm.messageRightCal(data)).toBe('开放')
   })
   it('correctly search', () => {
