@@ -214,10 +214,10 @@ export default {
         axios.post(utils.getURL() + 'api/editadmin/', qs.stringify({
           adminId: admin.adminId,
           password: password,
-          course_manage: admin.courseManage,
-          user_manage: admin.userManage,
-          operation_history: admin.operationHistory,
-          order_manage: admin.orderManage
+          courseManage: admin.courseManage,
+          userManage: admin.userManage,
+          operationHistory: admin.operationHistory,
+          orderManage: admin.orderManage
         })).then(response => {
           if (response.data.status === 0) {
             this.$message({

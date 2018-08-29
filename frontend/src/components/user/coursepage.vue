@@ -644,7 +644,7 @@ export default {
       this.courseId + '/' + this.user
     this.nowPic = this.coursePic[0]
     axios.post(utils.getURL() + 'api/coursepage/', qs.stringify({
-      course_id: this.$route.params.courseid
+      courseId: this.$route.params.courseid
     })).then(response => {
       this.discussionList = []
       this.onePageDiscussion = []
