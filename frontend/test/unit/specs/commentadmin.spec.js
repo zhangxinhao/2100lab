@@ -1,5 +1,6 @@
 import commentAdmin from '@/components/admin/commentadmin'
 import ElementUI from 'element-ui'
+import { mount } from '@vue/test-utils'
 import Vue from 'vue'
 Vue.use(ElementUI)
 
@@ -28,5 +29,10 @@ describe('commentAdmin', () => {
     vm.$nextTick(() => {
       expect(vm.userId).toBe(undefined)
     })
+  })
+  it('数目显示', () => {
+    const wrapper = mount(commentAdmin)
+    let inputs = wrapper.findAll('h1')
+    expect(inputs.length).toBe(0)
   })
 })

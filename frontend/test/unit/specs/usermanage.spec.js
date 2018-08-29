@@ -1,5 +1,6 @@
 import userManage from '@/components/admin/usermanage'
 import ElementUI from 'element-ui'
+import { mount } from '@vue/test-utils'
 import Vue from 'vue'
 Vue.use(ElementUI)
 
@@ -34,5 +35,10 @@ describe('userManage', () => {
   })
   it('correct flipOver', () => {
     vm.flipOver(2)
+  })
+  it('数目显示', () => {
+    const wrapper = mount(userManage)
+    let inputs = wrapper.findAll('h1')
+    expect(inputs.length).toBe(0)
   })
 })
