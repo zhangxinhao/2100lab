@@ -21,6 +21,21 @@ SUBJECT = "2100实验室课程支付"
 
 
 def alipay_pc(request):
+    """
+
+    A method for alipay for pc.
+
+
+    Param is a HTTP request:
+
+
+    Return is a HTTP JSON response:
+
+    - `status`: 0 means succeeded, 1 means failed
+
+    - `pingppObject`: a pingpp object of charge
+
+    """
     try:
         user = request.user
         order_no = _create_order_no_(user.id)
@@ -148,6 +163,13 @@ def _create_order_(user, course, price, sharer, charge):
         return JsonResponse({"result": 1})
 
 def webhooks_charge(request):
+    """
+
+    A hook method to be called by the `Pingpp` server when charge successfully.
+
+    Detailed information: https://www.pingxx.com/api
+
+    """
     try:
         body = json.loads(request.body.decode('utf-8'))
         charge = body["data"]["object"]
@@ -164,9 +186,16 @@ def webhooks_charge(request):
         else:
             return HttpResponse(status=500)
     except json.decoder.JSONDecodeError:
-        return JsonResponse({"result": 1})
+        return HttpResponse(status=500)
 
 def webhooks_refund(request):
+    """
+
+    A hook method to be called by the `Pingpp` server when refund successfully.
+
+    Detailed information: https://www.pingxx.com/api
+
+    """
     try:
         body = json.loads(request.body.decode("utf-8"))
         charge_id = body["data"]["object"]["id"]
@@ -181,9 +210,23 @@ def webhooks_refund(request):
         else:
             return HttpResponse(status=500)
     except json.decoder.JSONDecodeError:
-        return JsonResponse({"result": 1})
+        return HttpResponse(status=500)
 
 def bonus_pay(request):
+    """
+
+    A method to pay with bonus.
+
+    Param is a HTTP POST request:
+
+    - `courseId`
+
+
+    Return is a HTTP JSON request:
+
+    - `status`: 0 means succeeded, 1 means failed
+
+    """
     course_id = request.POST.get("courseId")
     user = request.user
     status = 0

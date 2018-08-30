@@ -9,6 +9,33 @@ HOUR = 3600
 
 
 def show_courses(request):
+    """
+
+    A method to show information of courses.
+
+
+    Param is a HTTP POST request:
+
+    - `searchId`
+
+
+    Return is a HTTP JSON response:
+
+    - `status`: 0 means succeeded, 1 means failed
+
+    - `courseData`: a list consisted with dicts
+
+    Sample:
+
+    courseData = [{
+        "courseId": "13800000000",
+        "courseTitle": "sample",
+        "destroyTime": "1500000000",
+        "messageRight": True,
+        "coursePrice": 10.00
+    }]
+
+    """
     status = 0
     course_id = request.POST.get("searchId")
     course_list = None
@@ -42,6 +69,10 @@ def show_courses(request):
 
 
 def upload_audio(request):
+    """
+    A method to upload audio to the temp file folder
+
+    """
     audio = request.FILES.get("file")
     audio_temp = AudioTemp(position=audio)
     audio_temp.save()
@@ -50,6 +81,10 @@ def upload_audio(request):
 
 
 def upload_course_picture(request):
+    """
+    A method to upload picture to the temp file folder
+
+    """
     upload_picture = request.FILES.get("file")
     picture = PictureTemp(position=upload_picture)
     picture.save()
@@ -58,6 +93,21 @@ def upload_course_picture(request):
 
 
 def upload_course(request):
+    """
+
+    A method to upload course. First of all, course will be created in the
+    table, according to the input parameters. Then, the pictures will be created
+     in the table of picture.
+
+    Param is a HTTP POST request:
+
+    - `updateForm`: concludes all the information to creating the whole course
+
+    Return is a HTTP JSON response:
+
+    - `status`: 0 means succeeded, 1 means failed
+
+    """
     status = 0
     form = json.loads(request.POST.get("updateForm"))
     img_info = form["imgInfo"]
@@ -100,6 +150,12 @@ def upload_course(request):
 
 
 def edit_course(request):
+    """
+
+    A method to edit course. The inner idea is almost same as method
+    `upload_course`, excepts deleting checking of picture and audio.
+
+    """
     try:
         status = 0
         result = ""
@@ -127,6 +183,11 @@ def edit_course(request):
         return JsonResponse({"result": 1})
 
 def _update_pictures_(course_id, img_info, remove_list):
+    """
+
+    A inner method to update picture while editing picture.
+
+    """
     course = Course.objects.get(course_id=course_id)
     for img in remove_list:
         dir = img["url"].split("/")[-2]
@@ -150,6 +211,11 @@ def _update_pictures_(course_id, img_info, remove_list):
 
 
 def _update_audio_(course_id, audio_info):
+    """
+
+    An inner method to update audio while editing courses.
+
+    """
     course = Course.objects.get(course_id=course_id)
     dir = audio_info["url"].split("/")
     if dir[-2] == "audio_temp":
@@ -160,6 +226,11 @@ def _update_audio_(course_id, audio_info):
 
 
 def _insert_pictrue_(image_list, course):
+    """
+
+    An inner method to insert pictures into the course.
+
+    """
     try:
         for img in image_list:
             try:
@@ -198,6 +269,11 @@ def preload_course(request):
         return JsonResponse({"result": 1})
 
 def _get_picture_list_(course):
+    """
+
+    An inner method to return picture list
+
+    """
     try:
         picture_list = Picture.objects.filter(course=course).order_by("-start")
         img_list = []
@@ -214,6 +290,11 @@ def _get_picture_list_(course):
         return JsonResponse({"result": 1})
 
 def _get_course_info_(course):
+    """
+
+    An inner method to return course information
+
+    """
     try:
         course_info = {
             "courseTitle": course.course_name,

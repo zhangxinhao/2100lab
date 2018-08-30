@@ -16,6 +16,22 @@ APP_ID = "app_nfzXTOiPq5G4u9ib"
 
 
 def list_order(request):
+    """
+
+    A method to list orders.
+
+
+    Param is a HTTP POST request:
+
+    - `orderNo`: can be None and will return all
+
+
+    Return is a HTTP JSON response:
+
+    - `status`: 0 means succeeded, 1 means failed
+
+    - `orders`: a list consists of order in dict.
+    """
     order_no = request.POST.get("orderNo")
     order_list = None
     status = 0
@@ -58,6 +74,23 @@ def list_order(request):
 
 
 def _timestamps_(days):
+    """
+
+    An inner method to return timestamp of every day's 0 o'clock `days` before
+    today.
+
+
+    Param:
+
+    - `days`
+
+
+    Return
+
+    - `time_list`
+
+    - `time_str`
+    """
     now_time = int(time.time())
     today = now_time - now_time % TOTALSECONDS + time.timezone
     time_list = []
@@ -129,6 +162,11 @@ def get_vol(request):
 
 
 def refund(request):
+    """
+
+    A method to refund
+    
+    """
     status = 0
     order_no = request.POST.get("orderNo")
     result = "正在退款"
