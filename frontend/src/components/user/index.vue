@@ -595,6 +595,9 @@ export default {
 </script>
 
 <style scoped>
+  login-footer {
+    text-align: center;
+  }
   .only-div {
     padding: 14px;
   }
@@ -642,6 +645,7 @@ export default {
   }
   .get-check {
     margin-left: 100px !important;
+    padding: 0px;
   }
   .more-list {
     width: 100%;

@@ -2,12 +2,13 @@
   <div class="destroied">
     <div id="des-outline">
       <div id="des-inner">
-        <img src="../../assets/images/fire.png" id="fire-img">
+        <img src="../../assets/burn1.jpg" id="fire-img">
         <div>
           <div class="des-message">该页面已被焚毁</div>
           <br />
           <div class="des-message">下次早点来哦</div>
         </div>
+        <br />
         <div>
           <router-link to="/">
             <el-button id="return-index" type="text">返回首页</el-button>
@@ -32,10 +33,8 @@ export default {
     text-align: center;
   }
   #des-outline {
-    background-color: lightgray;
     width: 500px;
     height: 700px;
-    border: 1px, solid, rgb(104, 104, 104);
     border-radius: 5px;
     margin: auto;
     position: absolute;
@@ -56,6 +55,8 @@ export default {
     right: 0;
   }
   .des-message {
+    font-family: 'youyuan';
+    font-weight: bold;
     font-size: 28px;
     color: black;
   }
@@ -64,14 +65,12 @@ export default {
     color: #409EFF;
   }
   img {
-    width: 250px;
+    width: 400px;
   }
   @media screen and (max-width: 500px) {
     #des-outline {
-    background-color: lightgray;
     width: 300px;
     height: 500px;
-    border: 1px, solid, rgb(104, 104, 104);
     border-radius: 5px;
     margin: auto;
     position: absolute;
@@ -81,6 +80,7 @@ export default {
     right: 0;
   }
   .des-message {
+    font-family: 'youyuan';
     font-size: 18px;
     color: black;
     margin: 0px;
@@ -88,6 +88,9 @@ export default {
   #return-index {
     font-size: 15px;
     color: #409EFF;
+  }
+  img {
+    width: 200px;
   }
   .element-style {
     margin: 10px !important;
