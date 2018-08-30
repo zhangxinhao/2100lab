@@ -103,11 +103,15 @@ export default {
   .login-form {
     width: 400px;
     height: 300px;
-    border: 2px solid skyblue;
-    border-radius: 10px;
+    border: 2px solid rgb(209, 214, 216);
+    background: transparent;
     text-align: center;
-    margin-left: 33%;
-    background-color: rgb(236, 242, 243);
+    margin: auto;
+    background-color: #EBEEF5;
+    filter:alpha(Opacity=60);-moz-opacity:0.7;opacity: 0.8;
+    position: relative;
+    top: 50%;
+    transform: translate(0,50%);
   }
   h1 {
     font-size: 100%;
@@ -115,9 +119,11 @@ export default {
   }
   .background {
     width: 100%;
-    height: 100px;
-    background: linear-gradient(lightskyblue, white);
-    padding-top: 120px;
+    background-image: url(../../assets/back1.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
   }
   .form-thing {
     margin-top: 12%;
