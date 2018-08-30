@@ -86,6 +86,7 @@ def ban(request):
         user.save()
     except User.DoesNotExist:
         status = 1
+        return JsonResponse({"status": status})
 
     log_user_id = request.user.id
     log_object_id = user_id
@@ -107,6 +108,7 @@ def authorize(request):
         user.save()
     except User.DoesNotExist:
         status = 1
+        return JsonResponse({"status": status})
 
     log_user_id = request.user.id
     log_object_id = user_id
