@@ -1,6 +1,6 @@
 from django.test import TestCase, Client, RequestFactory
 from backend.models import Order, User, Course
-
+from backend.order_views import get_orders
 # Create your tests here.
 
 
@@ -40,10 +40,10 @@ class OrderTestCase(TestCase):
         self.assertEqual(status, 1)
 
     def test_get_order(self):
-        request = self.factory.post('/api/authenticate/', {
+        request = self.factory.post('/api/listorders/', {
             'phone_number': '13230037688',
             'verification_code': '0'
         })
         request.user = self.user
-        response = self.client.post('/api/listorders/')
+        response = get_orders(request)
         self.assertEqual(response.status_code, 200)

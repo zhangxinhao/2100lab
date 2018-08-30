@@ -75,6 +75,7 @@ def ban_client(request):
             status = 1
     except User.DoesNotExist:
         status = 1
+        return JsonResponse({"status": status})
 
     log_user_id = request.user.id
     log_object_id = client_id
@@ -183,6 +184,7 @@ def edit_admin(request):
         admin.save()
     else:
         status = 1
+        return JsonResponse({"status": status})
 
     log_user_id = request.user.id
     log_object_id = admin_id
