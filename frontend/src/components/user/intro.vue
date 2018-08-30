@@ -133,7 +133,7 @@
                   <el-button
                     class="judge-button"
                     type="primary"
-                    v-else-if = "paidFlag === 0"
+                    v-else-if = "!paidFlag"
                     @click="payDialogVisible = true"
                     width="120px"
                     height="50px">￥{{ money }}购买

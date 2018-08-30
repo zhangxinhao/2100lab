@@ -10,7 +10,7 @@ def message_board_dic(request):
     It contains all information of a message board that you may use.
 
     """
-    course = Course.objects.get(pk=request.POST.get("course_id"))
+    course = Course.objects.get(pk=request.POST.get("courseId"))
     message = Message.objects.filter(course=course).order_by("-time")
     messages = []
     for msg in message:
@@ -56,7 +56,7 @@ def leave_message(request):
     if not user.talking_allowed:
         status = 1
         return JsonResponse({"status": status})
-    course_id = request.POST.get("course_id")
+    course_id = request.POST.get("courseId")
     content = request.POST.get("content")
     course = Course.objects.get(pk=course_id)
     Message.objects.create(course=course, author=user,
@@ -78,7 +78,7 @@ def comment(request):
     if not user.talking_allowed:
         status = 1
         return JsonResponse({"status": status})
-    message_id = request.POST.get("message_id")
+    message_id = request.POST.get("messageId")
     content = request.POST.get("content")
     message = Message.objects.get(pk=message_id)
     Comment.objects.create(author=user, message=message, content=content)
@@ -101,7 +101,7 @@ def express(request):
     choice = False
     if request.POST.get("attitude") == "like":
         choice = True
-    message_id = request.POST.get("message_id")
+    message_id = request.POST.get("messageId")
     delta = 0
     message = Message.objects.get(pk=message_id)
     done = Attitude.objects.filter(user=user, message=message, like=choice)
