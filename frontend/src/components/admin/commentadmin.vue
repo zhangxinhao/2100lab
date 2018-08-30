@@ -146,7 +146,7 @@ export default {
       })).then(response => {
         let status = response.data.status
         if (status === 0) {
-          this.$message.error('已禁言')
+          this.$message.success('信息已删除')
         } else {
           this.$message.error('信息有误！')
         }
@@ -159,7 +159,7 @@ export default {
       })).then(response => {
         let status = response.data.status
         if (status === 0) {
-          this.$message.error('已禁言')
+          this.$message.success('已禁言')
         } else {
           this.$message.error('用户信息有误！')
         }
