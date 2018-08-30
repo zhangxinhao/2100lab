@@ -379,7 +379,7 @@ export default {
       })).then(response => {
         if (response.data.status === 0) {
           this.$message.success('修改成功')
-          location.replace()
+          location.reload()
         } else {
           this.$message.error(response.data.result)
         }

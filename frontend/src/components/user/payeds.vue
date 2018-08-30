@@ -61,8 +61,8 @@ export default {
         {courseId: '110', courseName: '1', money: '24', time: '2018-3-5'}
       ],
       pageNo: 1,
-      pageSize: 2,
-      totalNumber: 10
+      pageSize: 10,
+      totalNumber: 0
     }
   },
   methods: {
@@ -80,7 +80,7 @@ export default {
     axios.post(utils.getURL() + 'api/listorders/').then(response => {
       let lists = response.data.orders
       this.list = []
-      for (let i = 0; i < response.data.orders.length; i++) {
+      for (let i = 0; i < lists.length; i++) {
         this.list.push({
           'courseId': lists[i].course_id,
           'courseName': lists[i].course_name,
