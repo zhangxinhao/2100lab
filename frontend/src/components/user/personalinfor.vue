@@ -79,6 +79,7 @@ export default {
         balance: '1123',
         isV: true
       },
+      changedIcon: false,
       dialogVisible: false,
       imageUrl: ''
     }
@@ -97,10 +98,14 @@ export default {
       )
     },
     clickToChangeIcon: function() {
+      if (this.changedIcon) {
+        this.header = this.imageUrl
+        this.changedIcon = false
+      }
       this.dialogVisible = false
-      this.header = this.imageUrl
     },
     handleAvatarSuccess: function(res, file) {
+      this.changedIcon = true
       this.imageUrl = URL.createObjectURL(file.raw)
     },
     beforeAvatarUpload: function(file) {

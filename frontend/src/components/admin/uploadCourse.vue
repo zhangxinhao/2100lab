@@ -322,7 +322,7 @@ export default {
       this.updateForm.audioInfo = {}
       this.hasAudio = false
     },
-    handlePictureRemove: function(file, fileList) {
+    handlePictureRemove: function(file) {
       let index = file.name
       let imgInfo = this.updateForm.imgInfo
       for (let i = 0; i < imgInfo.length; i++) {
