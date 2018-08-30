@@ -19,13 +19,6 @@
             </router-link>
           </td>
           <td>
-            <el-button class="user-ope"
-              type="text"
-              v-if="!login"
-              @click="loginFormVisible = true">登录<br><br>
-            </el-button>
-          </td>
-          <td>
             <el-button
               class="user-ope"
               type="text"
@@ -36,51 +29,6 @@
           </td>
         </tr>
       </table>
-    </div>
-
-    <div class="login-dialog">
-      <el-dialog
-        title="登录"
-        :visible.sync="loginFormVisible"
-        class="lodialog"
-        width="330px"
-        height="500px">
-        <el-form :model="loForm" :rules="rules">
-          <el-form-item
-            label="手机号"
-            :label-width="loginLabelWidth"
-            prop="loPhone">
-            <el-col :span="18">
-              <el-input
-                v-model="loForm.phoneNumber"
-                auto-complete="true"
-                clearable
-                required="required"
-                pattern="/^1[3|4|5|7|8][0-9]\d{8}$/"
-                oninvalid="this.setCustomValidity('warning')">
-              </el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item
-            label="验证码"
-            :label-width="loginLabelWidth">
-            <el-col :span="18">
-              <el-input
-                v-model="loForm.usercode"
-                auto-complete="off"
-                clearable>
-              </el-input>
-            </el-col>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="login-footer">
-          <el-button type="primary">获取验证码</el-button>
-          <el-button @click="loginFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="loginFormVisible = false">
-            确 定
-          </el-button>
-        </div>
-      </el-dialog>
     </div>
 
     <div class="main-container">
@@ -446,7 +394,7 @@ export default {
           ]
         }
       ],
-      pageSize: 12,
+      pageSize: 5,
       totalNumber: 100,
       pageNo: 1,
       interValId: 0
@@ -463,7 +411,7 @@ export default {
       courseId: this.courseId,
       lastTime: this.music.currentTime
     })).then(response => {
-      this.$store.commit('setUserId', '0')
+      this.$store.commit('setCourseId', '0')
     })
   },
   methods: {
@@ -543,6 +491,7 @@ export default {
           this.discussionList = []
           let tempMessage = response.data.message
           this.refresh(tempMessage)
+          this.discussWord = ''
         })
       }
     },
@@ -567,6 +516,7 @@ export default {
           this.discussionList = []
           let tempMessage = response.data.message
           this.refresh(tempMessage)
+          msg.replyMsg = ''
         })
       }
     },
@@ -584,10 +534,10 @@ export default {
     flipeOver: function (page) {
       let _end = this.pageSize * page
       let end = this.totalNumber < (_end) ? this.totalNumber : _end
-      this.freeList = []
+      this.onePageDiscussion = []
       let start = this.pageSize * (page - 1)
       for (let i = start; i < end; i++) {
-        this.freeList.push(this.courses[i])
+        this.onePageDiscussion.push(this.discussionList[i])
       }
     },
     initialize(course, pictures, message) {
