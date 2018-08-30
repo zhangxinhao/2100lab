@@ -29,7 +29,7 @@ def alipay_pc(request):
         url = extra[1]
         charge = pingpp.Charge.create(
             order_no=order_no,
-            amount=100,
+            amount=int(amount),
             app=dict(id=APP_ID),
             channel='alipay_pc_direct',
             currency='cny',
@@ -53,7 +53,7 @@ def alipay_phone(request):
         url = extra[1]
         charge = pingpp.Charge.create(
             order_no=order_no,
-            amount=amount,
+            amount=int(amount),
             app=dict(id=APP_ID),
             channel='alipay_wap',
             currency='cny',

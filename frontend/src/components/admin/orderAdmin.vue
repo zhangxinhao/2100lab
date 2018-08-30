@@ -151,7 +151,13 @@ export default {
       axios.post(utils.getURL() + 'api/refund/', qs.stringify({
         orderNo: orderNo
       })).then(response => {
-        this.$message(response.data.result)
+        if (response.data.status === 0) {
+          this.$message(response.data.result)
+        } else if (response.data.status === 2) {
+          window.open(response.data.result)
+        } else {
+          this.$message(response.data.result)
+        }
       })
     },
     search: function() {
