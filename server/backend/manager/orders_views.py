@@ -139,8 +139,13 @@ def refund(request):
         record = VisitRecord.objects.filter(course=course, user=user)
         if record:
             raise Exception("已访问过课程，无法退款")
-        charge = pingpp.Charge.retrieve("order.charge_id")
-        charge.refunds.create(description="2100实验室课程退款")
+        charge = pingpp.Charge.retrieve(order.charge_id)
+        refund = charge.refunds.create(description="2100实验室课程退款")
+        if refund["failure_msg"]:
+            msg = refund["failure_msg"]
+            pos = msg.find('https')
+            result = msg[pos:]
+            status = 2
     except Exception as my_e:
         status = 1
         result = str(my_e)
