@@ -91,7 +91,12 @@ export default {
       this.browList = []
       let start = this.pageSize * (page - 1)
       for (let i = start; i < end; i++) {
-        this.browList.push(this.courses[i])
+        this.browList.push({
+          'pictureSrc': utils.getURL() + 'media/' + this.courses[i].profile_url,
+          'courseTitle': this.courses[i].course_name,
+          'lastBrowTime': new Date(parseInt(this.courses[i].last_visit) * 1000)
+            .toLocaleString().replace(/:\d{1,2}$/, ' ')
+        })
       }
     }
   },
@@ -103,13 +108,14 @@ export default {
       this.totalNumber = this.courses.length
       let totalNumber = this.totalNumber
       this.browList = []
-      let size = this.pageSize
-      if (totalNumber < size) {
-        this.browList = this.courses
-      } else {
-        for (let i = 0; i < size; i++) {
-          this.browList.push(this.courses[i])
-        }
+      let size = totalNumber < this.pageSize ? totalNumber : this.pageSize
+      for (let i = 0; i < size; i++) {
+        this.browList.push({
+          'pictureSrc': utils.getURL() + 'media/' + this.courses[i].profile_url,
+          'courseTitle': this.courses[i].course_name,
+          'lastBrowTime': new Date(parseInt(this.courses[i].last_visit) * 1000)
+            .toLocaleString().replace(/:\d{1,2}$/, ' ')
+        })
       }
     })
   }
