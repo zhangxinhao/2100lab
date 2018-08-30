@@ -1,15 +1,18 @@
 <template>
-  <el-form class="main-form">
-    <el-form-item>
-      <el-col class="personalinfor-header">
+  <div class="main-form">
+    <div class="header">
+      <div class="header-container">
         <img :src="header" class="header-img">
-      </el-col>
-    </el-form-item>
-    <el-button
-      @click="dialogVisible = true"
-      class="change-header"
-      type="text">修改头像
-    </el-button>
+      </div>
+      <div class="change-container">
+        <el-button
+          @click="dialogVisible = true"
+          class="change-header"
+          type="text">修改头像
+        </el-button>
+      </div>
+    </div>
+
     <el-dialog
       title="更换头像"
       width="300px"
@@ -32,11 +35,14 @@
         </el-button>
       </span>
     </el-dialog>
+    <div v-if="userMsg.isV" class="V">
+      认证用户
+      <i class="iconfont icon-myvip"></i>
+    </div>
+
     <el-form :label-position="labelPosition"
       label-width="80px"
       :model="userMsg">
-      <el-form-item label="认证用户" v-if="userMsg.isV" class="V">
-      </el-form-item>
       <el-form-item label="用户名" class="infor-text">
         <el-input v-model="userMsg.name" class="infor"></el-input>
       </el-form-item>
@@ -54,13 +60,13 @@
           :disabled="true">
         </el-input>
       </el-form-item>
-      <el-form-item class="infor-text">
-        <el-button type="primary" @click="onSubmitConfirm">
-          确认修改
-        </el-button>
-      </el-form-item>
     </el-form>
-  </el-form>
+    <div class="infor-text">
+      <el-button type="primary" @click="onSubmitConfirm">
+        确认修改
+      </el-button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -135,24 +141,27 @@ export default {
 }
 </script>
 <style scoped>
-  .personalinfor-header {
+  .main-form {
+    max-width: 40vh;
+    margin: 0 20%;
+  }
+  .header {
+    text-align: center;
+    margin: 0 auto;
+  }
+  .header-container {
+    text-align: center;
+    margin: 0 auto;
     width: 100px;
     height: 100px;
-    overflow: hidden;
-    margin-left: 30%;
-    border: 3px solid skyblue;
-  }
-  .main-form {
-    text-align: left;
-    margin-left: 10%;
   }
   .header-img {
     width: 100%;
     height: 100%;
     object-fit: fill;
   }
-  .change-header {
-    margin-left: 32%;
+  .change-container {
+    text-align: center;
   }
   .dialog-msg {
     margin-left: 5%;
@@ -183,21 +192,19 @@ export default {
     display: block;
   }
   .V {
-    margin-left: 30%;
-  }
-  .infor {
-    width: 33%;
-  }
-  .infor-text {
-    margin-left: 16%;
+    margin: 20px auto;
   }
   .el-dialog {
     width: 25%;
   }
-
+  .icon-myvip:before {
+    font-size: 20px;
+    color: #409EFF;
+  }
   @media screen and (max-width: 500px) {
-  .V {
-    margin-left: 30%;
+  .main-form {
+    max-width: 100vh;
+    margin: 0 auto;
   }
   .infor {
     width: 70%;
