@@ -7,12 +7,24 @@ def client_history(request):
 
     A method to show clients' visiting history.
 
-    Parameter is course_id that you want to search, which can be omitted.
 
-    Output is an iterable list named history consisted of dict with three keys:
-    course_id, user_id and last_visit.
+    Parameter is a HTTP request:
 
-    PS: The output last_visit is of Unix timestamp.
+    - `course_id`: can be omitted.
+
+
+    Return is a HTTP JSON response:
+
+    - `history`: an iterable list
+
+    Sample:
+
+    history = {
+        "course_id": "123414",
+        "user_id": "234525",
+        "alias": "name",
+        "last_visit": "1553453663"
+    }
 
     """
     course_id = request.POST.get("course_id")
@@ -33,6 +45,32 @@ def client_history(request):
 
 
 def client_information(request):
+    """
+
+    A method to get client information
+
+
+    Params is a HTTP request:
+
+    - `user_id`
+
+    - `user_alias`
+
+
+    Return is a HTTP JSON response:
+
+    - `query`: a list
+
+    Sample:
+
+    query = [{
+        "userId": "123441",
+        "userAlias": "alias"
+        "bonus": "2.52",
+        "isV": True
+    }]
+
+    """
     user_id = request.POST.get("user_id")
     user_alias = request.POST.get("user_alias")
     user_list = None
@@ -58,6 +96,21 @@ def client_information(request):
 
 
 def delete(request):
+    """
+
+    A method to delete user.
+
+
+    Param is a HTTP request:
+
+    - `user_id`
+
+
+    Returnis a HTTP JSON request
+
+    - `status`: 0 means succeeded, 1 means failed
+
+    """
     status = 0
     user_id = request.POST.get("user_id")
     try:
@@ -78,6 +131,18 @@ def delete(request):
 
 
 def ban(request):
+    """
+
+    Parameter is a HTTP `reuqest`:
+
+    - `user_id`
+
+
+    Return:
+
+    - `status`: 0 means succeeded, 1 means failed
+
+    """
     status = 0
     user_id = request.POST.get("user_id")
     try:
@@ -100,6 +165,20 @@ def ban(request):
 
 
 def authorize(request):
+    """
+
+    A method to authorize user
+
+
+    Param is a HTTP request
+
+    - `user_id`
+
+    Return:
+
+    - `status`: 0 means succeeded, 1 means failed
+
+    """
     status = 0
     user_id = request.POST.get("user_id")
     try:

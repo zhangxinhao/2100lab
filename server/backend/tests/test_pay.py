@@ -20,7 +20,7 @@ class PayTestCase(TestCase):
         })
         request.user = self.user
         response = webhooks_charge(request)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 500)
 
     def test_webhooks_refund(self):
         request = self.factory.post('/api/refundwebhooks/', {
@@ -28,7 +28,7 @@ class PayTestCase(TestCase):
         })
         request.user = self.user
         response = webhooks_refund(request)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 500)
 
     def test_alipay_pc(self):
         request = self.factory.post('/api/alipaypc/', {

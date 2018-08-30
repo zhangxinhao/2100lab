@@ -5,6 +5,23 @@ from backend.models import User, RightsList, AdminOperationRecord, Operation
 
 
 def authenticate(request):
+    """
+
+    A function to login for administrators.
+
+    Parameters:
+
+    - A HTTP `request`
+
+        - `username`
+
+        - `password`
+
+    Returns:
+
+    - `status`: 0 means login and 1 means failure
+
+    """
     username = request.POST.get('username')
     password = request.POST.get('password')
     user = auth.authenticate(request, username=username, password=password)
@@ -19,11 +36,33 @@ def authenticate(request):
 
 
 def logout(request):
+    """
+
+    A function to logout
+
+    Param: A HTTP `request`
+
+    """
     auth.logout(request)
     return JsonResponse({"status": 0})
 
 
 def _to_binary_(code):
+
+    """
+    An inner function to turn a integer into 5 bit binary(a string)
+
+
+    Parameter:
+
+    - `code`: integer
+
+
+    Return:
+
+    - A 5 bit binary string
+
+    """
     my_str = bin(code)
     my_str = my_str[2:]
     size = len(my_str)
@@ -32,6 +71,25 @@ def _to_binary_(code):
 
 
 def access_check(request):
+    """
+
+    A function to check access before someone enter a admin page.
+
+
+    Parameter:
+
+    - A HTTP `request`
+
+
+    Return:
+
+    - A HTTP json response
+
+        - `status`: 0 means admin, 1 means he is not admin
+
+        - `code`: a 5 bit binary string representing his limit of authentication
+
+    """
     status = 0
     user = request.user
     code = ""
@@ -43,6 +101,36 @@ def access_check(request):
 
 
 def authorization_check(request):
+    """
+
+    A function to check what kind of authentication an admin has.
+
+
+    Parameter:
+
+    - A HTTP `request`
+
+
+    Return:
+
+    - `rights`: A dict with 5 key pairs in it.
+
+    Sample:
+
+    rights = {
+
+        "courseManage": False,
+
+        "userManage": False,
+
+        "operationHistory": False,
+
+        "orderManage": False,
+
+        "adminManage": False
+    }
+
+    """
     user = request.user
     my_list = _to_binary_(user.manage_right)
     rights = {}
@@ -65,6 +153,20 @@ def authorization_check(request):
 
 
 def ban_client(request):
+    """
+
+    A method to ban a client to post.
+
+
+    Parameter:
+
+    - A HTTP `reuqest`
+
+    Return:
+
+    - `status`: 0 means succeeded, 1 means failed
+
+    """
     client_id = request.POST.get("userId")
     status = 0
     try:
@@ -89,6 +191,43 @@ def ban_client(request):
 
 
 def create_admin(request):
+    """
+
+    A super administrator's method
+
+
+    Parameter:
+
+    - A HTTP `request` using POST
+
+        - `adminName`: the admin's id and username
+
+        - `password`: the password
+
+        - `right`: a dict to record admin's limit of authentication
+
+
+    Sample:
+
+    right = {
+
+        "courseManage": "false",
+
+        "userManage": "false",
+
+        "operationHistory": "false",
+
+        "orderManage": "false",
+
+        "adminManage": "true"
+    }
+
+
+    Return:
+
+    - `status`: 0 means succeeded, 1 means username is occupied
+
+    """
     status = 0
     user_name = request.POST.get("adminName")
     try:
@@ -127,8 +266,42 @@ def create_admin(request):
 
 
 def get_admin(request):
+    """
+
+    A method to get admin's limit of authentication
+
+
+    Parameters:
+
+    - A HTTP `request`
+
+        - `adminId`
+
+
+    Return is a HTTP response:
+
+    - `status`: 0 means succeeded, 1 means failed
+
+    - `admins`: A dict
+
+    admins = {
+        "adminId": "12334",
+
+        "password": "",
+
+        "courseManage": False,
+
+        "userManage": False,
+
+        "operationHistory": False,
+
+        "orderManage": False,
+
+        "adminManage": True
+    }
+
+    """
     admin_id = request.POST.get("adminId")
-    print(admin_id)
     user_list = None
     admins = []
     status = 0
@@ -166,6 +339,31 @@ def get_admin(request):
 
 
 def edit_admin(request):
+    """
+
+    A method to edit admin's information
+
+
+    Params is a HTTP request
+
+    - `adminId`
+
+    - 'courseManage'
+
+    - 'userManage'
+
+    - 'operationHistory'
+
+    - 'orderManage'
+
+    - 'adminManage'
+
+
+    Return is a HTTP JSON response:
+
+    - `status`: 0 means succeeded, 1 means failed
+
+    """
     status = 0
     admin_id = request.POST.get("adminId")
     admin = User.objects.get(id=admin_id)
@@ -198,6 +396,21 @@ def edit_admin(request):
 
 
 def delete_admin(request):
+    """
+
+    A method to delete an admin
+
+
+    Param is a HTTP request:
+
+    - `adminId`
+
+
+    Return is a HTTP JSON response:
+
+    - `status`: 0 means succeeded, 1 means failed
+
+    """
     status = 0
     admin_id = request.POST.get("adminId")
     admin = User.objects.get(id=admin_id)
@@ -218,6 +431,41 @@ def delete_admin(request):
 
 
 def record_list(request):
+    """
+
+    A method to return the list of record of admins' operation.
+
+
+    Param is a HTTP request:
+
+    - `adminId`: can be None
+
+    - `objectId`: can be None
+
+    Pay attention: the two query condition will search in the same time. `None`
+    means the item will search all.
+
+
+    Return is a HTTP JSON response:
+
+    - `status`: 0 means succeeded, 1 means failed
+
+    - `history`: a list of dict
+
+        Sample:
+
+        history = [{
+
+            "adminId": data.admin_id,
+
+            "operation": data.operation.operation,
+
+            "objectId": data.object,
+
+            "time": "2018-02-03 12:23:12"
+        }]
+
+    """
     status = 0
     admin_id = request.POST.get("adminId")
     object_id = request.POST.get("objectId")

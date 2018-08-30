@@ -9,6 +9,15 @@ def index(request):
 
 
 def recommend_course(request):
+    """
+
+    A method to list recommended which is also the recent uploaded courses.
+
+    Return is a HTTP JSON response:
+
+    - `courses`: to list id and profile url of course
+
+    """
     course_list = Course.objects.filter().order_by('-create_time').values()
     courses = []
     size = 5 if len(course_list) > 5 else len(course_list)
@@ -38,6 +47,11 @@ def brief_priced_courses(request):
 
 
 def list_courses(request, free=None, number=None):
+    """
+
+    An inner method to return courses according to the params.
+
+    """
     course_list = []
     if free is None:
         course_list = Course.objects.filter().order_by("-create_time")

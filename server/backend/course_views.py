@@ -28,6 +28,26 @@ def load_course(request):
 
 
 def get_course_info(request):
+    """
+
+    A method to return information of course.
+
+
+    Param is a HTTP POST request:
+
+    - `courseId`
+
+
+    Return is a HTTP JSON response:
+
+    - `list`
+
+    - `flags`
+
+    - `userId`
+
+    - `bonus`
+    """
     course_id = request.POST.get("courseId")
     try:
         course = Course.objects.get(course_id=course_id)

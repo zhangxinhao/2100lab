@@ -52,17 +52,55 @@ def authenticate(request):
 
 
 def login(request):
+    """
+
+    A method to judge whether user is login
+
+
+    Parameter is a HTTP `request`
+
+
+    Return is a HTTP response:
+
+    - `status`: `True` means login, `False` means did not login
+
+    """
     if request.user.is_authenticated:
         return JsonResponse({"status": True})
     return JsonResponse({"status": False})
 
 
 def logout(request):
+    """
+
+    A method to make user logout
+
+
+    Parameters:
+
+    - A HTTP `request`
+
+    """
     auth.logout(request)
     return JsonResponse({"status": 0})
 
 
 def delete(request):
+    """
+
+    A method to delete user
+
+
+    Parameters:
+
+    - A HTTP `request`
+
+
+    Return is a Jsonresponse:
+
+    - `result`: 0
+
+    """
     user = request.user
     user.set_active(False)
     user.save()

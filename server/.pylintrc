@@ -145,6 +145,7 @@ disable=print-statement,
         C0200,
         R0912,
         R1703,
+        W0622,
         W0703,
         R1710
 

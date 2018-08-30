@@ -8,6 +8,24 @@ def _querysort_(message, comment):
 
 
 def show_msg(request):
+    """
+
+    A method to show messages and replys.
+
+
+    Param is a HTTP POST request:
+
+    - `course_id`: can be None and will return all
+
+    - `client_id`: can be None and will return all
+
+
+    Return is a HTTP JSON response:
+
+    - `query`: a list of courses, each course is in a dict
+
+
+    """
     course_id = request.POST.get("course_id")
     client_id = request.POST.get("client_id")
     message_list = Message.objects.filter(deleted_at=None)
@@ -47,6 +65,20 @@ def show_msg(request):
 
 
 def delete_msg(request):
+    """
+
+    A method to soft delete message.
+
+
+    Param is a HTTP POST request:
+
+    - `msgId`
+
+
+    Return is a HTTP JSON response:
+
+    - `status`: 0 means succeeded, 1 means failed
+    """
     msg_id = request.POST.get("msgId")
     msg_id = int(msg_id)
     status = 0
