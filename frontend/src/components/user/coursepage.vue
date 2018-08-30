@@ -37,10 +37,6 @@
         <link rel="preload" :href="pic.position" as="image">
       </div>
 
-      <div>
-        <link rel="preload" :href="courseAudio" as="audio">
-      </div>
-
       <div class="img-container">
         <img :src="nowPic.position" class="course-pic">
       </div>
@@ -395,7 +391,7 @@ export default {
         }
       ],
       pageSize: 5,
-      totalNumber: 100,
+      totalNumber: 0,
       pageNo: 1,
       interValId: 0
     }
@@ -421,8 +417,8 @@ export default {
         this.$router.push({path: '/intro/' +
           this.courseId + '/' + this.user})
       }
-      let i = 0
-      for (i = 0; i < this.coursePic.length; i++) {
+      let i = 1
+      for (i = 1; i < this.coursePic.length; i++) {
         if (this.coursePic[i].start > parseInt(this.$refs.music.currentTime)) {
           break
         }
@@ -547,6 +543,7 @@ export default {
       }
       this.coursePic = []
       for (let i = 0; i < length; i++) {
+        tempPicture = {position: '', start: ''}
         tempPicture.position = utils.getURL() + 'media/' +
           pictures[i].fields.postion
         tempPicture.start = pictures[i].fields.start

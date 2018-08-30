@@ -361,11 +361,13 @@ export default {
         updateForm: JSON.stringify(this.updateForm)
       })).then(response => {
         if (response.data.status === 0) {
-          this.$message({
-            message: '创建成功',
-            type: 'success'
-          })
-          location.replace()
+          setTimeout(function() {
+            this.$message({
+              message: '创建成功',
+              type: 'success'
+            })
+          }, 5000)
+          location.reload()
         } else {
           this.$message.error('ERROR!')
         }
@@ -376,7 +378,7 @@ export default {
         updateForm: JSON.stringify(this.updateForm)
       })).then(response => {
         if (response.data.status === 0) {
-          this.$message.error('修改成功')
+          this.$message.success('修改成功')
           location.replace()
         } else {
           this.$message.error(response.data.result)
