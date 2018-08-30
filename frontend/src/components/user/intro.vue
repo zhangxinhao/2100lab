@@ -70,19 +70,16 @@
               </el-col>
             </el-form-item>
           </el-form>
+          <el-button
+            type="text"
+            class="get-check"
+            @click="getVerification">
+            获取验证码
+          </el-button>
           <div slot="footer" class="login-footer">
-            <el-button
-              type="primary"
-              @click="getVerification">
-              获取验证码
-            </el-button>
-            <el-button @click="loginFormVisible = false">
-              取 消
-            </el-button>
-            <el-button
-              type="primary"
-              @click="loginFunction">
-              确 定
+            <el-button @click="loginFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="loginFunction">
+            确 定
             </el-button>
           </div>
         </el-dialog>
@@ -491,6 +488,10 @@ export default {
     font-size: 24px;
     font-weight: bold;
     text-align: left;
+  }
+  .get-check {
+    margin-left: 100px !important;
+    padding: 0px;
   }
   .money {
     color: red ;
