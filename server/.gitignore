@@ -2,3 +2,5 @@
 __pycache__
 doc
 .DS_Store
+/media/audio_temp/
+/media/picture_temp/

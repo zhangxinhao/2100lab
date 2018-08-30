@@ -58,26 +58,36 @@ def get_course_info(request):
     response = {}
     response['list'] = json.loads(serialize('json', course))
     response['flags'] = _get_flags_(course, request.user)
-    response['userId'] = request.user.id
-    response['bonus'] = str(request.user.balance)
+    if request.user.is_authenticated:
+        response['userId'] = request.user.id
+        response['bonus'] = str(request.user.balance)
+    else:
+        response['userId'] = 0
+        response['bonus'] = 0
     return JsonResponse(response)
 
 
 def _get_flags_(course, user):
-    flags = {"isStaff": user.is_staff, "paidFlag": True, "burnedFlag": False}
-    if user.is_staff:
-        return flags
-    print(course[0].price)
-    if course[0].price > 0:
-        try:
-            Order.objects.get(user=user, course=course[0], status=0)
-            record = VisitRecord.objects.get(course=course[0], user=user)
-            if record.deal_visit_time <= int(time.time()):
-                flags["burnedFlag"] = True
-        except Order.DoesNotExist:
-            flags["paidFlag"] = False
-        except VisitRecord.DoesNotExist:
-            flags["burnedFlag"] = False
+    if user.is_authenticated:
+        flags = {
+            "isStaff": user.is_staff, "paidFlag": True, "burnedFlag": False}
+        if user.is_staff:
+            return flags
+        print(course[0].price)
+        if course[0].price > 0:
+            try:
+                Order.objects.get(user=user, course=course[0], status=0)
+                record = VisitRecord.objects.get(course=course[0], user=user)
+                if record.deal_visit_time <= int(time.time()):
+                    flags["burnedFlag"] = True
+            except Order.DoesNotExist:
+                flags["paidFlag"] = False
+            except VisitRecord.DoesNotExist:
+                flags["burnedFlag"] = False
+    else:
+        flags = {
+            "isStaff": False, "paidFlag": False, "burnedFlag": False
+        }
     return flags
 
 

@@ -225,7 +225,7 @@ export default {
       // money表示当前课程的价钱，moneyFlag表示该课是否免费
       money: 25,
       // paidFlag表示当前用户是否已支付该课程(true 表示已支付)
-      paidFlag: true,
+      paidFlag: false,
       isStaff: false,
       classIntro: '这就是未来的桥，一个桥上的创举。',
       picture: require('../../assets/class3.jpg'),
