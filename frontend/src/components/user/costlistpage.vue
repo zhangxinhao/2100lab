@@ -62,7 +62,7 @@
           <el-form-item label="验证码" :label-width="loginLabelWidth">
             <el-col :span="18">
               <el-input
-                v-model="loForm.password"
+                v-model="loForm.usercode"
                 auto-complete="off"
                 clearable>
               </el-input>

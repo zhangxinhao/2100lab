@@ -501,6 +501,7 @@ export default {
         msg.replyMsg = ''
       } else {
         axios.post(utils.getURL() + 'api/comment/', qs.stringify({
+          courseId: this.courseId,
           messageId: msg.messageId,
           content: msg.replyMsg
         })).then(response => {
@@ -563,6 +564,7 @@ export default {
           'userName': message[i].author,
           'discussMessage': message[i].content,
           'indiscussion': message[i].reply,
+          'addReply': false,
           'likeNum': message[i].likes,
           'dislikeNum': message[i].dislikes,
           'userType': message[i].usertype,
