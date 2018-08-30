@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from backend.models import Message, Comment, AdminOperationRecord, Operation
+from datetime import timedelta, timezone
 
 
 def _querysort_(message, comment):
@@ -26,8 +27,8 @@ def show_msg(request):
 
 
     """
-    course_id = request.POST.get("course_id")
-    client_id = request.POST.get("client_id")
+    course_id = request.POST.get("courseId")
+    client_id = request.POST.get("clientId")
     message_list = Message.objects.filter(deleted_at=None)
     comment_list = Comment.objects.filter(deleted_at=None)
     if course_id:

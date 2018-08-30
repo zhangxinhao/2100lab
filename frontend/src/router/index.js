@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import store from '@/store.js'
 import 'es6-promise/auto'
 import axios from 'axios'
+import qs from 'qs'
 import * as utils from '@/components/utils/utils.js'
 
 import index from '@/components/user/index'
@@ -57,7 +58,15 @@ export default new Router({
       component: coursepage,
       beforeEnter: (to, from, next) => {
         if (store.state.userId !== '0' && store.state.courseId !== '0') {
-          next()
+          axios.post(utils.getURL() + 'api/getcourseinfo/', qs.stringify({
+            courseId: store.state.courseId
+          })).then(response => {
+            if (response.data.flags.paidFlag) {
+              next()
+            } else {
+              next(false)
+            }
+          })
         } else {
           next(false)
         }

@@ -414,8 +414,7 @@ export default {
     imgplay: function() {
       let time = new Date().getTime()
       if (this.burntTime < time / 1000) {
-        this.$router.push({path: '/intro/' +
-          this.courseId + '/' + this.user})
+        this.$router.push({path: '/destroied'})
       }
       let i = 1
       for (i = 1; i < this.coursePic.length; i++) {

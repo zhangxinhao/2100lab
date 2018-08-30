@@ -233,16 +233,16 @@ def bonus_pay(request):
     try:
         course = Course.objects.get(pk=course_id)
         user.balance = user.balance - course.price
-        user.save()
         Order.objects.create(
             order_id=_create_order_no_(user.id),
             course=course,
             user=user,
             price=0,
             status=0,
-            sharer=None,
+            sharer="0",
             charge_id="bonus paid"
         )
+        user.save()
     except Course.DoesNotExist:
         status = 1
     return JsonResponse({"status": status})
