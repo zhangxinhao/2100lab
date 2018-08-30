@@ -61,14 +61,16 @@ def upload_course(request):
     status = 0
     form = json.loads(request.POST.get("updateForm"))
     img_info = form["imgInfo"]
+    profile_url = None
     for img in img_info:
         if img["start"] == 0:
-            profile = img["id"]
+            profile_url = img["id"]
             break
     try:
-        profile = PictureTemp.objects.get(pk=profile).position
+        profile = PictureTemp.objects.get(pk=profile_url).position
         audio = AudioTemp.objects.get(pk=form["audioInfo"]["id"]).position
-    except (PictureTemp.DoesNotExist, AudioTemp.DoesNotExist):
+    except (PictureTemp.DoesNotExist, AudioTemp.DoesNotExist) as e:
+        print(e)
         status = 1
         return JsonResponse({"status": status})
     course = Course(
