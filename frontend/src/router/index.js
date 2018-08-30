@@ -142,97 +142,275 @@ export default new Router({
         {
           path: '/addAdmin',
           component: addAdmin,
-          name: 'addAdmin'
+          name: 'addAdmin',
+          beforeEnter: (to, from, next) => {
+            if (store.state.userId === '0') {
+              next('/adminLogin')
+            } else {
+              axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
+                let status = response.data.status
+                let code = response.data.code
+                if (status === 1) {
+                  next('/adminLogin')
+                } else {
+                  if (code[0] === '1') {
+                    next()
+                  } else {
+                    next(false)
+                  }
+                }
+              })
+            }
+          }
         },
         {
           path: '/orderAdmin',
           component: orderAdmin,
-          name: 'orderAdmin'
+          name: 'orderAdmin',
+          beforeEnter: (to, from, next) => {
+            if (store.state.userId === '0') {
+              next('/adminLogin')
+            } else {
+              axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
+                let status = response.data.status
+                let code = response.data.code
+                if (status === 1) {
+                  next('/adminLogin')
+                } else {
+                  if (code[4] === '1') {
+                    next()
+                  } else {
+                    next(false)
+                  }
+                }
+              })
+            }
+          }
         },
         {
           path: '/uploadCourse',
           name: 'uploadCourse',
-          component: uploadCourse
+          component: uploadCourse,
+          beforeEnter: (to, from, next) => {
+            if (store.state.userId === '0') {
+              next('/adminLogin')
+            } else {
+              axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
+                let status = response.data.status
+                let code = response.data.code
+                if (status === 1) {
+                  next('/adminLogin')
+                } else {
+                  if (code[1] === '1') {
+                    next()
+                  } else {
+                    next(false)
+                  }
+                }
+              })
+            }
+          }
         },
         {
           path: '/editCourse/:courseId',
           name: 'editCourse',
-          component: uploadCourse
+          component: uploadCourse,
+          beforeEnter: (to, from, next) => {
+            if (store.state.userId === '0') {
+              next('/adminLogin')
+            } else {
+              axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
+                let status = response.data.status
+                let code = response.data.code
+                if (status === 1) {
+                  next('/adminLogin')
+                } else {
+                  if (code[1] === '1') {
+                    next()
+                  } else {
+                    next(false)
+                  }
+                }
+              })
+            }
+          }
         },
         {
           path: '/courseManage',
           name: 'courseManage',
-          component: courseManage
+          component: courseManage,
+          beforeEnter: (to, from, next) => {
+            if (store.state.userId === '0') {
+              next('/adminLogin')
+            } else {
+              axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
+                let status = response.data.status
+                let code = response.data.code
+                if (status === 1) {
+                  next('/adminLogin')
+                } else {
+                  if (code[1] === '1') {
+                    next()
+                  } else {
+                    next(false)
+                  }
+                }
+              })
+            }
+          }
         },
         {
           path: '/commentAdmin',
           name: 'commentAdmin',
-          component: commentAdmin
+          component: commentAdmin,
+          beforeEnter: (to, from, next) => {
+            if (store.state.userId === '0') {
+              next('/adminLogin')
+            } else {
+              axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
+                let status = response.data.status
+                let code = response.data.code
+                if (status === 1) {
+                  next('/adminLogin')
+                } else {
+                  if (code[2] === '1') {
+                    next()
+                  } else {
+                    next(false)
+                  }
+                }
+              })
+            }
+          }
         },
         {
           path: '/userBrowsing',
           name: 'userBrowsing',
-          component: userBrowsing
+          component: userBrowsing,
+          beforeEnter: (to, from, next) => {
+            if (store.state.userId === '0') {
+              next('/adminLogin')
+            } else {
+              axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
+                let status = response.data.status
+                let code = response.data.code
+                if (status === 1) {
+                  next('/adminLogin')
+                } else {
+                  if (code[2] === '1') {
+                    next()
+                  } else {
+                    next(false)
+                  }
+                }
+              })
+            }
+          }
         },
         {
           path: '/userManage',
           name: 'userManage',
-          component: userManage
+          component: userManage,
+          beforeEnter: (to, from, next) => {
+            if (store.state.userId === '0') {
+              next('/adminLogin')
+            } else {
+              axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
+                let status = response.data.status
+                let code = response.data.code
+                if (status === 1) {
+                  next('/adminLogin')
+                } else {
+                  if (code[2] === '1') {
+                    next()
+                  } else {
+                    next(false)
+                  }
+                }
+              })
+            }
+          }
         },
         {
           path: '/adminManage',
           component: adminManage,
-          name: 'adminManage'
+          name: 'adminManage',
+          beforeEnter: (to, from, next) => {
+            if (store.state.userId === '0') {
+              next('/adminLogin')
+            } else {
+              axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
+                let status = response.data.status
+                let code = response.data.code
+                if (status === 1) {
+                  next('/adminLogin')
+                } else {
+                  if (code[0] === '1') {
+                    next()
+                  } else {
+                    next(false)
+                  }
+                }
+              })
+            }
+          }
         },
         {
           path: '/adminHistory',
           component: adminHistory,
-          name: 'adminHistory'
+          name: 'adminHistory',
+          beforeEnter: (to, from, next) => {
+            if (store.state.userId === '0') {
+              next('/adminLogin')
+            } else {
+              axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
+                let status = response.data.status
+                let code = response.data.code
+                if (status === 1) {
+                  next('/adminLogin')
+                } else {
+                  if (code[3] === '1') {
+                    next()
+                  } else {
+                    next(false)
+                  }
+                }
+              })
+            }
+          }
         },
         {
           path: '/dataAnalize',
           component: dataAnalize,
-          name: 'dataAnalize'
+          name: 'dataAnalize',
+          beforeEnter: (to, from, next) => {
+            if (store.state.userId === '0') {
+              next('/adminLogin')
+            } else {
+              axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
+                let status = response.data.status
+                if (status === 1) {
+                  next('/adminLogin')
+                } else {
+                  next()
+                }
+              })
+            }
+          }
         }
       ],
       beforeEnter: (to, from, next) => {
-        const nextRoute = [
-          'baseAdmin', 'addAdmin', 'orderAdmin', 'uploadCourse',
-          'editCourse', 'courseManage', 'commentAdmin', 'userBrowsing',
-          'userManage', 'adminManage', 'adminHistory', 'dataAnalize']
-        const list = [['addAdmin', 'adminManage'],
-          ['uploadCourse', 'editCourse', 'courseManage'],
-          ['userManage', 'userBrowsing', 'commentAdmin'],
-          ['adminHistory'], ['orderAdmin']]
-        if (nextRoute.indexOf(to.name) >= 0) {
-          if (store.state.userId === '0') {
-            next('/adminLogin')
-          } else {
-            axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
-              let status = response.data.status
-              let code = response.data.code
-              if (status === 1) {
-                next('/adminLogin')
-              } else {
-                let i = 0
-                let mark = 5
-                for (; i < 5; i++) {
-                  for (let j = 0; j < list[i].length; j++) {
-                    if (list[i][j] === to.name) {
-                      mark = i
-                    }
-                  }
-                }
-                if (code[mark] === '1' || mark === 5) {
-                  next()
-                } else {
-                  next(false)
-                }
-              }
-            })
-          }
-        } else {
+        if (store.state.userId === '0') {
           next('/adminLogin')
+        } else {
+          axios.post(utils.getURL() + 'api/accesscheck/').then(response => {
+            let status = response.data.status
+            if (status === 1) {
+              next('/adminLogin')
+            } else {
+              next()
+            }
+          })
         }
       }
     }

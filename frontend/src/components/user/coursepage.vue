@@ -481,7 +481,7 @@ export default {
         this.discussWord = ''
       } else {
         axios.post(utils.getURL() + 'api/leaveMessage/', qs.stringify({
-          course_id: this.$route.params.courseid,
+          courseId: this.$route.params.courseid,
           content: this.discussWord
         })).then(response => {
           if (response.data.status === 1) {
@@ -505,8 +505,7 @@ export default {
         msg.replyMsg = ''
       } else {
         axios.post(utils.getURL() + 'api/comment/', qs.stringify({
-          course_id: this.$route.params.courseid,
-          message_id: msg.messageId,
+          messageId: msg.messageId,
           content: msg.replyMsg
         })).then(response => {
           if (response.data.status === 1) {
@@ -522,8 +521,8 @@ export default {
     },
     leaveAttitude: function(msg, attitude) {
       axios.post(utils.getURL() + 'api/attitude/', qs.stringify({
-        course_id: this.$route.params.courseid,
-        message_id: msg.messageId,
+        courseId: this.$route.params.courseid,
+        messageId: msg.messageId,
         attitude: attitude
       })).then(response => {
         this.discussionList = []
