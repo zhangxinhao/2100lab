@@ -323,6 +323,10 @@ export default {
     }
   },
   created: function () {
+    this.user = this.$store.state.userId
+    if (this.user !== '0') {
+      this.login = true
+    }
     axios.post(utils.getURL() + 'api/listfreecourses/').then(response => {
       let list = response.data.courses
       let length = list.length
@@ -332,6 +336,7 @@ export default {
         name: ''
       }
       for (let i = 0; i < length; i++) {
+        course = {id: '', profileUrl: '', name: ''}
         course.id = list[i].pk
         course.profileUrl = utils.getURL() + 'media/' +
           list[i].fields.profile_url
