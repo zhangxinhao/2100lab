@@ -1,14 +1,14 @@
-#2100实验室
-##项目简介
-###定位
+# 2100实验室
+## 项目简介
+### 定位
 少儿在线教育平台
-###课程
+### 课程
 图片/动图 + 音频
-###两大系统
+### 两大系统
 - 课程系统：用户（3-12岁儿童）
 - 后台管理系统：运营者（网站管理员）
 
-###界面截图
+### 界面截图
 
 用户前台
 
@@ -32,7 +32,7 @@
 
 ![](description/7.png)
 
-##开发环境（Feodora27 Python37 Environment）
+## 开发环境（Feodora27 Python37 Environment）
 ### Before Use
 1. Install VirtualBox platform packages(Be aware of the operating system type and platform):
     - https://www.virtualbox.org/wiki/Downloads
@@ -148,7 +148,7 @@ Type in `pip --version` or `pip3 --version` you should get
 ```
 pip 18.0 from /home/vagrant/.local/lib/python3.7/site-packages/pip (python 3.7)
 ```
-##部署文档
+## 部署文档
 创建数据库，例：
 
 ```
