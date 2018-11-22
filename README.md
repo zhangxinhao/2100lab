@@ -1,8 +1,38 @@
-## Feodora27 Python37 Environment
+#2100实验室
+##项目简介
+###定位
+少儿在线教育平台
+###课程
+图片/动图 + 音频
+###两大系统
+- 课程系统：用户（3-12岁儿童）
+- 后台管理系统：运营者（网站管理员）
 
-This introduction is provided by Haoran Yu (俞昊然).
-If you cannot understand any part of this file, please contact the author(yuhaoran@jisuanke.com) as soon as possible.
+###界面截图
 
+用户前台
+
+![](description/1.png)
+![](description/2.png)
+
+课程播放
+
+![](description/3.png)
+
+个人中心
+
+![](description/4.png)
+
+课程上传
+
+![](description/5.png)
+![](description/6.png)
+
+后台管理
+
+![](description/7.png)
+
+##开发环境（Feodora27 Python37 Environment）
 ### Before Use
 1. Install VirtualBox platform packages(Be aware of the operating system type and platform):
     - https://www.virtualbox.org/wiki/Downloads
@@ -24,8 +54,8 @@ Now it is time for you to use our Environment.
 Follow the commands below.
 
 ```
-git clone https://se.jisuanke.com/course/fedora27-python37.git
-cd fedora27-python37
+git clone https://github.com/zhangxinhao/2100lab.git
+cd 2100lab
 vagrant plugin install vagrant-vbguest
 vagrant up
 vagrant ssh
@@ -118,16 +148,46 @@ Type in `pip --version` or `pip3 --version` you should get
 ```
 pip 18.0 from /home/vagrant/.local/lib/python3.7/site-packages/pip (python 3.7)
 ```
-
-#### Extra preparation
-
-Type in `cd ~` and then
+##部署文档
+创建数据库，例：
 
 ```
-git clone https://github.com/django/django.git
+create database 2100Lab
+default character set utf8
+collate utf8_unicode_ci;
 ```
+创建成功后进入数据库，将`backend_user`中超管的 `id` 设置为刚才的手机号，`manage_right`设置为`31`。
+之后在表`backend_rightslist`中，插入五组数据，`id`和`right`字段分别为：
 
-We would use it later during our lectures.
+- `0` `adminManage`
+- `1` `courseManage`
+- `2` `userManage`
+- `3` `operationHistory`
+- `4` `orderManage`
 
+在表`backend_orderstatus`中，插入三组数据，`status_code`和`status`分别为：
 
-*If any test above cannot pass on your machine, contact Haoran Yu (俞昊然) on IM or though Email yuhaoran@jisuanke.com as soon as possible.*
+- `0` `已支付`
+- `1` `未支付`
+- `2` `已退款`
+
+在表`bachend_operation`中，插入十组数据，`operation_code`为`1`至`10`，`operation`依次为：
+
+`Uploaded course`, `Edited course`, `Delete user`, `Banned user`, `Authorized user`, `Delete message`, `Refunded`, `Add admin`, `Edited admin`, `Deleted admin`
+
+进入虚拟机
+
+```
+git clone https://github.com/zhangxinhao/2100lab.git
+cd 2100lab
+pip install -r requirements.txt
+cd frontend
+npm install
+npm run build
+cd ..
+cd server
+./manage.py migrate
+./manage.py createsuperuser
+./manage.py runserver 0:8000
+```
+现在从浏览器输入网址：`http://192.168.55.33:8000/`即可进入首页，输入网址：`http://192.168.55.33:8000/adminlogin`用超管账户进入管理端后台。
